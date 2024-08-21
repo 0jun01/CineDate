@@ -14,7 +14,7 @@
 	<div class="header">
 		<div class="header-content">
 		<div class="contents">
-		<h2><a href="/home/">로고부분</a></h2>
+		<h2><a href="/home">로고부분</a></h2>
 			<ul class="memberinfo-wrap" style="display: flex; justify-content: flex-end; gap: 30px;">
 				<li><a href="/home/signIn"><span>로그인</span></a></li>
 				<li><a href="/home/signUp"><span>회원가입</span></a></li>
@@ -27,19 +27,19 @@
 		<div class="nav-menu">
 			<ul class="nav nav-pills flex-column" style="display: flex; gap: 30px;">
 				<li class="nav-item"><h2>
-						<a class="nav-link" href="/home/movies">영화</a>
+						<a class="nav-link" href="/movie/movies">영화</a>
 					</h2></li>
 				<li class="nav-item"><h2>
-						<a class="nav-link" href="/home/cinema">극장</a>
+						<a class="nav-link" href="/cinema/cinema">극장</a>
 					</h2></li>
 				<li class="nav-item"><h2>
-						<a class="nav-link" href="/home/reservation">예매</a>
+						<a class="nav-link" href="/reservation/reservation">예매</a>
 					</h2></li>
 				<li class="nav-item"><h2>
-						<a class="nav-link" href="/home/event">이벤트</a>
+						<a class="nav-link" href="/event/event">이벤트</a>
 					</h2></li>
 				<li class="nav-item"><h2>
-						<a class="nav-link" href="/home/matching">매칭</a>
+						<a class="nav-link" href="/date/date">데이트</a>
 					</h2></li>
 			</ul>
 		</div>

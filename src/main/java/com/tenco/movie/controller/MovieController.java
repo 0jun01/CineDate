@@ -5,12 +5,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/home")
-public class HomeController {
+@RequestMapping("/movie")
+public class MovieController {
 
-	@GetMapping("")
-	public String getMethodName() {
-		return "main";
+	/**
+	 * 영화 페이지 요청
+	 * @author 김가령
+	 */
+	@GetMapping("/movies")
+	public String getMoviesPage() {
+		return "/movie/moviePage";
 	}
 	
 }

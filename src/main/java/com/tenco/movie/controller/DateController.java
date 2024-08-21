@@ -5,12 +5,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/home")
-public class HomeController {
+@RequestMapping("/date")
+public class DateController {
 
-	@GetMapping("")
-	public String getMethodName() {
-		return "main";
+	/**
+	 * 데이트 페이지 요청
+	 * @author 김가령
+	 */
+	@GetMapping("/date")
+	public String getDatePage() {
+		return "date/datePage";
 	}
 	
 }
