@@ -13,7 +13,7 @@
 					<div class="join--btn">
 						<label for="loginId">아이디</label>
 						<input type="text" id="loginId" name="loginId" placeholder="아이디를 입력해주세요. (6~15자)">
-						<button class="duplicationId">중복확인</button>
+						<button class="duplication" id="duplicationId">중복확인</button>
 					</div>
 
 					<label for="name">이름</label>
@@ -30,18 +30,20 @@
 					
 					
 					<div class="join--btn">
-						<label for="id">휴대폰 번호</label>
-						<input type="number" id="number" name="number" placeholder="휴대폰 번호를 입력해주세요.">
-						<button class="duplicationPhone">중복확인</button>
+						<label for="phoneNum">휴대폰 번호</label>
+						<input type="number" id="phoneNum" name="phoneNum" placeholder="휴대폰 번호를 입력해주세요.">
+						<button class="duplication" id="duplicationPhone">중복확인</button>
 					</div>
 					
 					<label for="birth">생년월일</label>
 					<div class="select--birth" id="info--birth">
 						<select class="birth" id="year" name="year">
 							<option disabled selected>년도</option>
-						</select> <select class="birth" id="month" name="month">
+						</select>
+						<select class="birth" id="month" name="month">
 							<option disabled selected>월</option>
-						</select> <select class="birth" id="day" name="day">
+						</select>
+						<select class="birth" id="day" name="day">
 							<option disabled selected>일</option>
 						</select>
 					</div>

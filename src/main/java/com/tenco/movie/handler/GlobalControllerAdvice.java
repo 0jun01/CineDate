@@ -3,11 +3,8 @@ package com.tenco.movie.handler;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.tenco.bank.handler.exception.DataDeliveryException;
-import com.tenco.bank.handler.exception.RedirectException;
-import com.tenco.bank.handler.exception.UnAuthorizedException;
+import com.tenco.movie.handler.exception.DataDeliveryException;
 
 @ControllerAdvice
 public class GlobalControllerAdvice {

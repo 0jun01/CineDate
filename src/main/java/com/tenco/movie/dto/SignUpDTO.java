@@ -22,8 +22,10 @@ public class SignUpDTO {
 	private String password;
 	private String email;
 	private int phoneNum;
-	private Date birthDay;
-	private boolean gender;
+	private int year;
+	private int month;
+	private int day;
+	private String gender;
 	
 	// 2단계 로직 - User Object
 	public User toUser() {
@@ -33,11 +35,9 @@ public class SignUpDTO {
 				.password(this.getPassword())
 				.email(this.getEmail())
 				.phoneNum(this.getPhoneNum())
-				.birthDay(this.getBirthDay())
-				.gender(this.isGender())
+				.birthDay(Date.valueOf(year + "-" + month + "-" + day))
+				.gender(this.getGender())
 				.build();
 	}
-
-
-
+	
 }

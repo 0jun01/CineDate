@@ -21,6 +21,14 @@ public class User {
 	private String email;
 	private int phoneNum;
 	private Date birthDay;
-	private boolean gender;
+	private String gender;
+	
+	/*
+	 * public void setBirthDay(String getFormattedBirthDay) { SimpleDateFormat sdf =
+	 * new SimpleDateFormat("yyyy-MM-dd"); // Match the format used in DTO try { try
+	 * { this.birthDay = (Date) sdf.parse(getFormattedBirthDay); } catch
+	 * (java.text.ParseException e) { e.printStackTrace(); } } catch (ParseException
+	 * e) { e.printStackTrace(); } }
+	 */
 
 }
