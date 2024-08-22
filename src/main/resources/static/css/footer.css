@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+footer {
+	width: 100%;
+	margin-top: 150px;
+	padding: 80px 0;
+	color: #bababa;
+	background-color: #333;
+	font-size: 14px;
+}
+
+.footer--top {
+	border-bottom: 1px solid #bababa;
+	padding-bottom: 2dvh;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+}
+
+.footer--middle {
+	padding-top: 20px;
+	line-height: 24px;
+	text-align: justify;
+}
+
+.copyright {
+	display: block;
+	font-size: 14px;
+	text-align: center;
+	margin-top: 50px;
+	text-transform: uppercase;
+}

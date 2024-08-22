@@ -3,7 +3,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>cineDate</title>
+<title>CineDate</title>
+<link href="/css/common.css" rel="stylesheet">
+<link href="/css/header.css" rel="stylesheet">
+<link href="/css/footer.css" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.ico">
 </head>
 <body>
 
@@ -16,9 +20,9 @@
 		<div class="contents">
 		<h2><a href="/home">로고부분</a></h2>
 			<ul class="memberinfo-wrap" style="display: flex; justify-content: flex-end; gap: 30px;">
-				<li><a href="/home/signIn"><span>로그인</span></a></li>
-				<li><a href="/home/signUp"><span>회원가입</span></a></li>
-				<li><a href="/home/myPage"><span>마이페이지</span></a></li>
+					<li><a href="/user/signIn"><span>로그인</span></a></li>
+					<li><a href="/user/signUp"><span>회원가입</span></a></li>
+					<li><a href="/home/myPage"><span>마이페이지</span></a></li>
 				<li><a href="/home/CS"><span>고객센터</span></a></li>
 			</ul>
 			</div>

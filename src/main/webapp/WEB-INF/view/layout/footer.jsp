@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,32 +7,24 @@
 </head>
 <body>
 
-		<!-- <footer> -->
-
-         <div class="foo--ter" style="background-color: #f0f0f0;">
-
-            <div class="푸터css만들자~">
-                <p class="logo">여따가 로고 함 박아주고</p>
-                <h2>CINEDATE</h2>
-                <div class="푸터css만들자~">
-                    <ul style="display: flex; justify-content: flex-end; margin: 20px; padding: 20px; gap: 30px;">
-                        <li><a href="#" target="_blank">회사소개</a></li>
-                        <li><a href="#">이용약관</a></li>
-                        <li><a href="#" class="뽀인뜨넣는곳">개인정보처리방침</a></li>
-                    </ul>
-                </div>
-                <div class="address">
-                    <address>부산광역시 부산진구 중앙대로 749 범양빌딩 3층 C4</address>
-                    <p class="푸터css만들자~">
-                        <span>대표이사 : 김근호</span>
-                        <br>
-                        <span>사업자등록번호 : 123-45-67890</span>
-                        <span>통신판매업신고번호 :
-                            9876-부산진구-1234</span>
-                    </p>
-       footer_area (성후가 만듬)
-         </div> 
-        <!-- </footer> -->
+	<!-- footer start -->
+	<footer>
+		<div id="in--wrap">
+			<div class="footer--top">
+				<div class="footer--logo">
+					<img src="/img/footer_logo.png" alt="하단 로고">
+				</div>
+				<div class="footer--tems">
+					<span><a href="">이용약관</a></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span><a href="">개인정보처리방침</a></span>
+				</div>
+			</div>
+			<div class="footer--middle">상호 : (주)시네데이트&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;대표자 : 김근호&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;소재지 : 부산광역시 부산진구 중앙대로
+				749 범향빌딩 3층&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;개인정보관리책임자 : 변영준&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 이메일 :
+				cinedate@gmail.com&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;전화번호 : 070-6975-5478</div>
+			<span class="copyright eng">copyright ⓒ 2024 cinedate. all rights reserved.</span>
+		</div>
+	</footer>
+	<!-- footer end -->
 
 </body>
 </html>

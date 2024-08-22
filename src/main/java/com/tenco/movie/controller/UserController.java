@@ -13,7 +13,7 @@ public class UserController {
 	 */
 	@GetMapping("/signIn")
 	public String signIn() {
-		return "signIn";
+		return "user/signIn";
 	}
 	/**
 	 * 로그아웃
@@ -21,7 +21,7 @@ public class UserController {
 	 */
 	@GetMapping("/signUp")
 	public String signUp() {
-		return "signUp";
+		return "user/signUp";
 	}
 	/**
 	 * 카카오 소셜로그인
