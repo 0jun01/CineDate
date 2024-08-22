@@ -21,7 +21,7 @@ body {
 	font-family: 'NanumSquareNeo';
 }
 
-.btn {
+.btn, select {
 	cursor: pointer;
 }
 
@@ -168,7 +168,7 @@ label {
 	height: 30px;
 	border: 0;
 	border-radius: 6px;
-	top: 32px;
+	top: 34px;
 	right: 10px;
 	color: #fff;
 	background-color: #ff2588;

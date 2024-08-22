@@ -1,4 +1,4 @@
-package com.tenco.movie.handler.exception;
+package com.tenco.bank.handler.exception;
 
 import org.springframework.http.HttpStatus;
 
@@ -11,4 +11,5 @@ public class UnAuthorizedException extends RuntimeException {
 		super(message);
 		this.status = status;
 	}
+
 }
