@@ -10,14 +10,18 @@
 
 			<form action="/" method="GET">
 				<div class="login--wrap">
-					<input type="text" id="id" name="id" placeholder="아이디를 입력해주세요."> <input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요.">
+					<input type="text" id="id" name="id" placeholder="아이디를 입력해주세요.">
+					<input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요.">
 					<button type="submit" class="btn" id="login--btn">로그인</button>
 				</div>
 			</form>
 
 			<div class="login--items">
-				<span class="btn"><a href="">아이디찾기</a></span> <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span> <span class="btn"><a href="">비밀번호찾기</a></span> <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span> <span
-					class="btn"><a href="">회원가입</a></span>
+				<span class="btn"><a href="">아이디찾기</a></span>
+				<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+				<span class="btn"><a href="">비밀번호찾기</a></span>
+				<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+				<span class="btn"><a href="">회원가입</a></span>
 			</div>
 
 			<div class="login--line">소설 로그인으로 시작</div>
