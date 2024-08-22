@@ -14,8 +14,8 @@ import lombok.ToString;
 @Builder
 @ToString
 public class Reservation {
-	private int id; // reservation_tb pk 예약 번호
-	private int userId; // user_tb
-	private int movieId; // movies_tb
+	private int id; 
+	private int userId; // User - pk
+	private int movieId; // Movies - pk
 	private String sitNum; // 좌석 번호
 }

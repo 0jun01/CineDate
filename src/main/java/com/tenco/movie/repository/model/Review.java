@@ -14,9 +14,9 @@ import lombok.ToString;
 @Builder
 @ToString
 public class Review {
-	private int id; // review_tb
-	private int movieId; // movies_tb
-	private int userId; // user_tb
+	private int id; 
+	private int movieId; // Movies - pk
+	private int userId; // User - pk
 	private String reviewText; // 리뷰 내용
 	private double rating; // 평점
 	private Timestamp reviewDate; // 작성 시간

@@ -14,8 +14,8 @@ import lombok.ToString;
 @Builder
 @ToString
 public class Screen {
-	private int id; // screen_tb
-	private int locationId; // location_tb
-	private int movieId; // moives_tb
+	private int id; 
+	private int locationId; // Location - pk
+	private int movieId; // Movies - pk
 	private Timestamp screenStart; // 상영 시작 시간
 }
