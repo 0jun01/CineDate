@@ -1,7 +1,5 @@
 package com.tenco.movie.dto;
 
-import java.sql.Date;
-
 import com.tenco.movie.repository.model.User;
 
 import lombok.AllArgsConstructor;
@@ -21,22 +19,22 @@ public class SignUpDTO {
 	private String name;
 	private String password;
 	private String email;
-	private int phoneNum;
-	private int year;
-	private int month;
-	private int day;
+	private String phoneNum;
+	private String year;
+	private String month;
+	private String day;
 	private String gender;
 	
 	// 2단계 로직 - User Object
 	public User toUser() {
 		return User.builder()
-				.loginId(this.getLoginId())
-				.name(this.getName())
-				.password(this.getPassword())
-				.email(this.getEmail())
-				.phoneNum(this.getPhoneNum())
-				.birthDay(Date.valueOf(year + "-" + month + "-" + day))
-				.gender(this.getGender())
+				.loginId(this.loginId)
+				.name(this.name)
+				.password(this.password)
+				.email(this.email)
+				.phoneNum(this.phoneNum)
+				.birthDay(year + "-" + month + "-" + day)
+				.gender(this.gender)
 				.build();
 	}
 	

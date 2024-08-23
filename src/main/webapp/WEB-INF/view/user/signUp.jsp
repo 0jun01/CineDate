@@ -38,20 +38,20 @@
 					<label for="birth">생년월일</label>
 					<div class="select--birth" id="info--birth">
 						<select class="birth" id="year" name="year">
-							<option disabled selected>년도</option>
+						    <option value="default" disabled selected>년도</option>
 						</select>
 						<select class="birth" id="month" name="month">
-							<option disabled selected>월</option>
+						    <option value="default" disabled selected>월</option>
 						</select>
 						<select class="birth" id="day" name="day">
-							<option disabled selected>일</option>
+						    <option value="default" disabled selected>일</option>
 						</select>
 					</div>
 
 					<label for="gender">성별</label>
 					<div class="gender--box">
-						<input type="radio" id="female" name="gender" value="female"><span class="gender--items">여자</span>
-						<input type="radio" id="male" name="gender" value="male"><span class="gender--items">남자</span>
+						<input type="radio" id="male" name="gender" value="남"><span class="gender--items">남자</span>
+						<input type="radio" id="female" name="gender" value="여"><span class="gender--items">여자</span>
 					</div>
 
 					<button type="submit" class="btn" id="join--btn">가입하기</button>
@@ -117,7 +117,6 @@
                 }
             }
         });
-
 
     </script>
 	

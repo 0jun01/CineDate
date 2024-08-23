@@ -1,5 +1,7 @@
 package com.tenco.movie.dto;
 
+import com.tenco.movie.repository.model.User;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +15,14 @@ import lombok.ToString;
 @ToString
 public class SignInDTO {
 	
-	private int loginId;
+	private String loginId;
 	private String password;
 
+	public User toUser() {
+		return User.builder()
+				.loginId(this.getLoginId())
+				.password(this.getPassword())
+				.build();
+	}
+	
 }

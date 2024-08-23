@@ -1,7 +1,5 @@
 package com.tenco.movie.repository.model;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,16 +17,8 @@ public class User {
 	private String name;
 	private String password;
 	private String email;
-	private int phoneNum;
-	private Date birthDay;
+	private String phoneNum;
+	private String birthDay;
 	private String gender;
 	
-	/*
-	 * public void setBirthDay(String getFormattedBirthDay) { SimpleDateFormat sdf =
-	 * new SimpleDateFormat("yyyy-MM-dd"); // Match the format used in DTO try { try
-	 * { this.birthDay = (Date) sdf.parse(getFormattedBirthDay); } catch
-	 * (java.text.ParseException e) { e.printStackTrace(); } } catch (ParseException
-	 * e) { e.printStackTrace(); } }
-	 */
-
 }

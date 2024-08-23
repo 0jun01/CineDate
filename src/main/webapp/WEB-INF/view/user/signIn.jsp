@@ -8,7 +8,7 @@
 				<h1 class="text-center eng">LOGIN</h1>
 			</div>
 
-			<form action="/" method="GET">
+			<form action="/home" method="GET">
 				<div class="login--wrap">
 					<input type="text" id="id" name="id" placeholder="아이디를 입력해주세요.">
 					<input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요.">

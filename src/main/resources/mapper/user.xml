@@ -4,9 +4,11 @@
 
 
 <mapper namespace="com.tenco.movie.repository.interfaces.UserRepository">
-<insert id="insert">
-	insert into user_tb(login_id, name, password, email, phone_num, birth_day, gender)
-	values( #{loginId}, #{name}, #{password}, #{email}, #{phoneNum}, #{birthDay}, #{gender})
-</insert>
+
+	<insert id="insert">
+		insert into user_tb(login_id, name, password, email, phone_num, birth_day, gender)
+		values( #{loginId}, #{name}, #{password}, #{email}, #{phoneNum}, #{birthDay}, #{gender})
+	</insert>
+
 
 </mapper>

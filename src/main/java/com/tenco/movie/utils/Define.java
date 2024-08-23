@@ -23,22 +23,30 @@ public class Define {
 	public static final String ERROR_MOVIE_SOLD_OUT = "이미 매진된 영화입니다";
 	public static final String ERROR_INVALID_SCREEN = "선택하신 상영관은 존재하지 않습니다";
 
-	
 	// pay
 	public static final String ERROR_PAYMENT_FAILED = "결제에 실패하였습니다. 다시 시도해 주세요";
-
-
+	
 	//  User
 	public static final String ENTER_YOUR_LOGIN = "로그인 먼저 해주세요.";
-	public static final String ENTER_YOUR_ID = "ID 를 입력해 주세요.";
-	public static final String ENTER_YOUR_PASSWORD = "패스워드를 입력해 주세요.";
-	public static final String ENTER_YOUR_EMAIL = "email 을 입력해 주세요.";
+	public static final String ENTER_YOUR_ID = "아이디를 입력해 주세요.";
+	public static final String ENTER_ID_TRIM = "아이디 공백을 제거하고 입력해주세요.";
+	public static final String ENTER_ID_LENGTH = "아이디는 6 ~ 15자까지 입니다.";
+	public static final String ENTER_YOUR_NAME = "이름을 입력해 주세요.";
+	public static final String ENTER_NAME_TRIM = "이름 공백을 제거하고 입력해주세요.";
+	public static final String ENTER_YOUR_PASSWORD = "비밀번호를 입력해 주세요.";
+	public static final String ENTER_PASSWORD_LENGTH = "비밀번호는 8 ~ 20자까지입니다.";
+	public static final String ENTER_PASSWORD_CHAR = "비밀번호에는 최소한 하나의 문자가 포함되어야 합니다.";
+	public static final String ENTER_PASSWORD_SPECIAL_CHAR = "비밀번호에는 최소한 하나의 특수문자가 포함되어야 합니다.";
+	public static final String ENTER_PASSWORD_NUM = "비밀번호에는 최소한 하나의 숫자가 포함되어야 합니다.";
+	public static final String ENTER_YOUR_EMAIL = "이메일을 입력해 주세요.";
 	public static final String ENTER_YOUR_PHONE_NUM = "휴대폰 번호를 입력해 주세요.";
+	public static final String NOT_VALIDATE_PHONE_NUM = "유효하지 않은 휴대폰 번호입니다.";
 	public static final String ENTER_YOUR_BIRTH = "생년월일을 입력해 주세요.";
 	public static final String ENTER_YOUR_GENDER ="성별을 선택해 주세요.";
 	
 	// etc 
 	public static final String FAIL_TO_CREATE_USER = "회원가입 실패.";
+	public static final String DUPLICATION_NAME = "중복 이름을 사용할 수 없습니다.";
 	public static final String NOT_AN_AUTHENTICATED_USER = "인증된 사용자가 아닙니다.";
 	public static final String INVALID_INPUT = "잘못된 입력입니다.";
 	public static final String UNKNOWN = "알 수 없는 동작입니다";

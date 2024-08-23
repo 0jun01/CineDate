@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,10 +22,18 @@
 		<div class="contents">
 		<h2><a href="/home">로고부분</a></h2>
 			<ul class="memberinfo-wrap" style="display: flex; justify-content: flex-end; gap: 30px;">
-					<li><a href="/user/signIn"><span>로그인</span></a></li>
-					<li><a href="/user/signUp"><span>회원가입</span></a></li>
-					<li><a href="/home/myPage"><span>마이페이지</span></a></li>
-				<li><a href="/home/CS"><span>고객센터</span></a></li>
+				<c:choose>
+					<c:when test="${principal != null}">
+						<li><a href="/user/logout"><span>로그아웃</span></a></li>					
+						<li><a href="/home/myPage"><span>마이페이지</span></a></li>
+					</c:when>
+					
+					<c:otherwise>
+						<li><a href="/user/signIn"><span>로그인</span></a></li>
+						<li><a href="/user/signUp"><span>회원가입</span></a></li>
+						<li><a href="/home/CS"><span>고객센터</span></a></li>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 			</div>
 		</div>
