@@ -13,14 +13,14 @@ import com.tenco.movie.service.AdminService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/adminMain")
+@RequestMapping("/")
 
 @RequiredArgsConstructor
 public class AdminController {
 	
 	private final AdminService adminService;
 	
-	@GetMapping("")
+	@GetMapping("/adminMain")
 	public String AdminMain() {
 		return "/adminMain";
 	}
@@ -32,6 +32,13 @@ public class AdminController {
         List<Notice> noticeList = adminService.readNoticeList();
         model.addAttribute("noticeList", noticeList);
         return "/admin/noticePage";
+    }
+    
+    @GetMapping("/adminNotice")
+    public String getAdminNoticePage(Model model) {
+        List<Notice> noticeList = adminService.readNoticeList();
+        model.addAttribute("noticeList", noticeList);
+        return "/admin/adminNoticePage";
     }
 	
 }
