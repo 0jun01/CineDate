@@ -13,12 +13,17 @@ import com.tenco.movie.service.AdminService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/adminMain")
+
 @RequiredArgsConstructor
 public class AdminController {
 	
 	private final AdminService adminService;
-
+	
+	@GetMapping("")
+	public String AdminMain() {
+		return "/adminMain";
+	}
 	/**
      * 공지사항 페이지 요청
      */

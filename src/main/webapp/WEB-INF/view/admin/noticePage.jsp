@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!-- header.jsp -->
-<%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<%@ include file="/WEB-INF/view/layout/adminHeader.jsp"%>
 
 <div class="notice--list">
 	<h3 class="notice--title">공지사항</h3>
@@ -22,8 +22,8 @@
 				<tbody>
 					<c:forEach var="notice" items="${noticeList}">
 						<tr>
-							<td>${notice.id}</td>
-							<td>${notice.category}</td>
+							<td>${noticeList.id}</td>
+							<td>${noticeList.category}</td>
 							<td><a href="/notice/detail/${notice.id}?type=all">${notice.title}</a></td>
 							<%--<td><a href="/notice/detail/${notice.id}?type=all">${account.title}</a></td> --%>
 						</tr>
@@ -42,6 +42,6 @@
 </div>
 </div>
 <!-- end of content.jsp(xxx.jsp) -->
-<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
+<%@ include file="/WEB-INF/view/layout/adminFooter.jsp"%>
 </body>
 </html>
