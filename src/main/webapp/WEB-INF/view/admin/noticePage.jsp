@@ -25,7 +25,6 @@
 							<td>${notice.id}</td>
 							<td>${notice.category}</td>
 							<td><a href="/notice/detail/${notice.id}?type=all">${notice.title}</a></td>
-							<%--<td><a href="/notice/detail/${notice.id}?type=all">${account.title}</a></td> --%>
 						</tr>
 					</c:forEach>
 				</tbody>

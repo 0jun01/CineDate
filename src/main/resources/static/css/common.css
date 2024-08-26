@@ -236,12 +236,10 @@ label {
 	left: 50%;
 	transform: translate(-50%, -74%) rotate(45deg);
 }
-<<<<<<< HEAD
 table, th, td{
 	border: 1px solid black;
 	border-collapse: collapse;
-=======
-
+}
 .notice--list {
     display: flex;
     flex-direction: column;
@@ -270,5 +268,4 @@ table, th, td{
 .notice--title {
     font-size: 36px; 
     margin-bottom: 20px;
->>>>>>> 734ad2c (공지사항 조회)
 }

@@ -10,7 +10,7 @@
 		type="hidden" id="userTownMemberInfo" name="userTownMemberInfo"
 		value="">
 	<div class="in--wrap">
-		<span class="thumb-image"> <img src="/img/bae.jpg"
+		<span class="thumb-image"> <img src="/img/ksh.jpg"
 			alt="님 프로필 사진" style="width: 100px;'"> <span
 			class="profile-mask"></span>
 		</span>
@@ -35,11 +35,11 @@
 	</div>
 </div>
 
-<div class="col--detail" id="mycgv_contents">
+<div class="col--detail">
 
 	<input type="hidden" id="isIPIN" name="isIPIN"
 		value="HWVxg2oRKNVYapPOMKh3kVxBLkoYselGuGHR5jHrTV6CnR87LOIxZ23SJ8FUp5B/9Swf7xfLvDAyA48Sjm1QNg==">
-	<div class="tit-mycgv">
+	<div class="mypage">
 		<h3>나의 정보</h3>
 	</div>
 	<!--1-->
@@ -103,13 +103,12 @@
 										<span class="profile-mask"></span>
 									</span>
 								</div>
-								<div class="box-contents">
+								<div class="box--contents">
 									<p>jpg, gif, BMP 파일만 등록 가능합니다. (최대 3M)</p>
 									<input type="file" id="profile_upload_file"
 										name="profile_upload_file" title="내용">
 								</div>
 							</div> 
-							<!-- 나의 프로필 / cgv 정보 : 프로필 관리 -->
 							<div class="tbl--re marginT20">
 								<table style="width: 100%;" summary="개인정보 수집 및 활용 동의 표">
 									<caption>개인정보 수집 및 활용 동의</caption>
