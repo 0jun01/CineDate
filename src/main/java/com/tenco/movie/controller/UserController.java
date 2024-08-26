@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.tenco.movie.dto.SignInDTO;
 import com.tenco.movie.dto.SignUpDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.interfaces.UserRepository;
+import com.tenco.movie.repository.model.User;
 import com.tenco.movie.service.UserService;
 import com.tenco.movie.utils.Define;
 
@@ -41,6 +43,35 @@ public class UserController {
 		return "user/signIn";
 	}
 
+	/**
+	 * 로그인 주소 설계
+	 * @param 
+	 * @return
+	 * @author 형정
+	 */
+	@PostMapping("/signIn")
+	public String signPro(SignInDTO dto) {
+		System.out.println("들어는 왔냐");
+		
+		if (dto.getLoginId() == null || dto.getLoginId().trim().isEmpty()) {
+			throw new DataDeliveryException(Define.ENTER_YOUR_ID, HttpStatus.BAD_REQUEST);
+		}
+		System.out.println("여기냐11111");
+		
+		// 비밀번호 유효성 검사
+		if (dto.getPassword() == null || dto.getPassword().trim().isEmpty()) {
+			throw new DataDeliveryException(Define.ENTER_YOUR_PASSWORD, HttpStatus.BAD_REQUEST);
+		}
+		System.out.println("여기냐22222");
+		User principal = userService.readUser(dto);
+		
+		
+		session.setAttribute(Define.PRINCIPAL, principal);
+		System.out.println("여기냐4444433");
+		
+		return "redirect:/home";
+	}
+	
 	/**
 	 * 회원가입
 	 * 
@@ -89,7 +120,7 @@ public class UserController {
 	@GetMapping("/logout")
 	public String logout() {
 		session.invalidate();
-		return "redirect:/main";
+		return "redirect:/user/signIn";
 	}
 
 	/**
@@ -175,19 +206,20 @@ public class UserController {
 	public String myPage() {
 		return"user/myPage";
 	}
-	
+
 	/**
-	 * 로그인
-	 * @param dto
+	 * 아이디 찾기 페이지 이동
 	 * @return
 	 * @author 형정
 	 */
-//	@PostMapping("/signIn")
-//	public String signInPage(SignInDTO dto) {
-//		User principal = userService.readUser(dto);
-//		session.setAttribute("principal", principal);
-//		
-//		return "redirect:/home";
-//	}
+	@GetMapping("/searchID")
+	public String searchIdPage() {
+		return "user/searchID";
+	}
+
+	@PostMapping("/findID")
+	public String findId() {
+		return "redirect:/user/signIn";
+	}
 	
 }

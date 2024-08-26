@@ -26,6 +26,7 @@
 					<c:when test="${principal != null}">
 						<li><a href="/user/logout"><span>로그아웃</span></a></li>					
 						<li><a href="/home/myPage"><span>마이페이지</span></a></li>
+						<li><a href="/home/CS"><span>고객센터</span></a></li>
 					</c:when>
 					
 					<c:otherwise>

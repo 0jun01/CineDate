@@ -9,6 +9,10 @@
 		insert into user_tb(login_id, name, password, email, phone_num, birth_day, gender)
 		values( #{loginId}, #{name}, #{password}, #{email}, #{phoneNum}, #{birthDay}, #{gender})
 	</insert>
+	
+		<select id="findByUsername" resultType="com.tenco.movie.repository.model.User">
+		select * from user_tb where login_id = #{loginId}
+	</select>
 
 
 </mapper>
