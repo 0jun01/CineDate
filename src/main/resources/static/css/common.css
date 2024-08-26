@@ -29,6 +29,11 @@ body {
 	color: #bababa;
 }
 
+::selection{
+	background-color: #ff2588;
+	color: #fff;
+}
+
 .eng {
 	font-family: 'Tium';
 }
@@ -122,22 +127,22 @@ body {
 
 .login--line::after {
 	content: "";
-	width: 110px;
+	width: 107px;
 	height: 1px;
 	background-color: #bababa;
 	position: absolute;
-	left: -122px;
+	left: -120px;
 	top: 8px;
 	z-index: 0;
 }
 
 .login--line::before {
 	content: "";
-	width: 110px;
+	width: 100px;
 	height: 1px;
 	background-color: #bababa;
 	position: absolute;
-	left: 155px;
+	left: 170px;
 	top: 8px;
 	z-index: 0;
 }
@@ -231,12 +236,10 @@ label {
 	left: 50%;
 	transform: translate(-50%, -74%) rotate(45deg);
 }
-<<<<<<< HEAD
 table, th, td{
 	border: 1px solid black;
 	border-collapse: collapse;
-=======
-
+}
 .notice--list {
     display: flex;
     flex-direction: column;
@@ -265,5 +268,4 @@ table, th, td{
 .notice--title {
     font-size: 36px; 
     margin-bottom: 20px;
->>>>>>> 734ad2c (공지사항 조회)
 }
