@@ -231,7 +231,39 @@ label {
 	left: 50%;
 	transform: translate(-50%, -74%) rotate(45deg);
 }
+<<<<<<< HEAD
 table, th, td{
 	border: 1px solid black;
 	border-collapse: collapse;
+=======
+
+.notice--list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+.notice--list table {
+    width: 80%; 
+    border-collapse: collapse;
+}
+
+.notice--list th, .notice--list td {
+    padding: 10px;
+    text-align: center;
+}
+
+.notice--list th {
+    background-color: #f4f4f4;
+}
+
+.notice--list td {
+    border: 1px solid #ddd;
+}
+
+.notice--title {
+    font-size: 36px; 
+    margin-bottom: 20px;
+>>>>>>> 734ad2c (공지사항 조회)
 }
