@@ -4,61 +4,144 @@ package com.tenco.movie.controller;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tenco.movie.dto.TMDBDTO;
+import com.tenco.movie.dto.TMDBDTO.TMDBMovies;
 import com.tenco.movie.dto.WeeklyBoxOffice;
 import com.tenco.movie.dto.WeeklyBoxOffice.BoxOfficeResult;
 import com.tenco.movie.dto.WeeklyBoxOffice.Movie;
+import com.tenco.movie.repository.model.Movies;
 
 @Controller
 public class HomeController {
 
+	// TMDB에서 발급 받은 키
+	private final String TMDBKEY = "7f0468e0f41d1bc7ea9f83175039d39c";
+	// 영화진흥위원회에서 발급 받은 키
+	private final String CONTENTKEY = "b1d9a2ca8f2d3d41e783a73278270803";;
+	// TMDB API 사용 할 기본 URL
+	private final String TMDBBASEURL = "https://api.themoviedb.org/3/search/movie?api_key=";
+	// 일별 박스 오피스
+	private final String DAILYBOXOFFICEURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json";
+	// 주간 박스오피스 요청 URI
+	private final String WEEKLYBOXOFFICEURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json";
+	// 무비 상세 URI
+	private final String MOVIEDETAILURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json";
+
 	@GetMapping("/home")
-	public String getMethodName() {
+	public String getMethodName(Model model) {
+		// 현재 날짜 가져오기
+		LocalDate now = LocalDate.now();
+		// 일주일 전
+		LocalDate aWeek = now.minusDays(7);
+		// 하루 전
+		LocalDate yesterday = now.minusDays(1);
+		// yyyMMdd 형식으로 데이터를 날려야하기 때문에 포멧 해줬다
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+		String weeklyBoxDate = aWeek.format(formatter);
+		
+		// 무비 리스트들
+		List<Movie> movieList = new ArrayList<>();
+		List<TMDBMovies> tmdbMoviesList = new ArrayList<>();
+		List<Movies> moviesList = new ArrayList<>();
+		
+		// 요청 URI JSON으로 값 받기
+		URI uri1 = UriComponentsBuilder
+				.fromUriString(WEEKLYBOXOFFICEURL + "?" + "key=" + CONTENTKEY + "&targetDt=" + weeklyBoxDate).build()
+				.toUri();
+
+		// RestTemplate로 응답
+		RestTemplate restTemplate1 = new RestTemplate();
+		ResponseEntity<WeeklyBoxOffice> response = restTemplate1.exchange(uri1, HttpMethod.GET, null,
+				WeeklyBoxOffice.class);
+		WeeklyBoxOffice weeklyBoxOffice = response.getBody();
+
+		// 값 받아내기
+		if (weeklyBoxOffice != null) {
+			BoxOfficeResult boxOfficeResult = weeklyBoxOffice.getBoxOfficeResult();
+			if (boxOfficeResult != null) {
+				movieList = boxOfficeResult.getWeeklyBoxOfficeList();
+				if (movieList != null && !movieList.isEmpty()) {
+					for (int i = 0; i < movieList.size(); i++) {
+						Movie firstMovie = movieList.get(i);
+						URI uri2 = UriComponentsBuilder.fromUriString(
+								TMDBBASEURL + TMDBKEY + "&language=ko-KR&page=1&query=" + firstMovie.getMovieNm())
+								.build().toUri();
+						RestTemplate restTemplate2 = new RestTemplate();
+						ResponseEntity<TMDBDTO> response2 = restTemplate1.exchange(uri2, HttpMethod.GET, null, TMDBDTO.class);
+						TMDBDTO tmdbdto = response2.getBody();
+						if (tmdbdto != null) {
+							tmdbMoviesList = tmdbdto.getResults();
+							if (tmdbMoviesList != null) {
+								TMDBMovies tmdbMovie = tmdbMoviesList.get(0);
+								Movies movies= Movies.builder().title(tmdbMovie.getTitle())
+								.movieDesc(tmdbMovie.getOverview())
+								.movieImg(tmdbMovie.getPosterPath())
+								.releaseDate(tmdbMovie.getReleaseDate())
+								.build();
+								moviesList.add(movies);
+							}
+						}
+					}
+				}
+			}
+		}
+		model.addAttribute("movieList",moviesList);
 		return "main";
 	}
 
 	@GetMapping("/TMDB")
 	@ResponseBody
-	public String parseTMDB() {
-		String key = "7f0468e0f41d1bc7ea9f83175039d39c";
-		String baseURL = "https://api.themoviedb.org/3/movie/";
+	public TMDBDTO parseTMDB() {
 
-		String tmdbURL = baseURL + "popular?api_key=" + key
-				+ "&language=ko-KR&page=1&query=범죄도시&append_to_response=credits&language=ko-kr";
+//		String tmdbURL = baseURL + "popular?api_key=" + key
+//				+ "&language=ko-KR&page=1&query=범죄도시&append_to_response=credits&language=ko-kr";
 
-		URI uri = UriComponentsBuilder.fromUriString(
-				"https://api.themoviedb.org/3/search/movie?api_key=" + key + "&language=ko-KR&page=1&query=늘봄가든")
+		// URI 영화 title이 필사의 추격인 영화 조회
+		URI uri = UriComponentsBuilder.fromUriString(TMDBBASEURL + TMDBKEY + "&language=ko-KR&page=1&query=에이리언: 로물루스")
 				.build().toUri();
 
+		// RestTemplate으로 호출
 		RestTemplate restTemplate1 = new RestTemplate();
-		ResponseEntity<String> response = restTemplate1.getForEntity(uri, String.class);
-		ObjectMapper mapper = new ObjectMapper();
+		ResponseEntity<TMDBDTO> response = restTemplate1.exchange(uri, HttpMethod.GET, null, TMDBDTO.class);
+
+		// json 받기
+		TMDBDTO tmdbdto = response.getBody();
+
+		// TMDB 오픈 API의 결과 가져오기
+		if (tmdbdto != null) {
+			List<TMDBMovies> tmdbMoviesList = tmdbdto.getResults();
+			if (tmdbMoviesList != null) {
+				TMDBMovies tmdbMovie = tmdbMoviesList.get(0);
+				System.out.println("title: " + tmdbMovie.getOriginalTitle());
+				System.out.println("overview: " + tmdbMovie.getOverview());
+				System.out.println("imageAddress : " + tmdbMovie.getPosterPath());
+			}
+		}
+		System.out.println("tmdbDTO : " + tmdbdto);
 		System.out.println(response.getBody().toString());
-		String json = response.getBody();
-		System.out.println(json);
 		return response.getBody();
 	}
 
 	@GetMapping("/movieSearch")
 	@ResponseBody
 	public WeeklyBoxOffice parseMovieDate() {
-		// 영화진흥위원회에서 발급 받은 키
-		String key = "b1d9a2ca8f2d3d41e783a73278270803";
 		// 일별 박스오피스 요청 URL
 		String dailyBoxOfficeURI = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json";
 		// 주간 박스오피스 요청 URI
 		String weeklyBoxOfficeUrl = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json";
-		// 무비 상제 URI
+		// 무비 상세 URI
 		String movieDetailUrl = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json";
 
 		// 현재 날짜 가져오기
@@ -73,31 +156,33 @@ public class HomeController {
 
 		// 요청 URI JSON으로 값 받기
 		URI uri = UriComponentsBuilder
-				.fromUriString(
-						weeklyBoxOfficeUrl + "?" + "key=b1d9a2ca8f2d3d41e783a73278270803&targetDt=" + weeklyBoxDate)
-				.build().toUri();
+				.fromUriString(weeklyBoxOfficeUrl + "?" + "key=" + CONTENTKEY + "&targetDt=" + weeklyBoxDate).build()
+				.toUri();
+
+		// RestTemplate로 응답
 		RestTemplate restTemplate1 = new RestTemplate();
 		ResponseEntity<WeeklyBoxOffice> response = restTemplate1.exchange(uri, HttpMethod.GET, null,
 				WeeklyBoxOffice.class);
 		WeeklyBoxOffice weeklyBoxOffice = response.getBody();
 
+		// 값 받아내기
 		if (weeklyBoxOffice != null) {
 			BoxOfficeResult boxOfficeResult = weeklyBoxOffice.getBoxOfficeResult();
 			if (boxOfficeResult != null) {
 				List<Movie> movieList = boxOfficeResult.getWeeklyBoxOfficeList();
 				if (movieList != null && !movieList.isEmpty()) {
-					for(int i=0;i<movieList.size();i++) {
-					Movie firstMovie = movieList.get(i);
+					for (int i = 0; i < movieList.size(); i++) {
+						Movie firstMovie = movieList.get(i);
 
-					System.out.println("BoxOffice Type: " + boxOfficeResult.getBoxofficeType());
-					System.out.println("Show Range: " + boxOfficeResult.getShowRange());
-					System.out.println("Year Week Time: " + boxOfficeResult.getYearWeekTime());
+						System.out.println("BoxOffice Type: " + boxOfficeResult.getBoxofficeType());
+						System.out.println("Show Range: " + boxOfficeResult.getShowRange());
+						System.out.println("Year Week Time: " + boxOfficeResult.getYearWeekTime());
 
-					System.out.println("First Movie Details:");
-					System.out.println("Rank: " + firstMovie.getRank());
-					System.out.println("Movie Name: " + firstMovie.getMovieNm());
-					System.out.println("Open Date: " + firstMovie.getOpenDt());
-					System.out.println("Sales Amount: " + firstMovie.getSalesAmt());
+						System.out.println("--- Movie Details ---");
+						System.out.println("Rank: " + firstMovie.getRank());
+						System.out.println("Movie Name: " + firstMovie.getMovieNm());
+						System.out.println("Open Date: " + firstMovie.getOpenDt());
+						System.out.println("Sales Amount: " + firstMovie.getSalesAmt());
 					}
 				}
 			}

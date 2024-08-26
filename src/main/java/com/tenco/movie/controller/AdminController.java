@@ -13,12 +13,17 @@ import com.tenco.movie.service.AdminService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/")
+
 @RequiredArgsConstructor
 public class AdminController {
 	
 	private final AdminService adminService;
-
+	
+	@GetMapping("/adminMain")
+	public String AdminMain() {
+		return "/adminMain";
+	}
 	/**
      * 공지사항 페이지 요청
      */
@@ -27,6 +32,13 @@ public class AdminController {
         List<Notice> noticeList = adminService.readNoticeList();
         model.addAttribute("noticeList", noticeList);
         return "/admin/noticePage";
+    }
+    
+    @GetMapping("/adminNotice")
+    public String getAdminNoticePage(Model model) {
+        List<Notice> noticeList = adminService.readNoticeList();
+        model.addAttribute("noticeList", noticeList);
+        return "/admin/adminNoticePage";
     }
 	
 }
