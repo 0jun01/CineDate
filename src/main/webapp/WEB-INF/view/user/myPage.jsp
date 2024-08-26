@@ -35,7 +35,7 @@
 	</div>
 </div>
 
-<div class="col-detail" id="mycgv_contents">
+<div class="col--detail" id="mycgv_contents">
 
 	<input type="hidden" id="isIPIN" name="isIPIN"
 		value="HWVxg2oRKNVYapPOMKh3kVxBLkoYselGuGHR5jHrTV6CnR87LOIxZ23SJ8FUp5B/9Swf7xfLvDAyA48Sjm1QNg==">
@@ -68,11 +68,11 @@
 				<tbody>
 					<tr>
 						<th scope="row">이름</th>
-						<td><strong>김성후</strong></td>
+						<td><strong>${username}</strong></td>
 					</tr>
 					<tr>
 						<th scope="row">아이디</th>
-						<td><span>kktjdgn</span></td>
+						<td><span>${userId}</span></td>
 					</tr>
 					<tr>
 						<th scope="row"><label for="nick_name">닉네임</label></th>
@@ -88,15 +88,15 @@
 					<tr>
 						<th scope="row">프로필이미지</th>
 						<td>
-							<p class="profile-info">
+							<p class="profile--info">
 								각 서비스(이벤트, 매거진, 영화리뷰 등)의 리뷰 및 덧글작성시 등록하신 대표이미지가 노출됩니다.<br>프로필
 								이미지 종류를 선택해 주세요.
 							</p> <input type="hidden" id="user-image" name="user-image" value="">
 							<input type="hidden" id="user-image"
 							name="user-image" value="">
-							<div class="sect-profile-img">
-								<div class="box-image">
-									<span class="thumb-image"> <img
+							<div class="profile--img">
+								<div class="box--image">
+									<span class="thumb--image"> <img
 										id="img_userprofileimage"
 										src="http://img.cgv.co.kr/R2014/images/common/default_profile.gif"
 										alt="님 프로필 사진" onerror="errorImage(this, {type:'profile'})">
@@ -110,7 +110,7 @@
 								</div>
 							</div> 
 							<!-- 나의 프로필 / cgv 정보 : 프로필 관리 -->
-							<div class="tbl-breakdown-re marginT20">
+							<div class="tbl--re marginT20">
 								<table style="width: 100%;" summary="개인정보 수집 및 활용 동의 표">
 									<caption>개인정보 수집 및 활용 동의</caption>
 									<colgroup>
@@ -160,7 +160,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="set-btn aright">
+		<div class="set--btn aright">
 			<button type="submit" id="set_profile" class="btn">
 				<span>등록하기</span>
 			</button>
