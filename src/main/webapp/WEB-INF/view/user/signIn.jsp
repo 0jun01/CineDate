@@ -21,7 +21,7 @@
 				<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 				<span class="btn"><a href="">비밀번호찾기</a></span>
 				<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-				<span class="btn"><a href="">회원가입</a></span>
+				<span class="btn"><a href="/user/signUp">회원가입</a></span>
 			</div>
 
 			<div class="login--line">소설 로그인으로 시작</div>

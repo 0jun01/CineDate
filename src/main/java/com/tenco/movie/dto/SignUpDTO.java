@@ -18,6 +18,7 @@ public class SignUpDTO {
 	private String loginId;
 	private String name;
 	private String password;
+	private String enterPassword;
 	private String email;
 	private String phoneNum;
 	private String year;

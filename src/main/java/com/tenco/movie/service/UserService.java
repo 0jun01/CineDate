@@ -23,7 +23,7 @@ public class UserService {
 	@Autowired
 	private final UserRepository userRepository;
 
-	//@Autowired
+	// @Autowired
 	// private final PasswordEncoder passwordEncoder;
 
 	/**
@@ -33,6 +33,7 @@ public class UserService {
 	 */
 	@Transactional
 	public void createUser(SignUpDTO dto) {
+		
 		System.out.println("여기로 왔냐");
 
 		int result = 0;
@@ -44,7 +45,7 @@ public class UserService {
 		} catch (DataDeliveryException e) {
 			throw new DataDeliveryException(Define.DUPLICATION_NAME, HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
-			throw new RedirectException(Define.UNKNOWN, HttpStatus.SERVICE_UNAVAILABLE);
+			throw new RedirectException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
 		}
 
 		if (result != 1) {
@@ -56,26 +57,49 @@ public class UserService {
 	public User readUser(SignInDTO dto) {
 
 		User userEntity = null;
-		
+
 		try {
-			userEntity = userRepository.findByUsername(dto.getLoginId());
+			userEntity = userRepository.findByLoginId(dto.getLoginId());
 		} catch (DataAccessException e) {
-			throw new DataDeliveryException("잘못된 처리 입니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
-			throw new DataDeliveryException("알 수 없는 오류", HttpStatus.SERVICE_UNAVAILABLE);
+			throw new DataDeliveryException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
 		}
 
 		if (userEntity == null) {
-			throw new DataDeliveryException("존재하지 않는 아이디입니다.", HttpStatus.BAD_REQUEST);
+			throw new DataDeliveryException(Define.NOT_ID, HttpStatus.BAD_REQUEST);
 		}
 
-		//boolean isPwdMathched = passwordEncoder.matches(dto.getPassword(), userEntity.getPassword());
-		//if(isPwdMathched == false) {
-		//	throw new DataDeliveryException("비밀번호가 틀렸습니다.", HttpStatus.BAD_REQUEST);
-		//}
+		if (!userEntity.getPassword().equals(dto.getPassword())) {
+			throw new DataDeliveryException(Define.NOT_VALIDATE_PASSWORD, HttpStatus.BAD_REQUEST);
+		}
+
+		// TODO - 비밀번호 암호화
+		// boolean isPwdMathched = passwordEncoder.matches(dto.getPassword(),
+		// userEntity.getPassword());
+		// if(isPwdMathched == false) {
+		// throw new DataDeliveryException(Define.NOT_VALIDATE_PASSWORD, HttpStatus.BAD_REQUEST);
+		// }
 
 		return userEntity;
 
+	}
+
+	public boolean isLoginIdDuplicated(String loginId) {
+		
+		User user = userRepository.isLoginIdDuplicated(loginId);
+
+		if (user != null) {
+			throw new DataDeliveryException(Define.DUPLICATION_ID, HttpStatus.BAD_REQUEST);
+		}
+
+		return true;
+	}
+
+	public boolean isPhoneNumDuplicated(String phoneNum) {
+		
+		User user = userRepository.isPhoneNumDuplicated(phoneNum);
+		return user != null;
 	}
 
 }

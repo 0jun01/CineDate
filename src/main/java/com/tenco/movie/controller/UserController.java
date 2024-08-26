@@ -1,11 +1,16 @@
 package com.tenco.movie.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tenco.movie.dto.SignInDTO;
 import com.tenco.movie.dto.SignUpDTO;
@@ -45,33 +50,34 @@ public class UserController {
 
 	/**
 	 * 로그인 주소 설계
-	 * @param 
+	 * 
+	 * @param
 	 * @return
 	 * @author 형정
 	 */
 	@PostMapping("/signIn")
 	public String signPro(SignInDTO dto) {
 		System.out.println("들어는 왔냐");
-		
+
 		if (dto.getLoginId() == null || dto.getLoginId().trim().isEmpty()) {
 			throw new DataDeliveryException(Define.ENTER_YOUR_ID, HttpStatus.BAD_REQUEST);
 		}
 		System.out.println("여기냐11111");
-		
+
 		// 비밀번호 유효성 검사
 		if (dto.getPassword() == null || dto.getPassword().trim().isEmpty()) {
 			throw new DataDeliveryException(Define.ENTER_YOUR_PASSWORD, HttpStatus.BAD_REQUEST);
 		}
 		System.out.println("여기냐22222");
+
 		User principal = userService.readUser(dto);
-		
-		
+
 		session.setAttribute(Define.PRINCIPAL, principal);
 		System.out.println("여기냐4444433");
-		
+
 		return "redirect:/home";
 	}
-	
+
 	/**
 	 * 회원가입
 	 * 
@@ -144,6 +150,9 @@ public class UserController {
 //		if (dto.getLoginId().length() > 7 || dto.getLoginId().length() > 16) {
 //			throw new DataDeliveryException(Define.ENTER_ID_LENGTH, HttpStatus.BAD_REQUEST);
 //		}
+		if (dto.getLoginId().equals(dto.getLoginId())) {
+			throw new DataDeliveryException(Define.DUPLICATION_ID, HttpStatus.BAD_REQUEST);
+		}
 
 		// 이름 유효성 검사
 		if (dto.getName() == null) {
@@ -169,6 +178,9 @@ public class UserController {
 		if (!dto.getPassword().matches(".*[!@#$%^&*(),.?\":{}|<>].*")) {
 			throw new DataDeliveryException(Define.ENTER_PASSWORD_SPECIAL_CHAR, HttpStatus.BAD_REQUEST);
 		}
+		if (!dto.getPassword().equals(dto.getEnterPassword())) {
+			throw new DataDeliveryException(Define.NOT_VALIDATE_PASSWORD, HttpStatus.BAD_REQUEST);
+		}
 
 		// 이메일 유효성 검사
 		if (dto.getEmail() == null || dto.getEmail().trim().isEmpty()) {
@@ -182,11 +194,15 @@ public class UserController {
 		if (!dto.getPhoneNum().matches("\\d{10,11}")) {
 			throw new DataDeliveryException(Define.NOT_VALIDATE_PHONE_NUM, HttpStatus.BAD_REQUEST);
 		}
+		if (dto.getPhoneNum().equals(dto.getPhoneNum())) {
+			throw new DataDeliveryException(Define.DUPLICATION_PASSWORD, HttpStatus.BAD_REQUEST);
+		}
 
 		// 성별 유효성 검사
 		if (dto.getGender() == null || (!dto.getGender().equals("여") && !dto.getGender().equals("남"))) {
 			throw new DataDeliveryException(Define.ENTER_YOUR_GENDER, HttpStatus.BAD_REQUEST);
 		}
+		
 
 		System.out.println("여기까지는 왔나?");
 
@@ -197,6 +213,7 @@ public class UserController {
 		return "redirect:/user/signIn";
 
 	}
+
 	/**
 	 * 마이페이지
 	 * 
@@ -204,11 +221,12 @@ public class UserController {
 	 */
 	@GetMapping("/myPage")
 	public String myPage() {
-		return"user/myPage";
+		return "user/myPage";
 	}
 
 	/**
 	 * 아이디 찾기 페이지 이동
+	 * 
 	 * @return
 	 * @author 형정
 	 */
@@ -221,5 +239,5 @@ public class UserController {
 	public String findId() {
 		return "redirect:/user/signIn";
 	}
-	
+
 }

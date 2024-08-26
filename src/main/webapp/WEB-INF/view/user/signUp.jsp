@@ -23,7 +23,7 @@
 					<input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요. (문자, 숫자,특수문자 포함 8~20자 )">
 					
 					<label for="passwordEnter">비밀번호 확인</label>
-					<input type="password" id="passwordEnter" name="passwordEnter" placeholder="비밀번호를 입력해주세요. (문자, 숫자,특수문자 포함 8~20자 )">
+					<input type="password" id="enterPassword" name="enterPassword" placeholder="비밀번호를 입력해주세요. (문자, 숫자,특수문자 포함 8~20자 )">
 					
 					<label for="email">이메일 주소</label>
 					<input type="email" id="email" name="email" placeholder="이메일 주소를 입력해주세요.">

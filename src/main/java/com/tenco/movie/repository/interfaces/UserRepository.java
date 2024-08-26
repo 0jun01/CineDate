@@ -20,6 +20,12 @@ public interface UserRepository {
 	
 	public User findByUsernameAndPassword(@Param("loginId") String loginId, @Param("password") String password);
 	
-	public User findByUsername(@Param("loginId") String loginId);
+	public User findByLoginId(@Param("loginId") String loginId);
+	
+	// 아이디 중복 검사
+	User isLoginIdDuplicated(String username);
+	
+	// 휴대폰 번호 중복 검사 
+	User isPhoneNumDuplicated(String phoneNum);
 
 }

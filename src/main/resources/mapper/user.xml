@@ -10,9 +10,16 @@
 		values( #{loginId}, #{name}, #{password}, #{email}, #{phoneNum}, #{birthDay}, #{gender})
 	</insert>
 	
-		<select id="findByUsername" resultType="com.tenco.movie.repository.model.User">
+	<select id="findByLoginId" resultType="com.tenco.movie.repository.model.User">
+		select * from user_tb where login_id = #{loginId}
+	</select>
+	
+	<select id="isLoginIdDuplicated" resultType="com.tenco.movie.repository.model.User">
 		select * from user_tb where login_id = #{loginId}
 	</select>
 
+	<select id="isPhoneNumDuplicated" resultType="com.tenco.movie.repository.model.User">
+		select * from user_tb where phone_num = #{phoneNum}
+	</select>
 
 </mapper>
