@@ -27,14 +27,15 @@
 							<td><a href="/notice/detail/${notice.id}?type=all">${notice.title}</a></td>
 						</tr>
 					</c:forEach>
+					
 				</tbody>
 			</table>
-		</c:when>
-		<c:otherwise>
-			<div class="jumbotron display-4">
-				<h5>게시된 공지가 없습니다.</h5>
-			</div>
-		</c:otherwise>
+			</c:when>
+			<c:otherwise>
+				<div class="jumbotron display-4">
+					<h5>게시된 공지가 없습니다.</h5>
+				</div>
+			</c:otherwise>
 	</c:choose>
 
 </div>

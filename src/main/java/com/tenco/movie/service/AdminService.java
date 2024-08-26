@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
@@ -25,6 +26,8 @@ public class AdminService {
 	 * 공지사항 목록 요청
 	 * @return
 	 */
+	
+	@Transactional
 	public List<Notice> readNoticeList() {
 		List<Notice> noticeListEntity = null;
 		
