@@ -231,3 +231,7 @@ label {
 	left: 50%;
 	transform: translate(-50%, -74%) rotate(45deg);
 }
+table, th, td{
+	border: 1px solid black;
+	border-collapse: collapse;
+}

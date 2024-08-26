@@ -166,6 +166,15 @@ public class UserController {
 		return "redirect:/user/signIn";
 
 	}
+	/**
+	 * 마이페이지
+	 * 
+	 * @author 성후
+	 */
+	@GetMapping("/myPage")
+	public String myPage() {
+		return"user/myPage";
+	}
 	
 	/**
 	 * 로그인
