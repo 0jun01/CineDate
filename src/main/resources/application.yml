@@ -21,6 +21,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver #드라이버 클래스를 설정 합니다.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     username: root #사용자 ID를 지정
 =======
     username: kkr #사용자 ID를 지정
@@ -28,6 +29,9 @@ spring:
 =======
     username: yhj #사용자 ID를 지정
 >>>>>>> 32a4fcf (영화 검색 기능 중)
+=======
+    username: ksh #사용자 ID를 지정
+>>>>>>> 671bbcf (mypage이미지미리보기추가)
     password: asd123 #DB 비밀번호 여기서는 빈 문자열로 설정
   sql:
     init:

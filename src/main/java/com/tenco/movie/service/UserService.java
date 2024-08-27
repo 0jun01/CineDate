@@ -226,7 +226,10 @@ public class UserService {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 671bbcf (mypage이미지미리보기추가)
 	/**
 	 * name 사용자 존재 여부 조회
 	 * @param name
@@ -265,7 +268,12 @@ public class UserService {
 		return userRepository.findByEmail(email);
 	}
 
+<<<<<<< HEAD
 >>>>>>> 5a6eb19 (로그인 및 회원가입 완료)
+=======
+=======
+>>>>>>> 90a04a5 (mypage이미지미리보기추가)
+>>>>>>> 671bbcf (mypage이미지미리보기추가)
 	
 
 }

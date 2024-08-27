@@ -205,6 +205,7 @@ public class UserController {
 		return "user/myPage";
 	}
 	/**
+<<<<<<< HEAD
 	 *마이페이지 
 	 *
 	 *@author 성후
@@ -214,6 +215,11 @@ public class UserController {
 		// 이름, 아이디, 닉네임 등록, 프로필 이미지 등록, 동의여부 확인, 수정하기버튼활성화
 		return "redirect:/user/myPage";
 	}
+=======
+	 * 
+	 */
+	
+>>>>>>> 90a04a5 (mypage이미지미리보기추가)
 	
 
 	/**
