@@ -27,5 +27,7 @@ public interface UserRepository {
 	
 	// 휴대폰 번호 중복 검사 
 	User isPhoneNumDuplicated(String phoneNum);
+	
+	
 
 }
