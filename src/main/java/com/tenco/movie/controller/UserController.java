@@ -219,9 +219,15 @@ public class UserController {
 		return "user/myPage";
 	}
 	/**
-	 * 
+	 *마이페이지 
+	 *
+	 *@author 성후
 	 */
-	
+	@PostMapping("/myPage")
+	public String myPageProFile() {
+		// 이름, 아이디, 닉네임 등록, 프로필 이미지 등록, 동의여부 확인, 수정하기버튼활성화
+		return "redirect:/user/myPage";
+	}
 	
 
 	/**

@@ -131,7 +131,7 @@
     </div>
     <div class="set--btn aright">
         <button type="submit" id="set_profile" class="btn">
-            <span>등록하기</span>
+            <span>수정하기</span>
         </button>
     </div>
 </form>
