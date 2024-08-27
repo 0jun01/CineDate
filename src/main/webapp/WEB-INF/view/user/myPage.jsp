@@ -134,6 +134,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             <span>수정하기</span>
 =======
             <span>등록하기</span>
@@ -142,11 +143,19 @@
             <span>수정하기</span>
 >>>>>>> 5a6eb19 (로그인 및 회원가입 완료)
 =======
+=======
+>>>>>>> fce9943 (event 시작)
             <span>수정하기</span>
 =======
             <span>등록하기</span>
 >>>>>>> 90a04a5 (mypage이미지미리보기추가)
+<<<<<<< HEAD
 >>>>>>> 671bbcf (mypage이미지미리보기추가)
+=======
+=======
+            <span>수정하기</span>
+>>>>>>> b0fb7d2 (event 시작)
+>>>>>>> fce9943 (event 시작)
         </button>
     </div>
 </form>
