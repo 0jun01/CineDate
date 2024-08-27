@@ -126,6 +126,7 @@
         <button type="submit" id="set_profile" class="btn">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             <span>수정하기</span>
 =======
             <span>등록하기</span>
@@ -133,6 +134,12 @@
 =======
             <span>수정하기</span>
 >>>>>>> 5a6eb19 (로그인 및 회원가입 완료)
+=======
+            <span>수정하기</span>
+=======
+            <span>등록하기</span>
+>>>>>>> 90a04a5 (mypage이미지미리보기추가)
+>>>>>>> 671bbcf (mypage이미지미리보기추가)
         </button>
     </div>
 </form>
