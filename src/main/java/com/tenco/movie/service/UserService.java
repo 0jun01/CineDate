@@ -22,6 +22,9 @@ public class UserService {
 
 	@Autowired
 	private final UserRepository userRepository;
+	
+    @Autowired
+    private FileStorageService fileStorageService;
 
 	// @Autowired
 	// private final PasswordEncoder passwordEncoder;
@@ -101,5 +104,7 @@ public class UserService {
 		User user = userRepository.isPhoneNumDuplicated(phoneNum);
 		return user != null;
 	}
+
+	
 
 }

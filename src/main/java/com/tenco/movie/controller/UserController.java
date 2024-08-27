@@ -218,6 +218,11 @@ public class UserController {
 	public String myPage() {
 		return "user/myPage";
 	}
+	/**
+	 * 
+	 */
+	
+	
 
 	/**
 	 * 아이디 찾기 페이지 이동
