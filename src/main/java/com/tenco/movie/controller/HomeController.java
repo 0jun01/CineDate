@@ -65,6 +65,7 @@ public class HomeController {
 		RestTemplate restTemplate1 = new RestTemplate();
 		ResponseEntity<WeeklyBoxOffice> response = restTemplate1.exchange(uri1, HttpMethod.GET, null,
 				WeeklyBoxOffice.class);
+		// 홈페이지에 출력
 		WeeklyBoxOffice weeklyBoxOffice = response.getBody();
 
 		// 값 받아내기
@@ -171,16 +172,6 @@ public class HomeController {
 				if (movieList != null && !movieList.isEmpty()) {
 					for (int i = 0; i < movieList.size(); i++) {
 						Movie firstMovie = movieList.get(i);
-
-						System.out.println("BoxOffice Type: " + boxOfficeResult.getBoxofficeType());
-						System.out.println("Show Range: " + boxOfficeResult.getShowRange());
-						System.out.println("Year Week Time: " + boxOfficeResult.getYearWeekTime());
-
-						System.out.println("--- Movie Details ---");
-						System.out.println("Rank: " + firstMovie.getRank());
-						System.out.println("Movie Name: " + firstMovie.getMovieNm());
-						System.out.println("Open Date: " + firstMovie.getOpenDt());
-						System.out.println("Sales Amount: " + firstMovie.getSalesAmt());
 					}
 				}
 			}
