@@ -11,5 +11,17 @@
 		insert into notice_tb(admin_id, category, title, content)
 		values(#{adminId}, #{category}, #{title}, #{content})
 	</insert>
+	
+	<update id="updateById">
+		update notice_tb set category = #{category}, title = #{title}, content = #{content} where id = #{id}
+	</update>
+	
+	<delete id="deleteById">
+		delete from notice_tb where id = #{id}
+	</delete>
+
+	<select id="findById">
+	select * from notice_tb where id = #{id}
+	</select>
 
 </mapper>

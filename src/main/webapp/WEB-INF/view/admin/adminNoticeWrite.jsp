@@ -33,11 +33,11 @@
 					<!-- Default box -->
 					<div class="card">
 						<form action="/adminNoticeWrite" method="post">
-							<div class="card-header" style="display: flex;flex-direction: row">
+							<div class="card-header" style="display: flex; flex-direction: row">
 
 								<input type="text" class="card-title col-10" placeholder="제목을 입력하세요" name="title" id="title">
 								<div class="col-md-6 card-title">
-									<select class="col-md-4" id="category" name ="category" required>
+									<select class="col-md-4" id="category" name="category" required>
 										<option selected disabled value="">선택필수</option>
 										<option value="시스템점검">시스템점검</option>
 										<option value="행사/이벤트">행사/이벤트</option>
@@ -50,11 +50,11 @@
 
 							</div>
 							<div class="card-body">
-								<textarea class="form-control" rows="20" id = "content" name="content" style="resize: none;" placeholder="내용을 입력하세요"></textarea>
+								<textarea class="form-control" rows="20" id="content" name="content" style="resize: none;" placeholder="내용을 입력하세요"></textarea>
 							</div>
 							<!-- /.card-body -->
 							<div class="card-footer">
-								<button type="submit" class="btn btn-success float-end">글쓰기완료</button>
+								<button type="submit" class="btn btn-success float-end" onclick="javascript : alert('공지가 작성되었습니다')">글쓰기완료</button>
 							</div>
 							<!-- /.card-footer-->
 						</form>

@@ -46,7 +46,7 @@
 														<th class="text-center" style="width: 150px">카테고리</th>
 														<th>제목</th>
 														<th style="width: 40px" class="text-center">수정</th>
-														<th style="width: 40px"class="text-center">삭제</th>
+														<th style="width: 40px" class="text-center">삭제</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -55,14 +55,17 @@
 															<td>${notice.id}</td>
 															<td class="text-center">${notice.category}</td>
 															<td><a href="/notice/detail/${notice.id}?type=all">${notice.title}</a></td>
-															<td style=	"width: 90px;" class="text-center">
-															<form action="#" method="get">
-															<button class="btn btn-warning" >수정</button>
-															</form>
+															<td style="width: 90px;" class="text-center">
+																<form action="/adminNoticeReWrite/${notice.id}" method="get">
+																	<button class="btn btn-warning">수정</button>
+																</form>
 															</td>
-															
-															<td style=	"width: 90px;" class="text-center">
-															<form action="#"><button class="btn btn-danger" >삭제</button></form></td>
+
+															<td style="width: 90px;" class="text-center">
+															<form action="/adminNoticeDelete/${notice.id}" method="get">
+																<button type="submit" class="btn btn-danger">삭제</button>
+																</form>
+															</td>
 														</tr>
 													</c:forEach>
 
@@ -78,11 +81,13 @@
 									</c:choose>
 									</div>
 									<!-- /.card-body -->
-									
-									
-									
+
+
+
 									<div class="card-footer clearfix">
-									<form action="/adminNoticeWrite" method="get"><button class="btn btn-primary btn-sm clearfix text-bg-dark float-end" >글쓰기</button></form>
+										<form action="/adminNoticeWrite" method="get">
+											<button class="btn btn-primary btn-sm clearfix text-bg-dark float-end">글쓰기</button>
+										</form>
 										<ul class="pagination pagination-sm m-0" style="justify-content: center">
 											<li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
 											<li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -100,12 +105,14 @@
 									</div>
 									<!--end::Container-->
 									</div>
+
 									<!--end::App Content-->
 									</main>
 									<!--end::App Main-->
 									<!--begin::Footer-->
-							</div>
-						</div>
-					</div>
-					<!-- end of content.jsp(xxx.jsp) -->
-					<%@ include file="/WEB-INF/view/layout/adminFooter.jsp"%>
+
+									</div>
+									</div>
+									</div>
+									<!-- end of content.jsp(xxx.jsp) -->
+									<%@ include file="/WEB-INF/view/layout/adminFooter.jsp"%>

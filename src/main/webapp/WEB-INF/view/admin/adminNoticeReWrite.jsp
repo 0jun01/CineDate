@@ -9,7 +9,7 @@
 			<!--begin::Row-->
 			<div class="row">
 				<div class="col-sm-6">
-					<h3 class="mb-0">공지사항 글쓰기</h3>
+					<h3 class="mb-0">공지사항 수정</h3>
 				</div>
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-end">
@@ -32,20 +32,28 @@
 				<div class="col-12">
 					<!-- Default box -->
 					<div class="card">
-						<form action="/adminNoticeWrite" method="post">
-							<div class="card-header">
-
-								<h3>
-									<input type="text" class="input-group col-12 form-control-lg" placeholder="제목을 입력하세요" name="title" style="width:100%">
-								</h3>
+						<form action="/adminNoticeReWrite/${notice.id}" method="post">
+							<div class="card-header"style="display: flex; flex-direction: row">
+								<textarea class="card-title col-10" placeholder="제목을 입력하세요" name="title" id="title" style="resize: none;" rows = "1">${notice.title}</textarea>
+								<div class="col-md-6 card-title">
+									<select class="col-md-4" id="category" name="category" required>
+										<option selected disabled value="">선택필수</option>
+										<option value="시스템점검">시스템점검</option>
+										<option value="행사/이벤트">행사/이벤트</option>
+										<option value="제휴이벤트">제휴이벤트</option>
+										<option value="극장">극장</option>
+										<option value="기타">기타</option>
+									</select>
+									<div class="invalid-feedback">카테고리를 선택하세요</div>
+								</div>
 
 							</div>
 							<div class="card-body">
-								<textarea class="form-control" rows="20" name="contents" style=" resize: none;" placeholder="내용을 입력하세요"></textarea>
+								<textarea class="form-control" rows="20" id="content" name="content" style="resize: none;" placeholder="내용을 입력하세요">${notice.content}</textarea>
 							</div>
 							<!-- /.card-body -->
 							<div class="card-footer">
-								<button type="submit" class="btn btn-success float-end">글쓰기완료</button>
+								<button type="submit" class="btn btn-success float-end" onclick="javascript : alert('공지가 수정되었습니다')">수정완료</button>
 							</div>
 							<!-- /.card-footer-->
 						</form>
