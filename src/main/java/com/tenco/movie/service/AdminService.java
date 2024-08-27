@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tenco.movie.dto.NoticeWriterDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.NoticeRepository;
@@ -42,6 +43,25 @@ public class AdminService {
 //		}
 		
 		return noticeListEntity;
+	}
+	
+	@Transactional
+	public void createNotice(NoticeWriterDTO dto) {
+		int result = 0;
+		
+		try {
+			result = noticeRepository.insert(dto.toWrite());
+		} catch (DataDeliveryException e) {
+			throw new DataDeliveryException("잘못된 요청입니다", HttpStatus.INTERNAL_SERVER_ERROR);
+		}catch (Exception e) {
+			throw new RedirectException("알 수 없는 오류 입니다", HttpStatus.SERVICE_UNAVAILABLE);
+		}
+		
+		if(result == 0) {
+			throw new DataDeliveryException("정상 처리 되지 않았습니다", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		
 	}
 	
 }

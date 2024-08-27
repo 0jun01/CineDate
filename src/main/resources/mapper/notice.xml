@@ -6,5 +6,10 @@
 	<select id="findAll" resultType="com.tenco.movie.repository.model.Notice">
 		select * from notice_tb;
 	</select>
+	
+	<insert id="insert">
+		insert into notice_tb(admin_id, category, title, content)
+		values(#{adminId}, #{category}, #{title}, #{content})
+	</insert>
 
 </mapper>

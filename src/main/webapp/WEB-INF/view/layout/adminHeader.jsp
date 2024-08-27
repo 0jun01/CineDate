@@ -29,6 +29,7 @@
 <!--end::Third Party Plugin(Bootstrap Icons)-->
 <!--begin::Required Plugin(AdminLTE)-->
 <link rel="stylesheet" href="/css/adminlte.css">
+<link rel="stylesheet" href="/css/common.css">
 <!--end::Required Plugin(AdminLTE)-->
 <!-- apexcharts -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css" integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0="
@@ -149,7 +150,7 @@
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="/adminMain/notice" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+								<li class="nav-item"><a href="/adminNotice" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
 										<p>공지사항</p>
 								</a></li>
 								<li class="nav-item"><a href="./widgets/info-box.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>

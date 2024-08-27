@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!-- header.jsp -->
-<%@ include file="/WEB-INF/view/layout/adminHeader.jsp"%>
+<%@ include file="/WEB-INF/view/layout/header.jsp"%>
 
 <div class="notice--list">
 	<h3 class="notice--title">공지사항</h3>
@@ -42,6 +42,6 @@
 </div>
 </div>
 <!-- end of content.jsp(xxx.jsp) -->
-<%@ include file="/WEB-INF/view/layout/adminFooter.jsp"%>
+<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
 </body>
 </html>
