@@ -1,16 +1,11 @@
 package com.tenco.movie.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tenco.movie.dto.SignInDTO;
 import com.tenco.movie.dto.SignUpDTO;
@@ -72,8 +67,8 @@ public class UserController {
 
 		User principal = userService.readUser(dto);
 
-		session.setAttribute(Define.PRINCIPAL, principal);
 		System.out.println("여기냐4444433");
+		session.setAttribute(Define.PRINCIPAL, principal);
 
 		return "redirect:/home";
 	}
@@ -150,7 +145,7 @@ public class UserController {
 //		if (dto.getLoginId().length() > 7 || dto.getLoginId().length() > 16) {
 //			throw new DataDeliveryException(Define.ENTER_ID_LENGTH, HttpStatus.BAD_REQUEST);
 //		}
-		if (dto.getLoginId().equals(dto.getLoginId())) {
+		if (!dto.getLoginId().equals(dto.getLoginId())) {
 			throw new DataDeliveryException(Define.DUPLICATION_ID, HttpStatus.BAD_REQUEST);
 		}
 
@@ -194,7 +189,7 @@ public class UserController {
 		if (!dto.getPhoneNum().matches("\\d{10,11}")) {
 			throw new DataDeliveryException(Define.NOT_VALIDATE_PHONE_NUM, HttpStatus.BAD_REQUEST);
 		}
-		if (dto.getPhoneNum().equals(dto.getPhoneNum())) {
+		if (!dto.getPhoneNum().equals(dto.getPhoneNum())) {
 			throw new DataDeliveryException(Define.DUPLICATION_PASSWORD, HttpStatus.BAD_REQUEST);
 		}
 

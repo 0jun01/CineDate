@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.tenco.movie.repository.interfaces.UserRepository">
+
+	<insert id="insert">
+		insert into user_tb(login_id, name, password, email, phone_num, birth_day, gender)
+		values( #{loginId}, #{name}, #{password}, #{email}, #{phoneNum}, #{birthDay}, #{gender})
+	</insert>
+	
+	<select id ="findByLoginId" resultType="com.tenco.movie.repository.model.User">
+		select * from user_tb where login_id = #{loginId};
+	</select>
+
+
+</mapper>
