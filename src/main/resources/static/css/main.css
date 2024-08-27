@@ -2,18 +2,18 @@
 
 .flex--between--wrap{
 	display: flex;
-	flex-direction: column;
+	justify-content: space-between;
 }
 
 .top--title{
 	color: #ff2588;
-	font-size: 45px;
+	font-size: 30px;
 	margin-top: 150px;
 	margin-bottom: 50px;
 }
 
 img{
-	width:100px;
+	width:150px;
 }
 
 .movie--list--box{
@@ -25,4 +25,53 @@ img{
 .movie--text--box{
 	display: flex;
 	flex-direction: column;
+}
+
+.movie--content--box{
+	margin: 10px;
+	border: 10px;
+}
+
+.movie--img-container {
+    position: relative;
+}
+
+.movie--img {
+    border-bottom: 10px;
+    display: block;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay with opacity */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding: 10px; /* Ensure that the overlay fits within the image */
+    box-sizing: border-box; /* Ensure padding is included in the dimensions */
+}
+
+.movie--img-container:hover .overlay {
+    opacity: 1;
+}
+
+.overlay-link {
+    color: white;
+    font-size: 1.2rem; /* Adjust font size as needed */
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 0; /* Space between links */
+    display: block;
+}
+
+.overlay-link:hover {
+    text-decoration: underline;
 }

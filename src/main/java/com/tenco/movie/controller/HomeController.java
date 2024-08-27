@@ -38,7 +38,14 @@ public class HomeController {
 	private final String WEEKLYBOXOFFICEURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json";
 	// 무비 상세 URI
 	private final String MOVIEDETAILURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json";
-
+	
+	
+	/**
+	 * 오픈 API에서 주간 박스오피스 데이터 파싱
+	 * @param Model
+	 * @return mainPage
+	 * @author 변영준
+	 */
 	@GetMapping("/home")
 	public String getMethodName(Model model) {
 		// 현재 날짜 가져오기
@@ -103,7 +110,8 @@ public class HomeController {
 		model.addAttribute("movieList",moviesList);
 		return "main";
 	}
-
+	
+	// TODO삭제예정
 	@GetMapping("/TMDB")
 	@ResponseBody
 	public TMDBDTO parseTMDB() {
@@ -137,6 +145,8 @@ public class HomeController {
 		return response.getBody();
 	}
 
+	
+	// TODO삭제예정
 	@GetMapping("/movieSearch")
 	@ResponseBody
 	public WeeklyBoxOffice parseMovieDate() {

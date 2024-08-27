@@ -22,6 +22,7 @@ public class Define {
 	public static final String ERROR_AGE_RESTRICTION = "관람 연령 제한에 따라 이 영화를 관람할 수 없습니다";
 	public static final String ERROR_MOVIE_SOLD_OUT = "이미 매진된 영화입니다";
 	public static final String ERROR_INVALID_SCREEN = "선택하신 상영관은 존재하지 않습니다";
+	public static final String ERROR_INVALID_MOVIE = "선택하신 영화는 더 이상 존재하지 않습니다";
 
 	// pay
 	public static final String ERROR_PAYMENT_FAILED = "결제에 실패하였습니다. 다시 시도해 주세요";

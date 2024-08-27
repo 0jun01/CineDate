@@ -13,9 +13,12 @@ import lombok.ToString;
 @ToString
 public class Actors {
 
-	private int id; 
+	private int id; // 액터 pk
+	private int movieId; // 무비 pk 번호
 	private String name; // 배우 이름
-	private int age; // 배우 나이
-	private String actorFaceFile; // 주연 사진
+	private String birth;// 출연진 생년월일
+	private String role; // 직업
+	private String nationality; //국적 
+	private String actorFaceFile; // 출연진 사진
 	
 }
