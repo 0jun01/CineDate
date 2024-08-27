@@ -207,6 +207,9 @@ public class UserController {
 	/**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fc104bb (mypage이미지미리보기추가)
 	 *마이페이지 
 	 *
 	 *@author 성후
@@ -220,6 +223,7 @@ public class UserController {
 	 * 
 	 */
 	
+<<<<<<< HEAD
 >>>>>>> 90a04a5 (mypage이미지미리보기추가)
 =======
 	 *마이페이지 
@@ -232,6 +236,9 @@ public class UserController {
 		return "redirect:/user/myPage";
 	}
 >>>>>>> b0fb7d2 (event 시작)
+=======
+>>>>>>> ed11005 (mypage이미지미리보기추가)
+>>>>>>> fc104bb (mypage이미지미리보기추가)
 	
 
 	/**
