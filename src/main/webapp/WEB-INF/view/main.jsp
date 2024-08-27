@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <link href="/css/main.css" rel="stylesheet">
 =======
 >>>>>>> 32a4fcf (영화 검색 기능 중)
+=======
+=======
+<link href="/css/main.css" rel="stylesheet">
+>>>>>>> 6616716 (영화 디테일 1차완료)
+>>>>>>> 528fecc (영화 디테일 1차완료)
 <!-- header.jsp -->
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 
@@ -59,6 +65,7 @@
 				<a id="btn--all--view" class='btn--all--view'>전체보기</a>
 			</div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 		</div>
 		<div class="movie--list--box">
 			<c:forEach var="movieList" items="${movieList}">
@@ -76,6 +83,8 @@
 				</div>
 			</c:forEach>
 =======
+=======
+>>>>>>> 528fecc (영화 디테일 1차완료)
 			<div class="movie--list--box">
 				<c:forEach var="movieList" items="${movieList}">
 					<div class="movie--text--box">
@@ -84,7 +93,28 @@
 					</div>
 				</c:forEach>
 			</div>
+<<<<<<< HEAD
 >>>>>>> 32a4fcf (영화 검색 기능 중)
+=======
+=======
+		</div>
+		<div class="movie--list--box">
+			<c:forEach var="movieList" items="${movieList}">
+				<div class="movie--content--box">
+					<div class="movie--img-container">
+						<img alt="" src="https://image.tmdb.org/t/p/w342/${movieList.movieImg}" class="movie--img">
+						<div class="overlay">
+							<a href="movie/detail?title=${movieList.title}" class="overlay-link">상세보기</a>
+							<a href="reservation/reservation" class="overlay-link">예매하기</a> 
+						</div>
+					</div>
+					<div>
+						<h3>${movieList.title}</h3>
+					</div>
+				</div>
+			</c:forEach>
+>>>>>>> 6616716 (영화 디테일 1차완료)
+>>>>>>> 528fecc (영화 디테일 1차완료)
 		</div>
 		<!-- 공지사항 -->
 		<div class="notice--wrap">

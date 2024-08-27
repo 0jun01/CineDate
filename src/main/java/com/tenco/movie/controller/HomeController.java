@@ -47,6 +47,7 @@ public class HomeController {
 	private final String WEEKLYBOXOFFICEURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json";
 	// 무비 상세 URI
 	private final String MOVIEDETAILURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json";
+<<<<<<< HEAD
 
 	HomeService homeService;
 
@@ -58,6 +59,12 @@ public class HomeController {
 	/**
 	 * 오픈 API에서 주간 박스오피스 데이터 파싱
 	 * 
+=======
+	
+	
+	/**
+	 * 오픈 API에서 주간 박스오피스 데이터 파싱
+>>>>>>> 528fecc (영화 디테일 1차완료)
 	 * @param Model
 	 * @return mainPage
 	 * @author 변영준
@@ -138,7 +145,11 @@ public class HomeController {
 		model.addAttribute("movieList", moviesList);
 		return "main";
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 528fecc (영화 디테일 1차완료)
 	// TODO삭제예정
 	@GetMapping("/TMDB")
 	@ResponseBody
@@ -173,6 +184,10 @@ public class HomeController {
 		return response.getBody();
 	}
 
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 528fecc (영화 디테일 1차완료)
 	// TODO삭제예정
 	@GetMapping("/movieSearch")
 	@ResponseBody

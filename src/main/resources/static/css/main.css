@@ -77,6 +77,7 @@ main {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 img{
 	width:150px;
 }
@@ -85,6 +86,16 @@ img{
 =======
 .movie--list--box {
 >>>>>>> 32a4fcf (영화 검색 기능 중)
+=======
+.movie--list--box {
+=======
+img{
+	width:150px;
+}
+
+.movie--list--box{
+>>>>>>> 6616716 (영화 디테일 1차완료)
+>>>>>>> 528fecc (영화 디테일 1차완료)
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -100,7 +111,11 @@ img{
 	border: 10px;
 }
 
+<<<<<<< HEAD
 .movie--img--container {
+=======
+.movie--img-container {
+>>>>>>> 528fecc (영화 디테일 1차완료)
     position: relative;
 }
 
@@ -127,7 +142,11 @@ img{
     box-sizing: border-box; /* Ensure padding is included in the dimensions */
 }
 
+<<<<<<< HEAD
 .movie--img--container:hover .overlay {
+=======
+.movie--img-container:hover .overlay {
+>>>>>>> 528fecc (영화 디테일 1차완료)
     opacity: 1;
 }
 
