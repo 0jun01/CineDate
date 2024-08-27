@@ -1,7 +1,5 @@
 package com.tenco.movie.repository.model;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +20,4 @@ public class Movies {
 	private String movieImg; // 무비 URL주소
 	private String movieDesc; // 영화 상세 설명
 	private String releaseDate; // 개봉일자
-	private Date endDate; // 종영일자
-	
 }
