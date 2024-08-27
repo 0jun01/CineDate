@@ -75,6 +75,7 @@ public class HomeController {
 				if (movieList != null && !movieList.isEmpty()) {
 					for (int i = 0; i < movieList.size(); i++) {
 						Movie firstMovie = movieList.get(i);
+						// TMDB에서 이미지 주소 추출해내기 이중 파싱
 						URI uri2 = UriComponentsBuilder.fromUriString(
 								TMDBBASEURL + TMDBKEY + "&language=ko-KR&page=1&query=" + firstMovie.getMovieNm())
 								.build().toUri();
@@ -85,6 +86,7 @@ public class HomeController {
 							tmdbMoviesList = tmdbdto.getResults();
 							if (tmdbMoviesList != null) {
 								TMDBMovies tmdbMovie = tmdbMoviesList.get(0);
+								// tmdbMovie 클래스를 movies로 변환하기 위해 빌더를 사용 
 								Movies movies= Movies.builder().title(tmdbMovie.getTitle())
 								.movieDesc(tmdbMovie.getOverview())
 								.movieImg(tmdbMovie.getPosterPath())
@@ -137,12 +139,6 @@ public class HomeController {
 	@GetMapping("/movieSearch")
 	@ResponseBody
 	public WeeklyBoxOffice parseMovieDate() {
-		// 일별 박스오피스 요청 URL
-		String dailyBoxOfficeURI = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json";
-		// 주간 박스오피스 요청 URI
-		String weeklyBoxOfficeUrl = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json";
-		// 무비 상세 URI
-		String movieDetailUrl = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json";
 
 		// 현재 날짜 가져오기
 		LocalDate now = LocalDate.now();
@@ -153,10 +149,12 @@ public class HomeController {
 		// yyyMMdd 형식으로 데이터를 날려야하기 때문에 포멧 해줬다
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 		String weeklyBoxDate = aWeek.format(formatter);
-
+		
+		System.out.println(weeklyBoxDate);
+		
 		// 요청 URI JSON으로 값 받기
 		URI uri = UriComponentsBuilder
-				.fromUriString(weeklyBoxOfficeUrl + "?" + "key=" + CONTENTKEY + "&targetDt=" + weeklyBoxDate).build()
+				.fromUriString(WEEKLYBOXOFFICEURL + "?" + "key=" + CONTENTKEY + "&targetDt=" + weeklyBoxDate +"&weekGb=1").build()
 				.toUri();
 
 		// RestTemplate로 응답
