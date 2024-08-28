@@ -38,6 +38,10 @@
 	<select id ="findByEmail" resultType="com.tenco.movie.repository.model.User">
 		select * from user_tb where email = #{email}
 	</select>
+	
+	<select id ="findById" resultType="com.tenco.movie.repository.model.User">
+		select * from user_tb where login_id = #{login_id};
+	</select>
 
 	<!-- 아이디 이메일로 찾기 -->
 	<select id="findByLoginIdForEmail" resultType="com.tenco.movie.repository.model.User">

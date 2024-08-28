@@ -9,13 +9,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+<<<<<<< HEAD
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+=======
+>>>>>>> 3d5e07c (event 초안)
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+<<<<<<< HEAD
 import org.springframework.web.client.RestTemplate;
+=======
+import org.springframework.web.bind.annotation.SessionAttribute;
+>>>>>>> 3d5e07c (event 초안)
 
 import com.tenco.movie.dto.GoogleOAuthToken;
 import com.tenco.movie.dto.GoogleProfile;
@@ -207,8 +214,13 @@ public class UserController {
 	 * @author 성후
 	 */
 	@GetMapping("/myPage")
-	public String myPage() {
-		return "user/myPage";
+	public String myPage( @SessionAttribute(Define.PRINCIPAL) User principal, Model model) {
+		
+		String name = principal.getLoginId();
+		
+	    User user = userService.getUserById(name);
+	    model.addAttribute("user", user);
+	    return "user/myPage";
 	}
 
 	/*
@@ -216,11 +228,20 @@ public class UserController {
 	 *
 	 * @author 성후
 	 */
+<<<<<<< HEAD
 	@PostMapping("/myPage")
 	public String myPageProFile() {
 		// 이름, 아이디, 닉네임 등록, 프로필 이미지 등록, 동의여부 확인, 수정하기버튼활성화
 		return "redirect:/user/myPage";
 	}
+=======
+	@PostMapping("/updateUser")
+    public String myPageUpDateUser(@RequestParam("login_id")String name, @RequestParam("name") String username) {
+        userService.updateUsername(name, username);
+        return "redirect:/myPage?login_id=" + name;
+    }
+	
+>>>>>>> 3d5e07c (event 초안)
 
 	/**
 	 * @return

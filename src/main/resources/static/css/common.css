@@ -305,3 +305,29 @@ table, th, td {
 	height: auto; /* 비율 유지 */
 	object-fit: cover; /* 이미지가 박스를 완전히 채우도록 */
 }
+/*이벤트 페이지*/
+.evt--area--menu {
+	margin-top: 10px;
+	display: flex;
+	justify-content: space-around;
+	font-size: large;
+	margin-bottom: 30px;
+}
+.evt--prize{
+	color: red;
+}
+.evt--item{
+	display: flex;
+	border: 1 solid black;
+	margin: 25px;
+	padding: 25px;
+	padding-top: 45px;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.evt--item--a{
+	margin: 25px;
+}
+.evt--prize--win .evt--prize--end{
+	border: 1 solid black;
+}
