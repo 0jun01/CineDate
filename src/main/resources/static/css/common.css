@@ -287,6 +287,28 @@ table, th, td {
 	object-fit: cover; /* 이미지가 박스를 완전히 채우도록 */
 }
 /*이벤트 페이지*/
+.evt--title {
+	height: 60px;
+	padding-top: 30px;
+	border-bottom: 3px solid black;
+	font-size: 100%;
+	margin-top: 20px;
+	margin: 0;
+	padding: 0;
+	border: 1;
+	vertical-align: baseline;
+	word-break: break-all;
+}
+
+.evt--area {
+	font-size: 100%;
+	margin: 0;
+	padding: 0;
+	border: 1;
+	vertical-align: baseline;
+	word-break: break-all;
+}
+
 .evt--area--menu {
 	margin-top: 10px;
 	display: flex;
@@ -294,10 +316,12 @@ table, th, td {
 	font-size: large;
 	margin-bottom: 30px;
 }
-.evt--prize{
+
+.evt--prize {
 	color: red;
 }
-.evt--item{
+
+.evt--item {
 	display: flex;
 	border: 1 solid black;
 	margin: 25px;
@@ -306,9 +330,13 @@ table, th, td {
 	justify-content: space-around;
 	flex-wrap: wrap;
 }
-.evt--item--a{
+
+.evt--item--a {
 	margin: 25px;
 }
-.evt--prize--win .evt--prize--end{
-	border: 1 solid black;
+
+.evt--prize--win {
+	border: 2px solid #fb4357;
+	background-color: #fb4357;
+	color: #ffffff;
 }

@@ -4,8 +4,8 @@
     <%@ include file="/WEB-INF/view/layout/header.jsp" %>
     
         <!-- start of content.jsp(xxx.jsp) -->
-	<div>
-	<h1>EVENT</h1>
+	<div class="evt--title">
+	<h1 style="margin-top: 25px;">EVENT</h1>
 	</div>
 	<div class="evt--area">
     <ul class="evt--area--menu">
@@ -15,8 +15,8 @@
         <li><a href="/event/event" title="" class="">극장별</a></li>
         <li><a href="/event/event" title="" class="">제휴/할인</a></li>        
     <div class="evt--prize">
-        <a href="/event/event" class=""><i>당첨자 발표</i></a>
-        <a href="/event/event" class=""><i>종료된 이벤트</i></a>
+        <a href="/event/event" class="evt--prize--win"><i>당첨자 발표</i></a>
+        <a href="/event/event" class="evt--prize--win"><i>종료된 이벤트</i></a>
     </div>
     </ul>    
     <!-- 이벤트 만드는중 성후 -->
