@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.HomeRepository;
+<<<<<<< HEAD
 import com.tenco.movie.repository.model.Actors;
 import com.tenco.movie.repository.model.Director;
 import com.tenco.movie.repository.model.Genres;
@@ -16,6 +17,8 @@ import com.tenco.movie.repository.model.MovieActor;
 import com.tenco.movie.repository.model.MovieDetailTB;
 import com.tenco.movie.repository.model.MovieDirector;
 import com.tenco.movie.repository.model.MovieGenre;
+=======
+>>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
 import com.tenco.movie.repository.model.Movies;
 import com.tenco.movie.utils.Define;
 
@@ -24,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class HomeService {
+<<<<<<< HEAD
 
 	HomeRepository homeRepository;
 
@@ -37,11 +41,22 @@ public class HomeService {
 	 * 
 	 * @param movies
 	 */
+=======
+	
+	HomeRepository homeRepository;
+	
+	@Autowired
+	public HomeService(HomeRepository homeRepository) {
+		this.homeRepository = homeRepository; 
+	}
+
+>>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
 	@Transactional
 	public void insertMovies(Movies movies) {
 		int result = 0;
 		try {
 			Movies moviesEntity = homeRepository.findByTitle(movies.getTitle());
+<<<<<<< HEAD
 
 			if (moviesEntity == null) {
 				result = homeRepository.insertMovie(movies);
@@ -52,11 +67,24 @@ public class HomeService {
 				}
 			}
 
+=======
+			
+			if(moviesEntity == null ) {
+				result = homeRepository.insertMovie(movies);
+				if(result == 0) {
+					System.out.println(movies.getTitle() + "은 이미 DB에 있어서 실패");
+				} else {
+					System.out.println(movies.getTitle() +"DB에 값 넣기 성공");
+				}
+			}
+			
+>>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
 		} catch (DataAccessException e) {
 			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
 			throw new RedirectException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
 		}
+<<<<<<< HEAD
 
 	}
 
@@ -214,5 +242,8 @@ public class HomeService {
 		} else {
 			System.out.println("이미있다니까");
 		}
+=======
+		
+>>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
 	}
 }

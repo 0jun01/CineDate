@@ -38,9 +38,22 @@
 =======
 			${movie.title}
 			<br>
+<<<<<<< HEAD
 			장르 : ${movie.genre}
+=======
+			${movieDetail.titleEn}
 			<br>
-			감독 : ${movie.director}
+			상영시간${movieDetail.showTm}분
+			<br>
+			${movieDetail.prdStatNm}
+			<br>
+			${movieDetail.watchGradeNm}
+			<br>
+			${movieDetail.genre}
+			
+>>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
+			<br>
+			감독 : ${movieDetail.director}
 			<br>
 			배우 : 
 			<c:forEach var="actors" items="${actors}" varStatus="status">
@@ -51,7 +64,11 @@
 			
 			</c:forEach>
 			<br>
+<<<<<<< HEAD
 			<img alt="" src="https://image.tmdb.org/t/p/w342/${movie.movieImg}">
+=======
+			<img alt="이미지 준비중입니다." src="https://image.tmdb.org/t/p/w342${movie.movieImg}">
+>>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
 			<br> 
 			개봉 : ${movie.releaseDate}
 			<br>

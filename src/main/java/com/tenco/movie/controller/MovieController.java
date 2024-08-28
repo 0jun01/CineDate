@@ -62,6 +62,9 @@ public class MovieController {
 	 */
 	@GetMapping("/detail")
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
 	public String detailPage(Model model, @RequestParam("title") String title) {
 
 		// 타이틀 유효성 검사
