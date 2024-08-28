@@ -18,7 +18,7 @@
 		<div class="movie--list--box">
 			<c:forEach var="movieList" items="${movieList}">
 				<div class="movie--content--box">
-					<div class="movie--img-container">
+					<div class="movie--img--container">
 						<img alt="" src="https://image.tmdb.org/t/p/w342/${movieList.movieImg}" class="movie--img">
 						<div class="overlay">
 							<a href="movie/detail?title=${movieList.title}" class="overlay-link">상세보기</a>
