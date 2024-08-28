@@ -4,7 +4,17 @@
 <mapper namespace="com.tenco.movie.repository.interfaces.NoticeRepository">
 
 	<select id="findAll" resultType="com.tenco.movie.repository.model.Notice">
-		select * from notice_tb;
+		select * from notice_tb order by created_at desc limit #{limit} offset #{offset} 
 	</select>
 
+	<select id="findById" resultType="com.tenco.movie.repository.model.Notice">
+		select * from notice_tb where id = #{id}
+	</select>
+	
+	<select id="countNotice" >
+		select count(*) from notice_tb;
+	</select>
+	
+	
 </mapper>
+
