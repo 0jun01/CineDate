@@ -13,6 +13,10 @@
 	<select id ="findByLoginId" resultType="com.tenco.movie.repository.model.User">
 		select * from user_tb where login_id = #{loginId};
 	</select>
+	
+	<select id ="findById" resultType="com.tenco.movie.repository.model.User">
+		select * from user_tb where login_id = #{login_id};
+	</select>
 
 
 </mapper>

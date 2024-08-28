@@ -14,9 +14,10 @@ public interface UserRepository {
 	int insert(User user);
 	int updateById(User user);
 	int deleteById();
-	User findById(); // loginId
+	User findById(@Param("login_id")String name); // loginId
 	User findPassword();
 	List<User> findAll();
+	void update(User user);
 	
 	public User findByUsernameAndPassword(@Param("loginId") String loginId, @Param("password") String password);
 	
@@ -27,6 +28,8 @@ public interface UserRepository {
 	
 	// 휴대폰 번호 중복 검사 
 	User isPhoneNumDuplicated(String phoneNum);
+	void updateUsername(Long userId, String username);
+	
 	
 	
 
