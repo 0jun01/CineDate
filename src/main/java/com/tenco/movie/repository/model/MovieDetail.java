@@ -17,6 +17,7 @@ public class MovieDetail {
 	private String movieDesc; // 영화 설명
 	private String movieImg; // 영화 이미지
 	private String releaseDate; // 개봉일
+	private String director; // 디렉터 이름
 	private String showTm; // 상영 시간
 	private String prdStatNm; // 개봉여부
 	private String watchGradeNm; // 몇세 관람가인지

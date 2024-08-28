@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,7 @@ import com.tenco.movie.dto.WeeklyBoxOffice;
 import com.tenco.movie.dto.WeeklyBoxOffice.BoxOfficeResult;
 import com.tenco.movie.dto.WeeklyBoxOffice.Movie;
 import com.tenco.movie.repository.model.Movies;
+import com.tenco.movie.service.HomeService;
 
 @Controller
 public class HomeController {
@@ -45,7 +47,14 @@ public class HomeController {
 	private final String WEEKLYBOXOFFICEURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json";
 	// 무비 상세 URI
 	private final String MOVIEDETAILURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json";
+	
+	HomeService homeService;
 
+	@Autowired
+	public HomeController(HomeService homeService) {
+		this.homeService = homeService;
+	}
+	
 	/**
 	 * 오픈 API에서 주간 박스오피스 데이터 파싱
 	 * 
@@ -107,6 +116,7 @@ public class HomeController {
 										.movieDesc(tmdbMovie.getOverview()).movieImg(tmdbMovie.getPosterPath())
 										.releaseDate(tmdbMovie.getReleaseDate()).build();
 								moviesList.add(movies);
+								homeService.insertMovies(movies);
 							}
 						}
 					}

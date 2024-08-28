@@ -34,7 +34,7 @@ public class MovieController {
 	 * @author 김가령
 	 */
 	@GetMapping("/movies")
-	public String getMoviesPage() {
+	public String moviesPage() {
 		return "/movie/moviePage";
 	}
 
@@ -44,7 +44,7 @@ public class MovieController {
 	 * @author 변영준
 	 */
 	@GetMapping("/detail")
-	public String moviePage(Model model, @RequestParam("title") String title) {
+	public String detailPage(Model model, @RequestParam("title") String title) {
 
 		// 타이틀 유효성 검사
 		if (title == null || title.isEmpty()) {
