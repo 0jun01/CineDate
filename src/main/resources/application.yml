@@ -22,6 +22,7 @@ spring:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     username: root #사용자 ID를 지정
 =======
     username: kkr #사용자 ID를 지정
@@ -32,6 +33,9 @@ spring:
 =======
     username: ksh #사용자 ID를 지정
 >>>>>>> 671bbcf (mypage이미지미리보기추가)
+=======
+    username: kkr #사용자 ID를 지정
+>>>>>>> f9764c1 (공지사항 상세보기, 페이징)
     password: asd123 #DB 비밀번호 여기서는 빈 문자열로 설정
   sql:
     init:
