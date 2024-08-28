@@ -48,6 +48,7 @@ public class HomeController {
 	// 무비 상세 URI
 	private final String MOVIEDETAILURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json";
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	HomeService homeService;
 
@@ -55,7 +56,16 @@ public class HomeController {
 	public HomeController(HomeService homeService) {
 		this.homeService = homeService;
 	}
+=======
+	
+	HomeService homeService;
+>>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
 
+	@Autowired
+	public HomeController(HomeService homeService) {
+		this.homeService = homeService;
+	}
+	
 	/**
 	 * 오픈 API에서 주간 박스오피스 데이터 파싱
 	 * 
@@ -121,6 +131,7 @@ public class HomeController {
 						if (tmdbdto != null) {
 							tmdbMoviesList = tmdbdto.getResults();
 							if (tmdbMoviesList != null) {
+<<<<<<< HEAD
 								Boolean found = false;
 								for (TMDBMovies tmdbMovie : tmdbMoviesList) {
 									String title = tmdbMovie.getTitle();
@@ -136,6 +147,15 @@ public class HomeController {
 								}
 								// TODO 나중에 따로 뺄꺼 insertMovies는 주간오피스 데이터 DB에 자동으로 넣는 녀석 movies_tb에
 //								homeService.insertMovies(movies);
+=======
+								TMDBMovies tmdbMovie = tmdbMoviesList.get(0);
+								// tmdbMovie 클래스를 movies로 변환하기 위해 빌더를 사용
+								Movies movies = Movies.builder().title(tmdbMovie.getTitle())
+										.movieDesc(tmdbMovie.getOverview()).movieImg(tmdbMovie.getPosterPath())
+										.releaseDate(tmdbMovie.getReleaseDate()).build();
+								moviesList.add(movies);
+								homeService.insertMovies(movies);
+>>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
 							}
 						}
 					}

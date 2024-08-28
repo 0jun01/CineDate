@@ -1,6 +1,7 @@
 package com.tenco.movie.repository.interfaces;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -69,4 +70,19 @@ public interface HomeRepository {
 public interface HomeRepository {
 
 >>>>>>> 32a4fcf (영화 검색 기능 중)
+=======
+public interface HomeRepository {
+
+=======
+import org.apache.ibatis.annotations.Mapper;
+
+import com.tenco.movie.repository.model.Movies;
+
+@Mapper
+public interface HomeRepository {
+	
+	public int insertMovie(Movies movies); 
+	public Movies findByTitle(String title);
+>>>>>>> e6ede81 (영화 API DB로 자동 연결구현)
+>>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
 }
