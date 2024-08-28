@@ -282,6 +282,23 @@ public class UserService {
 		return userRepository.findByEmail(email);
 	}
 
-	
+	 @Transactional
+	    public User getUserById(String name) {
+	        User user = userRepository.findById(name);
+	        if (user == null) {
+	            throw new DataDeliveryException("User not found", HttpStatus.NOT_FOUND);
+	        }
+	        return user;
+	    }
+
+	    @Transactional
+	    public void updateUsername(String name, String newUsername) {
+	        User user = userRepository.findById(name);
+	        if (user == null) {
+	            throw new DataDeliveryException("User not found", HttpStatus.NOT_FOUND);
+	        }
+	        user.setName(newUsername);
+	        userRepository.update(user);
+	    }
 
 }

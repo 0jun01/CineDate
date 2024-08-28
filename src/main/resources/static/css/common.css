@@ -240,21 +240,12 @@ label {
 	left: 50%;
 	transform: translate(-50%, -74%) rotate(45deg);
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 671bbcf (mypage이미지미리보기추가)
+
 .find--result{
     font-size: 16px;
     margin-bottom: 30px;
 }
-<<<<<<< HEAD
->>>>>>> 5a6eb19 (로그인 및 회원가입 완료)
-=======
-=======
->>>>>>> 90a04a5 (mypage이미지미리보기추가)
->>>>>>> 671bbcf (mypage이미지미리보기추가)
+
 
 table, th, td {
 	border: 1px solid black;
@@ -371,4 +362,21 @@ table, th, td {
 	display: block;
     margin-inline: 15%;
     padding: 10px;
+.evt--prize{
+	color: red;
+}
+.evt--item{
+	display: flex;
+	border: 1 solid black;
+	margin: 25px;
+	padding: 25px;
+	padding-top: 45px;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.evt--item--a{
+	margin: 25px;
+}
+.evt--prize--win .evt--prize--end{
+	border: 1 solid black;
 }
