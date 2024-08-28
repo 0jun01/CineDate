@@ -146,7 +146,7 @@
 							</ul></li>
 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon bi bi-clipboard-fill"></i>
 								<p>
-									게시판 관리 <i class="nav-arrow bi bi-chevron-right"></i>
+									관리 <i class="nav-arrow bi bi-chevron-right"></i>
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
@@ -154,10 +154,10 @@
 										<p>공지사항</p>
 								</a></li>
 								<li class="nav-item"><a href="./widgets/info-box.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>이벤트</p>
+										<p>이벤트[미정]</p>
 								</a></li>
-								<li class="nav-item"><a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>기타</p>
+								<li class="nav-item"><a href="/adminMemberList" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+										<p>회원정보</p>
 								</a></li>
 							</ul></li>
 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon bi bi-box-seam-fill"></i>

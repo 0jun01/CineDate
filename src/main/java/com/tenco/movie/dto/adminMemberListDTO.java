@@ -1,4 +1,6 @@
-package com.tenco.movie.repository.model;
+package com.tenco.movie.dto;
+
+import com.tenco.movie.repository.model.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,19 +9,19 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@AllArgsConstructor
 @ToString
-public class User {
-	
+@Builder
+public class adminMemberListDTO {
+
 	private Integer id;
 	private String loginId;
 	private String name;
-	private String password;
 	private String email;
 	private String phoneNum;
 	private String birthDay;
 	private String gender;
+	
 	
 }
