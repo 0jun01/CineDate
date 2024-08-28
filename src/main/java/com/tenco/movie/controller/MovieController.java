@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.Actors;
 import com.tenco.movie.repository.model.Movies;
+import com.tenco.movie.repository.model.Review;
 import com.tenco.movie.service.MovieService;
+import com.tenco.movie.service.ReviewService;
 import com.tenco.movie.utils.Define;
 
 @Controller
@@ -21,11 +23,15 @@ import com.tenco.movie.utils.Define;
 public class MovieController {
 	
 	private final MovieService movieService;
+	private final ReviewService reviewService;
 	
 	@Autowired
-	public MovieController(MovieService movieService) {
+	public MovieController(MovieService movieService, ReviewService reviewService) {
 		this.movieService = movieService;
+		this.reviewService = reviewService;
 	}
+	
+	
 	
 	/**
 	 * 영화 페이지 요청
@@ -65,9 +71,14 @@ public class MovieController {
 		for (Actors actors : movieActors) {
 			System.out.println(actors);
 		}
+		List<Review> movieReviews = reviewService.getReviewsByMovieId(movieId);
+		double averageRating = reviewService.getAverageRatingByMovieId(movieId);
 		
 		model.addAttribute("actors",movieActors);
 		model.addAttribute("movie",selectedMovies);
+		model.addAttribute("reviews", movieReviews);
+		model.addAttribute("averageRating", averageRating);
+		
 		return "/movie/movieDetail";
 	}
 	

@@ -286,3 +286,18 @@ table, th, td {
 	height: auto; /* 비율 유지 */
 	object-fit: cover; /* 이미지가 박스를 완전히 채우도록 */
 }
+
+.review-list {
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px;
+}
+
+.review-item {
+    display: flex; 
+    flex-direction: row; 
+    gap: 40px; 
+    border: 1px solid #ddd; 
+    padding: 15px; 
+    border-radius: 5px; 
+}

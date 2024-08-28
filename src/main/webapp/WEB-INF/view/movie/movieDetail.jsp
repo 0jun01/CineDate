@@ -29,6 +29,30 @@
 			${movie.movieDesc}
 	</div>
 	
+	<!-- 평균 평점 표시 -->
+    <div>
+        <h3>관람객 평점: ${averageRating}</h3>
+    </div>
+	
+	<br>
+    <!-- 관람평 목록 -->
+    <div id="review-section">
+        <h2>관람평</h2><br>
+        <div class="review-list">
+            <c:forEach var="review" items="${reviews}">
+                <div class="review-item">
+                    <p><strong>ID:</strong> ${review.userId}</p>
+                    <p><strong>관람평:</strong> ${review.reviewText}</p>
+                    <p><strong>평점:</strong> ${review.rating}</p>
+                    <p><strong>작성일:</strong> ${review.timestampToString()}</p>
+                    <hr>
+                </div>
+            </c:forEach>
+            <c:if test="${empty reviews}">
+                <p>현재 작성된 관람평이 없습니다.</p>
+            </c:if>
+        </div>
+    </div>
 
 </div>
 
