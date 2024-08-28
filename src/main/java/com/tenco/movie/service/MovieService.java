@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.interfaces.MovieRepository;
 import com.tenco.movie.repository.model.Actors;
+import com.tenco.movie.repository.model.MovieDetail;
 import com.tenco.movie.repository.model.Movies;
 import com.tenco.movie.utils.Define;
 
@@ -20,11 +21,17 @@ public class MovieService {
 	
 	@Autowired
 	private final MovieRepository movieRepository;
-	
+
+	/**
+	 * 무비 엔터티를 movieController에 보내기
+	 * @param title
+	 * @return movieEntity
+	 */
 	public Movies readMovieByTitle(String title) {
 		Movies movieEntity = null;
 		
 		try {
+			// 타이틀로 무비엔터티 만들기
 			movieEntity = movieRepository.findByTitle(title);
 		} catch (DataDeliveryException e) {
 			throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE, HttpStatus.BAD_REQUEST);
@@ -33,11 +40,17 @@ public class MovieService {
 		}
 		return movieEntity;
 	}
-
+	
+	/**
+	 * movieId를 받아서 그 영화에 출연한 배우들 출력하기
+	 * @param movieId
+	 * @return actorsEntity
+	 */
 	public List<Actors> readActorsByMovieId(int movieId) {
 		List<Actors > actorsEntity = null;
 		
 		try {
+			// movieId로 select 때려서 배우 리스트 받아 오기
 			actorsEntity = movieRepository.findByMovieId(movieId);
 		} catch (DataDeliveryException e) {
 			throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE, HttpStatus.BAD_REQUEST);
@@ -45,6 +58,18 @@ public class MovieService {
 			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return actorsEntity;
+	}
+
+	public MovieDetail readMovieAllofData(int movieId) {
+		MovieDetail detailEntity = null;
+		try {
+			detailEntity = movieRepository.findDetailByMovieId(movieId);
+		} catch (DataDeliveryException e) {
+			throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE, HttpStatus.BAD_REQUEST);
+		} catch (Exception e) {
+			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return detailEntity;
 	}
 
 }

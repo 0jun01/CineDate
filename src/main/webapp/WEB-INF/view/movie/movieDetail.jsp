@@ -9,7 +9,16 @@
 	<div id="in--wrap">
 			${movie.title}
 			<br>
-			장르 : ${movie.genre}
+			${movieDetail.titleEn}
+			<br>
+			${movieDetail.showTm}
+			<br>
+			${movieDetail.prdStatNm}
+			<br>
+			${movieDetail.watchGradeNm}
+			<br>
+			${movieDetail.genre}
+			
 			<br>
 			감독 : ${movie.director}
 			<br>
@@ -22,7 +31,7 @@
 			
 			</c:forEach>
 			<br>
-			<img alt="" src="https://image.tmdb.org/t/p/w342/${movie.movieImg}">
+			<img alt="이미지 준비중입니다." src="https://image.tmdb.org/t/p/w342/${movie.movieImg}">
 			<br> 
 			개봉 : ${movie.releaseDate}
 			<br>

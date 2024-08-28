@@ -32,7 +32,7 @@ img{
 	border: 10px;
 }
 
-.movie--img-container {
+.movie--img--container {
     position: relative;
 }
 
@@ -59,7 +59,7 @@ img{
     box-sizing: border-box; /* Ensure padding is included in the dimensions */
 }
 
-.movie--img-container:hover .overlay {
+.movie--img--container:hover .overlay {
     opacity: 1;
 }
 

@@ -15,7 +15,7 @@ public class Movies {
 
 	private int id;
 	private String title; // 영화 제목
-	private String genre; // 영화 장르
+	// private String genre; // 영화 장르
 	private String director; // 영화 감독
 	private String movieImg; // 무비 URL주소
 	private String movieDesc; // 영화 상세 설명
