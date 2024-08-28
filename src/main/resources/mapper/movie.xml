@@ -20,14 +20,36 @@
 
 	<select id="findDetailByMovieId"
 		resultType="com.tenco.movie.repository.model.MovieDetail">
-		select
-		m.title,md.title_en,m.movie_desc,m.movie_img,m.release_date,md.show_tm,md.open_dt,md.prd_stat_nm,md.watch_grade_Nm,GROUP_CONCAT(g.genre_name
-		SEPARATOR ', ') as genre
-		from movies_tb as m
-		left join movie_detail_tb as md on m.id = md.movie_id
-		LEFT JOIN movie_genre_tb AS mg ON m.id = mg.movie_id
-		LEFT JOIN genres_tb AS g ON mg.genre_id = g.id
-		where m.id = 3;
+		SELECT
+		m.title,
+		md.title_en,
+		m.movie_desc,
+		m.movie_img,
+		m.release_date,
+		md.show_tm,
+		md.open_dt,
+		md.prd_stat_nm,
+		md.watch_grade_Nm,
+		GROUP_CONCAT(DISTINCT g.genre_name SEPARATOR ', ') AS genre,
+		GROUP_CONCAT(DISTINCT d.director_name SEPARATOR ', ') AS director
+		FROM
+		movies_tb AS m
+		LEFT JOIN
+		movie_detail_tb AS md ON m.id = md.movie_id
+		LEFT JOIN
+		movie_genre_tb AS mg ON m.id = mg.movie_id
+		LEFT JOIN
+		genres_tb AS g ON mg.genre_id = g.id
+		LEFT JOIN
+		movie_director_tb AS mdi ON mdi.movie_id = m.id
+		LEFT JOIN
+		directors_tb AS d ON d.id = mdi.director_id
+		WHERE
+		m.id = #{id}
+		GROUP BY
+		m.title, md.title_en, m.movie_desc, m.movie_img, m.release_date, md.show_tm,
+		md.open_dt, md.prd_stat_nm, md.watch_grade_Nm;
 	</select>
+
 
 </mapper>

@@ -11,7 +11,7 @@
 			<br>
 			${movieDetail.titleEn}
 			<br>
-			${movieDetail.showTm}
+			상영시간${movieDetail.showTm}분
 			<br>
 			${movieDetail.prdStatNm}
 			<br>
@@ -20,7 +20,7 @@
 			${movieDetail.genre}
 			
 			<br>
-			감독 : ${movie.director}
+			감독 : ${movieDetail.director}
 			<br>
 			배우 : 
 			<c:forEach var="actors" items="${actors}" varStatus="status">
@@ -31,7 +31,7 @@
 			
 			</c:forEach>
 			<br>
-			<img alt="이미지 준비중입니다." src="https://image.tmdb.org/t/p/w342/${movie.movieImg}">
+			<img alt="이미지 준비중입니다." src="https://image.tmdb.org/t/p/w342${movie.movieImg}">
 			<br> 
 			개봉 : ${movie.releaseDate}
 			<br>
