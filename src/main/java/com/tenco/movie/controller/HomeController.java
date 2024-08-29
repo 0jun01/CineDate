@@ -49,6 +49,7 @@ public class HomeController {
 	private final String MOVIEDETAILURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	HomeService homeService;
 
@@ -58,6 +59,9 @@ public class HomeController {
 	}
 =======
 	
+=======
+
+>>>>>>> a3aafde (3차 자동 인설트 완성)
 	HomeService homeService;
 >>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
 
@@ -65,7 +69,7 @@ public class HomeController {
 	public HomeController(HomeService homeService) {
 		this.homeService = homeService;
 	}
-	
+
 	/**
 	 * 오픈 API에서 주간 박스오피스 데이터 파싱
 	 * 
@@ -132,6 +136,9 @@ public class HomeController {
 							tmdbMoviesList = tmdbdto.getResults();
 							if (tmdbMoviesList != null) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a3aafde (3차 자동 인설트 완성)
 								Boolean found = false;
 								for (TMDBMovies tmdbMovie : tmdbMoviesList) {
 									String title = tmdbMovie.getTitle();
@@ -145,6 +152,7 @@ public class HomeController {
 										break; // 정확히 일치하는 항목을 찾으면 루프 종료
 									}
 								}
+<<<<<<< HEAD
 								// TODO 나중에 따로 뺄꺼 insertMovies는 주간오피스 데이터 DB에 자동으로 넣는 녀석 movies_tb에
 //								homeService.insertMovies(movies);
 =======
@@ -154,6 +162,9 @@ public class HomeController {
 										.movieDesc(tmdbMovie.getOverview()).movieImg(tmdbMovie.getPosterPath())
 										.releaseDate(tmdbMovie.getReleaseDate()).build();
 								moviesList.add(movies);
+=======
+								// insertMovies는 주간오피스 데이터 DB에 자동으로 넣는 녀석 movies_tb에
+>>>>>>> a3aafde (3차 자동 인설트 완성)
 								homeService.insertMovies(movies);
 >>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
 							}
@@ -310,6 +321,10 @@ public class HomeController {
 										for (PersonDTO director : movieInfo.getDirectors()) {
 											System.out.println("Director: " + director.getPeopleNm() + " ("
 													+ director.getPeopleNmEn() + ")");
+<<<<<<< HEAD
+=======
+											homeService.insertDirector(movieId, director.getPeopleNm());
+>>>>>>> a3aafde (3차 자동 인설트 완성)
 										}
 									}
 
