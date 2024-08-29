@@ -13,6 +13,7 @@
 
 	<div id="in--wrap">
 <<<<<<< HEAD
+<<<<<<< HEAD
 		영화 제목: ${movie.title} <br> 영화 영어 제목 : ${movieDetail.titleEn} <br>
 		상영시간 : ${movieDetail.showTm}분 <br> ${movieDetail.prdStatNm} <br>
 		${movieDetail.watchGradeNm} <br> ${movieDetail.genre} <br>
@@ -42,8 +43,13 @@
 			장르 : ${movie.genre}
 =======
 			${movieDetail.titleEn}
+=======
+			영화 제목: ${movie.title}
 			<br>
-			상영시간${movieDetail.showTm}분
+			영화 영어 제목 : ${movieDetail.titleEn}
+>>>>>>> a3aafde (3차 자동 인설트 완성)
+			<br>
+			상영시간 : ${movieDetail.showTm}분
 			<br>
 			${movieDetail.prdStatNm}
 			<br>

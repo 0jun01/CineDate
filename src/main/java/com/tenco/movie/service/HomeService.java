@@ -10,6 +10,7 @@ import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.HomeRepository;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.tenco.movie.repository.model.Actors;
 import com.tenco.movie.repository.model.Director;
 import com.tenco.movie.repository.model.Genres;
@@ -19,6 +20,11 @@ import com.tenco.movie.repository.model.MovieDirector;
 import com.tenco.movie.repository.model.MovieGenre;
 =======
 >>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
+=======
+import com.tenco.movie.repository.model.Genres;
+import com.tenco.movie.repository.model.MovieDetailTB;
+import com.tenco.movie.repository.model.MovieGenre;
+>>>>>>> a3aafde (3차 자동 인설트 완성)
 import com.tenco.movie.repository.model.Movies;
 import com.tenco.movie.utils.Define;
 
@@ -27,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class HomeService {
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 	HomeRepository homeRepository;
@@ -43,19 +50,31 @@ public class HomeService {
 	 */
 =======
 	
+=======
+
+>>>>>>> a3aafde (3차 자동 인설트 완성)
 	HomeRepository homeRepository;
-	
+
 	@Autowired
 	public HomeService(HomeRepository homeRepository) {
-		this.homeRepository = homeRepository; 
+		this.homeRepository = homeRepository;
 	}
 
+<<<<<<< HEAD
 >>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
+=======
+	/**
+	 * movies_tb에 값넣기
+	 * 
+	 * @param movies
+	 */
+>>>>>>> a3aafde (3차 자동 인설트 완성)
 	@Transactional
 	public void insertMovies(Movies movies) {
 		int result = 0;
 		try {
 			Movies moviesEntity = homeRepository.findByTitle(movies.getTitle());
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 			if (moviesEntity == null) {
@@ -70,21 +89,32 @@ public class HomeService {
 =======
 			
 			if(moviesEntity == null ) {
+=======
+
+			if (moviesEntity == null) {
+>>>>>>> a3aafde (3차 자동 인설트 완성)
 				result = homeRepository.insertMovie(movies);
-				if(result == 0) {
+				if (result == 0) {
 					System.out.println(movies.getTitle() + "은 이미 DB에 있어서 실패");
 				} else {
-					System.out.println(movies.getTitle() +"DB에 값 넣기 성공");
+					System.out.println(movies.getTitle() + "DB에 값 넣기 성공");
 				}
 			}
+<<<<<<< HEAD
 			
 >>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
+=======
+
+>>>>>>> a3aafde (3차 자동 인설트 완성)
 		} catch (DataAccessException e) {
 			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
 			throw new RedirectException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a3aafde (3차 자동 인설트 완성)
 
 	}
 
@@ -156,6 +186,12 @@ public class HomeService {
 	@Transactional
 	public void findGenreId(String genreName, int movieId) {
 		int genreId = 0;
+<<<<<<< HEAD
+=======
+		System.out.println("---------------------------------");
+		System.out.println("genreName : " + genreName + " movieId : " + movieId);
+		System.out.println("---------------------------------");
+>>>>>>> a3aafde (3차 자동 인설트 완성)
 		Genres genresEntity = null;
 		try {
 
@@ -173,6 +209,11 @@ public class HomeService {
 			}
 			genreId = genresEntity.getId();
 //			// 2. movie_genre_tb에 movie_id가 있는지 찾아 본다.
+<<<<<<< HEAD
+=======
+			System.out.println("movieId : " + movieId);
+			System.out.println("genreId : " + genreId);
+>>>>>>> a3aafde (3차 자동 인설트 완성)
 			MovieGenre movieGenre = homeRepository.checkMovieGenreExists(movieId, genreId);
 //			// 2-1. movie_genre_tb에 movie_id가 없으면 movie_id와 genre_id를 인설트 해준다.
 			if (movieGenre == null) {
@@ -192,6 +233,7 @@ public class HomeService {
 	}
 
 	@Transactional
+<<<<<<< HEAD
 	public void insertDirector(int movieId, Director director) {
 		Director directorEntity = null;
 		
@@ -245,5 +287,8 @@ public class HomeService {
 =======
 		
 >>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
+=======
+	public void insertDirector(int movieId, String peopleNm) {
+>>>>>>> a3aafde (3차 자동 인설트 완성)
 	}
 }

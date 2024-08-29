@@ -38,8 +38,12 @@
 		GROUP_CONCAT(DISTINCT d.name SEPARATOR ', ') AS director
 =======
 		GROUP_CONCAT(DISTINCT g.genre_name SEPARATOR ', ') AS genre,
+<<<<<<< HEAD
 		GROUP_CONCAT(DISTINCT d.director_name SEPARATOR ', ') AS director
 >>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
+=======
+		GROUP_CONCAT(DISTINCT d.name SEPARATOR ', ') AS director
+>>>>>>> a3aafde (3차 자동 인설트 완성)
 		FROM
 		movies_tb AS m
 		LEFT JOIN
@@ -88,7 +92,7 @@
 		m.id = #{id}
 		GROUP BY
 		m.title, md.title_en, m.movie_desc, m.movie_img, m.release_date, md.show_tm,
-		md.open_dt, md.prd_stat_nm, md.watch_grade_Nm;
+		md.open_dt, md.prd_stat_nm, md.watch_grade_Nm
 	</select>
 
 
