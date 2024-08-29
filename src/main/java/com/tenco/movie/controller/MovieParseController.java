@@ -18,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.tenco.movie.dto.TMDBCreditsDTO;
 import com.tenco.movie.dto.TMDBCreditsDTO.CastDTO;
+<<<<<<< HEAD
 import com.tenco.movie.dto.TMDBCreditsDTO.CrewDTO;
 import com.tenco.movie.dto.TMDBDTO;
 import com.tenco.movie.dto.TMDBDTO.TMDBMovies;
@@ -29,6 +30,19 @@ import com.tenco.movie.repository.model.Director;
 import com.tenco.movie.repository.model.Movies;
 import com.tenco.movie.service.HomeService;
 
+=======
+import com.tenco.movie.dto.TMDBDTO;
+import com.tenco.movie.dto.WeeklyBoxOffice;
+import com.tenco.movie.dto.TMDBDTO.TMDBMovies;
+import com.tenco.movie.dto.WeeklyBoxOffice.BoxOfficeResult;
+import com.tenco.movie.dto.WeeklyBoxOffice.Movie;
+import com.tenco.movie.repository.model.Actors;
+import com.tenco.movie.repository.model.Movies;
+import com.tenco.movie.service.HomeService;
+
+import lombok.Builder;
+
+>>>>>>> 96e61be (영화API파싱 거의 95완료)
 @Controller
 public class MovieParseController {
 
@@ -71,7 +85,10 @@ public class MovieParseController {
 		List<TMDBMovies> tmdbMoviesList = new ArrayList<>();
 		List<Movies> moviesList = new ArrayList<>();
 		List<CastDTO> castList = new ArrayList<>();
+<<<<<<< HEAD
 		List<CrewDTO> crewList = new ArrayList<>();
+=======
+>>>>>>> 96e61be (영화API파싱 거의 95완료)
 
 		Movies movies = null;
 		TMDBDTO tmdbdto = null;
@@ -124,7 +141,10 @@ public class MovieParseController {
 												HttpMethod.GET, null, TMDBCreditsDTO.class);
 										tmDto = response3.getBody();
 										castList = tmDto.getCast();
+<<<<<<< HEAD
 										crewList = tmDto.getCrew();
+=======
+>>>>>>> 96e61be (영화API파싱 거의 95완료)
 										// 상위 10명만 선택
 										List<CastDTO> top10CastList = castList.stream().limit(5) // 상위 10명 선택
 												.collect(Collectors.toList());
@@ -132,6 +152,7 @@ public class MovieParseController {
 											int movieId = homeService.readMovieByTitle(title);
 											Actors actors = Actors.builder().name(castDTO.getName())
 													.actorFaceFile(castDTO.getProfilePath()).build();
+<<<<<<< HEAD
 //											TODO homeService.insertActors(actors, movieId);
 										}
 										for (CrewDTO crewDTO : crewList) {
@@ -143,6 +164,9 @@ public class MovieParseController {
 												// TODO 인서트문 주석
 //												homeService.insertDirector(movieId, director);
 											}
+=======
+											homeService.insertActors(actors, movieId);
+>>>>>>> 96e61be (영화API파싱 거의 95완료)
 										}
 									}
 								}

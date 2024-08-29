@@ -77,20 +77,23 @@ public interface HomeRepository {
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.tenco.movie.repository.model.Actors;
 import com.tenco.movie.repository.model.Director;
 import com.tenco.movie.repository.model.Genres;
+import com.tenco.movie.repository.model.MovieActor;
 import com.tenco.movie.repository.model.MovieDetailTB;
 import com.tenco.movie.repository.model.MovieGenre;
 import com.tenco.movie.repository.model.Movies;
 
 @Mapper
 public interface HomeRepository {
-	
+
 	// movies_tb 인서트
 	public int insertMovie(Movies movies);
 
 	// movies_tb title로 찾기
 	public Movies findByTitle(String title);
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> e6ede81 (영화 API DB로 자동 연결구현)
 <<<<<<< HEAD
@@ -98,28 +101,49 @@ public interface HomeRepository {
 =======
 =======
 	
+=======
+
+>>>>>>> 679302a (영화API파싱 거의 95완료)
 	// movies_detail_tb id로 찾기
 	public MovieDetailTB findById(int id);
-	
+
 	// genres_tb의 장르 ID 추출
 	public Genres findIdByGenreName(String genre);
-	
-	
+
 	// genres_tb에 insert 장르 추가
 	public void insertGenre(String genre);
-	
+
 	// genres_genre_tb에 만약 무비Id가 있으면 추가되지 못하게 select
-	public MovieGenre checkMovieGenreExists(@Param("movieId") int movieId,@Param("genreId") int genreId);
-	
+	public MovieGenre checkMovieGenreExists(@Param("movieId") int movieId, @Param("genreId") int genreId);
+
 	// movie_genre_tb 에 인설트 중간 테이블임
-	public void insertMovieGenre(@Param("movieId") int movieId ,@Param("genreId") int genreId);
-	
+	public void insertMovieGenre(@Param("movieId") int movieId, @Param("genreId") int genreId);
+
 	// movie_detail_tb insert하기
 	public int insertMovieDetail(@Param("movieId") int movieId, @Param("title") String title,
 			@Param("titleEn") String titleEn, @Param("showTm") String showTm, @Param("openDt") String openDt,
 			@Param("prdStatNm") String prdStatNm, @Param("watchGradeNm") String watchGradeNm);
-	
+
+	// directors_tb에 디렉터 insert
 	public int insertDirector(Director director);
+<<<<<<< HEAD
 >>>>>>> dac25ec (3차 자동 인설트 완성)
+<<<<<<< HEAD
 >>>>>>> a3aafde (3차 자동 인설트 완성)
+=======
+=======
+
+	// actors_tb에 배우 insert
+	public int insertActors(Actors actor);
+
+	// 디비에 같은 배우가 안들어가게 하기위해 식별할 수 있는 profile 주소를 가져옴
+	public Actors findByActorName(String name);
+
+	// DB에 movies_actors_tb 중간다리에 insert하기
+	public void insertMovieActor(@Param("movieId") int movieId, @Param("actorId") int actorId);
+
+	// movies_actors_tb에 이미 값이 있으면 못들어가게 하기
+	public MovieActor findByMovieAndGenre(@Param("movieId") int movieid, @Param("actorId") int actorId);
+>>>>>>> 679302a (영화API파싱 거의 95완료)
+>>>>>>> 96e61be (영화API파싱 거의 95완료)
 }

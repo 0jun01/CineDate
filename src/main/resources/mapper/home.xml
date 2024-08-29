@@ -176,6 +176,34 @@
 		nationality, directorFaceFile) values(#{name}, #{birth}, #{role},
 		#{nationality}, #{directorFaceFile})
 	</insert>
+<<<<<<< HEAD
 >>>>>>> dac25ec (3차 자동 인설트 완성)
+<<<<<<< HEAD
 >>>>>>> a3aafde (3차 자동 인설트 완성)
+=======
+=======
+
+	<insert id="insertActors">
+		insert into actors_tb (name, actor_face_file)
+		values
+		(#{name}, #{actorFaceFile});
+	</insert>
+
+	<select id="findByActorName"
+		resultType="com.tenco.movie.repository.model.Actors">
+		select * from actors_tb where name = #{name}
+	</select>
+
+	<insert id="insertMovieActor">
+		insert into movie_actor_tb (movie_id, actors_id)
+		values(#{movieId},#{actorId})
+	</insert>
+
+	<select id="findByMovieAndGenre"
+		resultType="com.tenco.movie.repository.model.MovieActor">
+		select * from movie_actor_tb where movie_id = #{movieId}
+		AND actors_id = #{actorId}
+	</select>
+>>>>>>> 679302a (영화API파싱 거의 95완료)
+>>>>>>> 96e61be (영화API파싱 거의 95완료)
 </mapper>
