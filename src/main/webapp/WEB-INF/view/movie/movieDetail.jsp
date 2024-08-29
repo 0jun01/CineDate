@@ -7,11 +7,11 @@
 <div id="wrap">
 
 	<div id="in--wrap">
-			${movie.title}
+			영화 제목: ${movie.title}
 			<br>
-			${movieDetail.titleEn}
+			영화 영어 제목 : ${movieDetail.titleEn}
 			<br>
-			상영시간${movieDetail.showTm}분
+			상영시간 : ${movieDetail.showTm}분
 			<br>
 			${movieDetail.prdStatNm}
 			<br>

@@ -47,14 +47,14 @@ public class HomeController {
 	private final String WEEKLYBOXOFFICEURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json";
 	// 무비 상세 URI
 	private final String MOVIEDETAILURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json";
-	
+
 	HomeService homeService;
 
 	@Autowired
 	public HomeController(HomeService homeService) {
 		this.homeService = homeService;
 	}
-	
+
 	/**
 	 * 오픈 API에서 주간 박스오피스 데이터 파싱
 	 * 
@@ -79,14 +79,18 @@ public class HomeController {
 		List<TMDBMovies> tmdbMoviesList = new ArrayList<>();
 		List<Movies> moviesList = new ArrayList<>();
 
+		Movies movies = null;
+
 		// 요청 URI JSON으로 값 받기
-		URI uri1 = UriComponentsBuilder
-				.fromUriString(WEEKLYBOXOFFICEURL + "?" + "key=" + CONTENTKEY + "&targetDt=" + weeklyBoxDate).build()
-				.toUri();
+		URI uri = UriComponentsBuilder
+				.fromUriString(
+						WEEKLYBOXOFFICEURL + "?" + "key=" + CONTENTKEY + "&targetDt=" + weeklyBoxDate + "&weekGb=0")
+				.build().toUri();
+		;
 
 		// RestTemplate로 응답
 		RestTemplate restTemplate1 = new RestTemplate();
-		ResponseEntity<WeeklyBoxOffice> response = restTemplate1.exchange(uri1, HttpMethod.GET, null,
+		ResponseEntity<WeeklyBoxOffice> response = restTemplate1.exchange(uri, HttpMethod.GET, null,
 				WeeklyBoxOffice.class);
 		// 홈페이지에 출력
 		WeeklyBoxOffice weeklyBoxOffice = response.getBody();
@@ -104,18 +108,26 @@ public class HomeController {
 								TMDBBASEURL + TMDBKEY + "&language=ko-KR&page=1&query=" + firstMovie.getMovieNm())
 								.build().toUri();
 						RestTemplate restTemplate2 = new RestTemplate();
-						ResponseEntity<TMDBDTO> response2 = restTemplate1.exchange(uri2, HttpMethod.GET, null,
+						ResponseEntity<TMDBDTO> response2 = restTemplate2.exchange(uri2, HttpMethod.GET, null,
 								TMDBDTO.class);
 						TMDBDTO tmdbdto = response2.getBody();
 						if (tmdbdto != null) {
 							tmdbMoviesList = tmdbdto.getResults();
 							if (tmdbMoviesList != null) {
-								TMDBMovies tmdbMovie = tmdbMoviesList.get(0);
-								// tmdbMovie 클래스를 movies로 변환하기 위해 빌더를 사용
-								Movies movies = Movies.builder().title(tmdbMovie.getTitle())
-										.movieDesc(tmdbMovie.getOverview()).movieImg(tmdbMovie.getPosterPath())
-										.releaseDate(tmdbMovie.getReleaseDate()).build();
-								moviesList.add(movies);
+								Boolean found = false;
+								for (TMDBMovies tmdbMovie : tmdbMoviesList) {
+									String title = tmdbMovie.getTitle();
+									 // 정확히 일치하는 제목 찾기
+									if (title.trim().equalsIgnoreCase(firstMovie.getMovieNm().trim())) {
+										movies = Movies.builder().title(tmdbMovie.getTitle())
+												.movieDesc(tmdbMovie.getOverview()).movieImg(tmdbMovie.getPosterPath())
+												.releaseDate(tmdbMovie.getReleaseDate()).build();
+										moviesList.add(movies);
+										found = true;
+										break; // 정확히 일치하는 항목을 찾으면 루프 종료
+									}
+								}
+								// insertMovies는 주간오피스 데이터 DB에 자동으로 넣는 녀석 movies_tb에
 								homeService.insertMovies(movies);
 							}
 						}
@@ -175,13 +187,21 @@ public class HomeController {
 		// yyyMMdd 형식으로 데이터를 날려야하기 때문에 포멧 해줬다
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 		String weeklyBoxDate = aWeek.format(formatter);
-
+		
+		// 값 담을 변수들 지역 변수로 수정
 		String movieCd = "";
-
+		String title = "";
+		String titleEn = "";
+		String showTm = "";
+		String openDt = "";
+		String prdStatNm ="";
+		String watchGradeNm = "";
+		String genreName ="";
+		
 		// 요청 URI JSON으로 값 받기
 		URI uri = UriComponentsBuilder
 				.fromUriString(
-						WEEKLYBOXOFFICEURL + "?" + "key=" + CONTENTKEY + "&targetDt=" + weeklyBoxDate + "&weekGb=1")
+						WEEKLYBOXOFFICEURL + "?" + "key=" + CONTENTKEY + "&targetDt=" + weeklyBoxDate + "&weekGb=0")
 				.build().toUri();
 
 		// RestTemplate로 응답
@@ -206,8 +226,8 @@ public class HomeController {
 
 						System.out.println(movieCd);
 						URI uri2 = UriComponentsBuilder
-								.fromUriString(MOVIEDETAILURL + "?" + "key=" + CONTENTKEY + "&movieCd="+movieCd).build()
-								.toUri();
+								.fromUriString(MOVIEDETAILURL + "?" + "key=" + CONTENTKEY + "&movieCd=" + movieCd)
+								.build().toUri();
 
 						ResponseEntity<MovieDetailDTO> response2 = restTemplate2.exchange(uri2, HttpMethod.GET, null,
 								MovieDetailDTO.class);
@@ -223,43 +243,58 @@ public class HomeController {
 									System.out.println("Show Time: " + movieInfo.getShowTm());
 									System.out.println("Open Date: " + movieInfo.getOpenDt());
 									System.out.println("Production Status: " + movieInfo.getPrdtStatNm());
+									title = movieInfo.getMovieNm();
+									titleEn = movieInfo.getMovieNmEn();
+									showTm = movieInfo.getShowTm();
+									openDt = movieInfo.getOpenDt();
+									prdStatNm = movieInfo.getPrdtStatNm();
+									int movieId = homeService.readMovieByTitle(title);
+									// 국가, 장르, 감독, 배우 정보 출력
+									if (movieInfo.getNations() != null) {
+										for (NationDTO nation : movieInfo.getNations()) {
+											System.out.println("Nation: " + nation.getNationNm());
+											
+										}
+									}
+
+									if (movieInfo.getGenres() != null) {
+										for (GenreDTO genre : movieInfo.getGenres()) {
+											System.out.println("Genre: " + genre.getGenreNm());
+											genreName = genre.getGenreNm();
+											homeService.findGenreId(genreName, movieId);
+										}
+									}
+									if (movieInfo.getAudits() != null) {
+										for (AuditDTO genre : movieInfo.getAudits()) {
+											System.out.println("WatchGradeNm: " + genre.getWatchGradeNm());
+											watchGradeNm = genre.getWatchGradeNm();
+										}
+									}
+
+									if (movieInfo.getDirectors() != null) {
+										for (PersonDTO director : movieInfo.getDirectors()) {
+											System.out.println("Director: " + director.getPeopleNm() + " ("
+													+ director.getPeopleNmEn() + ")");
+											homeService.insertDirector(movieId, director.getPeopleNm());
+										}
+									}
+
+									if (movieInfo.getActors() != null) {
+										for (PersonDTO actor : movieInfo.getActors()) {
+											System.out.println("Actor: " + actor.getPeopleNm() + " ("
+													+ actor.getPeopleNmEn() + ")");
+										}
+									}
+
+									if (movieInfo.getAudits() != null) {
+										for (AuditDTO audit : movieInfo.getAudits()) {
+											System.out.println("Audit Grade: " + audit.getWatchGradeNm());
+										}
+									}
 									
-									 // 국가, 장르, 감독, 배우 정보 출력
-				                    if (movieInfo.getNations() != null) {
-				                        for (NationDTO nation : movieInfo.getNations()) {
-				                            System.out.println("Nation: " + nation.getNationNm());
-				                        }
-				                    }
-
-				                    if (movieInfo.getGenres() != null) {
-				                        for (GenreDTO genre : movieInfo.getGenres()) {
-				                            System.out.println("Genre: " + genre.getGenreNm());
-				                        }
-				                    }
-				                    if (movieInfo.getAudits() != null) {
-				                    	for (AuditDTO genre : movieInfo.getAudits()) {
-				                    		System.out.println("WatchGradeNm: " + genre.getWatchGradeNm());
-				                    	}
-				                    }
-				                    
-				                    
-				                    if (movieInfo.getDirectors() != null) {
-				                        for (PersonDTO director : movieInfo.getDirectors()) {
-				                            System.out.println("Director: " + director.getPeopleNm() + " (" + director.getPeopleNmEn() + ")");
-				                        }
-				                    }
-
-				                    if (movieInfo.getActors() != null) {
-				                        for (PersonDTO actor : movieInfo.getActors()) {
-				                            System.out.println("Actor: " + actor.getPeopleNm() + " (" + actor.getPeopleNmEn() + ")");
-				                        }
-				                    }
-
-				                    if (movieInfo.getAudits() != null) {
-				                        for (AuditDTO audit : movieInfo.getAudits()) {
-				                            System.out.println("Audit Grade: " + audit.getWatchGradeNm());
-				                        }
-				                    }
+									// TODO 나중에 빌더 패턴 써서 정리 movie_detail_tb에 인설트 
+									homeService.insertMovieDetail(movieId,title,titleEn,showTm,openDt,prdStatNm, watchGradeNm);
+									
 								}
 							}
 						}

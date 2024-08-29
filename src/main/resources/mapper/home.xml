@@ -1,14 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tenco.movie.repository.interfaces.HomeRepository">
-	
+<mapper
+	namespace="com.tenco.movie.repository.interfaces.HomeRepository">
+
 	<insert id="insertMovie">
-		insert into movies_tb (title, movie_desc,movie_img ,release_date)
+		insert into movies_tb (title, movie_desc,movie_img
+		,release_date)
 		values(#{title},#{movieDesc},#{movieImg},#{releaseDate})
 	</insert>
-	
-	<select id="findByTitle" resultType="com.tenco.movie.repository.model.Movies">
+
+	<select id="findByTitle"
+		resultType="com.tenco.movie.repository.model.Movies">
 		select * from movies_tb where title = #{title};
 	</select>
+
+	<select id="findById"
+		resultType="com.tenco.movie.repository.model.MovieDetailTB">
+		select * from movie_detail_tb where movie_id = #{id}
+	</select>
+
+	<select id="findIdByGenreName"
+		resultType="com.tenco.movie.repository.model.Genres">
+		select * from genres_tb where genre_name = #{genre}
+	</select>
+
+	<select id="checkMovieGenreExists"
+		resultType="com.tenco.movie.repository.model.MovieGenre">
+		select * from movie_genre_tb where movie_id = #{movieId}
+		and genre_id = #{genreId}
+	</select>
+
+	<insert id="insertMovieGenre">
+		INSERT INTO movie_genre_tb (movie_id, genre_id)
+		VALUES (#{movieId}, #{genreId});
+	</insert>
+
+	<insert id="insertMovieDetail">
+		INSERT INTO movie_detail_tb (movie_id, title,
+		title_en, show_tm, open_dt, prd_stat_nm, watch_grade_nm)
+		VALUES
+		(#{movieId}, #{title}, #{titleEn}, #{showTm}, #{openDt},
+		#{prdStatNm},#{watchGradeNm})
+	</insert>
+
+	<insert id="insertGenre">
+		insert into genres_tb (genre_name) values(#{genre})
+	</insert>
+	<insert id="insertDirector">
+		insert into director_tb (name, birth, role,
+		nationality, directorFaceFile) values(#{name}, #{birth}, #{role},
+		#{nationality}, #{directorFaceFile})
+	</insert>
 </mapper>

@@ -14,7 +14,7 @@
 		from movie_actor_tb as m
 		join actors_tb as a on
 		m.actors_id = a.id
-		where m.movie_id = #{id};
+		where m.movie_id = #{id}
 
 	</select>
 
@@ -31,7 +31,7 @@
 		md.prd_stat_nm,
 		md.watch_grade_Nm,
 		GROUP_CONCAT(DISTINCT g.genre_name SEPARATOR ', ') AS genre,
-		GROUP_CONCAT(DISTINCT d.director_name SEPARATOR ', ') AS director
+		GROUP_CONCAT(DISTINCT d.name SEPARATOR ', ') AS director
 		FROM
 		movies_tb AS m
 		LEFT JOIN
@@ -48,7 +48,7 @@
 		m.id = #{id}
 		GROUP BY
 		m.title, md.title_en, m.movie_desc, m.movie_img, m.release_date, md.show_tm,
-		md.open_dt, md.prd_stat_nm, md.watch_grade_Nm;
+		md.open_dt, md.prd_stat_nm, md.watch_grade_Nm
 	</select>
 
 
