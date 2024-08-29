@@ -24,10 +24,15 @@ public class Event {
 	private String originFileName; // 이벤트 이미지 파일명
 	private String uploadFileName; // 이벤트 이미지 업로드 파일명
 	// 시간 포맷
-    public String timestampToString() {
+    public String timestartToString() {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat startTime = new SimpleDateFormat("yyyy-MM-dd");
 
-        return sdf.format(createdAt);
+        return startTime.format(releaseDate);
+    }
+    public String timeendToString() {
+    	SimpleDateFormat endTime = new SimpleDateFormat("yyyy-MM-dd");
+    	
+    	return endTime.format(endDate);
     }
 }

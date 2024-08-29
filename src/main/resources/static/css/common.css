@@ -339,15 +339,18 @@ table, th, td {
 .evt--prize {
 	color: red;
 }
+.evt--item-container{
+    display: flex;
+    margin: 40px;
+    padding: 40px;
+    margin-inline: 215px;
+    flex-wrap: wrap;
+}
 
-.evt--item {
+.evt--item{
 	display: flex;
-	border: 1 solid black;
-	margin: 25px;
-	padding: 25px;
-	padding-top: 45px;
-	justify-content: space-around;
-	flex-wrap: wrap;
+	margin: 10px;
+	padding: 10px;
 }
 
 .evt--item--a {
@@ -358,4 +361,14 @@ table, th, td {
 	border: 2px solid #fb4357;
 	background-color: #fb4357;
 	color: #ffffff;
+}
+
+.event--images{
+	border: 1px solid #000;
+}
+
+.evt--item--detail{
+	display: block;
+    margin-inline: 15%;
+    padding: 10px;
 }
