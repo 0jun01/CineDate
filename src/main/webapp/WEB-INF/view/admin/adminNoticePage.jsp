@@ -33,6 +33,11 @@
 						<div class="card mb-4">
 							<div class="card-header">
 								<h3 class="card-title"></h3>
+								<div class="col-4 float-end" style="display: flex;flex-direction: row">
+									 <input type="text" class="form-control-sm" id="search" placeholder="검색할 제목을 입력하세요">&nbsp;&nbsp;&nbsp;
+									 <h3><li class="nav-item "><a class="nav-link" data-widget="navbar-search" href="#" role="button"> <i class="bi bi-search"></i>
+									</a></li></h3>
+								</div>
 							</div>
 							<!-- /.card-header -->
 							<div class="card-body">
@@ -53,8 +58,8 @@
 													<c:forEach var="notice" items="${noticeList}">
 														<tr class="align-middle">
 															<td>${notice.id}</td>
-															<td class="text-center">${notice.category}</td>
-															<td><a href="/adminNoticeDetail/${notice.id}">${notice.title}</a></td>
+															<td class="text-center" style="white-space : nowrap">${notice.category}</td>
+															<td style="white-space : nowrap; overflow : hidden; text-overflow : ellipsis"><a href="/adminNoticeDetail/${notice.id}">${notice.title}</a></td>
 															<td style="width: 90px;" class="text-center">
 																<form action="/adminNoticeReWrite/${notice.id}" method="get">
 																	<button class="btn btn-warning">수정</button>
@@ -62,8 +67,8 @@
 															</td>
 
 															<td style="width: 90px;" class="text-center">
-															<form action="/adminNoticeDelete/${notice.id}" method="get">
-																<button type="submit" class="btn btn-danger">삭제</button>
+																<form action="/adminNoticeDelete/${notice.id}" method="get">
+																	<button type="submit" class="btn btn-danger">삭제</button>
 																</form>
 															</td>
 														</tr>
@@ -88,13 +93,16 @@
 										<form action="/adminNoticeWrite" method="get">
 											<button class="btn btn-primary btn-sm clearfix text-bg-dark float-end">글쓰기</button>
 										</form>
-										<ul class="pagination pagination-sm m-0" style="justify-content: center">
-											<li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-											<li class="page-item"><a class="page-link" href="#">1</a></li>
-											<li class="page-item"><a class="page-link" href="#">2</a></li>
-											<li class="page-item"><a class="page-link" href="#">3</a></li>
-											<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-										</ul>
+										<nav aria-label="...">
+											<ul class="pagination" style="justify-content: center">
+
+												<li class="page-item"><a class="page-link">Previous</a></li>
+												<li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
+												<li class="page-item"><a class="page-link" href="#">2</a></li>
+												<li class="page-item"><a class="page-link" href="#">3</a></li>
+												<li class="page-item"><a class="page-link" href="#">Next</a></li>
+											</ul>
+										</nav>
 									</div>
 									</div>
 									<!-- /.card -->
