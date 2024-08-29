@@ -1,10 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-    <%@ include file="/WEB-INF/view/layout/adminHeader.jsp"%>
-    
-    
-    <div class="card card-warning card-outline mb-4">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ include file="/WEB-INF/view/layout/adminHeader.jsp"%>
+
+
+<div class="card card-warning card-outline mb-4">
 	<main class="app-main">
 		<!--begin::App Content Header-->
 		<div class="app-content-header">
@@ -46,21 +45,30 @@
 												<thead>
 													<tr class="align-middle text-center">
 														<th style="width: 10px">id</th>
-														<th style="width: 100px">회원ID</th>
+														<th style="width: 170px">회원ID</th>
 														<th>이름</th>
 														<th style="width: 150px">이메일</th>
-														<th style="width: 100px">전화번호</th>
+														<th style="width: 150px">전화번호</th>
 														<th>생년월일</th>
 														<th style="width: 50px">성별</th>
-														<th style="width: 100px" class="text-center">수정</th>
-														<th style="width: 120px" class="text-center">삭제</th>
+														<th style="width: 80px" class="text-center">수정</th>
+														<th style="width: 80px" class="text-center">삭제</th>
 													</tr>
 												</thead>
 												<tbody>
 													<c:forEach var="user" items="${userList}">
 														<tr class="align-middle text-center">
 															<td>${user.id}</td>
-															<td>${user.loginId}</td>
+															<td><c:choose>
+																	<c:when test="${fn:length(user.loginId) gt 15}">
+																		<c:out value="${fn:substring(user.loginId, 0, 14)}...">
+       																	 </c:out>
+																	</c:when>
+																	<c:otherwise>
+																		<c:out value="${user.loginId}">
+																		</c:out>
+																	</c:otherwise>
+																</c:choose></td>
 															<td>${user.name}</td>
 															<td>${user.email}</td>
 															<td>${user.phoneNum}</td>
@@ -72,9 +80,9 @@
 																</form>
 															</td>
 
-															<td style="width: 100px;" class="text-center">
-															<form action="#" method="get">
-																<button type="submit" class="btn btn-danger">강제탈퇴</button>
+															<td class="text-center">
+																<form action="#" method="get">
+																	<button type="submit" class="btn btn-danger">탈퇴</button>
 																</form>
 															</td>
 														</tr>
@@ -96,7 +104,7 @@
 
 
 									<div class="card-footer clearfix">
-										
+
 										<ul class="pagination pagination-sm m-0" style="justify-content: center">
 											<li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
 											<li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -124,5 +132,5 @@
 									</div>
 									</div>
 									<!-- end of content.jsp(xxx.jsp) -->
-    
-<%@ include file="/WEB-INF/view/layout/adminFooter.jsp"%>
+
+									<%@ include file="/WEB-INF/view/layout/adminFooter.jsp"%>
