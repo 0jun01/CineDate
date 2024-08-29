@@ -13,6 +13,7 @@ import com.tenco.movie.dto.NoticeWriterDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.AdminRepository;
+import com.tenco.movie.repository.model.Event;
 import com.tenco.movie.repository.model.Notice;
 import com.tenco.movie.repository.model.User;
 
@@ -118,6 +119,34 @@ public class AdminPageService {
 	}
 	
 	//공지
+	//----------------------------------------------
+	//이벤트
+	
+	@Transactional
+	public List<Event> readEventPage(int page, int size){
+		List<Event> list = new ArrayList<>();
+		int limit = size;
+		int offset = (page - 1) * size;
+		list = adminRepository.findEventAll(limit, offset);
+		return list;
+	}
+	
+	public Event findEventById(Integer id) {
+		Event event = adminRepository.findEventById(id);
+		
+		if(event == null) {
+			throw new DataDeliveryException("존재하지 않는 게시글 입니다", HttpStatus.BAD_REQUEST);
+		}
+		return event;
+	}
+	
+	
+	public int countEventAll() {
+		return adminRepository.countEventAll();
+	}
+	
+	
+	
 	//----------------------------------------------
 	//회원정보
 	

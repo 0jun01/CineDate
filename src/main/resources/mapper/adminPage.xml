@@ -21,7 +21,7 @@
 	</delete>
 
 	<select id="findById">
-	select * from notice_tb order by id desc where id = #{id}
+	select * from notice_tb where id = #{id} order by id desc
 	</select>
 	
 	<select id="findByName">
@@ -42,7 +42,23 @@
 		select count(*) from notice_tb where title like CONCAT('%', #{search}, '%')
 	</select>
 	
+
+	<!-- ========================================================================================== -->
+	<select id = "findEventAll">
+	select * from event_tb order by id desc limit #{limit} offset #{offset}
+	</select>
 	
+	<select id = "findEventById">
+	select * from event_tb where id = #{id} order by id desc
+	</select>
+
+
+	<select id ="countEventAll" resultType="int">
+		select count(*) from event_tb
+	</select>
+
+
+	<!-- ========================================================================================== -->
 	
 	
 	<select id="findExceptPW">

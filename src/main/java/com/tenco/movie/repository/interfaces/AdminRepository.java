@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.tenco.movie.repository.model.Event;
 import com.tenco.movie.repository.model.Notice;
 import com.tenco.movie.repository.model.User;
 
@@ -24,6 +25,16 @@ public interface AdminRepository {
 	
 	public int countNoticeAll();
 	public int countNotice(String search);
+	
+	//--------------------------------------------------
+	public List<Event> findEventAll(@Param("limit") int limit, @Param("offset") int offset); // 이벤트 리스트 조회
+	public int insertEvent(Event event);
+	public int updateEventById(Event event);
+	public int deleteByEventById(int id);
+	
+	public Event findEventById(int id);
+	
+	public int countEventAll();
 	
 	//--------------------------------------------------
 	

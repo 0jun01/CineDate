@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page import="java.util.Date" %>
 
 <!DOCTYPE html>
 <html>
@@ -153,8 +154,8 @@
 								<li class="nav-item"><a href="/adminNotice" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
 										<p>공지사항</p>
 								</a></li>
-								<li class="nav-item"><a href="./widgets/info-box.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>이벤트[미정]</p>
+								<li class="nav-item"><a href="/adminEvent" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+										<p>이벤트</p>
 								</a></li>
 								<li class="nav-item"><a href="/adminMemberList" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
 										<p>회원정보</p>
