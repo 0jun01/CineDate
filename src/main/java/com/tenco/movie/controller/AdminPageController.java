@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tenco.movie.dto.NoticeWriterDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
@@ -40,11 +41,48 @@ public class AdminPageController {
 	 	
 	 	// 어드민 공지사항 페이지 요청
 	 	@GetMapping("/adminNotice")
-	 	public String getAdminNoticePage(Model model) {
-	 		List<Notice> noticeList = adminService.readNoticeList();
+	 	public String getAdminNoticePage(
+	 			@RequestParam(name = "page", defaultValue = "1") int page,
+	 			@RequestParam(name = "size", defaultValue = "10") int size,
+	 			Model model) {
+	 		
+	 		int totalRecords = adminPageService.countNoticeAll();
+	 		int totalPages = (int)Math.ceil((double)totalRecords / size);
+	 		
+	 		
+	 		List<Notice> noticeList = adminPageService.readNoticePage(page, size);
 	        model.addAttribute("noticeList", noticeList);
+	        model.addAttribute("currentPage", page);
+	        model.addAttribute("totalPages", totalPages);
+	        model.addAttribute("size", size);
+	        
 	        return "/admin/adminNoticePage";
 	 	}
+	 	
+	 	@PostMapping("/adminNotice")
+	 	public String getAdminNoticeProc(
+	 			@RequestParam(name = "search") String search,
+	 			@RequestParam(name = "page", defaultValue = "1") int page,
+	 			@RequestParam(name = "size", defaultValue = "10") int size,
+	 			
+	 			Model model) {
+	 		
+	 		
+	 		int totalRecords = adminPageService.countNotice(search);
+	 		int totalPages = (int)Math.ceil((double)totalRecords / size);
+	 		
+	 		
+	 		List<Notice> noticeList = adminPageService.searchNoticePage(search,page, size);
+	       
+	 		model.addAttribute("search",search);
+	 		model.addAttribute("noticeList", noticeList);
+	        model.addAttribute("currentPage", page);
+	        model.addAttribute("totalPages", totalPages);
+	        model.addAttribute("size", size);
+	        
+	        return "/admin/adminNoticePage";
+	 	}
+	 	
 	 	
 	 	// 어드민 공지사항 글쓰기 요청
 	 	@GetMapping("/adminNoticeWrite")
@@ -105,6 +143,8 @@ public class AdminPageController {
 	 	}
 	 	
 	 	
+	 	
+	 	
 	 	@GetMapping("adminNoticeDetail/{id}")
 	 	public String adminNoticeDetail(@PathVariable(name = "id") Integer id, Model model) {
 	 		
@@ -113,6 +153,8 @@ public class AdminPageController {
 	 		
 	 		return "admin/adminNoticeDetail";
 	 	}
+	 	
+	 	
 //공지사항 끝	 	
 //-------------------------------------------------------------
 //회원정보 시작

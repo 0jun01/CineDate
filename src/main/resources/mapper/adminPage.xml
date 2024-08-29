@@ -4,7 +4,7 @@
 <mapper namespace="com.tenco.movie.repository.interfaces.AdminRepository">
 
 	<select id="findAll" resultType="com.tenco.movie.repository.model.Notice">
-		select * from notice_tb;
+		select * from notice_tb order by id desc;
 	</select>
 	
 	<insert id="insert">
@@ -21,11 +21,33 @@
 	</delete>
 
 	<select id="findById">
-	select * from notice_tb where id = #{id}
+	select * from notice_tb order by id desc where id = #{id}
 	</select>
 	
-	<select id="findExceptPW">
-	select * from user_tb
+	<select id="findByName">
+	select * from notice_tb where title like CONCAT('%', #{search}, '%') order by id desc  limit #{limit} offset #{offset}
 	</select>
-
+	
+	<select id="pageCount">
+	select * from notice_tb order by id desc limit #{limit} offset #{offset}
+	</select>
+	
+	
+		
+	<select id = "countNoticeAll" resultType="int">
+		select count(*) from notice_tb
+	</select>
+	
+	<select id = "countNotice" resultType="int">
+		select count(*) from notice_tb where title like CONCAT('%', #{search}, '%')
+	</select>
+	
+	
+	
+	
+	<select id="findExceptPW">
+	select * from user_tb order by id desc
+	</select>
+	
+	
 </mapper>

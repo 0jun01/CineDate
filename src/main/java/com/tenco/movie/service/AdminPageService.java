@@ -1,5 +1,6 @@
 package com.tenco.movie.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +72,7 @@ public class AdminPageService {
 		return notice;
 	}
 	
+	
 	@Transactional
 	public void deleteNotice(int id) {
 		
@@ -88,6 +90,33 @@ public class AdminPageService {
 			throw new DataDeliveryException("정상 처리 되지 않았습니다", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@Transactional
+	public List<Notice> readNoticePage(int page, int size){
+		List<Notice> list = new ArrayList<>();
+		int limit = size;
+		int offset = (page - 1) * size;
+		list = adminRepository.pageCount(limit, offset);
+		return list;
+	}
+	
+	@Transactional
+	public List<Notice> searchNoticePage(String search, int page, int size){
+		List<Notice> list = new ArrayList<>();
+		int limit = size;
+		int offset = (page - 1) * size;
+		list = adminRepository.findByName(search, limit, offset);
+		return list;
+	}
+	
+	public int countNoticeAll() {
+		return adminRepository.countNoticeAll();
+	}
+	
+	public int countNotice(String search) {
+		return adminRepository.countNotice(search);
+	}
+	
 	//공지
 	//----------------------------------------------
 	//회원정보
