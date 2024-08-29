@@ -9,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.HomeRepository;
+import com.tenco.movie.repository.model.Actors;
 import com.tenco.movie.repository.model.Genres;
+import com.tenco.movie.repository.model.MovieActor;
 import com.tenco.movie.repository.model.MovieDetailTB;
 import com.tenco.movie.repository.model.MovieGenre;
 import com.tenco.movie.repository.model.Movies;
@@ -124,9 +126,6 @@ public class HomeService {
 	@Transactional
 	public void findGenreId(String genreName, int movieId) {
 		int genreId = 0;
-		System.out.println("---------------------------------");
-		System.out.println("genreName : " + genreName + " movieId : " + movieId);
-		System.out.println("---------------------------------");
 		Genres genresEntity = null;
 		try {
 
@@ -144,8 +143,6 @@ public class HomeService {
 			}
 			genreId = genresEntity.getId();
 //			// 2. movie_genre_tb에 movie_id가 있는지 찾아 본다.
-			System.out.println("movieId : " + movieId);
-			System.out.println("genreId : " + genreId);
 			MovieGenre movieGenre = homeRepository.checkMovieGenreExists(movieId, genreId);
 //			// 2-1. movie_genre_tb에 movie_id가 없으면 movie_id와 genre_id를 인설트 해준다.
 			if (movieGenre == null) {
@@ -166,5 +163,26 @@ public class HomeService {
 
 	@Transactional
 	public void insertDirector(int movieId, String peopleNm) {
+	}
+
+	@Transactional
+	public void insertActors(Actors actors, int movieId) {
+
+		Actors actorsEntity = homeRepository.findByActorName(actors.getName());
+		if (actorsEntity == null) {
+			System.out.println("너 인설트 성공했어");
+			homeRepository.insertActors(actors);
+		} else {
+			System.out.println("이미 있어");
+		}
+
+		MovieActor mAEntity = homeRepository.findByMovieAndGenre(movieId, actorsEntity.getId());
+
+		if (mAEntity == null) {
+			System.out.println("중간테이블 성공했다");
+			homeRepository.insertMovieActor(movieId, actorsEntity.getId());
+		} else {
+			System.out.println("이미있다니까");
+		}
 	}
 }
