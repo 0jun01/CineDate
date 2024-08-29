@@ -9,10 +9,10 @@ import com.tenco.movie.repository.model.Event;
 
 @Mapper
 public interface EventRepository {
-	public List<Event> findAll(@Param("limit") int limit,
-			@Param("offset") int offset);
+	public List<Event> findAll();
 	
 	Event findById(int id);
 	
-	public int countEvent();
+	Event delete(int id);
+	
 }

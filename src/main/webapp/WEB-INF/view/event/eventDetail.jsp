@@ -25,29 +25,31 @@
 	<!-- 이벤트 만드는중 성후 -->
 
 	<c:choose>
-    <c:when test="${eventList != null}">
-        <div class="evt--item-container">
-            <c:forEach var="event" items="${eventList}">
-                <div class="evt--item">
-                    <a href="/event/eventDetail?id=${event.id}" class="event--images">
+    <c:when test="${event != null}">
+                <div class="evt--item--detail">
                         <div class="evt--item--e">
-                            <img src="${event.originFileName}" alt="[맙소사] 고양이 귀엽다!" style="width: 300px;">
+                            <img src="${event.originFileName}" alt="[맙소사] 고양이 귀엽다!" style="width: 100%;">
                         </div>
                         <div class="">
                             <p class="txt">${event.id}</p>
                             <p class="txt1">[EVENT] ${event.title}</p>
                             <p class="txt2">${event.timestartToString()}~${event.timeendToString()}</p>
                         </div>
-                    </a>
                 </div> <!-- .evt--item 끝 -->
-            </c:forEach>
         </div> <!-- .evt--item-container 끝 -->
     </c:when>
 </c:choose>
 
 </div>
-</div>
 
+	<br>
+	<div style="display: flex; justify-content: flex-end; color: red;">
+		<a href="/event/event">목록으로</a>
+	</div>
+
+</div>
+</div>
+</div>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
 </body>
 </html>
