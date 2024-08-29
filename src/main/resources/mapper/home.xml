@@ -52,4 +52,26 @@
 		nationality, directorFaceFile) values(#{name}, #{birth}, #{role},
 		#{nationality}, #{directorFaceFile})
 	</insert>
+
+	<insert id="insertActors">
+		insert into actors_tb (name, actor_face_file)
+		values
+		(#{name}, #{actorFaceFile});
+	</insert>
+
+	<select id="findByActorName"
+		resultType="com.tenco.movie.repository.model.Actors">
+		select * from actors_tb where name = #{name}
+	</select>
+
+	<insert id="insertMovieActor">
+		insert into movie_actor_tb (movie_id, actors_id)
+		values(#{movieId},#{actorId})
+	</insert>
+
+	<select id="findByMovieAndGenre"
+		resultType="com.tenco.movie.repository.model.MovieActor">
+		select * from movie_actor_tb where movie_id = #{movieId}
+		AND actors_id = #{actorId}
+	</select>
 </mapper>
