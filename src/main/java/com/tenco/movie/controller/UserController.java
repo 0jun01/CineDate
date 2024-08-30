@@ -200,7 +200,6 @@ public class UserController {
 		if (dto.getGender() == null || (!dto.getGender().equals("여") && !dto.getGender().equals("남"))) {
 			throw new DataDeliveryException(Define.ENTER_YOUR_GENDER, HttpStatus.BAD_REQUEST);
 		}
-		
 
 		System.out.println("여기까지는 왔나?");
 
@@ -226,11 +225,13 @@ public class UserController {
 	    model.addAttribute("user", user);
 	    return "user/myPage";
 	}
+
 	/**
 
 	 *마이페이지 
+	 * <<<<<<< HEAD 마이페이지
 	 *
-	 *@author 성후
+	 * @author 성후
 	 */
 	@PostMapping("/updateUser")
     public String myPageUpDateUser(@RequestParam("login_id")String name, @RequestParam("name") String username) {
