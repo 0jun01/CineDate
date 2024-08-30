@@ -27,7 +27,7 @@
 					</div>
 					<div>
 						<h3>${movieList.title}</h3>
-					</div>
+					</div>	
 				</div>
 			</c:forEach>
 		</div>

@@ -11,6 +11,8 @@
 		영화 제목: ${movie.title} <br> 영화 영어 제목 : ${movieDetail.titleEn} <br>
 		상영시간 : ${movieDetail.showTm}분 <br> ${movieDetail.prdStatNm} <br>
 		${movieDetail.watchGradeNm} <br> ${movieDetail.genre} <br>
+		<a href="/reservation/reservation">예매하기</a>
+		<br>
 		감독 : ${movieDetail.director} 
 		<img alt="이미지 준비중입니다."
 				src="https://image.tmdb.org/t/p/w342${movieDetail.directorFaceFile}">
@@ -25,6 +27,7 @@
 		<br> <img alt="이미지 준비중입니다."
 			src="https://image.tmdb.org/t/p/w342${movie.movieImg}"> <br>
 		개봉 : ${movie.releaseDate} <br> ${movie.movieDesc}
+		
 	</div>
 
 
