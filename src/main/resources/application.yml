@@ -19,40 +19,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/cinedate?serverTimezone=Asia/Seoul  #데이터 베이스 연결을 위한 URL을 설정 합니다.
     driver-class-name: com.mysql.cj.jdbc.Driver #드라이버 클래스를 설정 합니다.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     username: root #사용자 ID를 지정
-=======
-    username: kkr #사용자 ID를 지정
->>>>>>> 5a6eb19 (로그인 및 회원가입 완료)
-=======
-    username: yhj #사용자 ID를 지정
->>>>>>> 32a4fcf (영화 검색 기능 중)
-=======
-    username: ksh #사용자 ID를 지정
->>>>>>> 671bbcf (mypage이미지미리보기추가)
-=======
-    username: kkr #사용자 ID를 지정
->>>>>>> f9764c1 (공지사항 상세보기, 페이징)
-=======
-    username: kkr #사용자 ID를 지정
-=======
-    username: root #사용자 ID를 지정
->>>>>>> 490dbf6 (영화 디테일 2차 완료)
-=======
-    username: root #사용자 ID를 지정
-=======
-    username: ksh #사용자 ID를 지정
->>>>>>> 90a04a5 (mypage이미지미리보기추가)
->>>>>>> ed11005 (mypage이미지미리보기추가)
->>>>>>> f3197cc (mypage이미지미리보기추가)
-=======
-    username: root #사용자 ID를 지정
->>>>>>> 16744b1 (merge 충돌 해결)
     password: asd123 #DB 비밀번호 여기서는 빈 문자열로 설정
   sql:
     init:

@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.Actors;
-<<<<<<< HEAD
 import com.tenco.movie.repository.model.MovieDetail;
-=======
->>>>>>> 528fecc (영화 디테일 1차완료)
 import com.tenco.movie.repository.model.Movies;
 import com.tenco.movie.service.MovieService;
 import com.tenco.movie.utils.Define;
@@ -23,24 +20,13 @@ import com.tenco.movie.utils.Define;
 @Controller
 @RequestMapping("/movie")
 public class MovieController {
-<<<<<<< HEAD
-
-	private final MovieService movieService;
-
-=======
 	
 	private final MovieService movieService;
 	
->>>>>>> 528fecc (영화 디테일 1차완료)
 	@Autowired
 	public MovieController(MovieService movieService) {
 		this.movieService = movieService;
 	}
-<<<<<<< HEAD
-
-=======
-	
->>>>>>> 528fecc (영화 디테일 1차완료)
 	/**
 	 * 영화 페이지 요청
 	 * 
@@ -50,21 +36,12 @@ public class MovieController {
 	public String moviesPage() {
 		return "/movie/moviePage";
 	}
-<<<<<<< HEAD
-
-=======
-	
->>>>>>> 528fecc (영화 디테일 1차완료)
 	/**
 	 * @param title 박스오피스 영화 제목
 	 * @return 무비디테일 페이지
 	 * @author 변영준
 	 */
 	@GetMapping("/detail")
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
 	public String detailPage(Model model, @RequestParam("title") String title) {
 
 		// 타이틀 유효성 검사
@@ -98,7 +75,6 @@ public class MovieController {
 		return "/movie/movieDetail";
 	}
 
-=======
 	public String moviePage(Model model,@RequestParam("title") String title) {
 		
 		if(title == null || title.isEmpty()) {
@@ -128,5 +104,4 @@ public class MovieController {
 		return "/movie/movieDetail";
 	}
 	
->>>>>>> 528fecc (영화 디테일 1차완료)
 }

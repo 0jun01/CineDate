@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<<<<<<< HEAD
 <mapper
 	namespace="com.tenco.movie.repository.interfaces.MovieRepository">
 	<select id="findByTitle"
@@ -31,26 +30,11 @@
 		md.open_dt,
 		md.prd_stat_nm,
 		md.watch_grade_Nm,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 		d.director_face_file,
-=======
->>>>>>> 96e61be (영화API파싱 거의 95완료)
-=======
 		d.director_face_file,
->>>>>>> 06e1c65 (영화 디테일 페이지 완료)
 		GROUP_CONCAT(DISTINCT g.genre_name SEPARATOR ', ')
 		AS genre,
 		GROUP_CONCAT(DISTINCT d.name SEPARATOR ', ') AS director
-=======
-		GROUP_CONCAT(DISTINCT g.genre_name SEPARATOR ', ') AS genre,
-<<<<<<< HEAD
-		GROUP_CONCAT(DISTINCT d.director_name SEPARATOR ', ') AS director
->>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
-=======
-		GROUP_CONCAT(DISTINCT d.name SEPARATOR ', ') AS director
->>>>>>> a3aafde (3차 자동 인설트 완성)
 		FROM
 		movies_tb AS m
 		LEFT JOIN
@@ -58,8 +42,6 @@
 		LEFT JOIN
 		movie_genre_tb AS mg ON m.id = mg.movie_id
 		LEFT JOIN
-<<<<<<< HEAD
-<<<<<<< HEAD
 		genres_tb
 		AS g ON mg.genre_id = g.id
 		LEFT JOIN
@@ -78,39 +60,4 @@
 	</select>
 
 
-=======
-<mapper namespace="com.tenco.movie.repository.interfaces.MovieRepository">
-	<select id="findByTitle" resultType="com.tenco.movie.repository.model.Movies">
-		select * from movies_tb where title = #{title}
-	</select>
-	
-	<select id="findByMovieId" resultType="com.tenco.movie.repository.model.Actors">
-		select * from actors_tb where movie_id = #{id}
-	</select>
-	
-	
->>>>>>> 528fecc (영화 디테일 1차완료)
-=======
-		genres_tb AS g ON mg.genre_id = g.id
-=======
-		genres_tb
-		AS g ON mg.genre_id = g.id
->>>>>>> 96e61be (영화API파싱 거의 95완료)
-		LEFT JOIN
-		movie_director_tb AS mdi ON
-		mdi.movie_id = m.id
-		LEFT JOIN
-		directors_tb AS d ON d.id =
-		mdi.director_id
-		WHERE
-		m.id = #{id}
-		GROUP BY
-		m.title, md.title_en,
-		m.movie_desc, m.movie_img, m.release_date, md.show_tm,
-		md.open_dt,
-		md.prd_stat_nm, md.watch_grade_Nm
-	</select>
-
-
->>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
 </mapper>

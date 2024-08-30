@@ -223,27 +223,6 @@ public class UserController {
 	}
 
 	/**
-<<<<<<< HEAD
-	 * <<<<<<< HEAD 마이페이지
-	 *
-	 * @author 성후
-	 */
-	@PostMapping("/myPage")
-	public String myPageProFile() {
-		// 이름, 아이디, 닉네임 등록, 프로필 이미지 등록, 동의여부 확인, 수정하기버튼활성화
-		return "redirect:/user/myPage";
-	}
-
-	/**
-	 * 아이디 찾기 페이지 이동
-	 * 
-=======
-	 * 아이디 찾기
-<<<<<<< HEAD
->>>>>>> 5a6eb19 (로그인 및 회원가입 완료)
-=======
-	 * 
->>>>>>> b04a172 (충돌해결중)
 	 * @return
 	 * @author 형정
 	 */
