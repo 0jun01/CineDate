@@ -23,8 +23,11 @@
 		영화 제목: ${movie.title} <br> 영화 영어 제목 : ${movieDetail.titleEn} <br>
 		상영시간 : ${movieDetail.showTm}분 <br> ${movieDetail.prdStatNm} <br>
 		${movieDetail.watchGradeNm} <br> ${movieDetail.genre} <br>
+<<<<<<< HEAD
 		<a href="/reservation/reservation">예매하기</a>
 		<br>
+=======
+>>>>>>> 06e1c65 (영화 디테일 페이지 완료)
 		감독 : ${movieDetail.director} 
 		<img alt="이미지 준비중입니다."
 				src="https://image.tmdb.org/t/p/w342${movieDetail.directorFaceFile}">
