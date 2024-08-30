@@ -41,16 +41,6 @@ public class NaverProfileResponse {
 				.build();
 	}
 	
-	public String gender(String gender) {
-		
-		if(gender.equals("F")) {
-			return  "여";
-		} else {
-			return  "남";
-		}
-		
-	}
-	
 	public String getGenderDisplay() {
         if (gender == null) {
             return "Unknown";
