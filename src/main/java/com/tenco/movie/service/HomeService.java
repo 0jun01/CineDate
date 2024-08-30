@@ -10,9 +10,11 @@ import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.HomeRepository;
 import com.tenco.movie.repository.model.Actors;
+import com.tenco.movie.repository.model.Director;
 import com.tenco.movie.repository.model.Genres;
 import com.tenco.movie.repository.model.MovieActor;
 import com.tenco.movie.repository.model.MovieDetailTB;
+import com.tenco.movie.repository.model.MovieDirector;
 import com.tenco.movie.repository.model.MovieGenre;
 import com.tenco.movie.repository.model.Movies;
 import com.tenco.movie.utils.Define;
@@ -162,7 +164,34 @@ public class HomeService {
 	}
 
 	@Transactional
-	public void insertDirector(int movieId, String peopleNm) {
+	public void insertDirector(int movieId, Director director) {
+		Director directorEntity = null;
+		
+		try {
+
+			directorEntity = homeRepository.findByDirectorName(director.getName());
+			if (directorEntity == null) {
+				homeRepository.insertDirector(director);
+				directorEntity = homeRepository.findByDirectorName(director.getName());
+			} else {
+				System.out.println("이미 있습니다.");
+			}
+			
+			MovieDirector movieDirector = homeRepository.findByMovieIdAndDirectorId(movieId, directorEntity.getId());
+			
+			if(movieDirector == null) {
+				homeRepository.insertByMovieDirector(movieId, directorEntity.getId());
+			} else {
+				System.out.println("인설트 실패");
+			}
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.BAD_REQUEST);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RedirectException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
 	}
 
 	@Transactional
@@ -172,6 +201,7 @@ public class HomeService {
 		if (actorsEntity == null) {
 			System.out.println("너 인설트 성공했어");
 			homeRepository.insertActors(actors);
+			actorsEntity = homeRepository.findByActorName(actors.getName());
 		} else {
 			System.out.println("이미 있어");
 		}

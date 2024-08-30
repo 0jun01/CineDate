@@ -8,6 +8,7 @@ import com.tenco.movie.repository.model.Director;
 import com.tenco.movie.repository.model.Genres;
 import com.tenco.movie.repository.model.MovieActor;
 import com.tenco.movie.repository.model.MovieDetailTB;
+import com.tenco.movie.repository.model.MovieDirector;
 import com.tenco.movie.repository.model.MovieGenre;
 import com.tenco.movie.repository.model.Movies;
 
@@ -43,10 +44,19 @@ public interface HomeRepository {
 	// directors_tb에 디렉터 insert
 	public int insertDirector(Director director);
 
+	// directors_tb에 디렉터 식별 할 수 있게 디렉터 네임을 가져옴
+	public Director findByDirectorName(String name);
+
+	// movie_director_tb에 인설트 하기
+	public void insertByMovieDirector(@Param("movieId") int movieId, @Param("directorId") int directorId);
+
+	// movie_director_tb에 똑같은 id가 중복되면 못넣게 하기
+	public MovieDirector findByMovieIdAndDirectorId(@Param("movieId") int movieId, @Param("directorId") int directorId);
+
 	// actors_tb에 배우 insert
 	public int insertActors(Actors actor);
 
-	// 디비에 같은 배우가 안들어가게 하기위해 식별할 수 있는 profile 주소를 가져옴
+	// 디비에 같은 배우가 안들어가게 하기위해 식별할 수 있는 이름을 가져옴
 	public Actors findByActorName(String name);
 
 	// DB에 movies_actors_tb 중간다리에 insert하기
