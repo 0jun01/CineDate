@@ -4,6 +4,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <mapper
 	namespace="com.tenco.movie.repository.interfaces.HomeRepository">
 
@@ -118,10 +119,24 @@
 <mapper namespace="com.tenco.movie.repository.interfaces.HomeRepository">
 	
 =======
+=======
+
+
+>>>>>>> b04a172 (충돌해결중)
 <mapper
 	namespace="com.tenco.movie.repository.interfaces.HomeRepository">
 
->>>>>>> dac25ec (3차 자동 인설트 완성)
+	<select id="searchTitle"
+		resultType="com.tenco.movie.repository.model.search">
+		select * from movies_tb where title like '${title}'
+	</select>
+
+	<select id="titleCount">
+		select count(title) from movies_tb where ${title}
+		like ${title};
+	</select>
+
+
 	<insert id="insertMovie">
 		insert into movies_tb (title, movie_desc,movie_img
 		,release_date)
@@ -133,11 +148,14 @@
 		select * from movies_tb where title = #{title};
 	</select>
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> e6ede81 (영화 API DB로 자동 연결구현)
 <<<<<<< HEAD
 >>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
 =======
 =======
+=======
+>>>>>>> b04a172 (충돌해결중)
 
 	<select id="findById"
 		resultType="com.tenco.movie.repository.model.MovieDetailTB">
@@ -176,11 +194,14 @@
 		values(#{name}, #{directorFaceFile})
 	</insert>
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> dac25ec (3차 자동 인설트 완성)
 <<<<<<< HEAD
 >>>>>>> a3aafde (3차 자동 인설트 완성)
 =======
 =======
+=======
+>>>>>>> b04a172 (충돌해결중)
 
 	<insert id="insertActors">
 		insert into actors_tb (name, actor_face_file)
@@ -204,11 +225,14 @@
 		AND actors_id = #{actorId}
 	</select>
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 679302a (영화API파싱 거의 95완료)
 <<<<<<< HEAD
 >>>>>>> 96e61be (영화API파싱 거의 95완료)
 =======
 =======
+=======
+>>>>>>> b04a172 (충돌해결중)
 
 	<select id="findByDirectorName"
 		resultType="com.tenco.movie.repository.model.Director">
@@ -227,6 +251,9 @@
 		values(#{movieId}, #{directorId})
 	</insert>
 
+<<<<<<< HEAD
 >>>>>>> 277621a (영화 디테일 페이지 완료)
 >>>>>>> 06e1c65 (영화 디테일 페이지 완료)
+=======
+>>>>>>> b04a172 (충돌해결중)
 </mapper>
