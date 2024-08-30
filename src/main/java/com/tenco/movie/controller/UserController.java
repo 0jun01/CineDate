@@ -197,7 +197,6 @@ public class UserController {
 		if (dto.getGender() == null || (!dto.getGender().equals("여") && !dto.getGender().equals("남"))) {
 			throw new DataDeliveryException(Define.ENTER_YOUR_GENDER, HttpStatus.BAD_REQUEST);
 		}
-		
 
 		System.out.println("여기까지는 왔나?");
 
@@ -218,23 +217,17 @@ public class UserController {
 	public String myPage() {
 		return "user/myPage";
 	}
+
 	/**
-<<<<<<< HEAD
-	 *마이페이지 
+	 * <<<<<<< HEAD 마이페이지
 	 *
-	 *@author 성후
+	 * @author 성후
 	 */
 	@PostMapping("/myPage")
 	public String myPageProFile() {
 		// 이름, 아이디, 닉네임 등록, 프로필 이미지 등록, 동의여부 확인, 수정하기버튼활성화
 		return "redirect:/user/myPage";
 	}
-=======
-	 * 
-	 */
-	
->>>>>>> ed11005 (mypage이미지미리보기추가)
-	
 
 	/**
 	 * 아이디 찾기 페이지 이동
