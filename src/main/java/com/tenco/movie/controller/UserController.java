@@ -204,21 +204,27 @@ public class UserController {
 	public String myPage() {
 		return "user/myPage";
 	}
+
 	/**
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
 >>>>>>> fc104bb (mypage이미지미리보기추가)
 	 *마이페이지 
+=======
+	 * <<<<<<< HEAD 마이페이지
+>>>>>>> 11251e9 (merge 충돌 해결)
 	 *
-	 *@author 성후
+	 * @author 성후
 	 */
 	@PostMapping("/myPage")
 	public String myPageProFile() {
 		// 이름, 아이디, 닉네임 등록, 프로필 이미지 등록, 동의여부 확인, 수정하기버튼활성화
 		return "redirect:/user/myPage";
 	}
+<<<<<<< HEAD
 =======
 	 * 
 	 */
@@ -240,6 +246,8 @@ public class UserController {
 >>>>>>> ed11005 (mypage이미지미리보기추가)
 >>>>>>> fc104bb (mypage이미지미리보기추가)
 	
+=======
+>>>>>>> 11251e9 (merge 충돌 해결)
 
 	/**
 <<<<<<< HEAD
