@@ -153,6 +153,7 @@ public class HomeController {
 									}
 								}
 <<<<<<< HEAD
+<<<<<<< HEAD
 								// TODO 나중에 따로 뺄꺼 insertMovies는 주간오피스 데이터 DB에 자동으로 넣는 녀석 movies_tb에
 //								homeService.insertMovies(movies);
 =======
@@ -167,6 +168,10 @@ public class HomeController {
 >>>>>>> a3aafde (3차 자동 인설트 완성)
 								homeService.insertMovies(movies);
 >>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
+=======
+								// TODO 나중에 따로 뺄꺼 insertMovies는 주간오피스 데이터 DB에 자동으로 넣는 녀석 movies_tb에
+//								homeService.insertMovies(movies);
+>>>>>>> 06e1c65 (영화 디테일 페이지 완료)
 							}
 						}
 					}
@@ -322,9 +327,12 @@ public class HomeController {
 											System.out.println("Director: " + director.getPeopleNm() + " ("
 													+ director.getPeopleNmEn() + ")");
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 											homeService.insertDirector(movieId, director.getPeopleNm());
 >>>>>>> a3aafde (3차 자동 인설트 완성)
+=======
+>>>>>>> 06e1c65 (영화 디테일 페이지 완료)
 										}
 									}
 

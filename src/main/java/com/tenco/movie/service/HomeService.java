@@ -14,6 +14,7 @@ import com.tenco.movie.repository.interfaces.HomeRepository;
 <<<<<<< HEAD
 import com.tenco.movie.repository.model.Actors;
 import com.tenco.movie.repository.model.Director;
+<<<<<<< HEAD
 import com.tenco.movie.repository.model.Genres;
 import com.tenco.movie.repository.model.MovieActor;
 import com.tenco.movie.repository.model.MovieDetailTB;
@@ -25,9 +26,12 @@ import com.tenco.movie.repository.model.MovieGenre;
 =======
 import com.tenco.movie.repository.model.Actors;
 >>>>>>> 96e61be (영화API파싱 거의 95완료)
+=======
+>>>>>>> 06e1c65 (영화 디테일 페이지 완료)
 import com.tenco.movie.repository.model.Genres;
 import com.tenco.movie.repository.model.MovieActor;
 import com.tenco.movie.repository.model.MovieDetailTB;
+import com.tenco.movie.repository.model.MovieDirector;
 import com.tenco.movie.repository.model.MovieGenre;
 >>>>>>> a3aafde (3차 자동 인설트 완성)
 import com.tenco.movie.repository.model.Movies;
@@ -245,6 +249,9 @@ public class HomeService {
 
 	@Transactional
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 06e1c65 (영화 디테일 페이지 완료)
 	public void insertDirector(int movieId, Director director) {
 		Director directorEntity = null;
 		
@@ -273,6 +280,7 @@ public class HomeService {
 			throw new RedirectException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
 		}
 
+<<<<<<< HEAD
 	}
 
 	@Transactional
@@ -301,6 +309,8 @@ public class HomeService {
 =======
 	public void insertDirector(int movieId, String peopleNm) {
 >>>>>>> a3aafde (3차 자동 인설트 완성)
+=======
+>>>>>>> 06e1c65 (영화 디테일 페이지 완료)
 	}
 
 	@Transactional
@@ -310,6 +320,7 @@ public class HomeService {
 		if (actorsEntity == null) {
 			System.out.println("너 인설트 성공했어");
 			homeRepository.insertActors(actors);
+			actorsEntity = homeRepository.findByActorName(actors.getName());
 		} else {
 			System.out.println("이미 있어");
 		}

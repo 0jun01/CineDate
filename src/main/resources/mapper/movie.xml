@@ -33,9 +33,13 @@
 		md.watch_grade_Nm,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		d.director_face_file,
 =======
 >>>>>>> 96e61be (영화API파싱 거의 95완료)
+=======
+		d.director_face_file,
+>>>>>>> 06e1c65 (영화 디테일 페이지 완료)
 		GROUP_CONCAT(DISTINCT g.genre_name SEPARATOR ', ')
 		AS genre,
 		GROUP_CONCAT(DISTINCT d.name SEPARATOR ', ') AS director
