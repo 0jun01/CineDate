@@ -37,7 +37,9 @@ body {
 .eng {
 	font-family: 'Tium';
 }
-
+.pointFont{
+	font-family: 'Paperlogy-8ExtraBold';
+}
 .text-center {
 	text-align: center;
 }
@@ -72,7 +74,9 @@ body {
 	display: flex;
 	flex-direction: column;
 }
-
+.flex--center{
+	align-items: center;
+}
 .login--wrap input {
 	margin-bottom: 15px;
 }
@@ -236,6 +240,13 @@ label {
 	left: 50%;
 	transform: translate(-50%, -74%) rotate(45deg);
 }
+<<<<<<< HEAD
+=======
+.find--result{
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+>>>>>>> 5a6eb19 (로그인 및 회원가입 완료)
 
 table, th, td {
 	border: 1px solid black;
