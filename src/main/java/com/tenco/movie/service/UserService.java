@@ -225,7 +225,6 @@ public class UserService {
 		return userEntity;
 	}
 
-
 	 @Transactional
 	    public User getUserById(String name) {
 	        User user = userRepository.findById(name);

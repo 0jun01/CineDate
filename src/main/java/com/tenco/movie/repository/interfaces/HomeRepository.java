@@ -2,6 +2,7 @@ package com.tenco.movie.repository.interfaces;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -74,6 +75,8 @@ public interface HomeRepository {
 public interface HomeRepository {
 
 =======
+=======
+>>>>>>> b04a172 (충돌해결중)
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -96,6 +99,7 @@ public interface HomeRepository {
 	public Movies findByTitle(String title);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> e6ede81 (영화 API DB로 자동 연결구현)
 <<<<<<< HEAD
 >>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
@@ -103,8 +107,9 @@ public interface HomeRepository {
 =======
 	
 =======
+=======
+>>>>>>> b04a172 (충돌해결중)
 
->>>>>>> 679302a (영화API파싱 거의 95완료)
 	// movies_detail_tb id로 찾기
 	public MovieDetailTB findById(int id);
 
@@ -128,11 +133,14 @@ public interface HomeRepository {
 	// directors_tb에 디렉터 insert
 	public int insertDirector(Director director);
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> dac25ec (3차 자동 인설트 완성)
 <<<<<<< HEAD
 >>>>>>> a3aafde (3차 자동 인설트 완성)
 =======
 =======
+=======
+>>>>>>> b04a172 (충돌해결중)
 
 	// directors_tb에 디렉터 식별 할 수 있게 디렉터 네임을 가져옴
 	public Director findByDirectorName(String name);
@@ -154,6 +162,9 @@ public interface HomeRepository {
 
 	// movies_actors_tb에 이미 값이 있으면 못들어가게 하기
 	public MovieActor findByMovieAndGenre(@Param("movieId") int movieid, @Param("actorId") int actorId);
+<<<<<<< HEAD
 >>>>>>> 679302a (영화API파싱 거의 95완료)
 >>>>>>> 96e61be (영화API파싱 거의 95완료)
+=======
+>>>>>>> b04a172 (충돌해결중)
 }
