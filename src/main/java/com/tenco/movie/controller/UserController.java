@@ -67,7 +67,6 @@ public class UserController {
 
 		User principal = userService.readUser(dto);
 
-		System.out.println("여기냐4444433");
 		session.setAttribute(Define.PRINCIPAL, principal);
 
 		return "redirect:/home";

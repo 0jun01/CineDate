@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tenco.movie.dto.DateProfileSignUp;
@@ -38,7 +39,8 @@ public class DateProfileService {
 
 		return profile;
 	}
-
+	
+	@Transactional
 	public int createdProfile(User principal, DateProfileSignUp signUp) {
 		int result = 0;
 		
@@ -97,6 +99,13 @@ public class DateProfileService {
 		}
 
 		return new String[] { mFile.getOriginalFilename(), uploadFileName };
+	}
+
+	public DateProfile searchUsername(String nickname) {
+		
+		DateProfile profile = profileRepository.searchNickName(nickname);
+		
+		return profile;
 	}
 
 }

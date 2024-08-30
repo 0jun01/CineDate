@@ -10,6 +10,7 @@ public interface ProfileRepository {
 	
 	
 	public DateProfile searchProfile(@Param("userId")int principalId);
+	public DateProfile searchNickName(@Param("nickname")String nickname);
 	public int createdProfile(DateProfile profile);
 	
 }
