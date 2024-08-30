@@ -48,9 +48,8 @@
 		insert into genres_tb (genre_name) values(#{genre})
 	</insert>
 	<insert id="insertDirector">
-		insert into director_tb (name, birth, role,
-		nationality, directorFaceFile) values(#{name}, #{birth}, #{role},
-		#{nationality}, #{directorFaceFile})
+		insert into directors_tb (name, director_face_file)
+		values(#{name}, #{directorFaceFile})
 	</insert>
 
 	<insert id="insertActors">
@@ -74,4 +73,22 @@
 		select * from movie_actor_tb where movie_id = #{movieId}
 		AND actors_id = #{actorId}
 	</select>
+
+	<select id="findByDirectorName"
+		resultType="com.tenco.movie.repository.model.Director">
+		select * from directors_tb where name = #{name}
+	</select>
+
+	<select id="findByMovieIdAndDirectorId"
+		resultType="com.tenco.movie.repository.model.MovieDirector">
+		select * from movie_director_tb where movie_id =
+		#{movieId}
+		AND director_id = #{directorId}
+	</select>
+
+	<insert id="insertByMovieDirector">
+		insert into movie_director_tb (movie_id, director_id)
+		values(#{movieId}, #{directorId})
+	</insert>
+
 </mapper>

@@ -22,4 +22,5 @@ public class MovieDetail {
 	private String prdStatNm; // 개봉여부
 	private String watchGradeNm; // 몇세 관람가인지
 	private String genre; // 장르
+	private String directorFaceFile;
 }

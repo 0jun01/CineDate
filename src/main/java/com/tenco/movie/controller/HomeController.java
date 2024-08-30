@@ -127,8 +127,8 @@ public class HomeController {
 										break; // 정확히 일치하는 항목을 찾으면 루프 종료
 									}
 								}
-								// insertMovies는 주간오피스 데이터 DB에 자동으로 넣는 녀석 movies_tb에
-								homeService.insertMovies(movies);
+								// TODO 나중에 따로 뺄꺼 insertMovies는 주간오피스 데이터 DB에 자동으로 넣는 녀석 movies_tb에
+//								homeService.insertMovies(movies);
 							}
 						}
 					}
@@ -275,7 +275,6 @@ public class HomeController {
 										for (PersonDTO director : movieInfo.getDirectors()) {
 											System.out.println("Director: " + director.getPeopleNm() + " ("
 													+ director.getPeopleNmEn() + ")");
-											homeService.insertDirector(movieId, director.getPeopleNm());
 										}
 									}
 

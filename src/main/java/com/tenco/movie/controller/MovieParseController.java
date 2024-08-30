@@ -18,16 +18,16 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.tenco.movie.dto.TMDBCreditsDTO;
 import com.tenco.movie.dto.TMDBCreditsDTO.CastDTO;
+import com.tenco.movie.dto.TMDBCreditsDTO.CrewDTO;
 import com.tenco.movie.dto.TMDBDTO;
-import com.tenco.movie.dto.WeeklyBoxOffice;
 import com.tenco.movie.dto.TMDBDTO.TMDBMovies;
+import com.tenco.movie.dto.WeeklyBoxOffice;
 import com.tenco.movie.dto.WeeklyBoxOffice.BoxOfficeResult;
 import com.tenco.movie.dto.WeeklyBoxOffice.Movie;
 import com.tenco.movie.repository.model.Actors;
+import com.tenco.movie.repository.model.Director;
 import com.tenco.movie.repository.model.Movies;
 import com.tenco.movie.service.HomeService;
-
-import lombok.Builder;
 
 @Controller
 public class MovieParseController {
@@ -71,6 +71,7 @@ public class MovieParseController {
 		List<TMDBMovies> tmdbMoviesList = new ArrayList<>();
 		List<Movies> moviesList = new ArrayList<>();
 		List<CastDTO> castList = new ArrayList<>();
+		List<CrewDTO> crewList = new ArrayList<>();
 
 		Movies movies = null;
 		TMDBDTO tmdbdto = null;
@@ -123,6 +124,7 @@ public class MovieParseController {
 												HttpMethod.GET, null, TMDBCreditsDTO.class);
 										tmDto = response3.getBody();
 										castList = tmDto.getCast();
+										crewList = tmDto.getCrew();
 										// 상위 10명만 선택
 										List<CastDTO> top10CastList = castList.stream().limit(5) // 상위 10명 선택
 												.collect(Collectors.toList());
@@ -130,7 +132,17 @@ public class MovieParseController {
 											int movieId = homeService.readMovieByTitle(title);
 											Actors actors = Actors.builder().name(castDTO.getName())
 													.actorFaceFile(castDTO.getProfilePath()).build();
-											homeService.insertActors(actors, movieId);
+//											TODO homeService.insertActors(actors, movieId);
+										}
+										for (CrewDTO crewDTO : crewList) {
+											if (crewDTO.getJob().equals("Director")) {
+												int movieId = homeService.readMovieByTitle(title);
+												Director director = Director.builder().name(crewDTO.getName())
+														.directorFaceFile(crewDTO.getProfilePath()).build();
+												System.out.println("Director 맞나요?" + crewDTO.getName());
+												// TODO 인서트문 주석
+//												homeService.insertDirector(movieId, director);
+											}
 										}
 									}
 								}

@@ -30,6 +30,7 @@
 		md.open_dt,
 		md.prd_stat_nm,
 		md.watch_grade_Nm,
+		d.director_face_file,
 		GROUP_CONCAT(DISTINCT g.genre_name SEPARATOR ', ')
 		AS genre,
 		GROUP_CONCAT(DISTINCT d.name SEPARATOR ', ') AS director
