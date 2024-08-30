@@ -1,5 +1,6 @@
 package com.tenco.movie.repository.interfaces;
 
+<<<<<<< HEAD
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -64,4 +65,8 @@ public interface HomeRepository {
 
 	// movies_actors_tb에 이미 값이 있으면 못들어가게 하기
 	public MovieActor findByMovieAndGenre(@Param("movieId") int movieid, @Param("actorId") int actorId);
+=======
+public interface HomeRepository {
+
+>>>>>>> 32a4fcf (영화 검색 기능 중)
 }

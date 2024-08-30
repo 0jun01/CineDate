@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<<<<<<< HEAD
 <mapper
 	namespace="com.tenco.movie.repository.interfaces.HomeRepository">
 
@@ -91,4 +92,18 @@
 		values(#{movieId}, #{directorId})
 	</insert>
 
+=======
+
+
+<mapper namespace="com.tenco.movie.repository.interfaces.HomeRepository">
+
+	<select id="searchTitle" resultType="com.tenco.movie.repository.model.search">
+		select * from movies_tb where title like '${title}'
+	</select>
+	
+	<select id="titleCount">
+		select count(title) from movies_tb where ${title} like ${title};
+	</select>
+
+>>>>>>> 32a4fcf (영화 검색 기능 중)
 </mapper>

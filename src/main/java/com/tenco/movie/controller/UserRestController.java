@@ -17,8 +17,6 @@ public class UserRestController {
 	
 	private final UserService userService;
 
-	// 주소 
-	
 	@GetMapping("/check-loginId")
 	public boolean getMethodName(@RequestParam(name = "loginId") String loginId) {
 		System.out.println(loginId);
@@ -28,7 +26,7 @@ public class UserRestController {
 	}
 	
 	@GetMapping("/check-email")
-	public boolean getMethodphoneNum(@RequestParam(name = "email") String email) {
+	public boolean getMethodEmail(@RequestParam(name = "email") String email) {
 		System.out.println(email);
 		boolean isUse =  userService.searchEmail(email) == null ? true : false;
 		System.out.println(isUse);
