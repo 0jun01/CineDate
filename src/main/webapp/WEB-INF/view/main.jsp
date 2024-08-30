@@ -80,6 +80,7 @@
 					<div>
 						<h3>${movieList.title}</h3>
 					</div>	
+<<<<<<< HEAD
 				</div>
 			</c:forEach>
 =======
@@ -111,6 +112,8 @@
 					<div>
 						<h3>${movieList.title}</h3>
 					</div>
+=======
+>>>>>>> 9898ef7 (merge 전 commit)
 				</div>
 			</c:forEach>
 >>>>>>> 6616716 (영화 디테일 1차완료)
