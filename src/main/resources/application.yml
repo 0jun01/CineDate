@@ -24,6 +24,7 @@ spring:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     username: root #사용자 ID를 지정
 =======
     username: kkr #사용자 ID를 지정
@@ -49,6 +50,9 @@ spring:
 >>>>>>> 90a04a5 (mypage이미지미리보기추가)
 >>>>>>> ed11005 (mypage이미지미리보기추가)
 >>>>>>> f3197cc (mypage이미지미리보기추가)
+=======
+    username: root #사용자 ID를 지정
+>>>>>>> 16744b1 (merge 충돌 해결)
     password: asd123 #DB 비밀번호 여기서는 빈 문자열로 설정
   sql:
     init:
