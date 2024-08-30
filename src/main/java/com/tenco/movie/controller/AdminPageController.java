@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tenco.movie.dto.EventWriterDTO;
 import com.tenco.movie.dto.NoticeWriterDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.Event;
@@ -130,7 +131,7 @@ public class AdminPageController {
 		return "/admin/adminNoticeDelete";
 	}
 
-	@GetMapping("adminNoticeDetail/{id}")
+	@GetMapping("/adminNoticeDetail/{id}")
 	public String adminNoticeDetail(@PathVariable(name = "id") Integer id, Model model) {
 
 		notice = adminPageService.findById(id);
@@ -160,13 +161,24 @@ public class AdminPageController {
 		return "/admin/adminEventPage";
 	}
 	
-	@GetMapping("adminEventDetail/{id}")
+	@GetMapping("/adminEventDetail/{id}")
 	public String adminEventDetail(@PathVariable(name = "id") Integer id, Model model) {
 
 		event = adminPageService.findEventById(id);
 		model.addAttribute("event", event);
 
-		return "admin/adminEventDetail";
+		return "/admin/adminEventDetail";
+	}
+	
+	@GetMapping("/adminEventWrite")
+	public String adminEventWritePage() {
+		return "/admin/adminEventWrite";
+	}
+	@PostMapping("/adninEventWrite")
+	public String adminEventWriteProc(EventWriterDTO dto, Model model) {
+		
+		
+		return "redirect:/adminEvent";
 	}
 
 

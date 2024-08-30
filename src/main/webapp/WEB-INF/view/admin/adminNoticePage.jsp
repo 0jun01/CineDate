@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/layout/adminHeader.jsp"%>
 
+
+
+
 <div class="card card-success card-outline mb-4">
 	<main class="app-main">
 		<!--begin::App Content Header-->

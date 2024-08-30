@@ -122,13 +122,13 @@
 
 
 									<div class="card-footer clearfix">
-										<form action="/adminNoticeWrite" method="get">
+										<form action="/adminEventWrite" method="get">
 											<button class="btn btn-primary btn-sm clearfix text-bg-dark float-end">글쓰기</button>
 										</form>
 										<nav aria-label="...">
 											<ul class="pagination" style="justify-content: center">
 
-												<li class="page-item<c:if test='${currentPage ==1}'>disabled</c:if>"><a class="page-link" href="?page=${currentPage - 1}&size=${size}">이전</a></li>
+												<li class="page-item <c:if test='${currentPage == 1}'>disabled</c:if>"><a class="page-link" href="?page=${currentPage - 1}&size=${size}">이전</a></li>
 												<c:forEach begin="1" end="${totalPages}" var="page">
 													<li class="page-item <c:if test='${page == currentPage}'>active </c:if>" aria-current="page"><a class="page-link" href="?page=${page}&size=${size}">${page}</a></li>
 												</c:forEach>
