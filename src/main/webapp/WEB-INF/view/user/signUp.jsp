@@ -13,7 +13,34 @@
 					<div class="join--btn">
 						<label for="loginId">아이디</label>
 						<input type="text" id="loginId" name="loginId" placeholder="아이디를 입력해주세요. (6~15자)">
-						<button class="duplication" id="duplicationId">중복확인</button>
+						<button type="button" class="duplication" id="duplicationId">중복확인</button>
+						<div id="loginIdResult"></div>
+						<script type="text/javascript" >
+							// 비동기 통신 (AJAX) - Fetch 함수 사용(GET 방식)
+							const duplicationId = document.querySelector('#duplicationId');
+							const loginIdElement = document.querySelector('#loginId');
+							const loginIdResultElement = document.querySelector('#loginIdResult');
+							duplicationId.addEventListener("click", function() {
+								const loginId = loginIdElement.value;
+								const url = "http://localhost:8080/api-user/check-loginId?loginId=" + loginId;
+								fetch(url)
+								.then(response  => response.json()) // 응답을 JSON 형식으로 반환
+								.then(isUse =>{
+									console.log("결과확인", isUse);
+									if(isUse){
+										loginIdResultElement.textContext = "사용가능";
+										alert("사용 가능한 아이디입니다.");
+									} else {
+										loginIdResultElement.textContext = "사용불가능";
+										alert("중복된 아이디입니다.");
+									}
+								})
+								.catch(error => {
+									console.log("error", error);
+									loginIdResultElement.textContext = "잘못된 요청입니다.";
+								});
+							});
+						</script>
 					</div>
 
 					<label for="name">이름</label>
@@ -25,14 +52,44 @@
 					<label for="passwordEnter">비밀번호 확인</label>
 					<input type="password" id="enterPassword" name="enterPassword" placeholder="비밀번호를 입력해주세요. (문자, 숫자,특수문자 포함 8~20자 )">
 					
+					<div class="join--btn">
 					<label for="email">이메일 주소</label>
 					<input type="email" id="email" name="email" placeholder="이메일 주소를 입력해주세요.">
-					
+					<button type="button" class="duplication" id="duplicationEmail">중복확인</button>
+					</div>
 					
 					<div class="join--btn">
 						<label for="phoneNum">휴대폰 번호</label>
 						<input type="number" id="phoneNum" name="phoneNum" placeholder="휴대폰 번호를 입력해주세요.">
-						<button class="duplication" id="duplicationPhone">중복확인</button>
+						
+						<div id="emailResult"></div>
+						<script type="text/javascript" >
+							// 비동기 통신 (AJAX) - Fetch 함수 사용(GET 방식)
+							const duplicationEmail = document.querySelector('#duplicationEmail');
+							const emailElement = document.querySelector('#email');
+							const emailResultElement = document.querySelector('#emailResult');
+
+							duplicationEmail.addEventListener("click", function() {
+								const email = emailElement.value;
+								const url = "http://localhost:8080/api-user/check-email?email=" + email;
+								fetch(url)
+								.then(response  => response.json()) // 응답을 JSON 형식으로 반환
+								.then(isUse =>{
+									console.log("결과확인", isUse);
+									if(isUse){
+										emailResultElement.textContext = "사용가능";
+										alert("사용 가능한 이메일입니다.");
+									} else {
+										emailResultElement.textContext = "사용불가능";
+										alert("중복된 이메일입니다.");
+									}
+								})
+								.catch(error => {
+									console.log("error", error);
+									emailResultElement.textContext = "잘못된 요청입니다.";
+								});
+							});
+						</script>
 					</div>
 					
 					<label for="birth">생년월일</label>
