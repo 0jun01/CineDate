@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MovieService {
 
-	@Autowired
+	@Autowired 
 	private final MovieRepository movieRepository;
 
 	/**
