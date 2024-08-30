@@ -23,6 +23,31 @@ footer {
 	text-align: justify;
 }
 
+#go--top {
+    position: fixed;
+    bottom: 90px;
+    right: 100px;
+    width: 60px;
+    height: 60px;
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+    z-index: 90;
+    background: #333;
+    border-radius: 50%;
+    border: 1px solid #444;
+}
+#go--top .arr {
+    display: block;
+    background: url(/img/arrow.png) no-repeat center;
+    width: 11px;
+    height: 4px;
+    transform: rotate(180deg);
+    margin: 0 auto 5px;
+}
+#go--top p {
+    font-size: 12px;
+}
 .copyright {
 	display: block;
 	font-size: 14px;

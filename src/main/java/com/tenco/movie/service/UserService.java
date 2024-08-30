@@ -14,6 +14,7 @@ import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.UserRepository;
 import com.tenco.movie.repository.model.User;
+import com.tenco.movie.repository.model.search;
 import com.tenco.movie.utils.Define;
 
 import lombok.RequiredArgsConstructor;
@@ -255,14 +256,12 @@ public class UserService {
 	}
 	
 	/**
-	 * phoneNum 사용자 존재 여부 조회
+	 * email 사용자 존재 여부 조회
 	 * @return User
 	 * @author 형정
 	 */
 	public User searchEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
-
-	
 
 }

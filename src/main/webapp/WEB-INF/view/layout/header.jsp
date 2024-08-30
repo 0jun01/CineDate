@@ -48,11 +48,11 @@
                 <li><a href="/movie/movies">영화</a></li>
                 <li><a href="/cinema/cinema">극장</a></li>
                 <li><a href="/reservation/reservation">예매</a></li>
-                <li><a href="/date/date">매칭</a></li>
+                <li class="date"><a href="/date/date">매칭</a></li>
                 <li><a href="/event/event">이벤트</a></li>
                 <li><a href="/notice">공지사항</a></li>
 
-                <ul class="mobile--wrap btn"> 
+                <ul class="mobile--wrap btn">
                     <!-- 햄버거 메뉴 추가 예정 -->
                 </ul>
             </ul>

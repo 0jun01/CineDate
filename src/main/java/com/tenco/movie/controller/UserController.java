@@ -407,6 +407,12 @@ public class UserController {
 		
 	}
 	
+	/**
+	 * 구글 로그인
+	 * @param code
+	 * @return	 
+	 * @author 형정
+	 */
 	@GetMapping("/google")
 	public String google(@RequestParam(name = "code") String code) {
 		
@@ -471,7 +477,25 @@ public class UserController {
 		return "redirect:/home";
 	}
 
-
+	/**
+	 * 이용약관
+	 * @return
+	 * @author 형정
+	 */
+	@GetMapping("/termsOfUse")
+	public String termsOfUse() {
+		return "user/termsOfUse";
+	}
+	
+	/**
+	 * 개인정보처리방침
+	 * @return
+	 * @author 형정
+	 */
+	@GetMapping("/privacyPolicy")
+	public String privacyPolicy() {
+		return "user/privacyPolicy";
+	}
 
 	
 }

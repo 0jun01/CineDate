@@ -15,7 +15,7 @@
 					<img src="/img/footer_logo.png" alt="하단 로고">
 				</div>
 				<div class="footer--tems">
-					<span><a href="">이용약관</a></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span><a href="">개인정보처리방침</a></span>
+					<span><a href="/user/termsOfUse">이용약관</a></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span><a href="/user/privacyPolicy">개인정보처리방침</a></span>
 				</div>
 			</div>
 			<div class="footer--middle">상호 : (주)시네데이트&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;대표자 : 김근호&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;소재지 : 부산광역시 부산진구 중앙대로
@@ -23,6 +23,25 @@
 				cinedate@gmail.com&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;전화번호 : 070-6975-5478</div>
 			<span class="copyright eng">copyright ⓒ 2024 cinedate. all rights reserved.</span>
 		</div>
+		<button type="button" id="go--top" class="btn">
+            <span class="arr"></span>
+            <p>TOP</p>
+        </button>
+        
+        <!-- top 버튼 생성 및 top 버튼 클릭시 상단 이동 -->
+        <script type="text/javascript" >
+	        $(window).scroll(function () {
+	            if ($(this).scrollTop() > 100) {
+	              $("#go--top").fadeIn();
+	            } else {
+	              $("#go--top").fadeOut();
+	            }
+	          });
+	          $("#go--top").click(function () {
+	            $("html, body").animate({ scrollTop: 0 }, 400);
+	            return false;
+	          });
+        </script>
 	</footer>
 	<!-- footer end -->
 

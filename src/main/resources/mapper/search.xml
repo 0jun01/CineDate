@@ -2,15 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
-<mapper namespace="com.tenco.movie.repository.interfaces.HomeRepository">
+<mapper namespace="com.tenco.movie.repository.interfaces.SearchRepository">
 
 	<select id="searchTitle" resultType="com.tenco.movie.repository.model.search">
-		select * from movies_tb where title like '${title}'
+		select * from movies_tb where title like ${title}
 	</select>
 	
 	<select id="titleCount">
-		select count(title) from movies_tb where ${title} like ${title};
+		select count(title) from movies_tb where ${title} like ${title}
 	</select>
 
 </mapper>

@@ -44,36 +44,51 @@ main {
 /* 이미지 슬라이드 end */
 
 /* 검색 결과 start */
-.seach--movie--wrap{
+.seach--movie--wrap {
 	display: flex;
 	margin-top: 20px;
 }
-.seach--movie--item{
+
+.seach--movie--item {
 	display: flex;
 	gap: 50px;
 }
-.movie--post img{
+
+.movie--post img {
 	border-radius: 10px;
 }
-.seach--movie--info{
-    border-bottom: 1px solid #bababa;
-    padding-bottom: 20px;
+
+.seach--movie--info {
+	border-bottom: 1px solid #bababa;
+	padding-bottom: 20px;
 }
-.seach--movie--sub--info{
-    display: flex;
-    gap: 20px;
+
+.seach--movie--sub--info {
+	display: flex;
+	gap: 20px;
 }
-.seach--movie--content{
-    padding-top: 20px;
-    text-align: justify;
+
+.seach--movie--content {
+	padding: 20px 0 70px;
+	text-align: justify;
 }
 
 /* 검색 결과 end */
+.section--title {
+	margin-top: 150px;
+}
+
 .top--title {
 	color: #ff2588;
 	font-size: 45px;
 	margin-top: 150px;
 	margin-bottom: 50px;
+}
+
+.movie--title {
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 20px;
 }
 
 .movie--list--box {
@@ -85,4 +100,83 @@ main {
 .movie--text--box {
 	display: flex;
 	flex-direction: column;
+}
+.movie--btn{
+	width: 180px;
+	padding: 10px 0;
+	font-size: 16px;
+	border-radius: 6px;
+	border: 1px solid #ff2588;
+	background-color: #fff;
+}
+.movie--btn:nth-child(2){
+	background-color: #ff2588;
+	color: #fff;
+	margin-left: 20px;
+}
+
+/* 약관 start*/
+.terms--wrap {
+	margin-top: 20px;
+	border: 1px solid #bababa;
+	height: 500px;
+	overflow-y: scroll;
+	padding: 5%;
+	text-align: justify;
+	letter-spacing: -1px;
+	line-height: 24px;
+}
+
+.terms--wrap::-webkit-scrollbar {
+	width: 4px;
+}
+
+.terms--wrap::-webkit-scrollbar-thumb {
+	height: 30%;
+	background: #666;
+	border-radius: 10px;
+}
+
+.terms--wrap::-webkit-scrollbar-track {
+	background: rgba(27, 27, 27, 0.1);
+}
+
+.terms--sub{
+	margin: 5px 0 0 30px;
+}
+
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5); /* Dark overlay with opacity */
+	color: white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	padding: 10px; /* Ensure that the overlay fits within the image */
+	box-sizing: border-box;
+	/* Ensure padding is included in the dimensions */
+}
+
+.movie--img--container:hover .overlay {
+	opacity: 1;
+}
+
+.overlay-link {
+	color: white;
+	font-size: 1.2rem; /* Adjust font size as needed */
+	text-align: center;
+	text-decoration: none;
+	margin: 5px 0; /* Space between links */
+	display: block;
+}
+
+.overlay-link:hover {
+	text-decoration: underline;
 }
