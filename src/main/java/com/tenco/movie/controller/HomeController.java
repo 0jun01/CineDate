@@ -47,23 +47,8 @@ public class HomeController {
 	private final String WEEKLYBOXOFFICEURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json";
 	// 무비 상세 URI
 	private final String MOVIEDETAILURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json";
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 	HomeService homeService;
-
-	@Autowired
-	public HomeController(HomeService homeService) {
-		this.homeService = homeService;
-	}
-=======
-	
-=======
-
->>>>>>> a3aafde (3차 자동 인설트 완성)
-	HomeService homeService;
->>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
 
 	@Autowired
 	public HomeController(HomeService homeService) {
@@ -73,12 +58,6 @@ public class HomeController {
 	/**
 	 * 오픈 API에서 주간 박스오피스 데이터 파싱
 	 * 
-=======
-	
-	
-	/**
-	 * 오픈 API에서 주간 박스오피스 데이터 파싱
->>>>>>> 528fecc (영화 디테일 1차완료)
 	 * @param Model
 	 * @return mainPage
 	 * @author 변영준
@@ -135,14 +114,10 @@ public class HomeController {
 						if (tmdbdto != null) {
 							tmdbMoviesList = tmdbdto.getResults();
 							if (tmdbMoviesList != null) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> a3aafde (3차 자동 인설트 완성)
 								Boolean found = false;
 								for (TMDBMovies tmdbMovie : tmdbMoviesList) {
 									String title = tmdbMovie.getTitle();
-									 // 정확히 일치하는 제목 찾기
+									// 정확히 일치하는 제목 찾기
 									if (title.trim().equalsIgnoreCase(firstMovie.getMovieNm().trim())) {
 										movies = Movies.builder().title(tmdbMovie.getTitle())
 												.movieDesc(tmdbMovie.getOverview()).movieImg(tmdbMovie.getPosterPath())
@@ -152,26 +127,8 @@ public class HomeController {
 										break; // 정확히 일치하는 항목을 찾으면 루프 종료
 									}
 								}
-<<<<<<< HEAD
-<<<<<<< HEAD
 								// TODO 나중에 따로 뺄꺼 insertMovies는 주간오피스 데이터 DB에 자동으로 넣는 녀석 movies_tb에
 //								homeService.insertMovies(movies);
-=======
-								TMDBMovies tmdbMovie = tmdbMoviesList.get(0);
-								// tmdbMovie 클래스를 movies로 변환하기 위해 빌더를 사용
-								Movies movies = Movies.builder().title(tmdbMovie.getTitle())
-										.movieDesc(tmdbMovie.getOverview()).movieImg(tmdbMovie.getPosterPath())
-										.releaseDate(tmdbMovie.getReleaseDate()).build();
-								moviesList.add(movies);
-=======
-								// insertMovies는 주간오피스 데이터 DB에 자동으로 넣는 녀석 movies_tb에
->>>>>>> a3aafde (3차 자동 인설트 완성)
-								homeService.insertMovies(movies);
->>>>>>> 8b40cc4 (영화 API DB로 자동 연결구현)
-=======
-								// TODO 나중에 따로 뺄꺼 insertMovies는 주간오피스 데이터 DB에 자동으로 넣는 녀석 movies_tb에
-//								homeService.insertMovies(movies);
->>>>>>> 06e1c65 (영화 디테일 페이지 완료)
 							}
 						}
 					}
@@ -181,11 +138,7 @@ public class HomeController {
 		model.addAttribute("movieList", moviesList);
 		return "main";
 	}
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> 528fecc (영화 디테일 1차완료)
 	// TODO삭제예정
 	@GetMapping("/TMDB")
 	@ResponseBody
@@ -220,10 +173,6 @@ public class HomeController {
 		return response.getBody();
 	}
 
-<<<<<<< HEAD
-=======
-	
->>>>>>> 528fecc (영화 디테일 1차완료)
 	// TODO삭제예정
 	@GetMapping("/movieSearch")
 	@ResponseBody
@@ -238,17 +187,17 @@ public class HomeController {
 		// yyyMMdd 형식으로 데이터를 날려야하기 때문에 포멧 해줬다
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 		String weeklyBoxDate = aWeek.format(formatter);
-		
+
 		// 값 담을 변수들 지역 변수로 수정
 		String movieCd = "";
 		String title = "";
 		String titleEn = "";
 		String showTm = "";
 		String openDt = "";
-		String prdStatNm ="";
+		String prdStatNm = "";
 		String watchGradeNm = "";
-		String genreName ="";
-		
+		String genreName = "";
+
 		// 요청 URI JSON으로 값 받기
 		URI uri = UriComponentsBuilder
 				.fromUriString(
@@ -304,7 +253,7 @@ public class HomeController {
 									if (movieInfo.getNations() != null) {
 										for (NationDTO nation : movieInfo.getNations()) {
 											System.out.println("Nation: " + nation.getNationNm());
-											
+
 										}
 									}
 
@@ -326,13 +275,6 @@ public class HomeController {
 										for (PersonDTO director : movieInfo.getDirectors()) {
 											System.out.println("Director: " + director.getPeopleNm() + " ("
 													+ director.getPeopleNmEn() + ")");
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-											homeService.insertDirector(movieId, director.getPeopleNm());
->>>>>>> a3aafde (3차 자동 인설트 완성)
-=======
->>>>>>> 06e1c65 (영화 디테일 페이지 완료)
 										}
 									}
 
@@ -348,10 +290,11 @@ public class HomeController {
 											System.out.println("Audit Grade: " + audit.getWatchGradeNm());
 										}
 									}
-									
-									// TODO 나중에 빌더 패턴 써서 정리 movie_detail_tb에 인설트 
-									homeService.insertMovieDetail(movieId,title,titleEn,showTm,openDt,prdStatNm, watchGradeNm);
-									
+
+									// TODO 나중에 빌더 패턴 써서 정리 movie_detail_tb에 인설트
+//									homeService.insertMovieDetail(movieId, title, titleEn, showTm, openDt, prdStatNm,
+//											watchGradeNm);
+
 								}
 							}
 						}
@@ -362,5 +305,4 @@ public class HomeController {
 
 		return movieDetailDTO;
 	}
-	
 }

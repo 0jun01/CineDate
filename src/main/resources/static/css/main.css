@@ -38,7 +38,7 @@ main {
 
 .flex--between--wrap {
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
 }
 
 /* 이미지 슬라이드 end */
@@ -69,33 +69,21 @@ main {
 }
 
 /* 검색 결과 end */
+.section--title{
+	margin-top: 150px;
+}
 .top--title {
 	color: #ff2588;
-	font-size: 30px;
+	font-size: 45px;
 	margin-top: 150px;
 	margin-bottom: 50px;
 }
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-img{
-	width:150px;
+.movie--title{
+	font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
-
-.movie--list--box{
-=======
 .movie--list--box {
->>>>>>> 32a4fcf (영화 검색 기능 중)
-=======
-.movie--list--box {
-=======
-img{
-	width:150px;
-}
-
-.movie--list--box{
->>>>>>> 6616716 (영화 디테일 1차완료)
->>>>>>> 528fecc (영화 디테일 1차완료)
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -106,22 +94,28 @@ img{
 	flex-direction: column;
 }
 
-.movie--content--box{
-	margin: 10px;
-	border: 10px;
-}
+/* 약관 start*/
 
-<<<<<<< HEAD
-.movie--img--container {
-=======
-.movie--img-container {
->>>>>>> 528fecc (영화 디테일 1차완료)
-    position: relative;
+.terms--wrap {
+    margin-top: 20px;
+    border: 1px solid #bababa;
+    height: 500px;
+    overflow-y: scroll;
+    padding: 5%;
+    text-align: justify;
+    letter-spacing: -1px;
+    line-height: 24px;
 }
-
-.movie--img {
-    border-bottom: 10px;
-    display: block;
+ .terms--wrap::-webkit-scrollbar {
+    width: 4px;
+}
+.terms--wrap::-webkit-scrollbar-thumb {
+    height: 30%;
+    background: #666;
+    border-radius: 10px;
+}
+.terms--wrap::-webkit-scrollbar-track {
+    background: rgba(27, 27, 27, 0.1);
 }
 
 .overlay {
@@ -142,11 +136,7 @@ img{
     box-sizing: border-box; /* Ensure padding is included in the dimensions */
 }
 
-<<<<<<< HEAD
 .movie--img--container:hover .overlay {
-=======
-.movie--img-container:hover .overlay {
->>>>>>> 528fecc (영화 디테일 1차완료)
     opacity: 1;
 }
 
