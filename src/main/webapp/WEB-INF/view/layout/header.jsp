@@ -10,6 +10,8 @@
 <link href="/css/header.css" rel="stylesheet">
 <link href="/css/footer.css" rel="stylesheet">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.ico">
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
 
@@ -25,7 +27,7 @@
 				<c:choose>
 					<c:when test="${principal != null}">
 						<li><a href="/user/logout"><span>로그아웃</span></a></li>					
-						<li><a href="/home/myPage"><span>마이페이지</span></a></li>
+						<li><a href="/user/myPage"><span>마이페이지</span></a></li>
 						<li><a href="/home/CS"><span>고객센터</span></a></li>
 					</c:when>
 					

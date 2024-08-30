@@ -28,7 +28,7 @@
 		<!-- 공지사항 -->
 		<div class="notice--wrap">
 			<div class="top--title">
-				<h1>공지사항</h1>
+				<h1><a href="/notice">공지사항</a></h1>
 				<a>~~유의사항 태그</a>
 			</div>
 		</div>
