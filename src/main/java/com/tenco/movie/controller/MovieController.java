@@ -30,12 +30,22 @@ public class MovieController {
 	/**
 	 * 영화 페이지 요청
 	 * 
-	 * @author 김가령
+	 * @author 김가령, 성후
 	 */
 	@GetMapping("/movies")
-	public String moviesPage() {
-		return "/movie/moviePage";
-	}
+	  public String moviesPage(Model model) {
+        try {
+            List<Movies> movieList = movieService.readAllMovies();
+            model.addAttribute("movieList", movieList);
+            return "/movie/moviePage";
+        } catch (DataDeliveryException e) {
+            System.err.println("들어오나");
+            return "/movie/moviePage"; 
+        } catch (Exception e) {
+            System.err.println("여기도?");
+            return "/movie/moviePage"; 
+        }
+    }
 	/**
 	 * @param title 박스오피스 영화 제목
 	 * @return 무비디테일 페이지

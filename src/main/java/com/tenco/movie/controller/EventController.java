@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tenco.movie.repository.model.Event;
-import com.tenco.movie.repository.model.Notice;
 import com.tenco.movie.service.EventService;
-import com.tenco.movie.service.NoticeService;
 
 import lombok.RequiredArgsConstructor;
 

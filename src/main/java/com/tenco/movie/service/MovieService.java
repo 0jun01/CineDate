@@ -73,4 +73,18 @@ public class MovieService {
 		return detailEntity;
 	}
 
+	 public List<Movies> readAllMovies() {
+	        try {
+	            return movieRepository.findAllMovies();
+	        } catch (DataDeliveryException e) {
+	            // 로깅 추가
+	            System.err.println("DataDeliveryException occurred: " + e.getMessage());
+	            throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.INTERNAL_SERVER_ERROR);
+	        } catch (Exception e) {
+	            // 로깅 추가
+	            System.err.println("Exception occurred: " + e.getMessage());
+	            throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	}
+
 }

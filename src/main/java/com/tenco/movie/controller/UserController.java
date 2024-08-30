@@ -234,6 +234,7 @@ public class UserController {
         userService.updateUsername(name, username);
         return "redirect:/myPage?login_id=" + name;
     }
+	
 
 	/**
 	 *마이페이지 
