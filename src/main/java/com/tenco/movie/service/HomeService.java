@@ -60,14 +60,6 @@ public class HomeService {
 			}
 
 
-			if (moviesEntity == null) {
-				result = homeRepository.insertMovie(movies);
-				if (result == 0) {
-					System.out.println(movies.getTitle() + "은 이미 DB에 있어서 실패");
-				} else {
-					System.out.println(movies.getTitle() + "DB에 값 넣기 성공");
-				}
-			}
 		} catch (DataAccessException e) {
 			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
