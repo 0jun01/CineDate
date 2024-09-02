@@ -12,7 +12,7 @@
 		<div id="in--wrap">
 			<div class="footer--top">
 				<div class="footer--logo">
-					<img src="/img/footer_logo.png" alt="하단 로고">
+					<a href="/home"><img src="/img/footer_logo.png" alt="푸터 로고"></a>
 				</div>
 				<div class="footer--tems">
 					<span><a href="/user/termsOfUse">이용약관</a></span> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span><a href="/user/privacyPolicy">개인정보처리방침</a></span>

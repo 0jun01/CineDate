@@ -8,6 +8,7 @@
 <title>CineDate</title>
 <link href="/css/common.css" rel="stylesheet">
 <link href="/css/header.css" rel="stylesheet">
+<link href="/css/font.css" rel="stylesheet">
 <link href="/css/main.css" rel="stylesheet">
 <link href="/css/footer.css" rel="stylesheet">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.ico">
@@ -35,10 +36,10 @@
 				</c:choose>
                 
                 <form action="/search/search" method="GET" class="main--total--search">
-                    <label for="main--search" class="main--search"></label>
-                        <input type="text" id="main--search" name="main--search">
+                    <label class="main--search"></label>
+                        <input type="text" id="main--search" name="search">
                     
-                    <button type="button" class="search--btn btn"></button>
+                    <button type="submit" class="search--btn btn"></button>
                 </form>
             </ul>
         </div>

@@ -18,7 +18,7 @@ a {
 }
 
 body {
-	font-family: 'NanumSquareNeo';
+	font-family: 'NanumSquareNeoBold';
 }
 
 .btn, select {
@@ -136,7 +136,7 @@ body {
 	background-color: #bababa;
 	position: absolute;
 	left: -120px;
-	top: 8px;
+	top: 10px;
 	z-index: 0;
 }
 
@@ -147,7 +147,7 @@ body {
 	background-color: #bababa;
 	position: absolute;
 	left: 170px;
-	top: 8px;
+	top: 10px;
 	z-index: 0;
 }
 

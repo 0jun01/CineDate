@@ -1,12 +1,16 @@
 package com.tenco.movie.repository.interfaces;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.core.annotation.MergedAnnotations.Search;
+import org.apache.ibatis.annotations.Param;
+
+import com.tenco.movie.repository.model.Search;
 
 @Mapper
 public interface SearchRepository {
-	
-	int searchTitle(Search search);
-	int titleCount(Search search);
-	
+
+	// 검색 리스트 불러오기
+	public List<Search> searchMoiveTitle(@Param("title")String title);
+
 }

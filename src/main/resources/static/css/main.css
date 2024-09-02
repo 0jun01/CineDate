@@ -46,23 +46,32 @@ main {
 /* 검색 결과 start */
 .seach--movie--wrap {
 	display: flex;
-	margin-top: 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top: 20px;
+    gap: 6%;
 }
-
-.seach--movie--item {
-	display: flex;
-	gap: 50px;
-}
-
 .movie--post img {
 	border-radius: 10px;
 }
 
 .seach--movie--info {
-	border-bottom: 1px solid #bababa;
 	padding-bottom: 20px;
 }
-
+.seach--movie--item{
+	margin-top: 100px;
+	width: 29.3%;
+}
+.seach--movie--item:nth-child(1){
+	margin-top: 0;
+}
+.seach--movie--item:nth-child(2){
+	margin-top: 0;
+}
+.seach--movie--item:nth-child(3){
+	margin-top: 0;
+}
 .seach--movie--sub--info {
 	display: flex;
 	gap: 20px;
@@ -78,19 +87,16 @@ main {
 	margin-top: 150px;
 }
 
-.top--title {
-	color: #ff2588;
-	font-size: 45px;
-	margin-top: 150px;
-	margin-bottom: 50px;
-}
-
 .movie--title {
 	font-size: 24px;
 	font-weight: bold;
-	margin-bottom: 20px;
+	height: 65px;
+	margin-top: 10px;
 }
 
+.movie--release, movie--watchgrade{
+	height: 30px;
+}
 .movie--list--box {
 	display: flex;
 	justify-content: center;
@@ -102,17 +108,18 @@ main {
 	flex-direction: column;
 }
 .movie--btn{
-	width: 180px;
+	width: 135px;
 	padding: 10px 0;
 	font-size: 16px;
 	border-radius: 6px;
 	border: 1px solid #ff2588;
 	background-color: #fff;
 }
+
 .movie--btn:nth-child(2){
 	background-color: #ff2588;
 	color: #fff;
-	margin-left: 20px;
+	margin-left: 12px;
 }
 
 /* 약관 start*/
@@ -123,7 +130,6 @@ main {
 	overflow-y: scroll;
 	padding: 5%;
 	text-align: justify;
-	letter-spacing: -1px;
 	line-height: 24px;
 }
 

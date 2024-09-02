@@ -4,12 +4,11 @@
 
 <mapper namespace="com.tenco.movie.repository.interfaces.SearchRepository">
 
-	<select id="searchTitle" resultType="com.tenco.movie.repository.model.search">
-		select * from movies_tb where title like ${title}
-	</select>
-	
-	<select id="titleCount">
-		select count(title) from movies_tb where ${title} like ${title}
+	<select id="searchMoiveTitle" resultType="com.tenco.movie.repository.model.Search">
+		SELECT m.title , m.movie_img, m.movie_desc, m.release_date, md.prd_stat_nm, md.watch_grade_Nm
+	    FROM movies_tb AS m
+	    LEFT JOIN movie_detail_tb AS md ON m.id = md.id
+	    WHERE m.title LIKE CONCAT('%', #{title}, '%')
 	</select>
 
 </mapper>

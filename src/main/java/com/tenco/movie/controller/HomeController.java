@@ -103,7 +103,7 @@ public class HomeController {
 		model.addAttribute("movieList",moviesList);
 		return "main";
 	}
-
+	
 	@GetMapping("/TMDB")
 	@ResponseBody
 	public TMDBDTO parseTMDB() {
