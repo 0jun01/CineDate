@@ -103,3 +103,17 @@
 	display: flex;
 	justify-content: center;
 }
+
+.filter--box {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px; 
+}
+
+button {
+    border: none; 
+    background-color: transparent;
+    padding: 10px 15px;
+    font-size: 16px; 
+    cursor: pointer;
+}

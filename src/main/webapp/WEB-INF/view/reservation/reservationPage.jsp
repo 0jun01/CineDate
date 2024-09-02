@@ -12,10 +12,8 @@
 				<h3>영화</h3>
 			</div>
 			<div class="filter--box">
-				<!--<a href="#"><h5>가나다순&nbsp;&nbsp;</h5></a>
-				<h5>시청등급순</h5> -->
-				<button type="button" id="sortByKorean" value="korean">가나다순</button>
-				<button type="button" id="sortByAge" value="age">시청등급순</button>
+				<button type="button" id="sortByKorean" value="korean" name="filter--btn">가나다순</button>
+				<button type="button" id="sortByAge" value="age" name="filter--btn">시청등급순</button>
 			</div>
 			<div class="movie--list">
 				<ul id="movie-list">
