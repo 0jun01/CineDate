@@ -141,7 +141,7 @@ public class MovieParseController {
 														.directorFaceFile(crewDTO.getProfilePath()).build();
 												System.out.println("Director 맞나요?" + crewDTO.getName());
 												// TODO 인서트문 주석
-//												homeService.insertDirector(movieId, director);
+												homeService.insertDirector(movieId, director);
 											}
 										}
 									}
