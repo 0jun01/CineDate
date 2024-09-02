@@ -50,7 +50,17 @@ public class DateController {
 
 		return "date/datePage";
 	}
-
+	
+	
+	/**
+	 * @author 성후
+	 * @param principal
+	 * @param mFileOne
+	 * @param mFileTwo
+	 * @param nickName
+	 * @param introduce
+	 * @return
+	 */
 	@PostMapping("/signUp")
 	public String postDateSignUp(@SessionAttribute(Define.PRINCIPAL) User principal,
 			@RequestParam(name = "mFileOne") MultipartFile mFileOne,
@@ -96,10 +106,7 @@ public class DateController {
 		String orderId = payservice.getOderId();
 		String orderName = "con";
 		String customerName = principal.getName();
-		System.out.println(amount);
-		System.out.println(orderId);
-		System.out.println(orderName);
-		System.out.println(customerName);
+		
 		// 모델에 데이터 추가
 		model.addAttribute("amount", amount);
 		model.addAttribute("orderId", orderId);
