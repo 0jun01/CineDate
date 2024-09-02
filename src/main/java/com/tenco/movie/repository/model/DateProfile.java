@@ -11,7 +11,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Profile {
+public class DateProfile {
 
 	private int id;
 	private int userId; // User - fk
@@ -27,5 +27,8 @@ public class Profile {
 	private int con; // 보유 콘 개수
 	private int lifeStatus; // 상태 ( 0 - 계정 활성화, 1 - 계정 정지 )
 	private int listStatus; // 상태 ( 0 - 일반, 1 - 슈퍼 리스트 활성화 )
+	
+	
+	
 	
 }

@@ -40,7 +40,6 @@ public class EventController {
 		System.out.println("------------------");
 		 model.addAttribute("event", event);
 	        return "/event/eventDetail";
-	}
 	
 	/**
 	 *  이벤트 페이지 이동
