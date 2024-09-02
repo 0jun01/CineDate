@@ -5,7 +5,7 @@
 <%@ page import="com.tenco.movie.repository.model.Movies"%>
 	<!-- header.jsp -->
     <%@ include file="/WEB-INF/view/layout/header.jsp" %>
-    
+    <!-- 성후 -->
         <!-- start of content.jsp(xxx.jsp) -->
 	  <c:choose>
         <c:when test="${movieList != null && !movieList.isEmpty()}">

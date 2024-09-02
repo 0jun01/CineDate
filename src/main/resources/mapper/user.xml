@@ -57,9 +57,18 @@
 	<select id="findByLoginIdForPassword" resultType="com.tenco.movie.repository.model.User">
 		select * from user_tb where login_id = #{loginId} AND email = #{email}
 	</select>
-	
+	<!--  -->
 	<select id="findByUsername" resultType="com.tenco.movie.repository.model.User">
 		select * from user_tb where name = #{name}
 	</select>
+	<!-- 마이페이지 변경 -->
+	<update id="update">
+		 update user_tb set
+            name = #{name},
+            password = #{password},
+            email = #{email},
+            phone_num = #{phoneNum}
+        where id = #{id}
+	</update>
 	
 </mapper>

@@ -14,6 +14,7 @@ import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.UserRepository;
 import com.tenco.movie.repository.model.User;
+import com.tenco.movie.repository.model.search;
 import com.tenco.movie.utils.Define;
 
 import lombok.RequiredArgsConstructor;
@@ -225,25 +226,6 @@ public class UserService {
 		return userEntity;
 	}
 
-	 @Transactional
-	    public User getUserById(String name) {
-	        User user = userRepository.findById(name);
-	        if (user == null) {
-	            throw new DataDeliveryException("User not found", HttpStatus.NOT_FOUND);
-	        }
-	        return user;
-	    }
-
-	    @Transactional
-	    public void updateUsername(String name, String newUsername) {
-	        User user = userRepository.findById(name);
-	        if (user == null) {
-	            throw new DataDeliveryException("User not found", HttpStatus.NOT_FOUND);
-	        }
-	        user.setName(newUsername);
-	        userRepository.update(user);
-	    }
-
 	/**
 	 * name 사용자 존재 여부 조회
 	 * @param name
@@ -267,38 +249,60 @@ public class UserService {
 	/**
 	 * phoneNum 사용자 존재 여부 조회
 	 * @return User
-	 * @author 형정
+	 * @author 형정 
 	 */
 	public User searchPhoneNum(String phoneNum) {
 		return userRepository.findByPhoneNum(phoneNum);
 	}
 	
 	/**
-	 * phoneNum 사용자 존재 여부 조회
+	 * email 사용자 존재 여부 조회
 	 * @return User
 	 * @author 형정
 	 */
 	public User searchEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
-
+	/**
+	 * 마이페이지
+	 * @param name 성후
+	 * @return
+	 */
 	 @Transactional
 	    public User getUserById(String name) {
 	        User user = userRepository.findById(name);
 	        if (user == null) {
-	            throw new DataDeliveryException("User not found", HttpStatus.NOT_FOUND);
+	            throw new DataDeliveryException(Define.INVALID_INPUT, HttpStatus.NOT_FOUND);
 	        }
 	        return user;
 	    }
+/**
+ * 마이페이지 업데이트
+ * @author 성후
+ * @param userId
+ * @param newPassword
+ * @param newEmail
+ * @param newPhoneNum
+ */
+		@Transactional
+		public void updateUser(String loginId, String newPassword, String newEmail, String newPhoneNum) {
+		    User user = userRepository.findById(loginId);
 
-	    @Transactional
-	    public void updateUsername(String name, String newUsername) {
-	        User user = userRepository.findById(name);
-	        if (user == null) {
-	            throw new DataDeliveryException("User not found", HttpStatus.NOT_FOUND);
-	        }
-	        user.setName(newUsername);
-	        userRepository.update(user);
-	    }
-
+		    if (newPassword != null) {
+		        user.setPassword(newPassword);
+		    }
+		    if (newEmail != null) {
+		        user.setEmail(newEmail);
+		    }
+		    if (newPhoneNum != null) {
+		        user.setPhoneNum(newPhoneNum);
+		    }
+		    user.setPassword(newPassword);
+		    user.setEmail(newEmail);
+		    user.setPhoneNum(newPhoneNum);
+		    
+		    
+		    
+		    userRepository.update(user);
+		}
 }

@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.tenco.movie.dto.GoogleOAuthToken;
 import com.tenco.movie.dto.GoogleProfile;
@@ -219,38 +217,28 @@ public class UserController {
 	    return "user/myPage";
 	}
 
-	/*
-	 * 마이페이지
-	 *
-	 * @author 성후
-	 */
-	@PostMapping("/myPage")
-	public String myPageProFile() {
-		// 이름, 아이디, 닉네임 등록, 프로필 이미지 등록, 동의여부 확인, 수정하기버튼활성화
-		return "redirect:/user/myPage";
-	}
-	@PostMapping("/updateUser")
-    public String myPageUpDateUser(@RequestParam("login_id")String name, @RequestParam("name") String username) {
-        userService.updateUsername(name, username);
-        return "redirect:/myPage?login_id=" + name;
-    }
-	
 
 	/**
 	 *마이페이지 
 	 *
 	 * @author 성후
 	 */
-	@PostMapping("/updateUser")
-    public String myPageUpDateUser(@RequestParam("login_id")String name, @RequestParam("name") String username) {
-        userService.updateUsername(name, username);
-        return "redirect:/myPage?login_id=" + name;
-    }
-	@PostMapping("/myPage")
-	public String myPageProFile() {
-		// 이름, 아이디, 닉네임 등록, 프로필 이미지 등록, 동의여부 확인, 수정하기버튼활성화
-		return "redirect:/user/myPage";
-	}
+	 @PostMapping("/updateUser")
+	    public String updateUser(
+	        @RequestParam("password") String password,
+	        @RequestParam("email") String email,
+	        @RequestParam("phoneNum") String phoneNum,
+	        @RequestParam("userId") String loginId,
+	        @SessionAttribute("principal") User principal) {
+
+		 	if(!principal.getLoginId().equals(loginId)) {
+		 		return "";
+		 	}
+	        // 사용자 정보 업데이트
+	        userService.updateUser(loginId, password, email, phoneNum);
+	        return "redirect:/home";
+	    }
+
 
 	
 

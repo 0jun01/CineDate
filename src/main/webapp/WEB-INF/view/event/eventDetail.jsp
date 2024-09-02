@@ -5,7 +5,7 @@
 <%@ page import="com.tenco.movie.repository.model.Event"%>
 <!-- header.jsp -->
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
-
+<!-- 성후 -->
 <!-- start of content.jsp(xxx.jsp) -->
 <div class="evt--title">
 	<h1 style="margin-top: 25px;">EVENT</h1>

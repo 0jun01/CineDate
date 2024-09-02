@@ -44,7 +44,7 @@ public class EventController {
 	
 	/**
 	 *  이벤트 페이지 이동
-	 * @return ksh
+	 * @return 성후
 	 */
 	  @RequestMapping("/event1")
 	    public String showEvent1() {

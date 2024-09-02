@@ -22,7 +22,6 @@
             <ul class="member" id="in--wrap">
                 <c:choose>
 					<c:when test="${principal != null}">
-						<li><a href="/user/logout"><span>로그아웃</span></a></li>			
 						<li><a href="/user/logout"><span>로그아웃</span></a></li>					
 						<li><a href="/user/myPage"><span>마이페이지</span></a></li>
 						<li><a href="/home/CS"><span>고객센터</span></a></li>
