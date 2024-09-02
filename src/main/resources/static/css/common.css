@@ -24,7 +24,10 @@ body {
 .btn, select {
 	cursor: pointer;
 }
-
+button{
+	font-family: 'NanumSquareNeoBold';
+	cursor: pointer;
+}
 ::placeholder {
 	color: #bababa;
 }

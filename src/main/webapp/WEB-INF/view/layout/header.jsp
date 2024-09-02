@@ -18,6 +18,12 @@
 </head>
 <body>
 
+		
+	<div class="main--banner">
+		<img src="/img/xIcon.png" alt="x" class="x--icon">
+		<img src="/img/main_pop.jpg" alt="시데 데이트 배너">
+	</div>
+
 	<header>
         <div class="memberInfo--wrap">
             <ul class="member" id="in--wrap">
@@ -60,4 +66,14 @@
         </nav>
     </header>
 	
+	<script>
+		<!-- 헤더 상단 팝업 배너 -->
+		document.addEventListener('DOMContentLoaded', function() {
+		    var xIcon = document.querySelector('.x--icon');
 	
+		    xIcon.addEventListener('click', function() {
+		        var mainBanner = document.querySelector('.main--banner');
+		        mainBanner.style.display = 'none';
+		    });
+		});
+	</script>
