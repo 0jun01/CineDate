@@ -57,5 +57,8 @@ public class Define {
 	public static final String UNKNOWN_ERROR = "알 수 없는 오류입니다";
 	public static final String FAILED_PROCESSING = "정상 처리 되지 않았습니다.";
 	public static final String ERROR_SIGNUP_REQUIRED = "회원 가입 후 이용 가능합니다";
+	
+	// review
+	public static final String DUPLICATION_REVIEW = "이미 리뷰를 작성한 영화입니다.";
 
 }	
