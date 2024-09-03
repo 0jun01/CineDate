@@ -4,7 +4,8 @@
 <mapper
 	namespace="com.tenco.movie.repository.interfaces.ProfileRepository">
 
-	<select id="searchProfile" resultType="com.tenco.movie.repository.model.DateProfile">
+	<select id="searchProfile"
+		resultType="com.tenco.movie.repository.model.DateProfile">
 		SELECT * FROM profile_tb WHERE user_id = #{userId}
 	</select>
 
@@ -16,12 +17,32 @@
 		seocnd_origin_file_name,
 		first_upload_file_name,
 		second_upload_file_name
-		) VALUES ( #{userId}, #{nickName}, #{introduce}, #{firstOriginFileName}, #{secondOriginFileName}, #{firstUploadFileName}, #{secondUploadFileName})
+		) VALUES ( #{userId},
+		#{nickName}, #{introduce}, #{firstOriginFileName},
+		#{secondOriginFileName}, #{firstUploadFileName},
+		#{secondUploadFileName})
 	</insert>
-	
-	<select id="searchNickName"  resultType="com.tenco.movie.repository.model.DateProfile">
+
+	<select id="searchNickName"
+		resultType="com.tenco.movie.repository.model.DateProfile">
 		SELECT * FROM profile_tb WHERE nick_name = #{nickname}
 	</select>
-	
+
+	<select id="searchPartner"
+		resultType="com.tenco.movie.repository.model.DateProfile">
+		SELECT p.*,
+		CASE
+		WHEN m.status IS NULL THEN 0
+		WHEN m.status = 0 THEN 1
+		WHEN m.status = 1 THEN 2
+		WHEN m.status = 2 THEN 3
+		END AS status
+		FROM profile_tb AS p
+		JOIN user_tb AS u ON u.id = p.user_id
+		LEFT JOIN matching_tb AS m ON (u.id = m.r_user_id AND m.s_user_id = #{userId})
+		WHERE u.id != #{userId}
+		AND u.gender != #{gender}
+	</select>
+
 
 </mapper>

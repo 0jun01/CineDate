@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class DateProfileService {
 
 	@Autowired
 	private final ProfileRepository profileRepository;
+	
+	
 
 	@Value("${file.upload-dir}")
 	private String uploadDir;
@@ -40,6 +43,12 @@ public class DateProfileService {
 		return profile;
 	}
 	
+	/**
+	 * @author 병호  파일 업로드 구현
+	 * @param principal
+	 * @param signUp
+	 * @return
+	 */
 	@Transactional
 	public int createdProfile(User principal, DateProfileSignUp signUp) {
 		int result = 0;
@@ -66,7 +75,11 @@ public class DateProfileService {
 		return result;
 	}
 
-	// 파일 업로드 구현
+	/**
+	 * @author 병호  파일 이름변화 
+	 * @param mFile
+	 * @return
+	 */
 	private String[] uploadFile(MultipartFile mFile) {
 
 		// 크기
@@ -100,12 +113,26 @@ public class DateProfileService {
 
 		return new String[] { mFile.getOriginalFilename(), uploadFileName };
 	}
-
+	
+	/**
+	 * @author 병호 닉네임 중복검사 
+	 * @param nickname
+	 * @return
+	 */
 	public DateProfile searchUsername(String nickname) {
 		
 		DateProfile profile = profileRepository.searchNickName(nickname);
 		
 		return profile;
 	}
-
+	
+	
+	public List<DateProfile> searchPartner(int principalId, String principalGender){
+		List<DateProfile> partnerList = null;
+		
+		partnerList = profileRepository.searchPartner(principalId, principalGender);
+		
+		return partnerList;
+	}
+	
 }

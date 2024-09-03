@@ -1,5 +1,7 @@
 package com.tenco.movie.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -38,17 +40,20 @@ public class DateController {
 	 * @author 김가령
 	 */
 	@GetMapping("/date")
-	public String getDatePage(@SessionAttribute(Define.PRINCIPAL) User principal) {
+	public String getDatePage(@SessionAttribute(Define.PRINCIPAL) User principal,Model model) {
 
 		/**
-		 * @author 배병호 principal 기준으로 회원가입 페이지 main page or 회원가입 페이지 전화
+		 * @author 배병호 principal 기준으로 회원가입 페이지 date page or 회원가입 페이지 전화
 		 */
 		DateProfile prifile = dateService.searchProfile(principal.getId());
 		if (prifile == null) {
 			return "date/DateSignUp";
 		}
-
-		return "date/datePage";
+		List<DateProfile> list = dateService.searchPartner(principal.getId(), principal.getGender());
+		System.out.println(list);
+		model.addAttribute("list", list);
+		
+		return "date/ProfileList";
 	}
 	
 	
@@ -103,7 +108,7 @@ public class DateController {
 		int conCount = Integer.parseInt(popcorn);
 
 		int amount = 100 * conCount;
-		String orderId = payservice.getOderId();
+		String orderId = payservice.getOderId(); /// 6~ 64 
 		String orderName = "con";
 		String customerName = principal.getName();
 		
