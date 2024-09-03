@@ -15,23 +15,11 @@
         </div>
     </div>
 </div>
-
-<div class="cols-benefit-info">
-    <div class="col-my-con">
-        <h3>MY CORN</h3>
-        <div class="btn">
-            <span style="display: flex;">
-                <img src="/img/corn.png" alt="콘 아이콘" style="width: 20px;">
-                <h2>X${mycorn}개</h2>
-            </span>
-        </div>
-    </div>
-</div>
+<h1>나의 정보 변경</h1>
 <br>
 <br>
 <br>
 <br>
-<h3>나의 정보 변경</h3>
 
 <!-- Update User Form -->
 <form action="/user/updateUser" method="post">

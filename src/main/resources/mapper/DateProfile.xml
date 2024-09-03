@@ -4,7 +4,8 @@
 <mapper
 	namespace="com.tenco.movie.repository.interfaces.ProfileRepository">
 
-	<select id="searchProfile" resultType="com.tenco.movie.repository.model.DateProfile">
+	<select id="searchProfile"
+		resultType="com.tenco.movie.repository.model.DateProfile">
 		SELECT * FROM profile_tb WHERE user_id = #{userId}
 	</select>
 
@@ -16,12 +17,29 @@
 		seocnd_origin_file_name,
 		first_upload_file_name,
 		second_upload_file_name
-		) VALUES ( #{userId}, #{nickName}, #{introduce}, #{firstOriginFileName}, #{secondOriginFileName}, #{firstUploadFileName}, #{secondUploadFileName})
+		) VALUES ( #{userId},
+		#{nickName}, #{introduce}, #{firstOriginFileName},
+		#{secondOriginFileName}, #{firstUploadFileName},
+		#{secondUploadFileName})
 	</insert>
-	
-	<select id="searchNickName"  resultType="com.tenco.movie.repository.model.DateProfile">
+
+	<select id="searchNickName"
+		resultType="com.tenco.movie.repository.model.DateProfile">
 		SELECT * FROM profile_tb WHERE nick_name = #{nickname}
 	</select>
-	
+
+	<update id="updateProfile">
+		update profile_tb set
+		nick_Name = #{nickName},
+		introduce = #{introduce},
+		first_origin_file_name = #{firstOriginFileName},
+		seocnd_origin_file_name = #{secondOriginFileName},
+		third_origin_file_name = #{thirdOriginFileName},
+		fourth_origin_file_name = #{fourthOriginFileName},
+		fifth_origin_file_name = #{fifthOriginFileName},
+		first_upload_file_name = #{firstUploadFileName},
+        second_upload_file_name = #{secondUploadFileName}
+		where user_Id = #{userId}
+	</update>
 
 </mapper>

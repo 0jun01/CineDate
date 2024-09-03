@@ -1,5 +1,8 @@
 package com.tenco.movie.controller;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -31,6 +34,7 @@ public class DateController {
 	private final DateProfileService dateService;
 
 	private final PaymentService payservice;
+	
 
 	/**
 	 * 데이트 페이지 요청
@@ -50,7 +54,71 @@ public class DateController {
 
 		return "date/datePage";
 	}
+	/**
+	 * 데이트페이지 정보수정 이동
+	 * @author 성후
+	 */
+	@GetMapping("/profilePage")
+	public String getProfilePage(@SessionAttribute(Define.PRINCIPAL) User principal, Model model) {
+	    DateProfile profile = dateService.searchProfile(principal.getId());
+	    if (profile == null) {
+	        return "date/DateSignUp";
+	    }
+	    String imageUrl = "/DateProfileIMAGE/" + profile.getFirstUploadFileName();
+	    model.addAttribute("profile", profile);
+	    model.addAttribute("imageUrl", imageUrl);  
+	    return "date/profilePage";
+	}
+	/**
+	 * 데이트페이지 수정
+	 * @author 성후
+	 * @param nickName
+	 * @param introduce
+	 * @param file1
+	 * @param file2
+	 * @param file3
+	 * @param file4
+	 * @param file5
+	 * @param userId
+	 * @param principal
+	 * @return
+	 * @throws IOException
+	 */
+	@PostMapping("/updateProfile")
+	public String updateProfile(
+			 @RequestParam("nickname") String nickName,
+		        @RequestParam("introduce") String introduce,
+		        @RequestParam("profile_upload_file1") MultipartFile file1,
+		        @RequestParam("profile_upload_file2") MultipartFile file2,
+		        @RequestParam("profile_upload_file3") MultipartFile file3,
+		        @RequestParam("profile_upload_file4") MultipartFile file4,
+		        @RequestParam("profile_upload_file5") MultipartFile file5,
+		        @RequestParam("profile_upload_file6") MultipartFile file6,
+		        @RequestParam("profile_upload_file7") MultipartFile file7,
+		        @RequestParam("userId") int userId,
+		        @SessionAttribute("principal") User principal) throws IOException {
 
+	    if (principal.getId() != userId) {
+	        return ""; // 적절한 에러 페이지 URL로 수정
+	    }
+
+	    dateService.updateProfile(nickName, introduce, file1, file2, file3, file4, file5, file6, file7, userId);
+
+	    return "redirect:/date/date";
+	}
+
+	
+
+	
+	/**
+	 * @author 성후, 병호
+	 * @param principal
+	 * @param mFileOne
+	 * @param mFileTwo
+	 * @param nickName
+	 * @param introduce
+	 * @return
+	 */
 	@PostMapping("/signUp")
 	public String postDateSignUp(@SessionAttribute(Define.PRINCIPAL) User principal,
 			@RequestParam(name = "mFileOne") MultipartFile mFileOne,
@@ -75,7 +143,10 @@ public class DateController {
 		
 		return "date/popcornStore";
 	}
-	
+	/**
+	 * 
+	 * @author 성후
+	 */
 	
 	
 	/**
@@ -96,10 +167,7 @@ public class DateController {
 		String orderId = payservice.getOderId();
 		String orderName = "con";
 		String customerName = principal.getName();
-		System.out.println(amount);
-		System.out.println(orderId);
-		System.out.println(orderName);
-		System.out.println(customerName);
+		
 		// 모델에 데이터 추가
 		model.addAttribute("amount", amount);
 		model.addAttribute("orderId", orderId);
