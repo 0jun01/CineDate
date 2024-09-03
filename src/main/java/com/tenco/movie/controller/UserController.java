@@ -192,7 +192,7 @@ public class UserController {
 
 		System.out.println("회원가입 성공");
 
-		return "redirect:/user/signIn";
+		return "redirect:/user/signIn?success=true";
 
 	}
 
@@ -204,6 +204,7 @@ public class UserController {
 	public String myPage() {
 		return "user/myPage";
 	}
+	
 	/**
 	 *마이페이지 
 	 *
@@ -464,8 +465,8 @@ public class UserController {
 		System.out.println("oldUser : " + oldUser);
 		if(oldUser == null) {
 			oldUser = new User();
-			oldUser.setLoginId(profile.googleUser().getId());
-			oldUser.setPassword(profile.googleUser().getId());
+			oldUser.setLoginId(profile.googleUser().getLoginId());
+			oldUser.setPassword(profile.googleUser().getLoginId());
 
 			System.out.println("구글 올드유저까지 왔늬");
 			

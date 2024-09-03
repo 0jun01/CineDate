@@ -23,13 +23,12 @@ public class User {
 	private String birthDay;
 	private String gender;
 	
-	private String id;
+	private int id;
 	
 	private String username;
 	private String fullname;
 	private MultipartFile mFile;
 	private String originFileName;
 	private String uploadFileName;
-	
 	
 }
