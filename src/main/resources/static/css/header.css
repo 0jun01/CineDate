@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+header {
+	width: 100%;
+	position: relative;
+}
+
+.memberInfo--wrap {
+	width: 100%;
+}
+
+.member {
+	display: flex;
+	justify-content: flex-end;
+	height: 50px;
+	align-items: center;
+	gap: 15px;
+	font-size: 14px;
+}
+
+.header--logo {
+	width: 100%;
+	height: 70px;
+	border-top: 1px solid #bababa;
+	border-bottom: 1px solid #bababa;
+	padding: 10px 0;
+	text-align: center;
+}
+
+.main--total--search {
+	display: flex;
+	align-items: center;
+}
+
+.search--btn {
+	width: 25px;
+	height: 25px;
+	background-image: url("/img/search.png");
+	background-size: contain;
+	background-color: initial;
+	border: 0;
+	margin-left: 5px;
+}
+
+label.main--search {
+	margin: 0;
+}
+
+#main--search {
+	padding: 3px 12px;
+	border-radius: 15px;
+	border: 1px solid #666;
+	width: 150px;
+}
+
+.nav--menu {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px 0;
+}
+
+.mobile--wrap {
+	width: 25px;
+	height: 25px;
+	background-image: url(/img/mMenu.png);
+	background-size: contain;
+}

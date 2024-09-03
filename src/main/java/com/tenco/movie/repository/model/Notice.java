@@ -1,6 +1,7 @@
 package com.tenco.movie.repository.model;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,5 +22,13 @@ public class Notice {
 	private String title; // 공지사항 제목
 	private String content; // 공지사항 내용
 	private Timestamp createdAt;
+	
+	// 시간 포맷
+    public String timestampToString() {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        return sdf.format(createdAt);
+    }
 	
 }
