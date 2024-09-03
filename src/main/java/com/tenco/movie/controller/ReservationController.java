@@ -49,19 +49,13 @@ public class ReservationController {
 	@GetMapping("/movies")
 	@ResponseBody
 	public List<MovieDetailTB> getFiltedMovies(@RequestParam("sortBy") String sortBy) {
-		System.out.println("-----------------------------------");
-		System.out.println(sortBy+sortBy+sortBy+sortBy+sortBy+sortBy);
-		System.out.println("-----------------------------------");
 		List<MovieDetailTB> movieList;
 		if ("korean".equalsIgnoreCase(sortBy)) {
 			movieList = reservationService.readAllMoviesSortedByTitle();
-			System.out.println("korean");
 		} else if ("age".equalsIgnoreCase(sortBy)) {
 			movieList = reservationService.readAllMoviesSortedByWatchGrade();
-			System.out.println("age");
 		} else {
 			movieList = reservationService.readAllMovie(); // 기본값
-			System.out.println("default");
 		}
 		return movieList;
 	}

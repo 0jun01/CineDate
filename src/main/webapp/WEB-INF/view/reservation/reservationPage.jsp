@@ -41,7 +41,6 @@
 		</div>
 	</div>
 </div>
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('sortByKorean').addEventListener('click', function() {
