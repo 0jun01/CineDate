@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tenco.movie.dto.EventWriterDTO;
+import com.tenco.movie.dto.ImageUploadDTO;
 import com.tenco.movie.dto.NoticeWriterDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.Event;
@@ -175,11 +176,29 @@ public class AdminPageController {
 		return "/admin/adminEventWrite";
 	}
 	@PostMapping("/adninEventWrite")
-	public String adminEventWriteProc(EventWriterDTO dto, Model model) {
+	public String adminEventWriteProc() {
+		
+		
 		
 		
 		return "redirect:/adminEvent";
 	}
+	
+	// 어드민 공지 삭제 요청
+		@GetMapping("/adminEventDelete/{id}")
+		public String adminEventDelete(@PathVariable(name = "id") Integer id) {
+
+			System.out.println(id);
+
+			event = adminPageService.findEventById(id);
+
+			adminPageService.deleteEvent(event.getId());
+
+			return "/admin/adminEventDelete";
+		}
+
+	
+	
 
 
 //이벤트 끝

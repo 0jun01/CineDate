@@ -140,9 +140,36 @@ public class AdminPageService {
 		return event;
 	}
 	
+	@Transactional
+	public void deleteEvent(int id) {
+		
+		int result = 0;
+		
+		try {
+			result = adminRepository.deleteByEventById(id);
+		} catch (DataAccessException e) {
+			throw new DataDeliveryException("잘못된 요청입니다", HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			throw new RedirectException("알 수 없는 오류 입니다", HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		if (result == 0) {
+			throw new DataDeliveryException("정상 처리 되지 않았습니다", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	
 	public int countEventAll() {
 		return adminRepository.countEventAll();
+	}
+	
+	public Event findByEventId(Integer id) {
+		Event event = adminRepository.findEventById(id);
+		
+		if(event == null) {
+			throw new DataDeliveryException("존재하지 않는 게시글 입니다", HttpStatus.BAD_REQUEST);
+		}
+		return event;
 	}
 	
 	

@@ -33,22 +33,20 @@
 					<!-- Default box -->
 					<div class="card">
 						<form action="/adminEventWrite" method="post" enctype="multipart/form-data">
-							<div class="card-header" >
+							<div class="card-header">
 								<div style="display: flex; flex-direction: row;">
-								<input type="text" class="card-title col-9" placeholder="제목을 입력하세요" name="title" id="title">
-								&nbsp;&nbsp;&nbsp;
-								<div class="col-md-4 card-title">
+									<input type="text" class="card-title col-9" placeholder="제목을 입력하세요" name="title" id="title"> &nbsp;&nbsp;&nbsp;
+									<div class="col-md-4 card-title">
 
-									<input type="date" name="releaseDate" id="releaseDate" value="" max="9999-12-31" class="col-md-4"> ~ 
-									<input type="date" name="endDate" id="endDate" value=""
-										max="9999-12-31" class="col-md-4">
+										<input type="date" name="releaseDate" id="releaseDate" value="" max="9999-12-31" class="col-md-4"> ~ <input type="date" name="endDate" id="endDate" value=""
+											max="9999-12-31" class="col-md-4">
+									</div>
 								</div>
-								</div>	
 								<br>
 								<div>
-								파일 : <input type="file" class ="file" name="file" accept=".jpg, .jpeg, .png, .gif">
+									파일 : <input type="file"name="file" onchange="imageUploadPreview" accept="jpeg, png, gif, jpg"/>
 								</div>
-								
+
 							</div>
 							<div class="card-body">
 								<img class="img-box" name="img-box">
@@ -57,7 +55,7 @@
 							<div class="card-footer">
 								<button type="submit" class="btn btn-success float-end" onclick="javascript : alert('이벤트가 등록되었습니다')">글쓰기완료</button>
 							</div>
-							<!-- /.card-footer-->	
+							<!-- /.card-footer-->
 						</form>
 					</div>
 					<!-- /.card -->
@@ -69,7 +67,7 @@
 		<!--end::Container-->
 	</div>
 	<!--end::App Content-->
-	<script src="/js/adminEventWrite.js"></script>
+
 </main>
 <!--end::App Main-->
 
@@ -79,5 +77,4 @@
 </div>
 </div>
 <!-- end of content.jsp(xxx.jsp) -->
-
 <%@ include file="/WEB-INF/view/layout/adminFooter.jsp"%>
