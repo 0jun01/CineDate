@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tenco.movie.dto.DateProfileSignUp;
@@ -189,13 +190,27 @@ public class DateProfileService {
 	}
 
 	
-	
+	/**
+	 * 전체목록
+	 * @param principalId
+	 * @param principalGender
+	 * @return
+	 */
 	public List<DateProfile> searchPartner(int principalId, String principalGender){
 		List<DateProfile> partnerList = null;
 		
 		partnerList = profileRepository.searchPartner(principalId, principalGender);
 		
 		return partnerList;
+	}
+	
+	
+	public DateProfile detailPartner(int userId,int id) {
+		
+		
+		DateProfile profile =  profileRepository.detailPartner(userId, id);
+		
+		return profile;
 	}
 	
 }

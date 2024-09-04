@@ -40,7 +40,7 @@ public class DateController {
 
 	/**
 	 * 데이트 페이지 요청
-	 * 
+	 * @author 배병호 principal 기준으로 회원가입 페이지 date page or 회원가입 페이지 전화
 	 * @author 김가령
 	 */
 	@GetMapping("/date")
@@ -53,19 +53,25 @@ public class DateController {
             redirectAttributes.addFlashAttribute(Define.ENTER_YOUR_LOGIN, HttpStatus.BAD_REQUEST);
             return "redirect:/user/signIn"; // 로그인으로 리다이렉트
         }
+	
 		/**
 		 * @author 배병호 principal 기준으로 회원가입 페이지 date page or 회원가입 페이지 전화
 		 */
+
+	
 		DateProfile prifile = dateService.searchProfile(principal.getId());
 		if (prifile == null) {
 			return "date/DateSignUp";
 		}
 		List<DateProfile> list = dateService.searchPartner(principal.getId(), principal.getGender());
 		System.out.println(list);
+		
+		
 		model.addAttribute("list", list);
 		
 		return "date/ProfileList";
 	}
+	
 	/**
 	 * 데이트페이지 정보수정 이동
 	 * @author 성후
@@ -143,7 +149,7 @@ public class DateController {
 
 		dateService.createdProfile(principal, dto);
 
-		return "date/datePage";
+		return "redirect:/date/date";
 	}
 	
 	@GetMapping("/popcornStore")
@@ -181,4 +187,21 @@ public class DateController {
 		return "pay/tossPay";
 	}
 
+
+	
+	@GetMapping("/detailPartner")
+	public String getMethodName(@RequestParam(name = "id")int id, @RequestParam(name = "userId")int userId,
+			Model model) {
+		
+		
+		DateProfile detail = dateService.detailPartner(userId,id);
+		
+		model.addAttribute("detail", detail);
+		
+		
+		return "date/detailPartner";
+	}
+	
+	
+	
 }
