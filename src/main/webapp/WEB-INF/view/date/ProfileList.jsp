@@ -15,26 +15,18 @@
 			</tr>
 			<c:forEach var="list" items="${list}">
 				<tr>
-					<td><img class="m--profile" alt="" src="/DateProfileIMAGE/${list.firstUploadFileName}"></td>
+					<td><img class="m--profile list--profile" alt="" src="/DateProfileIMAGE/${list.firstUploadFileName}" style="width: 100px; height: 100px;"></td>
 					<td>${list.nickName}</td>
 					<td>${list.introduce}</td>
 					<td>
-						<button>
 							<c:choose>
-								<c:when test="${list.status == 0}">
-                                    신청
-                                </c:when>
-								<c:when test="${list.status == 1}">
-                                    신청취소
-                                </c:when>
 								<c:when test="${list.status == 2}">
-                                    매칭완료
-                                </c:when>
-								<c:when test="${list.status == 3}">
-                                    재도전
-                                </c:when>
+								<button style="width: 60px; height: 150px;">매칭완료(쪽지보내기)</button>
+							</c:when>
+							<c:otherwise>
+								<button onclick="openPopup('${list.userId}')" value="${list.id}">상세 보기</button>
+							</c:otherwise>
 							</c:choose>
-						</button>
 					</td>
 				</tr>
 			</c:forEach>
@@ -46,7 +38,16 @@
 		</div>
 	</c:otherwise>
 </c:choose>
-
+<script>
+	function openPopup(id) {
+		
+		// 새 창을 열기 위한 window.open 메서드 사용
+		window.open('http://localhost:8080/date/detailPartner?userId=' + encodeURIComponent(${principal.id}) +'&id=' +  encodeURIComponent(id), // 새 창에서 로드할 URL
+		'상세보기', // 새 창의 이름
+		'width=700,height=600,left=100,top=100,resizable=yes,scrollbars=no' // 창의 옵션
+		);
+	}
+</script>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
 </body>
 </html>
