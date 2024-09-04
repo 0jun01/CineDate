@@ -31,6 +31,7 @@ import com.tenco.movie.service.UserService;
 import com.tenco.movie.utils.Define;
 
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/user")
@@ -192,7 +193,7 @@ public class UserController {
 
 		System.out.println("회원가입 성공");
 
-		return "redirect:/user/signIn?success=true";
+		return "redirect:/user/signIn";
 
 	}
 

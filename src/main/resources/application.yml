@@ -14,10 +14,10 @@ spring:
     multipart:
       max-file-size: 20MB #파일 최대 크기는 20MB
       max-request-size: 20MB #멀티파트 전체 요청 크기 20MB제한  
-      
+
   mail:
     host: smtp.gmail.com #Google의 SMTP 서버 호스트
-    port: 5878 #SMTP 서버의 포트 번호
+    port: 587 #SMTP 서버의 포트 번호
     username: hjeong0711@gmail.com #발신자 이메일
     password: heku mzzb invv hxtn #hjeong0711@gmail.com 의 앱 비밀번호
     properties: #이메일 구성에 대한 추가 속성
@@ -30,7 +30,7 @@ spring:
         connectiontimeout: 5000
         timeout: 5000 #Socket Read Timeout(5)
     #auth-code-expiration-millis: 1800000 #이메일 인증 코드의 만료 시간(Millisecond) 30*60*1000 = 30분
-        
+
   datasource:
     url: jdbc:mysql://192.168.0.46/cinedate?serverTimezone=Asia/Seoul  #데이터 베이스 연결을 위한 URL을 설정 합니다.
     driver-class-name: com.mysql.cj.jdbc.Driver #드라이버 클래스를 설정 합니다.
@@ -48,7 +48,7 @@ spring:
       client:
         registration:
           google: # /oauth2/authorization/google 이 주소를 동작하게 한다.
-            client-id:
+            client-id: 
             client-secret: 
             redirect-uri: http://localhost:8080/user/google
             scope:

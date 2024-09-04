@@ -52,16 +52,16 @@
 					<input type="password" id="enterPassword" name="enterPassword" placeholder="비밀번호를 입력해주세요. (문자, 숫자,특수문자 포함 8~20자 )" value="asdf123@@">
 					
 					<div class="join--btn">
-						<label for="email">이메일 주소</label>
-						<input type="email" id="email" name="email" placeholder="이메일 주소를 입력해주세요." value="hjeong0711@gmail.com">
-						<button type="button" class="duplication" id="duplicationEmail">중복확인</button>
-					</div>
-					
-					<div class="join--btn">
-						<label for="email">이메일 인증번호</label>
-						<input type="email" id="email" name="mailSend" placeholder="이메일 인증번호를 입력해주세요.">
-						<button type="submit" class="duplication" id="mailSend">인증번호</button>
-					</div>
+				        <label for="email">이메일 주소</label>
+				        <input type="email" id="email" name="email" placeholder="이메일 주소를 입력해주세요." value="hjeong0711@gmail.com">
+				        <button type="button" class="duplication" id="duplicationEmail">중복확인</button>
+				    </div>
+				
+				    <div class="join--btn">
+				        <label for="mailSend">이메일 인증번호</label>
+				        <input type="number" id="mailSend" name="mailSend" placeholder="이메일 인증번호를 입력해주세요.">
+				        <button type="submit" class="btn" id="sendAuthCode"><a href="/mail">인증번호 전송</a></button>
+				    </div>
 					
 					<div class="join--btn">
 						<label for="phoneNum">휴대폰 번호</label>
@@ -179,20 +179,39 @@
                 }
             }
         });
-        
-        // URL에서 쿼리 파라미터를 가져오는 함수
-        function getQueryParam(param) {
-        let urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param);
-    }
 
-    window.onload = function() {
-        // 'success' 파라미터가 'true'일 때 알림창을 표시
-        if (getQueryParam('success') === 'true') {
-            alert('회원가입이 성공적으로 완료되었습니다!');
-        }
-    };
     
+	    // 이메일 인증
+	    document.addEventListener("DOMContentLoaded", function() {
+	        const sendAuthCodeButton = document.querySelector('#sendAuthCode');
+	        const emailElement = document.querySelector('#email');
+	        const mailSendElement = document.querySelector('#mailSend');
+	        
+	        sendAuthCodeButton.addEventListener("click", function() {
+	            const email = emailElement.value;
+	
+	            fetch('http://localhost:8080/mail/mail', {
+	                method: 'POST',
+	                headers: {
+	                    'Content-Type': 'application/json'
+	                },
+	                body: JSON.stringify({ email: email })
+	            })
+	            .then(response => response.json())
+	            .then(data => {
+	                if (data.success) {
+	                    alert("인증번호가 발송되었습니다.");
+	                } else {
+	                    alert("인증번호 발송에 실패하였습니다.");
+	                }
+	            })
+	            .catch(error => {
+	                console.error("Error:", error);
+	                alert("서버와의 통신 오류가 발생했습니다.");
+	            });
+	        });
+	    });
+
 
     </script>
 	

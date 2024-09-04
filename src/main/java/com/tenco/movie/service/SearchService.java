@@ -29,18 +29,17 @@ public class SearchService {
 	 * @author 형정
 	 */
 	public List<Search> searchMoiveTitle(String title) {
-		
-		List<Search> searchListEntity = null;
-		
-		try {
-			searchListEntity = searchRepository.searchMoiveTitle(title);
-		} catch (DataAccessException e) {
-			throw new DataDeliveryException(Define.INVALID_INPUT, HttpStatus.INTERNAL_SERVER_ERROR);
-		} catch (Exception e) {
-			throw new RedirectException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
+			
+			List<Search> searchListEntity = null;
+			
+			try {
+				searchListEntity = searchRepository.searchMoiveTitle(title);
+			} catch (DataAccessException e) {
+				throw new DataDeliveryException(Define.INVALID_INPUT, HttpStatus.INTERNAL_SERVER_ERROR);
+			} catch (Exception e) {
+				throw new RedirectException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
+			}
+			
+			return searchListEntity != null ? searchListEntity : Collections.emptyList();
 		}
-		
-		return searchListEntity != null ? searchListEntity : Collections.emptyList();
-	}
-	
 }

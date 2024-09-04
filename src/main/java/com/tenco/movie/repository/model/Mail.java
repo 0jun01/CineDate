@@ -12,7 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Builder
-public class Email {
+public class Mail {
 	
 	@jakarta.validation.constraints.Email
 	@NotEmpty(message = "이메일을 입력해 주세요.")

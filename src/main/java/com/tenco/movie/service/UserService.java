@@ -14,7 +14,6 @@ import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.UserRepository;
 import com.tenco.movie.repository.model.User;
-import com.tenco.movie.repository.model.Search;
 import com.tenco.movie.utils.Define;
 
 import lombok.RequiredArgsConstructor;
