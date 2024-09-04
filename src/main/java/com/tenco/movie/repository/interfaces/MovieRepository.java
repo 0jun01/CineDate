@@ -16,4 +16,5 @@ public interface MovieRepository {
 	public List<Actors> findByMovieId(@Param("id") int id);
 	public MovieDetail findDetailByMovieId(@Param("id") int id);
 	public List<Movies> findAllMovies();
+	Movies findById(int movieId);
 }

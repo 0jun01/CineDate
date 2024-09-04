@@ -54,6 +54,7 @@ public class DateController {
 
 		return "date/datePage";
 	}
+<<<<<<< HEAD
 	/**
 	 * 데이트페이지 정보수정 이동
 	 * @author 성후
@@ -112,6 +113,12 @@ public class DateController {
 	
 	/**
 	 * @author 성후, 병호
+=======
+	
+	
+	/**
+	 * @author 성후
+>>>>>>> 57589cb60ece0697642af6c8c4122704c088de45
 	 * @param principal
 	 * @param mFileOne
 	 * @param mFileTwo

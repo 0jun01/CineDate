@@ -240,21 +240,10 @@ label {
 	left: 50%;
 	transform: translate(-50%, -74%) rotate(45deg);
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 671bbcf (mypage이미지미리보기추가)
 .find--result{
     font-size: 16px;
     margin-bottom: 30px;
 }
-<<<<<<< HEAD
->>>>>>> 5a6eb19 (로그인 및 회원가입 완료)
-=======
-=======
->>>>>>> 90a04a5 (mypage이미지미리보기추가)
->>>>>>> 671bbcf (mypage이미지미리보기추가)
 
 .find--result{
     font-size: 16px;
@@ -311,6 +300,7 @@ table, th, td {
 	height: auto; /* 비율 유지 */
 	object-fit: cover; /* 이미지가 박스를 완전히 채우도록 */
 }
+<<<<<<< HEAD
 /*이벤트 페이지*/
 .evt--title {
 	height: 60px;
@@ -407,4 +397,20 @@ table, th, td {
     margin-top: 5%;
     margin-inline: 15% auto;
     padding-inline: 5%;
+=======
+
+.review-list {
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px;
+}
+
+.review-item {
+    display: flex; 
+    flex-direction: row; 
+    gap: 40px; 
+    border: 1px solid #ddd; 
+    padding: 15px; 
+    border-radius: 5px; 
+>>>>>>> 57589cb60ece0697642af6c8c4122704c088de45
 }

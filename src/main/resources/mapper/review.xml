@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.tenco.movie.repository.interfaces.ReviewRepository">
+
+	<select id="findByMovieId"
+		resultType="com.tenco.movie.repository.model.Review">
+		SELECT
+		r.id AS id,
+		r.movie_id AS movieId,
+		r.user_id AS userId,
+		r.review_text AS reviewText,
+		r.rating AS rating,
+		r.review_date AS
+		reviewDate,
+		u.login_id AS userLoginId
+		FROM
+		review_tb r
+		JOIN
+		user_tb u ON
+		r.user_id = u.id
+		WHERE
+		r.movie_id = #{movieId}
+		ORDER BY
+		r.review_date DESC
+	</select>
+
+	<insert id="saveReview"
+		parameterType="com.tenco.movie.repository.model.Review">
+		INSERT INTO review_tb (movie_id, user_id, review_text, rating, review_date)
+		VALUES (#{movieId}, #{userId}, #{reviewText}, #{rating},
+		#{reviewDate})
+	</insert>
+
+	<select id="existsByMovieIdAndUserId" resultType="boolean">
+		SELECT COUNT(*) > 0
+		FROM review_tb
+		WHERE movie_id = #{movieId}
+		AND user_id = #{userId}
+	</select>
+
+</mapper>

@@ -25,6 +25,10 @@ public class User {
 	private String birthDay;
 	private String gender;
 	
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 57589cb60ece0697642af6c8c4122704c088de45
 	private String username;
 	private String fullname;
 	private MultipartFile mFile;

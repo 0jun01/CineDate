@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<link href="/css/main.css" rel="stylesheet">
 <!-- header.jsp -->
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 
@@ -49,11 +51,18 @@
 	<div id="in--wrap">
 		<div class="flex--between--wrap">
 			<div class="top--title">
+				<a href="#none" class="title--word">무비차트</a>
+				<a href="#none" class="title--word">상영예정작</a>
 				<a href="#none" class="title--word">무비차트</a> <a href="#none" class="title--word">상영예정작</a>
 			</div>
 			<div class="top--title">
 				<a id="btn--all--view" class='btn--all--view'>전체보기</a>
 			</div>
+			<div>
+			<c:forEach var="movieList" items="${movieList}">
+				<h3>${movieList.title}</h3>
+				<img alt="" src="https://image.tmdb.org/t/p/w342/${movieList.movieImg}">
+			</c:forEach>
 			<div class="movie--list--box">
 				<c:forEach var="movieList" items="${movieList}">
 					<div class="movie--text--box">
@@ -68,6 +77,7 @@
 		<!-- 공지사항 -->
 		<div class="notice--wrap">
 			<div class="top--title">
+				<h1>공지사항</h1>
 				<h1>
 					<a href="/notice">공지사항</a>
 				</h1>

@@ -3,10 +3,24 @@ package com.tenco.movie.service;
 import java.util.Calendar;
 import java.util.Random;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.info.ProjectInfoProperties.Build;
 import org.springframework.stereotype.Service;
 
+import com.tenco.movie.dto.TossApproveResponse;
+import com.tenco.movie.dto.TossHistoryDTO;
+import com.tenco.movie.repository.interfaces.PaymentHistoryRepository;
+
+import lombok.Builder;
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class PaymentService {
+	
+	@Autowired
+	private final PaymentHistoryRepository historyRepository;
+	
 	
 	public String getOderId() {
 		Calendar cal = Calendar.getInstance();
@@ -32,5 +46,29 @@ public class PaymentService {
 		
 		return resuly;
 	}
+	
+	
+	public int insertTossHistory(TossApproveResponse response, int principalId) {
+		
+		 int result = 0;
+		
+		TossHistoryDTO dto = TossHistoryDTO.builder()
+				.paymentKey(response.getPaymentKey())
+				.userId(principalId)
+				.oderId(response.getOrderId())
+				.oderName(response.getOrderName())
+				.amount(response.getTotalAmount())
+				.method(response.getMethod())
+				.requestedAt(response.getRequestedAt())
+				.approvedAt(response.getApprovedAt())
+				.build();
+		
+		
+		result = historyRepository.insertTossHistory(dto);
+		
+		
+		return result;
+	}
+	
 	
 }
