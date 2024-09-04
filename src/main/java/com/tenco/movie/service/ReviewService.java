@@ -51,5 +51,7 @@ public class ReviewService {
     public boolean hasUserReviewed(int movieId, int userId) {
         return reviewRepository.existsByMovieIdAndUserId(movieId, userId);
     }
+    
+    
 	
 }

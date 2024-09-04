@@ -46,7 +46,7 @@ public class ReviewController {
     public String submitReview(
             @RequestParam(name ="movieId")int movieId,
             @RequestParam(name ="reviewText")String reviewText,
-            @RequestParam(name ="rating")double rating,
+            @RequestParam(name ="rating")int rating,
             @SessionAttribute(name="principal")User principal,
             Model model) throws UnsupportedEncodingException {
     	
