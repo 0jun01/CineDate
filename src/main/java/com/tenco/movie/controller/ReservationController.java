@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.MovieDetailTB;
+import com.tenco.movie.repository.model.Regions;
+import com.tenco.movie.repository.model.SubRegions;
 import com.tenco.movie.service.ReservationService;
 import com.tenco.movie.utils.Define;
 
@@ -28,21 +30,34 @@ public class ReservationController {
 	}
 
 	/**
-	 * 예매 페이지 요청
+	 * 예매 페이지
 	 * 
 	 * @author 변영준
 	 */
 	@GetMapping("/reservation")
 	public String reservationPage(Model model) {
+		
+		// 무비 리스트
 		List<MovieDetailTB> movieList = null;
-
+		// 지역 리스트
+		List<Regions> regionList = null;
+		// 소분류 지역 리스트
+		List<SubRegions> subRegionList = null;
+		
 		movieList = reservationService.readAllMovie();
-
+		regionList = reservationService.readAllRegion();
+		subRegionList = reservationService.readfirstSubRegion();
 		if (movieList == null) {
 			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.BAD_REQUEST);
 		}
-
+		
+		if (regionList == null) {
+			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.BAD_REQUEST);
+		}
+		
+		model.addAttribute("regionList", regionList);
 		model.addAttribute("movieList", movieList);
+		model.addAttribute("subRegionList", subRegionList);
 		return "/reservation/reservationPage";
 	}
 
@@ -59,5 +74,20 @@ public class ReservationController {
 		}
 		return movieList;
 	}
+	
+	@GetMapping("/regions")
+	@ResponseBody
+	public List<SubRegions> regionProc(@RequestParam("regionId") int regionId, Model model) {
+		List<SubRegions> subRegiList = null;
+		
+		subRegiList = reservationService.readSubRegion(regionId);
+		if(subRegiList == null) {
+			throw new DataDeliveryException(Define.ERROR_INVALID_SCREEN, HttpStatus.BAD_REQUEST);
+		}
+		
+//		model.addAttribute("subRegiList",subRegiList);
+		return subRegiList;
+	}
+	
 
 }

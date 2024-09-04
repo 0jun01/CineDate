@@ -6,42 +6,72 @@
 <div id="wrap">
 
 	<div id="in--wrap">
-
-		<div class="movie--list--box">
-			<div class="top--title--inner">
-				<h3>영화</h3>
+		<div class="choice--box">
+			<div class="list--box">
+				<div class="top--title--inner">
+					<h3>영화</h3>
+				</div>
+				<div class="filter--box">
+					<button type="button" id="sortByKorean" value="korean" name="filter--btn">가나다순</button>
+					<button type="button" id="sortByAge" value="age" name="filter--btn">시청등급순</button>
+				</div>
+				<div class="scroll--list">
+					<ul id="movie-list">
+						<c:forEach var="movie" items="${movieList}">
+							<li><c:choose>
+									<c:when test="${movie.watchGradeNm eq '전체관람가'}">
+										<span class="grade-all">ALL</span> ${movie.title}
+								</c:when>
+									<c:when test="${movie.watchGradeNm eq '12세이상관람가'}">
+										<span class="grade-12">12</span> ${movie.title}
+								</c:when>
+									<c:when test="${movie.watchGradeNm eq '15세이상관람가'}">
+										<span class="grade-15">15 </span> ${movie.title}
+								</c:when>
+									<c:when test="${movie.watchGradeNm eq '19세이상관람가'}">
+										<span class="grade-19">19</span> ${movie.title}
+								</c:when>
+									<c:otherwise>
+										<span class="grade-default">${movie.title}</span>
+									</c:otherwise>
+								</c:choose></li>
+						</c:forEach>
+					</ul>
+				</div>
 			</div>
-			<div class="filter--box">
-				<button type="button" id="sortByKorean" value="korean" name="filter--btn">가나다순</button>
-				<button type="button" id="sortByAge" value="age" name="filter--btn">시청등급순</button>
+			<div class="list--box">
+				<div class="top--title--inner">
+					<h3>극장</h3>
+				</div>
+				<div class="region--box">
+					<div class="region--list">
+						<ul id="region-list">
+							<c:forEach var="region" items="${regionList}">
+								<li class="region--name--box"><a href="javascript:void(0)" onclick="applyRegionFilter('${region.id}')">${region.name}</a></li>
+							</c:forEach>
+						</ul>
+					</div>
+					<div class="scroll--list">
+						<ul id="sub--region--list">
+							<c:forEach var="subRegion" items="${subRegionList}">
+								<li>${subRegion.name}</li>
+							</c:forEach>
+						</ul>
+					</div>
+				</div>
 			</div>
-			<div class="movie--list">
-				<ul id="movie-list">
-					<c:forEach var="movie" items="${movieList}">
-						<li><c:choose>
-								<c:when test="${movie.watchGradeNm eq '전체관람가'}">
-									<span class="grade-all">ALL</span> ${movie.title}
-								</c:when>
-								<c:when test="${movie.watchGradeNm eq '12세이상관람가'}">
-									<span class="grade-12">12</span> ${movie.title}
-								</c:when>
-								<c:when test="${movie.watchGradeNm eq '15세이상관람가'}">
-									<span class="grade-15">15 </span> ${movie.title}
-								</c:when>
-								<c:when test="${movie.watchGradeNm eq '19세이상관람가'}">
-									<span class="grade-19">19</span> ${movie.title}
-								</c:when>
-								<c:otherwise>
-									<span class="grade-default">${movie.title}</span>
-								</c:otherwise>
-							</c:choose></li>
-					</c:forEach>
-				</ul>
+			<div class="list--box">
+				<div class="top--title--inner">
+					<h3>시간</h3>
+				</div>
+				<div class="movie--list">
+					<ul id="movie-list">
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<script>
+	<script>
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('sortByKorean').addEventListener('click', function() {
         fetchMovies('korean');
@@ -105,10 +135,37 @@ function updateMovieList(movies) {
     });
 }
 
+function applyRegionFilter(regionId){
+    fetch(`http://localhost:8080/reservation/regions?regionId=`+ regionId)
+        .then(response => {
+            if (!response.ok){
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('success:',data);
+            updateSubRegionList(data);
+        })
+        .catch(error =>{
+            alert('An error occurred while fetching the movies.');
+            console.error('Fetch error:', error);
+        });
+}
+function updateSubRegionList(subRegions) {
+    const listElement = document.getElementById('sub--region--list');
 
-		
+    // 기존 리스트 아이템 제거
+    listElement.innerHTML = '';
 
+    // 새로운 리스트 아이템 추가
+    subRegions.forEach(subRegion => {
+    	const subRegionItem = document.createElement('li');
+    	subRegionItem.innerHTML = '<span>' + subRegion.name + '</span>';
+    	listElement.appendChild(subRegionItem);
+    });
+}
 </script>
-<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
-</body>
-</html>
+	<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
+	</body>
+	</html>

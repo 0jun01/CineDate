@@ -31,5 +31,17 @@
 		END asc;
 	</select>
 
+	<select id="findAllRegions"
+		resultType="com.tenco.movie.repository.model.Regions">
+		select *
+		from regions_tb
+		order by id asc;
+	</select>
 
+	<select id="findSubRegionById"
+		resultType="com.tenco.movie.repository.model.SubRegions">
+		select * from subregions_tb
+		where region_id = #{id}
+		order by region_id;
+	</select>
 </mapper>
