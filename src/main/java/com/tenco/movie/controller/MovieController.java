@@ -43,15 +43,16 @@ public class MovieController {
 	 */
 	@GetMapping("/detail")
 	public String detailPage(Model model, @RequestParam("title") String title) {
-
 		// 타이틀 유효성 검사
+		
 		if (title == null || title.isEmpty()) {
 			throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE, HttpStatus.BAD_REQUEST);
 		}
 
 		// 타이틀로 던져서 타이틀 이름에 맞는 무비 정보 가져오기
 		Movies selectedMovies = movieService.readMovieByTitle(title);
-
+		
+		
 		// 유효성 검사
 		if (selectedMovies == null) {
 			throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE, HttpStatus.BAD_REQUEST);
@@ -59,7 +60,7 @@ public class MovieController {
 
 		// DB에 저장되어있는 무비의 id 가져오기
 		int movieId = selectedMovies.getId();
-
+		
 		// 유효성 검사
 		if (movieId == 0) {
 			throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE, HttpStatus.BAD_REQUEST);
@@ -75,33 +76,5 @@ public class MovieController {
 		return "/movie/movieDetail";
 	}
 
-	public String moviePage(Model model,@RequestParam("title") String title) {
-		
-		if(title == null || title.isEmpty()) {
-			throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE,HttpStatus.BAD_REQUEST);
-		}
-		
-		Movies selectedMovies = movieService.readMovieByTitle(title);
-		
-		if(selectedMovies == null) {
-			throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE, HttpStatus.BAD_REQUEST);
-		}
-		
-		int movieId = selectedMovies.getId();
-		if(movieId == 0) {
-			throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE, HttpStatus.BAD_REQUEST);
-		}
-		System.out.println("--------------");
-		System.out.println(movieId);
-		System.out.println("--------------");
-		List<Actors> movieActors = movieService.readActorsByMovieId(movieId);
-		for (Actors actors : movieActors) {
-			System.out.println(actors);
-		}
-		
-		model.addAttribute("actors",movieActors);
-		model.addAttribute("movie",selectedMovies);
-		return "/movie/movieDetail";
-	}
 	
 }
