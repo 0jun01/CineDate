@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tenco.movie.dto.EventWriterDTO;
 import com.tenco.movie.dto.NoticeWriterDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
@@ -139,6 +140,30 @@ public class AdminPageService {
 		}
 		return event;
 	}
+	
+	@Transactional
+	public void createEvent(EventWriterDTO dto) {
+		int result = 0;
+		
+		try {
+			
+			
+			
+			
+			result = adminRepository.insertEvent(dto.toWrite());
+		} catch (DataDeliveryException e) {
+			throw new DataDeliveryException("잘못된 요청입니다", HttpStatus.INTERNAL_SERVER_ERROR);
+		}catch (Exception e) {
+			throw new RedirectException("알 수 없는 오류 입니다", HttpStatus.SERVICE_UNAVAILABLE);
+		}
+		
+		if(result == 0) {
+			throw new DataDeliveryException("정상 처리 되지 않았습니다", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		
+	}
+	
 	
 	@Transactional
 	public void deleteEvent(int id) {

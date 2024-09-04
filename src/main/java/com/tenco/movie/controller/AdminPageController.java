@@ -1,5 +1,6 @@
 package com.tenco.movie.controller;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartRequest;
 
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.tenco.movie.dto.EventWriterDTO;
 import com.tenco.movie.dto.ImageUploadDTO;
 import com.tenco.movie.dto.NoticeWriterDTO;
@@ -88,7 +91,7 @@ public class AdminPageController {
 	}
 
 	@PostMapping("/adminNoticeWrite")
-	public String adminNoticeWriteProc(NoticeWriterDTO dto, Model model) {
+	public String adminNoticeWriteProc(NoticeWriterDTO dto) {
 
 		adminPageService.createNotice(dto);
 
@@ -176,15 +179,28 @@ public class AdminPageController {
 		return "/admin/adminEventWrite";
 	}
 	@PostMapping("/adninEventWrite")
-	public String adminEventWriteProc() {
+	public String adminEventWriteProc(EventWriterDTO dto, @PathVariable(name = "file") File file, Model model) {
+		String uploadDir =model.getClass().getResource("file").getPath();
+		uploadDir = uploadDir.substring(1,uploadDir.indexOf(".metadata"))+"/img";
+		
+		int maxSize = 1024 * 1024 * 100;
+
+		String encoding = "UTF-8";
+		
+		MultipartRequest multipartRequest
+
+		= new MultipartRequest(request, uploadDir, maxSize, encoding,
+
+				new DefaultFileRenamePolicy());
 		
 		
+		adminPageService.createEvent(dto);
 		
 		
 		return "redirect:/adminEvent";
 	}
 	
-	// 어드민 공지 삭제 요청
+	// 어드민 이벤트 삭제 요청
 		@GetMapping("/adminEventDelete/{id}")
 		public String adminEventDelete(@PathVariable(name = "id") Integer id) {
 
@@ -214,5 +230,7 @@ public class AdminPageController {
 
 		return "/admin/adminMemberList";
 	}
-
+//회원정보 끝
+//-------------------------------------------------------------
+//결제 테이블 시작
 }

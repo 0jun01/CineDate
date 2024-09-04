@@ -32,7 +32,7 @@
 				<div class="col-12">
 					<!-- Default box -->
 					<div class="card">
-						<form action="/adminEventWrite" method="post" enctype="multipart/form-data">
+						<form action="/adminEventSend" method="post" enctype="multipart/form-data">
 							<div class="card-header">
 								<div style="display: flex; flex-direction: row;">
 									<input type="text" class="card-title col-9" placeholder="제목을 입력하세요" name="title" id="title"> &nbsp;&nbsp;&nbsp;
@@ -44,7 +44,7 @@
 								</div>
 								<br>
 								<div>
-									파일 : <input type="file"name="file" onchange="imageUploadPreview" accept="jpeg, png, gif, jpg"/>
+									파일 : <input type="file"name="file" accept="jpeg, png, gif, jpg"/>
 								</div>
 
 							</div>

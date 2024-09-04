@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.tenco.movie.repository.interfaces.MovieRepository">
+	<select id="findByTitle"
+		resultType="com.tenco.movie.repository.model.Movies">
+		select * from movies_tb where title = #{title}
+	</select>
+
+	<select id="findByMovieId"
+		resultType="com.tenco.movie.repository.model.Actors">
+		select *
+		from movie_actor_tb as m
+		join actors_tb as a on
+		m.actors_id = a.id
+		where m.movie_id = #{id}
+
+	</select>
+
+	<select id="findDetailByMovieId"
+		resultType="com.tenco.movie.repository.model.MovieDetail">
+		SELECT
+		m.title,
+		md.title_en,
+		m.movie_desc,
+		m.movie_img,
+		m.release_date,
+		md.show_tm,
+		md.open_dt,
+		md.prd_stat_nm,
+		md.watch_grade_Nm,
+		d.director_face_file,
+		GROUP_CONCAT(DISTINCT g.genre_name SEPARATOR ', ') AS genre,
+		GROUP_CONCAT(DISTINCT d.name SEPARATOR ', ') AS director
+		FROM
+		movies_tb AS m
+		LEFT JOIN
+		movie_detail_tb AS md ON m.id = md.movie_id
+		LEFT JOIN
+		movie_genre_tb AS mg ON m.id = mg.movie_id
+		LEFT JOIN
+		genres_tb AS g ON mg.genre_id = g.id
+		LEFT JOIN
+		movie_director_tb AS mdi ON mdi.movie_id = m.id
+		LEFT JOIN
+		directors_tb AS d ON d.id = mdi.director_id
+		WHERE
+		m.id = #{id}
+		GROUP BY
+		m.title, md.title_en, m.movie_desc, m.movie_img, m.release_date, md.show_tm,
+		md.open_dt, md.prd_stat_nm, md.watch_grade_Nm, d.director_face_file;
+	</select>
+
+	<select id="findAllMovies"
+		resultType="com.tenco.movie.repository.model.Movies">
+		SELECT * FROM movies_tb
+	</select>
+
+</mapper>

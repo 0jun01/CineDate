@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.tenco.movie.repository.interfaces.ReservationRepository">
+
+	<select id="findAll"
+		resultType="com.tenco.movie.repository.model.MovieDetail">
+		select * from movie_detail_tb
+	</select>
+
+	<select id="findAscMovie"
+		resultType="com.tenco.movie.repository.model.MovieDetail">
+		select * from movie_detail_tb order by title;
+	</select>
+
+	<select id="findGradeNmMovie"
+		resultType="com.tenco.movie.repository.model.MovieDetail">
+		SELECT *
+		FROM movie_detail_tb
+		ORDER BY
+		CASE
+		WHEN watch_grade_Nm
+		= '전체관람가' THEN 1
+		WHEN watch_grade_Nm = '12세이상관람가' THEN 2
+		WHEN
+		watch_grade_Nm = '15세이상관람가' THEN 3
+		WHEN watch_grade_Nm = '19세이상관람가'
+		THEN 4
+		ELSE 5
+		END asc;
+	</select>
+
+
+</mapper>

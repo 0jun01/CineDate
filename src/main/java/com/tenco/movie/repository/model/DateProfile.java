@@ -11,7 +11,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Profile {
+public class DateProfile {
 
 	private int id;
 	private int userId; // User - fk
@@ -27,5 +27,19 @@ public class Profile {
 	private int con; // 보유 콘 개수
 	private int lifeStatus; // 상태 ( 0 - 계정 활성화, 1 - 계정 정지 )
 	private int listStatus; // 상태 ( 0 - 일반, 1 - 슈퍼 리스트 활성화 )
+	
+	
+	// 리스트
+	/**
+	 * 0 - 신청버튼, 
+	1 - 신청된상태(신청취소 버튼),  
+	2 -- 매칭 수락(이미 연결된 상대입니다)
+	3 -- 거절 (다시 도전 or 이미 신청 한이력이있으나 다시 하겠냐는 문구)
+	 */
+	private int status; 
+	// 상태 
+	
+	
+	
 	
 }
