@@ -68,7 +68,7 @@ public class DateProfileService {
 		result = profileRepository.createdProfile(signUp.toProfile(principal.getId()));
 		
 		if(result != 1) {
-			throw new DataDeliveryException("회원가입 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new DataDeliveryException(Define.FAIL_TO_CREATE_USER, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 
@@ -84,7 +84,7 @@ public class DateProfileService {
 
 		// 크기
 		if (mFile.getSize() > Define.MAX_FILE_SIZE) {
-			throw new DataDeliveryException("파일 크기는 20MB 이상 클 수 없습니다", HttpStatus.BAD_REQUEST);
+			throw new DataDeliveryException(Define.FILE_SIZE_EXCEEDED, HttpStatus.BAD_REQUEST);
 		}
 		String saveDirectory = uploadDir;
 
@@ -99,7 +99,7 @@ public class DateProfileService {
             try {
                 Files.createDirectories(uploadPath1);
             } catch (IOException e) {
-                throw new DataDeliveryException("업로드 디렉토리를 생성할 수 없습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+                throw new DataDeliveryException(Define.UPLOAD_DIR_CREATION_FAILED, HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
 		
@@ -108,7 +108,7 @@ public class DateProfileService {
 			mFile.transferTo(destination);
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
-			throw new DataDeliveryException("파일 업로드 중에 오류가 발생 했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new DataDeliveryException(Define.FILE_UPLOAD_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		return new String[] { mFile.getOriginalFilename(), uploadFileName };

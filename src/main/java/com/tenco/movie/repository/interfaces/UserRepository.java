@@ -42,7 +42,5 @@ public interface UserRepository {
 	User isPhoneNumDuplicated(String phoneNum);
 	void updateUsername(Long userId, String username);
 	
-	
-	
 
 }

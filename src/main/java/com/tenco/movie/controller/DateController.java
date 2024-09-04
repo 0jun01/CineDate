@@ -110,18 +110,9 @@ public class DateController {
 
 	    return "redirect:/date/date";
 	}
-
-	
-
-	
-	/**
-	 * @author 성후, 병호
-=======
-	
 	
 	/**
 	 * @author 성후
->>>>>>> 57589cb60ece0697642af6c8c4122704c088de45
 	 * @param principal
 	 * @param mFileOne
 	 * @param mFileTwo
@@ -153,11 +144,6 @@ public class DateController {
 		
 		return "date/popcornStore";
 	}
-	/**
-	 * 
-	 * @author 성후
-	 */
-	
 	
 	/**
 	 * 팝콘 -> 토스로 충전

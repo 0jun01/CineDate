@@ -13,6 +13,7 @@ import com.tenco.movie.dto.TossApproveResponse;
 import com.tenco.movie.dto.TossHistoryDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.interfaces.PaymentHistoryRepository;
+import com.tenco.movie.utils.Define;
 
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -55,7 +56,7 @@ public class PaymentService {
 
 		result = historyRepository.insertTossHistory(dto);
 		if(result == 1) {
-			throw new DataDeliveryException("결제내역 입력 실패", HttpStatus.BAD_REQUEST); 
+			throw new DataDeliveryException(Define.ERROR_PAYMENT_FAILED, HttpStatus.BAD_REQUEST); 
 		}
 
 		return result;

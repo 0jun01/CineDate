@@ -18,13 +18,16 @@ a {
 }
 
 body {
-	font-family: 'NanumSquareNeo';
+	font-family: 'NanumSquareNeoBold';
 }
 
 .btn, select {
 	cursor: pointer;
 }
-
+button{
+	font-family: 'NanumSquareNeoBold';
+	cursor: pointer;
+}
 ::placeholder {
 	color: #bababa;
 }
@@ -136,7 +139,7 @@ body {
 	background-color: #bababa;
 	position: absolute;
 	left: -120px;
-	top: 8px;
+	top: 10px;
 	z-index: 0;
 }
 
@@ -147,7 +150,7 @@ body {
 	background-color: #bababa;
 	position: absolute;
 	left: 170px;
-	top: 8px;
+	top: 10px;
 	z-index: 0;
 }
 
@@ -177,7 +180,7 @@ label {
 	height: 30px;
 	border: 0;
 	border-radius: 6px;
-	top: 34px;
+	top: 32px;
 	right: 10px;
 	color: #fff;
 	background-color: #ff2588;
@@ -300,7 +303,6 @@ table, th, td {
 	height: auto; /* 비율 유지 */
 	object-fit: cover; /* 이미지가 박스를 완전히 채우도록 */
 }
-<<<<<<< HEAD
 /*이벤트 페이지*/
 .evt--title {
 	height: 60px;
@@ -397,8 +399,7 @@ table, th, td {
     margin-top: 5%;
     margin-inline: 15% auto;
     padding-inline: 5%;
-=======
-
+}
 .review-list {
     display: flex; 
     flex-direction: column; 
@@ -412,5 +413,18 @@ table, th, td {
     border: 1px solid #ddd; 
     padding: 15px; 
     border-radius: 5px; 
->>>>>>> 57589cb60ece0697642af6c8c4122704c088de45
+}
+/*공지*/
+.page--btn--a{
+	display: flex;
+	justify-content: center;
+	gap: 40px; 
+}
+.page--item{
+	display: flex; 
+    flex-direction: row; 
+    gap: 40px; 
+    border: 1px solid #ddd; 
+    padding: 10px; 
+    border-radius: 5px; 
 }

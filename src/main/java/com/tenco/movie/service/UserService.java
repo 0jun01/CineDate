@@ -14,7 +14,7 @@ import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.UserRepository;
 import com.tenco.movie.repository.model.User;
-import com.tenco.movie.repository.model.search;
+import com.tenco.movie.repository.model.Search;
 import com.tenco.movie.utils.Define;
 
 import lombok.RequiredArgsConstructor;
@@ -40,14 +40,11 @@ public class UserService {
 	@Transactional
 	public void createUser(SignUpDTO dto) {
 
-		System.out.println("여기로 왔냐");
 
 		int result = 0;
 
 		try {
-			System.out.println("11111111여긴왔낭리ㅏㅓㅇ너ㅏㅣㅎ이ㅏㄴ");
 			result = userRepository.insert(dto.toUser());
-			System.out.println("11111성공했늬");
 		} catch (DataDeliveryException e) {
 			throw new DataDeliveryException(Define.DUPLICATION_NAME, HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
@@ -68,13 +65,10 @@ public class UserService {
 	@Transactional
 	public void createKakaoUser(SignUpDTO dto) {
 
-		System.out.println("카카오 로그인이다");
 		int result = 0;
 
 		try {
-			System.out.println("카카오 여기 왔니?");
 			result = userRepository.kakaoInsert(dto.kakaoUser());
-			System.out.println("11111성공했늬");
 		} catch (DataDeliveryException e) {
 			throw new DataDeliveryException(Define.DUPLICATION_NAME, HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
@@ -95,13 +89,10 @@ public class UserService {
 	@Transactional
 	public void createNaverUser(NaverProfileResponse dto) {
 
-		System.out.println("네이버 로그인이다");
 		int result = 0;
 
 		try {
-			System.out.println("네이버 여기 왔니?");
 			result = userRepository.naverInsert(dto.naverUser());
-			System.out.println("11111성공했늬");
 		} catch (DataDeliveryException e) {
 			throw new DataDeliveryException(Define.DUPLICATION_NAME, HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
@@ -122,13 +113,10 @@ public class UserService {
 	@Transactional
 	public void createGoogleUser(GoogleProfile dto) {
 
-		System.out.println("구글 로그인이다");
 		int result = 0;
 
 		try {
-			System.out.println("구글 여기 왔니?");
 			result = userRepository.googleInsert(dto.googleUser());
-			System.out.println("11111성공했늬");
 		} catch (DataDeliveryException e) {
 			throw new DataDeliveryException(Define.DUPLICATION_NAME, HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
@@ -195,7 +183,7 @@ public class UserService {
 		}
 
 		if (userEntity == null) {
-			throw new DataDeliveryException("등록된 정보가 없습니다. 다시 확인해주세요.", HttpStatus.BAD_REQUEST);
+			throw new DataDeliveryException(Define.NO_DATA_FOUND, HttpStatus.BAD_REQUEST);
 		}
 
 		return userEntity;
@@ -220,7 +208,7 @@ public class UserService {
 		}
 
 		if (userEntity == null) {
-			throw new DataDeliveryException("등록된 정보가 없습니다. 다시 확인해주세요.", HttpStatus.BAD_REQUEST);
+			throw new DataDeliveryException(Define.NO_DATA_FOUND, HttpStatus.BAD_REQUEST);
 		}
 
 		return userEntity;
@@ -256,44 +244,6 @@ public class UserService {
 	}
 	
 	/**
-	 * phoneNum 사용자 존재 여부 조회
-	 * @return User
-	 * @author 형정
-	 */
-	public User searchEmail(String email) {
-		return userRepository.findByEmail(email);
-	}
-
-	/**
-	 * name 사용자 존재 여부 조회
-	 * @param name
-	 * @return User
-	 * @author 형정
-	 */
-	public User searchUsername(String name) {
-		return userRepository.findByUsername(name);
-	}
-	
-	/**
-	 * LoginId 사용자 존재 여부 조회
-	 * @param loginId
-	 * @return User
-	 * @author 형정
-	 */
-	public User searchLoginId(String loginId) {
-		return userRepository.findByLoginId(loginId);
-	}
-	
-	/**
-	 * phoneNum 사용자 존재 여부 조회
-	 * @return User
-	 * @author 형정 
-	 */
-	public User searchPhoneNum(String phoneNum) {
-		return userRepository.findByPhoneNum(phoneNum);
-	}
-	
-	/**
 	 * email 사용자 존재 여부 조회
 	 * @return User
 	 * @author 형정
@@ -301,6 +251,7 @@ public class UserService {
 	public User searchEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
+
 	/**
 	 * 마이페이지
 	 * @param name 성후
