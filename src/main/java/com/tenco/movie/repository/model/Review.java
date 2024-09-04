@@ -19,7 +19,7 @@ public class Review {
 	private int movieId; // Movies - pk
 	private int userId; // User - pk
 	private String reviewText; // 리뷰 내용
-	private double rating; // 평점
+	private int rating; // 평점
 	private Timestamp reviewDate; // 작성 시간
 	private String userLoginId; // 사용자 로그인 ID 추가
 
