@@ -19,7 +19,7 @@ spring:
     host: smtp.gmail.com #Google의 SMTP 서버 호스트
     port: 5878 #SMTP 서버의 포트 번호
     username: hjeong0711@gmail.com #발신자 이메일
-    password: uddt gsgs wqvo vrcm #hjeong0711@gmail.com 의 앱 비밀번호
+    password: heku mzzb invv hxtn #hjeong0711@gmail.com 의 앱 비밀번호
     properties: #이메일 구성에 대한 추가 속성
       mail:
         smtp:
