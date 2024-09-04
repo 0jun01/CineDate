@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MovieService {
 
-	@Autowired
+	@Autowired 
 	private final MovieRepository movieRepository;
 
 	/**
@@ -36,6 +36,7 @@ public class MovieService {
 		} catch (DataDeliveryException e) {
 			throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE, HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return movieEntity;
@@ -56,6 +57,7 @@ public class MovieService {
 		} catch (DataDeliveryException e) {
 			throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE, HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return actorsEntity;
@@ -68,6 +70,7 @@ public class MovieService {
 		} catch (DataDeliveryException e) {
 			throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE, HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return detailEntity;

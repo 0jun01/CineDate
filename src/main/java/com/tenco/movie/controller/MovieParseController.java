@@ -132,7 +132,7 @@ public class MovieParseController {
 											int movieId = homeService.readMovieByTitle(title);
 											Actors actors = Actors.builder().name(castDTO.getName())
 													.actorFaceFile(castDTO.getProfilePath()).build();
-//											TODO homeService.insertActors(actors, movieId);
+//											homeService.insertActors(actors, movieId);
 										}
 										for (CrewDTO crewDTO : crewList) {
 											if (crewDTO.getJob().equals("Director")) {
@@ -141,9 +141,8 @@ public class MovieParseController {
 														.directorFaceFile(crewDTO.getProfilePath()).build();
 												System.out.println("Director 맞나요?" + crewDTO.getName());
 												// TODO 인서트문 주석
-//												homeService.insertDirector(movieId, director);
+												homeService.insertDirector(movieId, director);
 											}
-											// homeService.insertActors(actors, movieId);
 										}
 									}
 								}
