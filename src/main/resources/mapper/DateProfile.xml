@@ -28,6 +28,19 @@
 		SELECT * FROM profile_tb WHERE nick_name = #{nickname}
 	</select>
 
+	<update id="updateProfile">
+		update profile_tb set
+		nick_Name = #{nickName},
+		introduce = #{introduce},
+		first_origin_file_name = #{firstOriginFileName},
+		seocnd_origin_file_name = #{secondOriginFileName},
+		third_origin_file_name = #{thirdOriginFileName},
+		fourth_origin_file_name = #{fourthOriginFileName},
+		fifth_origin_file_name = #{fifthOriginFileName},
+		first_upload_file_name = #{firstUploadFileName},
+        second_upload_file_name = #{secondUploadFileName}
+		where user_Id = #{userId}
+	</update>
 	<select id="searchPartner"
 		resultType="com.tenco.movie.repository.model.DateProfile">
 		SELECT p.*,

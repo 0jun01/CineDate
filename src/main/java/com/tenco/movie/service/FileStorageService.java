@@ -2,14 +2,14 @@ package com.tenco.movie.service;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import com.tenco.movie.utils.Define;
 
 /**
  * 파일저장
@@ -22,7 +22,7 @@ public class FileStorageService {
 
     public void store(MultipartFile file) throws IOException {
         if (file.isEmpty()) {
-            throw new RuntimeException("Failed to store empty file.");
+            throw new RuntimeException(Define.FAILED_PROCESSING);
         }
         Path destinationFile = this.rootLocation.resolve(
                 Paths.get(file.getOriginalFilename()))
@@ -30,7 +30,7 @@ public class FileStorageService {
         if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
             // This is a security check
             throw new RuntimeException(
-                    "Cannot store file outside current directory.");
+            		Define.FAILED_PROCESSING);
         }
         try (var inputStream = file.getInputStream()) {
             Files.copy(inputStream, destinationFile);

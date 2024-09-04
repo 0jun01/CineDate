@@ -6,12 +6,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tenco.movie.dto.GoogleProfile;
+import com.tenco.movie.dto.NaverProfileResponse;
 import com.tenco.movie.dto.SignInDTO;
 import com.tenco.movie.dto.SignUpDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.UserRepository;
 import com.tenco.movie.repository.model.User;
+import com.tenco.movie.repository.model.Search;
 import com.tenco.movie.utils.Define;
 
 import lombok.RequiredArgsConstructor;
@@ -31,20 +34,89 @@ public class UserService {
 
 	/**
 	 * 회원 가입 기능
-	 * 
 	 * @param dto
+	 * @author 형정
 	 */
 	@Transactional
 	public void createUser(SignUpDTO dto) {
-		
-		System.out.println("여기로 왔냐");
+
 
 		int result = 0;
 
 		try {
-			System.out.println("여긴왔낭리ㅏㅓㅇ너ㅏㅣㅎ이ㅏㄴ");
 			result = userRepository.insert(dto.toUser());
-			System.out.println("성공했늬");
+		} catch (DataDeliveryException e) {
+			throw new DataDeliveryException(Define.DUPLICATION_NAME, HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			throw new RedirectException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		if (result != 1) {
+			throw new DataDeliveryException(Define.FAIL_TO_CREATE_USER, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+	
+	/**
+	 * 카카오 로그인
+	 * @param dto
+	 * @author 형정
+	 */
+	@Transactional
+	public void createKakaoUser(SignUpDTO dto) {
+
+		int result = 0;
+
+		try {
+			result = userRepository.kakaoInsert(dto.kakaoUser());
+		} catch (DataDeliveryException e) {
+			throw new DataDeliveryException(Define.DUPLICATION_NAME, HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			throw new RedirectException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		if (result != 1) {
+			throw new DataDeliveryException(Define.FAIL_TO_CREATE_USER, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+	
+	/**
+	 * 네이버 로그인 기능
+	 * @param dto
+	 * @author 형정
+	 */
+	@Transactional
+	public void createNaverUser(NaverProfileResponse dto) {
+
+		int result = 0;
+
+		try {
+			result = userRepository.naverInsert(dto.naverUser());
+		} catch (DataDeliveryException e) {
+			throw new DataDeliveryException(Define.DUPLICATION_NAME, HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			throw new RedirectException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		if (result != 1) {
+			throw new DataDeliveryException(Define.FAIL_TO_CREATE_USER, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+	
+	/**
+	 * 구글 로그인 기능
+	 * @param dto
+	 * @author 형정
+	 */
+	@Transactional
+	public void createGoogleUser(GoogleProfile dto) {
+
+		int result = 0;
+
+		try {
+			result = userRepository.googleInsert(dto.googleUser());
 		} catch (DataDeliveryException e) {
 			throw new DataDeliveryException(Define.DUPLICATION_NAME, HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
@@ -57,6 +129,11 @@ public class UserService {
 
 	}
 
+	/**
+	 * 로그인 기능
+	 * @param dto
+	 * @author 형정
+	 */
 	public User readUser(SignInDTO dto) {
 
 		User userEntity = null;
@@ -81,30 +158,140 @@ public class UserService {
 		// boolean isPwdMathched = passwordEncoder.matches(dto.getPassword(),
 		// userEntity.getPassword());
 		// if(isPwdMathched == false) {
-		// throw new DataDeliveryException(Define.NOT_VALIDATE_PASSWORD, HttpStatus.BAD_REQUEST);
+		// throw new DataDeliveryException(Define.NOT_VALIDATE_PASSWORD,
+		// HttpStatus.BAD_REQUEST);
 		// }
 
 		return userEntity;
 
 	}
 
-	public boolean isLoginIdDuplicated(String loginId) {
-		
-		User user = userRepository.isLoginIdDuplicated(loginId);
+	/**
+	 * 이메일로 아이디 찾기
+	 * @return
+	 * @author 형정
+	 */
+	public User findByLoginIdForEmail(String name, String email) {
 
-		if (user != null) {
-			throw new DataDeliveryException(Define.DUPLICATION_ID, HttpStatus.BAD_REQUEST);
+		User userEntity = null;
+		try {
+			userEntity = userRepository.findByLoginIdForEmail(name, email);
+		} catch (DataAccessException e) {
+			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			throw new DataDeliveryException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
 		}
 
-		return true;
+		if (userEntity == null) {
+			throw new DataDeliveryException(Define.NO_DATA_FOUND, HttpStatus.BAD_REQUEST);
+		}
+
+		return userEntity;
 	}
 
-	public boolean isPhoneNumDuplicated(String phoneNum) {
-		
-		User user = userRepository.isPhoneNumDuplicated(phoneNum);
-		return user != null;
+	/**
+	 * 비밀번호 찾기
+	 * @param loginId
+	 * @param password
+	 * @return
+	 * @author 형정
+	 */
+	public User findByLoginIdForPassword(String loginId, String email) {
+
+		User userEntity = null;
+		try {
+			userEntity = userRepository.findByLoginIdForPassword(loginId, email);
+		} catch (DataAccessException e) {
+			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			throw new DataDeliveryException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		if (userEntity == null) {
+			throw new DataDeliveryException(Define.NO_DATA_FOUND, HttpStatus.BAD_REQUEST);
+		}
+
+		return userEntity;
 	}
 
+	/**
+	 * name 사용자 존재 여부 조회
+	 * @param name
+	 * @return User
+	 * @author 형정
+	 */
+	public User searchUsername(String name) {
+		return userRepository.findByUsername(name);
+	}
 	
+	/**
+	 * LoginId 사용자 존재 여부 조회
+	 * @param loginId
+	 * @return User
+	 * @author 형정
+	 */
+	public User searchLoginId(String loginId) {
+		return userRepository.findByLoginId(loginId);
+	}
+	
+	/**
+	 * phoneNum 사용자 존재 여부 조회
+	 * @return User
+	 * @author 형정
+	 */
+	public User searchPhoneNum(String phoneNum) {
+		return userRepository.findByPhoneNum(phoneNum);
+	}
+	
+	/**
+	 * email 사용자 존재 여부 조회
+	 * @return User
+	 * @author 형정
+	 */
+	public User searchEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
 
+	/**
+	 * 마이페이지
+	 * @param name 성후
+	 * @return
+	 */
+	 @Transactional
+	    public User getUserById(String name) {
+	        User user = userRepository.findById(name);
+	        if (user == null) {
+	            throw new DataDeliveryException(Define.INVALID_INPUT, HttpStatus.NOT_FOUND);
+	        }
+	        return user;
+	    }
+/**
+ * 마이페이지 업데이트
+ * @author 성후
+ * @param userId
+ * @param newPassword
+ * @param newEmail
+ * @param newPhoneNum
+ */
+		@Transactional
+		public void updateUser(String loginId, String newPassword, String newEmail, String newPhoneNum) {
+		    User user = userRepository.findById(loginId);
+
+		    if (newPassword != null) {
+		        user.setPassword(newPassword);
+		    }
+		    if (newEmail != null) {
+		        user.setEmail(newEmail);
+		    }
+		    if (newPhoneNum != null) {
+		        user.setPhoneNum(newPhoneNum);
+		    }
+		    user.setPassword(newPassword);
+		    user.setEmail(newEmail);
+		    user.setPhoneNum(newPhoneNum);
+		    
+		    
+		    
+		    userRepository.update(user);
+		}
 }

@@ -11,9 +11,10 @@ import com.tenco.movie.repository.model.DateProfile;
 public interface ProfileRepository {
 	
 	
-	public DateProfile searchProfile(@Param("userId")int principalId);
-	public DateProfile searchNickName(@Param("nickname")String nickname);
+	public DateProfile searchProfile(@Param("userId") int principalId);
+	public DateProfile searchNickName(@Param("nickname") String nickname);
 	public int createdProfile(DateProfile profile);
+	void updateProfile(DateProfile profile);
 	
 	public List<DateProfile> searchPartner(@Param("userId")int userId,@Param("gender")String gender);
 	
