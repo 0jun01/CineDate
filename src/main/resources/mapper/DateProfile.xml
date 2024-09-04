@@ -41,5 +41,21 @@
         second_upload_file_name = #{secondUploadFileName}
 		where user_Id = #{userId}
 	</update>
+	<select id="searchPartner"
+		resultType="com.tenco.movie.repository.model.DateProfile">
+		SELECT p.*,
+		CASE
+		WHEN m.status IS NULL THEN 0
+		WHEN m.status = 0 THEN 1
+		WHEN m.status = 1 THEN 2
+		WHEN m.status = 2 THEN 3
+		END AS status
+		FROM profile_tb AS p
+		JOIN user_tb AS u ON u.id = p.user_id
+		LEFT JOIN matching_tb AS m ON (u.id = m.r_user_id AND m.s_user_id = #{userId})
+		WHERE u.id != #{userId}
+		AND u.gender != #{gender}
+	</select>
+
 
 </mapper>

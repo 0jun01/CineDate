@@ -1,5 +1,7 @@
 package com.tenco.movie.repository.interfaces;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,5 +15,7 @@ public interface ProfileRepository {
 	public DateProfile searchNickName(@Param("nickname") String nickname);
 	public int createdProfile(DateProfile profile);
 	void updateProfile(DateProfile profile);
+	
+	public List<DateProfile> searchPartner(@Param("userId")int userId,@Param("gender")String gender);
 	
 }
