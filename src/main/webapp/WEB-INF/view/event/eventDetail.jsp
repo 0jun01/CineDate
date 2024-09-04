@@ -19,7 +19,7 @@
 		<li><a href="/event/event" title="" class="">제휴/할인</a></li>
 		<div class="evt--prize">
 			<a href="/event/event" class="evt--prize--win"><i>당첨자 발표</i></a> <a
-				href="/event/event" class="evt--prize--win"><i>종료된 이벤트</i></a>
+				href="/event/endevent" class="evt--prize--win"><i>종료된 이벤트</i></a>
 		</div>
 	</ul>
 	<!-- 이벤트 만드는중 성후 -->

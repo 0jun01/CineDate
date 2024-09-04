@@ -10,6 +10,8 @@ import com.tenco.movie.repository.model.Event;
 @Mapper
 public interface EventRepository {
 	public List<Event> findAll();
+	public List<Event> findNow();
+	public List<Event> findEnd();
 	
 	Event findById(int id);
 	

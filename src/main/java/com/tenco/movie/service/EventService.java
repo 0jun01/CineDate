@@ -26,7 +26,7 @@ public class EventService {
 
 	@Transactional
 	public List<Event> readEventList() {
-       return eventRepository.findAll();
+       return eventRepository.findNow();
     }
 
 	public Event readEventDetail(int id) {
@@ -41,4 +41,11 @@ public class EventService {
 		
 		return event;
 	}
+	
+	public List<Event> readEventEnd() {
+		List<Event>  event = eventRepository.findEnd();
+		return event;
+	}
+	
+	
 }

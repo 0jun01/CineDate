@@ -44,6 +44,7 @@ public class Define {
 	public static final String ENTER_PASSWORD_NUM = "비밀번호에는 최소한 하나의 숫자가 포함되어야 합니다.";
 	public static final String DUPLICATION_PASSWORD = "중복된 비밀번호는 사용할 수 없습니다.";
 	public static final String ENTER_YOUR_EMAIL = "이메일을 입력해 주세요.";
+	public static final String ENTER_YOUR_NICKNAME = "닉네임을 입력해 주세요.";
 	public static final String ENTER_YOUR_PHONE_NUM = "휴대폰 번호를 입력해 주세요.";
 	public static final String NOT_VALIDATE_PHONE_NUM = "유효하지 않은 휴대폰 번호입니다.";
 	public static final String ENTER_YOUR_BIRTH = "생년월일을 입력해 주세요.";

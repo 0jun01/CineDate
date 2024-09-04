@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tenco.movie.dto.DateProfileSignUp;
 import com.tenco.movie.handler.exception.DataDeliveryException;
@@ -43,8 +44,15 @@ public class DateController {
 	 * @author 김가령
 	 */
 	@GetMapping("/date")
-	public String getDatePage(@SessionAttribute(Define.PRINCIPAL) User principal,Model model) {
-
+	public String getDatePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,Model model, RedirectAttributes redirectAttributes) {
+/**
+ * 데이트 페이지 들어갈때 로그인 안되있으면 로그인 하라고 방어코드 추가함
+ * @author 성후
+ */
+		if (principal == null) {
+            redirectAttributes.addFlashAttribute(Define.ENTER_YOUR_LOGIN, HttpStatus.BAD_REQUEST);
+            return "redirect:/user/signIn"; // 로그인으로 리다이렉트
+        }
 		/**
 		 * @author 배병호 principal 기준으로 회원가입 페이지 date page or 회원가입 페이지 전화
 		 */
@@ -127,7 +135,7 @@ public class DateController {
 			@RequestParam(name = "introduce") String introduce) {
 
 		if (nickName == null || nickName.isEmpty()) {
-			throw new DataDeliveryException("닉네임을 입력하세요", HttpStatus.BAD_REQUEST);
+			throw new DataDeliveryException(Define.ENTER_YOUR_NICKNAME, HttpStatus.BAD_REQUEST);
 		}
 
 		DateProfileSignUp dto = DateProfileSignUp.builder().nickName(nickName).introduce(introduce).mFileOne(mFileOne)
