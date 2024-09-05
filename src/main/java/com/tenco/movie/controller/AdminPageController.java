@@ -11,18 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartRequest;
 
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.tenco.movie.dto.EventWriterDTO;
-import com.tenco.movie.dto.ImageUploadDTO;
 import com.tenco.movie.dto.NoticeWriterDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.Event;
 import com.tenco.movie.repository.model.Notice;
 import com.tenco.movie.repository.model.User;
 import com.tenco.movie.service.AdminPageService;
-import com.tenco.movie.service.AdminService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,7 +28,6 @@ import lombok.RequiredArgsConstructor;
 public class AdminPageController {
 
 	private final AdminPageService adminPageService;
-	private final AdminService adminService;
 	private Notice notice;
 	private Event event;
 	private User user;
