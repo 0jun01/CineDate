@@ -33,13 +33,13 @@
 						<div class="card mb-4">
 							<div class="card-header">
 								<h3 class="card-title"></h3>
-								<form action="/adminNotice" method="post">
+								<form action="/adminEvent" method="post">
 									<div class="col-4 float-end" style="display: flex; flex-direction: row;">
 
 										<c:choose>
 
 											<c:when test="${search != null}">
-												<input type="text" class="form-control-sm" id="search" name="search" value = "${search}">&nbsp;&nbsp;&nbsp;
+												<input type="text" class="form-control-sm" id="search" name="search" value="${search}">&nbsp;&nbsp;&nbsp;
 												<h3>
 													<li class="nav-item">
 														<button type="submit" class="nav-link" data-widget="navbar-search">
@@ -83,15 +83,11 @@
 														<tr class="align-middle text-center">
 															<td>${event.id}</td>
 															<td><a href="/adminEventDetail/${event.id}">${event.title}</a></td>
-															<td style="width: 200px;">
-															<fmt:parseDate value="${event.releaseDate}" var="releaseDate" pattern="yyyy-MM-dd HH:mm:ss.S" />
-															<fmt:formatDate pattern="yyyy-MM-dd" value="${releaseDate}"/> ~ 
-															<fmt:parseDate value="${event.endDate}" var="endDate" pattern="yyyy-MM-dd HH:mm:ss.S" />
-															<fmt:formatDate pattern="yyyy-MM-dd" value="${endDate}"/></td>
-															<td style="width: 120px;">
-															<fmt:parseDate value="${event.createdAt}" var="createdAt" pattern="yyyy-MM-dd HH:mm:ss.S" />
-															<fmt:formatDate pattern="yyyy-MM-dd" value="${createdAt}"/>
-															</td>
+															<td style="width: 200px;"><fmt:parseDate value="${event.releaseDate}" var="releaseDate" pattern="yyyy-MM-dd HH:mm:ss.S" /> <fmt:formatDate pattern="yyyy-MM-dd"
+																	value="${releaseDate}" /> ~ <fmt:parseDate value="${event.endDate}" var="endDate" pattern="yyyy-MM-dd HH:mm:ss.S" /> <fmt:formatDate pattern="yyyy-MM-dd"
+																	value="${endDate}" /></td>
+															<td style="width: 120px;"><fmt:parseDate value="${event.createdAt}" var="createdAt" pattern="yyyy-MM-dd HH:mm:ss.S" /> <fmt:formatDate pattern="yyyy-MM-dd"
+																	value="${createdAt}" /></td>
 															<td style="width: 90px;" class="text-center">
 																<form action="/adminNoticeReWrite/${notice.id}" method="get">
 																	<button class="btn btn-warning">수정</button>
@@ -116,43 +112,44 @@
 											</div>
 										</c:otherwise>
 									</c:choose>
-									</div>
-									<!-- /.card-body -->
+								</table>
+							</div>
+							<!-- /.card-body -->
 
 
 
-									<div class="card-footer clearfix">
-										<form action="/adminEventWrite" method="get">
-											<button class="btn btn-primary btn-sm clearfix text-bg-dark float-end">글쓰기</button>
-										</form>
-										<nav aria-label="...">
-											<ul class="pagination" style="justify-content: center">
+							<div class="card-footer clearfix">
+								<form action="/adminEventWrite" method="get">
+									<button class="btn btn-primary btn-sm clearfix text-bg-dark float-end">글쓰기</button>
+								</form>
+								<nav aria-label="...">
+									<ul class="pagination" style="justify-content: center">
 
-												<li class="page-item <c:if test='${currentPage == 1}'>disabled</c:if>"><a class="page-link" href="?page=${currentPage - 1}&size=${size}">이전</a></li>
-												<c:forEach begin="1" end="${totalPages}" var="page">
-													<li class="page-item <c:if test='${page == currentPage}'>active </c:if>" aria-current="page"><a class="page-link" href="?page=${page}&size=${size}">${page}</a></li>
-												</c:forEach>
-												<li class="page-item <c:if test='${currentPage == totalPages}'>disabled</c:if>"><a class="page-link" href="?page=${currentPage + 1}&size=${size}">다음</a></li>
-											</ul>
-										</nav>
-									</div>
-									</div>
-									<!-- /.card -->
-									</div>
-									<!-- /.col -->
-									</div>
-									<!--end::Row-->
-									</div>
-									<!--end::Container-->
-									</div>
+										<li class="page-item <c:if test='${currentPage == 1}'>disabled</c:if>"><a class="page-link" href="?page=${currentPage - 1}&size=${size}">이전</a></li>
+										<c:forEach begin="1" end="${totalPages}" var="page">
+											<li class="page-item <c:if test='${page == currentPage}'>active </c:if>" aria-current="page"><a class="page-link" href="?page=${page}&size=${size}">${page}</a></li>
+										</c:forEach>
+										<li class="page-item <c:if test='${currentPage == totalPages}'>disabled</c:if>"><a class="page-link" href="?page=${currentPage + 1}&size=${size}">다음</a></li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+						<!-- /.card -->
+					</div>
+					<!-- /.col -->
+				</div>
+				<!--end::Row-->
+			</div>
+			<!--end::Container-->
+		</div>
 
-									<!--end::App Content-->
-									</main>
-									<!--end::App Main-->
-									<!--begin::Footer-->
+		<!--end::App Content-->
+	</main>
+	<!--end::App Main-->
+	<!--begin::Footer-->
 
-									</div>
-									</div>
-									</div>
-									<!-- end of content.jsp(xxx.jsp) -->
-									<%@ include file="/WEB-INF/view/layout/adminFooter.jsp"%>
+</div>
+</div>
+</div>
+<!-- end of content.jsp(xxx.jsp) -->
+<%@ include file="/WEB-INF/view/layout/adminFooter.jsp"%>

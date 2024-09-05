@@ -154,17 +154,36 @@ public class AdminPageController {
 
 		int totalRecords = adminPageService.countEventAll();
 		int totalPages = (int) Math.ceil((double) totalRecords / size);
-		
-			
+
 		List<Event> eventList = adminPageService.readEventPage(page, size);
 		model.addAttribute("eventList", eventList);
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("size", size);
-		
+
 		return "/admin/adminEventPage";
 	}
 	
+	@PostMapping("/adminEvent")
+	public String adminEventProc(@RequestParam(name = "search") String search,
+			@RequestParam(name = "page", defaultValue = "1") int page,
+			@RequestParam(name = "size", defaultValue = "10") int size,
+			Model model) {
+		
+		int totalRecords = adminPageService.countEvent(search);
+		int totalPages = (int) Math.ceil((double) totalRecords / size);
+
+		List<Event> eventList = adminPageService.searchEventPage(search, page, size);
+		
+		model.addAttribute("search", search);
+		model.addAttribute("eventList", eventList);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("size", size);
+
+		return "/admin/adminEventPage";
+	}
+
 	@GetMapping("/adminEventDetail/{id}")
 	public String adminEventDetail(@PathVariable(name = "id") Integer id, Model model) {
 
@@ -173,49 +192,31 @@ public class AdminPageController {
 
 		return "/admin/adminEventDetail";
 	}
-	
+
 	@GetMapping("/adminEventWrite")
 	public String adminEventWritePage() {
 		return "/admin/adminEventWrite";
 	}
+
 	@PostMapping("/adninEventWrite")
 	public String adminEventWriteProc(EventWriterDTO dto, @PathVariable(name = "file") File file, Model model) {
-		String uploadDir =model.getClass().getResource("file").getPath();
-		uploadDir = uploadDir.substring(1,uploadDir.indexOf(".metadata"))+"/img";
 		
-		int maxSize = 1024 * 1024 * 100;
 
-		String encoding = "UTF-8";
-		
-		MultipartRequest multipartRequest
-
-		= new MultipartRequest(request, uploadDir, maxSize, encoding,
-
-				new DefaultFileRenamePolicy());
-		
-		
-		adminPageService.createEvent(dto);
-		
-		
 		return "redirect:/adminEvent";
 	}
-	
+
 	// 어드민 이벤트 삭제 요청
-		@GetMapping("/adminEventDelete/{id}")
-		public String adminEventDelete(@PathVariable(name = "id") Integer id) {
+	@GetMapping("/adminEventDelete/{id}")
+	public String adminEventDelete(@PathVariable(name = "id") Integer id) {
 
-			System.out.println(id);
+		System.out.println(id);
 
-			event = adminPageService.findEventById(id);
+		event = adminPageService.findEventById(id);
 
-			adminPageService.deleteEvent(event.getId());
+		adminPageService.deleteEvent(event.getId());
 
-			return "/admin/adminEventDelete";
-		}
-
-	
-	
-
+		return "/admin/adminEventDelete";
+	}
 
 //이벤트 끝
 //-------------------------------------------------------------
@@ -223,13 +224,52 @@ public class AdminPageController {
 
 	// 기본 회원정보 띄어주는거
 	@GetMapping("/adminMemberList")
-	public String adminMemberList(Model model) {
+	public String adminMemberList(@RequestParam(name = "page", defaultValue = "1") int page,
+			@RequestParam(name = "size", defaultValue = "10") int size, Model model) {
 
-		List<User> userList = adminPageService.selectAllUser();
-		model.addAttribute(userList);
+		int totalRecords = adminPageService.countMemberAll();
+		int totalPages = (int) Math.ceil((double) totalRecords / size);
+		
+		List<User> userList = adminPageService.readMemberList(page, size);
+		model.addAttribute("userList",userList);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("size", size);
 
 		return "/admin/adminMemberList";
 	}
+	
+	@PostMapping("/adminMemberList")
+	public String adminMemberListProc(@RequestParam(name = "search") String search,
+			@RequestParam(name = "page", defaultValue = "1") int page,
+			@RequestParam(name = "size", defaultValue = "10") int size,
+			Model model) {
+		
+		int totalRecords = adminPageService.countMember(search);
+		int totalPages = (int) Math.ceil((double) totalRecords / size);
+
+		List<User> userList = adminPageService.searchMemberPage(search, page, size);
+		
+		model.addAttribute("search", search);
+		model.addAttribute("userList", userList);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("size", size);
+
+		return "/admin/adminMemberList";
+		
+	}
+	
+	
+	// 어드민 멤버 삭제 요청
+		@GetMapping("/adminMemberDelete/{id}")
+		public String adminMemberDelete(@PathVariable(name = "id") Integer id) {
+
+			System.out.println(id);
+
+
+			return "/admin/adminMemberDelete";
+		}
 //회원정보 끝
 //-------------------------------------------------------------
 //결제 테이블 시작

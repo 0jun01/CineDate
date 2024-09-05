@@ -21,6 +21,6 @@ public interface NoticeRepository {
 	public int updateById(Notice notice); // 공지사항 수정
 	public int deleteById(int id); // 공지사항 삭제
 	
-	public Notice findById(int id); // 게시글 id로 찾기
+	
 }
 

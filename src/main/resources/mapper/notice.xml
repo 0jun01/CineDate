@@ -20,10 +20,6 @@
 		delete from notice_tb where id = #{id}
 	</delete>
 
-	<select id="findById">
-	select * from notice_tb where id = #{id}
-	</select>
-
 	<select id="findById" resultType="com.tenco.movie.repository.model.Notice">
 		select * from notice_tb where id = #{id}
 	</select>

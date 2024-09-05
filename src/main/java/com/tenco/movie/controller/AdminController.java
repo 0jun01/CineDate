@@ -26,17 +26,7 @@ public class AdminController {
 	private final AdminService adminService;
 	private Notice notice;
 	
-	
-	
-	/**
-     * 공지사항 페이지 요청
-     */
-    @GetMapping("/notice")
-    public String getNoticePage(Model model) {
-        List<Notice> noticeList = adminService.readNoticeList();
-        model.addAttribute("noticeList", noticeList);
-        return "/admin/noticePage";
-    }
+
     
     // ---------------------------------------------------------------------------
  

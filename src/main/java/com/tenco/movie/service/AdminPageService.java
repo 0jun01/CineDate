@@ -29,11 +29,11 @@ public class AdminPageService {
 	private final AdminRepository adminRepository;
 	
 	@Transactional
-	public void createNotice(NoticeWriterDTO dto) {
+	public void createNotice(NoticeWriterDTO dto) { // 공지 글쓰기
 		int result = 0;
 		
 		try {
-			result = adminRepository.insert(dto.toWrite());
+			result = adminRepository.insertAdmin(dto.toWrite());
 		} catch (DataDeliveryException e) {
 			throw new DataDeliveryException("잘못된 요청입니다", HttpStatus.INTERNAL_SERVER_ERROR);
 		}catch (Exception e) {
@@ -48,12 +48,12 @@ public class AdminPageService {
 	}
 	
 	@Transactional
-	public void reCreateNotice(NoticeWriterDTO dto, int id) {
+	public void reCreateNotice(NoticeWriterDTO dto, int id) { //공지 수정
 		
 		int result = 0;
 		
 		try {
-			result = adminRepository.updateById(dto.reWrite(id));
+			result = adminRepository.updateAdminById(dto.reWrite(id));
 		} catch (DataAccessException e) {
 			throw new DataDeliveryException("잘못된 요청입니다", HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
@@ -65,8 +65,8 @@ public class AdminPageService {
 		}
 	}
 	
-	public Notice findById(Integer id) {
-		Notice notice = adminRepository.findById(id);
+	public Notice findById(Integer id) { // 공지 detail에서 id값 검색
+		Notice notice = adminRepository.findAdminById(id);
 		
 		if(notice == null) {
 			throw new DataDeliveryException("존재하지 않는 게시글 입니다", HttpStatus.BAD_REQUEST);
@@ -75,13 +75,13 @@ public class AdminPageService {
 	}
 	
 	
-	@Transactional
+	@Transactional // 공지 삭제
 	public void deleteNotice(int id) {
 		
 		int result = 0;
 		
 		try {
-			result = adminRepository.deleteById(id);
+			result = adminRepository.deleteAdminById(id);
 		} catch (DataAccessException e) {
 			throw new DataDeliveryException("잘못된 요청입니다", HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
@@ -93,30 +93,30 @@ public class AdminPageService {
 		}
 	}
 	
-	@Transactional
+	@Transactional // 공지 페이징 처리
 	public List<Notice> readNoticePage(int page, int size){
 		List<Notice> list = new ArrayList<>();
 		int limit = size;
 		int offset = (page - 1) * size;
-		list = adminRepository.pageCount(limit, offset);
+		list = adminRepository.pageCountAdmin(limit, offset);
 		return list;
 	}
 	
-	@Transactional
+	@Transactional // 공지 검색 처리
 	public List<Notice> searchNoticePage(String search, int page, int size){
 		List<Notice> list = new ArrayList<>();
 		int limit = size;
 		int offset = (page - 1) * size;
-		list = adminRepository.findByName(search, limit, offset);
+		list = adminRepository.findAdminByName(search, limit, offset);
 		return list;
 	}
 	
-	public int countNoticeAll() {
-		return adminRepository.countNoticeAll();
+	public int countNoticeAll() { // 공지 전체 카운팅
+		return adminRepository.countAdminNoticeAll();
 	}
 	
-	public int countNotice(String search) {
-		return adminRepository.countNotice(search);
+	public int countNotice(String search) { // 공지 검색 카운팅
+		return adminRepository.countAdminNotice(search);
 	}
 	
 	//공지
@@ -124,7 +124,7 @@ public class AdminPageService {
 	//이벤트
 	
 	@Transactional
-	public List<Event> readEventPage(int page, int size){
+	public List<Event> readEventPage(int page, int size){ // 이벤트 목록 불러오기 및 페이징처리
 		List<Event> list = new ArrayList<>();
 		int limit = size;
 		int offset = (page - 1) * size;
@@ -132,7 +132,7 @@ public class AdminPageService {
 		return list;
 	}
 	
-	public Event findEventById(Integer id) {
+	public Event findEventById(Integer id) { // 이벤트 detail 불러오기 위한 함수
 		Event event = adminRepository.findEventById(id);
 		
 		if(event == null) {
@@ -142,13 +142,11 @@ public class AdminPageService {
 	}
 	
 	@Transactional
-	public void createEvent(EventWriterDTO dto) {
+	public void createEvent(EventWriterDTO dto) { // 이벤트 작성
 		int result = 0;
 		
 		try {
-			
-			
-			
+	
 			
 			result = adminRepository.insertEvent(dto.toWrite());
 		} catch (DataDeliveryException e) {
@@ -165,8 +163,8 @@ public class AdminPageService {
 	}
 	
 	
-	@Transactional
-	public void deleteEvent(int id) {
+	@Transactional // 이벤트 삭제
+	public void deleteEvent(int id) { 
 		
 		int result = 0;
 		
@@ -183,33 +181,59 @@ public class AdminPageService {
 		}
 	}
 	
+	@Transactional // 이벤트 검색 처리
+	public List<Event> searchEventPage(String search, int page, int size){
+		List<Event> list = new ArrayList<>();
+		int limit = size;
+		int offset = (page - 1) * size;
+		list = adminRepository.findAdminEventByName(search, limit, offset);
+		return list;
+	}
 	
-	public int countEventAll() {
+	
+	public int countEventAll() { // 이벤트 목록 불러오기 위한 카운팅
 		return adminRepository.countEventAll();
 	}
 	
-	public Event findByEventId(Integer id) {
-		Event event = adminRepository.findEventById(id);
-		
-		if(event == null) {
-			throw new DataDeliveryException("존재하지 않는 게시글 입니다", HttpStatus.BAD_REQUEST);
-		}
-		return event;
+	
+
+	public int countEvent(String search) { // 공지 검색 카운팅
+		return adminRepository.countAdminEvent(search);
 	}
+	
 	
 	
 	
 	//----------------------------------------------
 	//회원정보
 	
-	@Transactional
-	public List<User> selectAllUser(){
-		List<User> userEntity = null;
+	@Transactional // 멤버리스트 불러오기
+	public List<User> readMemberList(int page, int size){
+		List<User> userEntity = new ArrayList<>();
 		
-		userEntity = adminRepository.findExceptPW();
+		int limit = size;
+		int offset = (page - 1) * size;
+		userEntity = adminRepository.findAdminMemberExceptPW(limit, offset);
 		
 		return userEntity;
 		
+	}
+	
+	public int countMemberAll() { // 멤버 목록 불러오기 위한 카운팅
+		return adminRepository.countAdminMemberAll();
+	}
+	
+	public int countMember(String search) { // 공지 검색 카운팅
+		return adminRepository.countAdminMember(search);
+	}
+	
+	@Transactional // 이벤트 검색 처리
+	public List<User> searchMemberPage(String search, int page, int size){
+		List<User> list = new ArrayList<>();
+		int limit = size;
+		int offset = (page - 1) * size;
+		list = adminRepository.findAdminMemberByName(search, limit, offset);
+		return list;
 	}
 	
 	

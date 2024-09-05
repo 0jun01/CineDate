@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/layout/adminHeader.jsp"%>
-
-
-
 
 <div class="card card-success card-outline mb-4">
 	<main class="app-main">
@@ -43,7 +39,7 @@
 										<c:choose>
 
 											<c:when test="${search != null}">
-												<input type="text" class="form-control-sm" id="search" name="search" value = "${search}">&nbsp;&nbsp;&nbsp;
+												<input type="text" class="form-control-sm" id="search" name="search" value="${search}">&nbsp;&nbsp;&nbsp;
 												<h3>
 													<li class="nav-item">
 														<button type="submit" class="nav-link" data-widget="navbar-search">
@@ -103,7 +99,6 @@
 
 												</tbody>
 											</table>
-
 										</c:when>
 										<c:otherwise>
 											<div class="jumbotron display-4">
@@ -111,92 +106,45 @@
 											</div>
 										</c:otherwise>
 									</c:choose>
-									</div>
-									<!-- /.card-body -->
+								</table>
+
+							</div>
+							<!-- /.card-body -->
 
 
 
-									<div class="card-footer clearfix">
-										<form action="/adminNoticeWrite" method="get">
-											<button class="btn btn-primary btn-sm clearfix text-bg-dark float-end">글쓰기</button>
-										</form>
-										<nav aria-label="...">
-											<ul class="pagination" style="justify-content: center">
+							<div class="card-footer clearfix">
+								<form action="/adminNoticeWrite" method="get">
+									<button class="btn btn-primary btn-sm clearfix text-bg-dark float-end">글쓰기</button>
+								</form>
+								<nav aria-label="...">
+									<ul class="pagination" style="justify-content: center">
 
-												<li class="page-item <c:if test='${currentPage == 1}'>disabled</c:if>"><a class="page-link" href="?page=${currentPage - 1}&size=${size}">이전</a></li>
-												<c:forEach begin="1" end="${totalPages}" var="page">
-													<li class="page-item <c:if test='${page == currentPage}'>active </c:if>" aria-current="page"><a class="page-link" href="?page=${page}&size=${size}">${page}</a></li>
-												</c:forEach>
-												<li class="page-item <c:if test='${currentPage == totalPages}'>disabled</c:if>"><a class="page-link" href="?page=${currentPage + 1}&size=${size}">다음</a></li>
-											</ul>
-										</nav>
-									</div>
-									</div>
-									<!-- /.card -->
-									</div>
-									<!-- /.col -->
-									</div>
-									<!--end::Row-->
-									</div>
-									<!--end::Container-->
-									</div>
-
-									<!--end::App Content-->
-									</main>
-									<!--end::App Main-->
-									<!--begin::Footer-->
-
-									</div>
-									</div>
-									</div>
-									<!-- end of content.jsp(xxx.jsp) -->
-									<%@ include file="/WEB-INF/view/layout/adminFooter.jsp"%>
-=======
-<%@ page import="java.util.Map"%>
-<%@ page import="java.util.List"%>
-<%@ page import="com.tenco.movie.repository.model.Notice"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<!-- header.jsp -->
-<%@ include file="/WEB-INF/view/layout/header.jsp"%>
-
-<div class="notice--list">
-	<h3 class="notice--title">공지사항</h3>
-
-	<c:choose>
-		<c:when test="${noticeList != null}">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>id</th>
-						<th>카테고리</th>
-						<th>제목</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="notice" items="${noticeList}">
-						<tr>
-							<td>${notice.id}</td>
-							<td>${notice.category}</td>
-							<td><a href="/notice/detail/${notice.id}?type=all">${notice.title}</a></td>
-						</tr>
-					</c:forEach>
-					
-				</tbody>
-			</table>
-			</c:when>
-			<c:otherwise>
-				<div class="jumbotron display-4">
-					<h5>게시된 공지가 없습니다.</h5>
+										<li class="page-item <c:if test='${currentPage == 1}'>disabled</c:if>"><a class="page-link" href="?page=${currentPage - 1}&size=${size}">이전</a></li>
+										<c:forEach begin="1" end="${totalPages}" var="page">
+											<li class="page-item <c:if test='${page == currentPage}'>active </c:if>" aria-current="page"><a class="page-link" href="?page=${page}&size=${size}">${page}</a></li>
+										</c:forEach>
+										<li class="page-item <c:if test='${currentPage == totalPages}'>disabled</c:if>"><a class="page-link" href="?page=${currentPage + 1}&size=${size}">다음</a></li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+						<!-- /.card -->
+					</div>
+					<!-- /.col -->
 				</div>
-			</c:otherwise>
-	</c:choose>
+				<!--end::Row-->
+			</div>
+			<!--end::Container-->
+		</div>
 
+		<!--end::App Content-->
+	</main>
+	<!--end::App Main-->
+	<!--begin::Footer-->
+	
 </div>
 </div>
 </div>
 <!-- end of content.jsp(xxx.jsp) -->
-<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
-</body>
-</html>
->>>>>>> fe1d538019942e8cb7d8a19972ed50eddf9b5bd7
+<%@ include file="/WEB-INF/view/layout/adminFooter.jsp"%>

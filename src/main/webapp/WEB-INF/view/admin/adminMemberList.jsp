@@ -35,6 +35,34 @@
 						<div class="card mb-4">
 							<div class="card-header">
 								<h3 class="card-title"></h3>
+								<form action="/adminMemberList" method="post">
+									<div class="col-4 float-end" style="display: flex; flex-direction: row;">
+
+										<c:choose>
+
+											<c:when test="${search != null}">
+												<input type="text" class="form-control-sm" id="search" name="search" value = "${search}">&nbsp;&nbsp;&nbsp;
+												<h3>
+													<li class="nav-item">
+														<button type="submit" class="nav-link" data-widget="navbar-search">
+															<i class="bi bi-search"></i>
+														</button>
+													</li>
+												</h3>
+											</c:when>
+											<c:otherwise>
+												<input type="text" class="form-control-sm" id="search" name="search" placeholder="검색할 회원ID를 입력하세요">&nbsp;&nbsp;&nbsp;
+												<h3>
+													<li class="nav-item">
+														<button type="submit" class="nav-link" data-widget="navbar-search">
+															<i class="bi bi-search"></i>
+														</button>
+													</li>
+												</h3>
+											</c:otherwise>
+										</c:choose>
+									</div>
+								</form>
 							</div>
 							<!-- /.card-header -->
 							<div class="card-body">
@@ -81,7 +109,7 @@
 															</td>
 
 															<td class="text-center">
-																<form action="#" method="get">
+																<form action="/adminMemberDelete" method="get">
 																	<button type="submit" class="btn btn-danger">탈퇴</button>
 																</form>
 															</td>
@@ -105,13 +133,16 @@
 
 									<div class="card-footer clearfix">
 
-										<ul class="pagination pagination-sm m-0" style="justify-content: center">
-											<li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-											<li class="page-item"><a class="page-link" href="#">1</a></li>
-											<li class="page-item"><a class="page-link" href="#">2</a></li>
-											<li class="page-item"><a class="page-link" href="#">3</a></li>
-											<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-										</ul>
+										<nav aria-label="...">
+											<ul class="pagination" style="justify-content: center">
+
+												<li class="page-item <c:if test='${currentPage == 1}'>disabled</c:if>"><a class="page-link" href="?page=${currentPage - 1}&size=${size}">이전</a></li>
+												<c:forEach begin="1" end="${totalPages}" var="page">
+													<li class="page-item <c:if test='${page == currentPage}'>active </c:if>" aria-current="page"><a class="page-link" href="?page=${page}&size=${size}">${page}</a></li>
+												</c:forEach>
+												<li class="page-item <c:if test='${currentPage == totalPages}'>disabled</c:if>"><a class="page-link" href="?page=${currentPage + 1}&size=${size}">다음</a></li>
+											</ul>
+										</nav>
 									</div>
 									</div>
 									<!-- /.card -->

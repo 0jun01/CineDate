@@ -7,38 +7,38 @@
 		select * from notice_tb order by id desc;
 	</select>
 	
-	<insert id="insert">
+	<insert id="insertAdmin">
 		insert into notice_tb(admin_id, category, title, content)
 		values(#{adminId}, #{category}, #{title}, #{content})
 	</insert>
 	
-	<update id="updateById">
+	<update id="updateAdminById">
 		update notice_tb set category = #{category}, title = #{title}, content = #{content} where id = #{id}
 	</update>
 	
-	<delete id="deleteById">
+	<delete id="deleteAdminById">
 		delete from notice_tb where id = #{id}
 	</delete>
 
-	<select id="findById">
+	<select id="findAdminById">
 	select * from notice_tb where id = #{id} order by id desc
 	</select>
 	
-	<select id="findByName">
+	<select id="findAdminByName">
 	select * from notice_tb where title like CONCAT('%', #{search}, '%') order by id desc  limit #{limit} offset #{offset}
 	</select>
 	
-	<select id="pageCount">
+	<select id="pageCountAdmin">
 	select * from notice_tb order by id desc limit #{limit} offset #{offset}
 	</select>
 	
 	
 		
-	<select id = "countNoticeAll" resultType="int">
+	<select id = "countAdminNoticeAll" resultType="int">
 		select count(*) from notice_tb
 	</select>
 	
-	<select id = "countNotice" resultType="int">
+	<select id = "countAdminNotice" resultType="int">
 		select count(*) from notice_tb where title like CONCAT('%', #{search}, '%')
 	</select>
 	
@@ -51,19 +51,44 @@
 	<select id = "findEventById">
 	select * from event_tb where id = #{id} order by id desc
 	</select>
-
+	
+	<delete id="deleteByEventById">
+		delete from event_tb where id = #{id}
+	</delete>
+	
+	<select id="findAdminEventByName">
+	select * from event_tb where title like CONCAT('%', #{search}, '%') order by id desc  limit #{limit} offset #{offset}
+	</select>
 
 	<select id ="countEventAll" resultType="int">
 		select count(*) from event_tb
+	</select>
+	
+	<select id = "countAdminEvent" resultType="int">
+		select count(*) from event_tb where title like CONCAT('%', #{search}, '%')
 	</select>
 
 
 	<!-- ========================================================================================== -->
 	
 	
-	<select id="findExceptPW">
-	select * from user_tb order by id desc
+	<select id="findAdminMemberExceptPW">
+	select * from user_tb order by id desc limit #{limit} offset #{offset}
 	</select>
+	
+	<select id="findAdminMemberByName">
+	select * from user_tb where login_id like CONCAT('%', #{search}, '%') order by id desc limit #{limit} offset #{offset}
+	</select>
+	
+	
+	<select id = "countAdminMemberAll" resultType="int">
+		select count(*) from user_tb
+	</select>
+	
+	<select id = "countAdminMember" resultType="int">
+		select count(*) from user_tb where login_id like CONCAT('%', #{search}, '%')
+	</select>
+	
 	
 	
 </mapper>

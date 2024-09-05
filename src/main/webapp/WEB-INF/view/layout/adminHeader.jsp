@@ -46,7 +46,7 @@
 			<div class="container-fluid">
 				<!--begin::Start Navbar Links-->
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link" data-lte-toggle="sidebar" href="/adminMain" role="button"> <i class="bi bi-list"></i>
+					<li class="nav-item"><a class="nav-link" data-lte-toggle="sidebar" href="#" role="button"> <i class="bi bi-list"></i>
 					</a></li>
 					<li class="nav-item d-none d-md-block"><a href="/adminMain" class="nav-link">홈</a></li>
 					<li class="nav-item d-none d-md-block"><a href="#" class="nav-link">고객문의현황</a></li>
@@ -200,7 +200,7 @@
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="./UI/general.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+								<li class="nav-item"><a href="/adminHistory" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
 										<p>결제내역</p>
 								</a></li>
 								<li class="nav-item"><a href="./UI/timeline.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
