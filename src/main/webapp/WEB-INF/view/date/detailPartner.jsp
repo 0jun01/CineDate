@@ -115,7 +115,6 @@ button.disabled {
         var btn = document.querySelector("#action-button");
       	
         
-        
         images.forEach(function(img) {
             img.addEventListener('click', function() {
                 var fullSizeSrc = img.getAttribute('data-fullsize');

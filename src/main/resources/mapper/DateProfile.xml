@@ -6,7 +6,8 @@
 
 	<select id="searchProfile"
 		resultType="com.tenco.movie.repository.model.DateProfile">
-		SELECT * FROM profile_tb WHERE user_id = #{userId}
+		SELECT *
+		FROM profile_tb WHERE user_id = #{userId}
 	</select>
 
 	<insert id="createdProfile">
@@ -16,11 +17,14 @@
 		first_origin_file_name,
 		seocnd_origin_file_name,
 		first_upload_file_name,
-		second_upload_file_name
+		second_upload_file_name，
+        third_origin_file_name，
+        fourth_origin_file_name，
+        fifth_origin_file_name
 		) VALUES ( #{userId},
 		#{nickName}, #{introduce}, #{firstOriginFileName},
-		#{secondOriginFileName}, #{firstUploadFileName},
-		#{secondUploadFileName})
+		#{seocndOriginFileName}, #{firstUploadFileName},
+		#{secondUploadFileName}, #{thirdOriginFileName}, #{fourthOriginFileName}, #{fifthOriginFileName})
 	</insert>
 
 	<select id="searchNickName"
@@ -33,7 +37,7 @@
 		nick_Name = #{nickName},
 		introduce = #{introduce},
 		first_origin_file_name = #{firstOriginFileName},
-		seocnd_origin_file_name = #{secondOriginFileName},
+		seocnd_origin_file_name = #{seocndOriginFileName},
 		third_origin_file_name = #{thirdOriginFileName},
 		fourth_origin_file_name = #{fourthOriginFileName},
 		fifth_origin_file_name = #{fifthOriginFileName},
@@ -41,6 +45,7 @@
         second_upload_file_name = #{secondUploadFileName}
 		where user_Id = #{userId}
 	</update>
+	
 	<select id="searchPartner"
 		resultType="com.tenco.movie.repository.model.DateProfile">
 		SELECT p.*,

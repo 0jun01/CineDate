@@ -43,7 +43,7 @@ public class DateProfileDTO {
                 .introduce(introduce)
                 .firstOriginFileName(OneOriginFileName)
                 .firstUploadFileName(OneUproadFileName)
-                .secondOriginFileName(TwoOriginFileName)
+                .seocndOriginFileName(TwoOriginFileName)
                 .secondUploadFileName(TwoUproadFileName)
                 .thirdOriginFileName(thirdOriginFileName)
                 .fourthOriginFileName(fourthOriginFileName)
@@ -51,5 +51,7 @@ public class DateProfileDTO {
                 .build();
 
     }
-   
+
+
+
 }

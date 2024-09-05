@@ -8,8 +8,7 @@
     <input type="hidden" id="userTownMemberInfo" name="userTownMemberInfo" value="">
     <div class="in--wrap">
         <span class="thumb-image">
-        
-            <img src="${imageUrl}" alt="Profile Image" style="width: 100px; margin-top: 50px;">
+            <img src="/DateProfileIMAGE/${profile.firstUploadFileName}" alt="Profile Image" style="width: 100px; margin-top: 50px;">
         </span>
     </div>
     <div class="top--title">
@@ -35,7 +34,6 @@
 <form action="/date/updateProfile" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
     <table summary="나의 프로필 정보" class="">
         <caption>나의 프로필 정보</caption>
-        <input type="hidden" name="userId" value="${profile.userId}">
         <colgroup>
             <col width="19%">
             <col width="*">
@@ -59,26 +57,66 @@
                     <input type="hidden" id="user-image" name="user-image" value="">
                     <div class="profile--img">
                         <div class="box--contents">
-                            <span class="thumb--image">
-                                <img id="img_userprofileimage6" src="/img/usernone.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file6').click();">
-                                <input type="file" id="profile_upload_file6" name="profile_upload_file6" title="내용" onchange="previewImage(this, 'img_userprofileimage6')" style="display: none;" required>
+                            <span class="thumb--image"> <!-- 1번사진 -->
+                            	<c:choose>
+	                            	<c:when test="${profile.firstUploadFileName != null}">
+	                               	 	 <img id="img_userprofileimage6" src="/DateProfileIMAGE/${profile.firstUploadFileName}" alt="프로필 사진" onclick="document.getElementById('profile_upload_file6').click();">
+									</c:when>
+	                            	<c:otherwise>
+	                               	 	 <img id="img_userprofileimage6" src="/img/Basic.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file6').click();">
+	                            	</c:otherwise>
+                            	</c:choose>
+                               		 <input type="file" id="profile_upload_file6" name="profile_upload_file6" title="내용" onchange="previewImage(this, 'img_userprofileimage6')" style="display: none;" >
                             </span>
-                              <span class="thumb--image">
-                            <img id="img_userprofileimage2" src="/img/usernone.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file2').click();">
-                            <input type="file" id="profile_upload_file2" name="profile_upload_file2" title="내용" onchange="previewImage(this, 'img_userprofileimage2')" style="display: none;" required>
-                                 </span>
-                                  <span class="thumb--image">
-                            <img id="img_userprofileimage3" src="/img/usernone.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file3').click();">
-                            <input type="file" id="profile_upload_file3" name="profile_upload_file3" title="내용" onchange="previewImage(this, 'img_userprofileimage3')" style="display: none;">
-                                 </span>
-                                 <span class="thumb--image">
-                            <img id="img_userprofileimage4" src="/img/usernone.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file4').click();">
-                            <input type="file" id="profile_upload_file4" name="profile_upload_file4" title="내용" onchange="previewImage(this, 'img_userprofileimage4')" style="display: none;">
+                            
+                            <span class="thumb--image"> <!-- 2번사진 -->
+	                              <c:choose>
+	                              	<c:when test="${profile.secondUploadFileName != null}">
+			                            <img id="img_userprofileimage2" src="/DateProfileIMAGE/${profile.secondUploadFileName}" alt="프로필 사진" onclick="document.getElementById('profile_upload_file2').click();">
+	                              	</c:when>
+	                              	<c:otherwise>
+			                            <img id="img_userprofileimage2" src="/img/Basic.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file2').click();">
+	                              	</c:otherwise>
+	                              </c:choose>
+	        		             	 <input type="file" id="profile_upload_file2" name="profile_upload_file2" title="내용" onchange="previewImage(this, 'img_userprofileimage2')" style="display: none;" >
                             </span>
-                             <span class="thumb--image">
-                            <img id="img_userprofileimage5" src="/img/usernone.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file5').click();">
-                            <input type="file" id="profile_upload_file5" name="profile_upload_file5" title="내용" onchange="previewImage(this, 'img_userprofileimage5')" style="display: none;">
+                                 
+                            <span class="thumb--image"> <!-- 3번사진 -->
+                            	<c:choose>
+                            		<c:when test="${profile.thirdOriginFileName != null}">
+	                        		   <img id="img_userprofileimage3" src="/DateProfileIMAGE/${profile.thirdOriginFileName}" alt="프로필 사진" onclick="document.getElementById('profile_upload_file3').click();">
+                            		</c:when>
+                            		<c:otherwise>
+	                        		   <img id="img_userprofileimage3" src="/img/Basic.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file3').click();">
+                            		</c:otherwise>
+                            	</c:choose>
+	                            <input type="file" id="profile_upload_file3" name="profile_upload_file3" title="내용" onchange="previewImage(this, 'img_userprofileimage3')" style="display: none;">
                             </span>
+                                 
+                            <span class="thumb--image"> <!-- 4번사진 -->
+                            	<c:choose>
+                            		<c:when test="${profile.fourthOriginFileName != null}">
+			                            <img id="img_userprofileimage4" src="/DateProfileIMAGE/${profile.fourthOriginFileName}" alt="프로필 사진" onclick="document.getElementById('profile_upload_file4').click();">
+                            		</c:when>
+                            		<c:otherwise>
+			                            <img id="img_userprofileimage4" src="/img/Basic.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file4').click();">
+                            		</c:otherwise>
+                            	</c:choose>
+	                            <input type="file" id="profile_upload_file4" name="profile_upload_file4" title="내용" onchange="previewImage(this, 'img_userprofileimage4')" style="display: none;">
+                            </span>
+                            
+                            <span class="thumb--image"> <!-- 5번 사진 -->
+                            	<c:choose>
+                            		<c:when test="${profile.fifthOriginFileName != null}">
+			                            <img id="img_userprofileimage5" src="/DateProfileIMAGE/${profile.fifthOriginFileName}" alt="프로필 사진" onclick="document.getElementById('profile_upload_file5').click();">
+                            		</c:when>
+                            		<c:otherwise>
+			                            <img id="img_userprofileimage5" src="/img/Basic.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file5').click();">
+                            		</c:otherwise>
+                            	</c:choose>
+	                            <input type="file" id="profile_upload_file5" name="profile_upload_file5" title="내용" onchange="previewImage(this, 'img_userprofileimage5')" style="display: none;">
+                            </span>
+                            
                         </div>
                     </div>
                             <p>jpg, gif, BMP, png 파일만 등록 가능합니다. (최대 3MB)</p>
@@ -144,21 +182,11 @@ function previewImage(input, imgId) {
         
         reader.readAsDataURL(file);
     } else {
-        img.src = '/img/usernone.jpg'; // 파일이 선택되지 않은 경우 기본 이미지로 설정
+        img.src = '/img/Basic.jpg'; // 파일이 선택되지 않은 경우 기본 이미지로 설정
     }
 }
 
-function validateForm() {
-    var file6 = document.getElementById('profile_upload_file6').files[0];
-    var file2 = document.getElementById('profile_upload_file2').files[0];
-    
-    if (!file6 || !file2) {
-        alert("첫 번째와 두 번째 사진은 반드시 등록하셔야 합니다.");
-        return false;
-    }
-    
-    return true;
-}
+
 </script>
 </body>
 </html>

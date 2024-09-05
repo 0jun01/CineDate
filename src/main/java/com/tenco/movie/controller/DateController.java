@@ -1,5 +1,6 @@
 package com.tenco.movie.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tenco.movie.dto.DateProfileDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
@@ -42,8 +44,15 @@ public class DateController {
 	 * @author 김가령
 	 */
 	@GetMapping("/date")
-	public String getDatePage(@SessionAttribute(Define.PRINCIPAL) User principal,Model model) {
-
+	public String getDatePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,Model model, RedirectAttributes redirectAttributes) {
+		/**
+		 * 데이트 페이지 들어갈때 로그인 안되있으면 로그인 하라고 방어코드 추가함
+		 * @author 성후
+		 */
+				if (principal == null) {
+		            redirectAttributes.addFlashAttribute(Define.ENTER_YOUR_LOGIN, HttpStatus.BAD_REQUEST);
+		            return "redirect:/user/signIn"; // 로그인으로 리다이렉트
+		        }
 	
 		DateProfile prifile = dateService.searchProfile(principal.getId());
 		if (prifile == null) {
@@ -96,15 +105,11 @@ public class DateController {
 		        @RequestParam(name = "profile_upload_file3") MultipartFile file3,
 		        @RequestParam(name =  "profile_upload_file4") MultipartFile file4,
 		        @RequestParam(name =  "profile_upload_file5") MultipartFile file5,
-		        @SessionAttribute(Define.PRINCIPAL)User principal, Model model) throws IOException {
+		        @SessionAttribute(Define.PRINCIPAL)User principal) throws IOException {
 
-		// 필수 파일 체크
-	    if (file1 == null || file1.isEmpty() || file2 == null || file2.isEmpty()) {
-	        model.addAttribute(Define.MISSING_REQUIRED_FILES, HttpStatus.BAD_REQUEST);
-	        return "redirect:/date/profilePage"; 
-	    }
-		
-		
+//	    if (principal.getId() != userId) {
+//	        return ""; // 적절한 에러 페이지 URL로 수정
+//	    }
 		DateProfileDTO update = DateProfileDTO.builder()
 													.nickName(nickName)
 													.introduce(introduce)
@@ -114,7 +119,7 @@ public class DateController {
 													.mFile4(file4)
 													.mFile5(file5)
 													.build();
-		
+
 	    dateService.updateProfile(update, principal.getId());
 
 	    return "redirect:/date/date";
@@ -136,7 +141,7 @@ public class DateController {
 			@RequestParam(name = "introduce") String introduce) {
 
 		if (nickName == null || nickName.isEmpty()) {
-			throw new DataDeliveryException(Define.ENTER_YOUR_NICKNAME, HttpStatus.BAD_REQUEST);
+			throw new DataDeliveryException("닉네임을 입력하세요", HttpStatus.BAD_REQUEST);
 		}
 
 		DateProfileDTO dto = DateProfileDTO.builder().nickName(nickName).introduce(introduce).mFileOne(mFileOne)
@@ -199,4 +204,3 @@ public class DateController {
 	
 	
 }
-
