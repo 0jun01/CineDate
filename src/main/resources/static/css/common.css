@@ -297,7 +297,9 @@ table, th, td {
 	align-items: center;
 	justify-content: center;
 }
-
+.box--contents{
+	display: flex;
+}
 .profile--img .thumb--image img {
 	width: 100%; /* 너비에 맞추어 크기 조정 */
 	height: auto; /* 비율 유지 */

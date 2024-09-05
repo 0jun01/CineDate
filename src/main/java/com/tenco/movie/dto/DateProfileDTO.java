@@ -15,7 +15,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString 
-public class DateProfileSignUp {
+public class DateProfileDTO {
 	private String nickName;
 	private String introduce;
 	private MultipartFile mFileOne;
@@ -24,6 +24,15 @@ public class DateProfileSignUp {
 	private MultipartFile mFileTwo;
 	private String TwoOriginFileName;
 	private String TwoUproadFileName;
+	private MultipartFile mFile3;
+	private String thirdOriginFileName;
+	private MultipartFile mFile4;
+	private String fourthOriginFileName;
+	private MultipartFile mFile5;
+	private String fifthOriginFileName;
+	
+	
+	// third_origin_file_name fourth_origin_file_name first_upload_file_name
 	
 	public DateProfile toProfile(int PrinpalId) {
 		
@@ -34,8 +43,11 @@ public class DateProfileSignUp {
 				.introduce(introduce)
 				.firstOriginFileName(OneOriginFileName)
 				.firstUploadFileName(OneUproadFileName)
-				.secondOriginFileName(TwoOriginFileName)
+				.seocndOriginFileName(TwoOriginFileName)
 				.secondUploadFileName(TwoUproadFileName)
+				.thirdOriginFileName(thirdOriginFileName)
+				.fourthOriginFileName(fourthOriginFileName)
+				.fifthOriginFileName(fifthOriginFileName)
 				.build();
 		
 	}

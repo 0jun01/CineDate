@@ -114,10 +114,6 @@ button.disabled {
         var actionButton = document.getElementById('action-button');
         var btn = document.querySelector("#action-button");
       	
-        btn.addEventListener("click", function() {
-        	
-        	
-        }
         
         images.forEach(function(img) {
             img.addEventListener('click', function() {
