@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
         star.addEventListener('click', function() {
             const value = parseFloat(this.getAttribute('data-value'));
             const currentState = parseInt(this.getAttribute('data-state')) || 0;
-            const newState = (currentState + 1) % 3; // 상태는 0 (빈 별), 1 (반쪽 별), 2 (전체 별)만 가능
+            const newState = (currentState + 1) % 3; // 상태 0 (빈 별), 1 (반쪽 별), 2 (전체 별)만 가능
 
             updateStars(newState, value);
             ratingInput.value = getRatingValue(newState, value);
