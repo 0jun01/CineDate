@@ -60,7 +60,10 @@
 				    <div class="join--btn">
 				        <label for="mailSend">이메일 인증번호</label>
 				        <input type="number" id="mailSend" name="mailSend" placeholder="이메일 인증번호를 입력해주세요.">
-				        <button type="submit" class="btn" id="sendAuthCode"><a href="/mail">인증번호 전송</a></button>
+				        <div class="email--certification">
+					        <button type="button" class="btn" id="sendAuthCode">인증번호 요청</button>
+					        <button type="button" class="btn" id="sendAuthEnterCode">인증번호 인증</button>
+				        </div>
 				    </div>
 					
 					<div class="join--btn">
@@ -188,6 +191,7 @@
 	        const mailSendElement = document.querySelector('#mailSend');
 	        
 	        sendAuthCodeButton.addEventListener("click", function() {
+	        	 event.preventDefault(); // 폼 제출 방지
 	            const email = emailElement.value;
 	
 	            fetch('http://localhost:8080/mail/mail', {

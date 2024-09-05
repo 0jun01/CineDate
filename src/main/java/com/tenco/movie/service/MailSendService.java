@@ -1,105 +1,74 @@
 package com.tenco.movie.service;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.thymeleaf.context.Context;
-import org.thymeleaf.spring6.SpringTemplateEngine;
 
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Component
-@Transactional
 @Service
+@Transactional
 @RequiredArgsConstructor
-@Data
-@AllArgsConstructor
-@ToString
-@Builder
 public class MailSendService {
 
-	@Autowired
-	private JavaMailSender emailSender;
+	private final JavaMailSender mailSender;
 
-	@Autowired
-	private SpringTemplateEngine templateEngine;
-
-	private String authNum;
-
-	// 랜덤 인증 코드
-	public void createCode() {
-		Random random = new Random();
-		StringBuffer key = new StringBuffer();
-
-		for (int i = 0; i < 8; i++) {
-			int index = random.nextInt(3);
-
-			switch (index) {
-			case 0:
-				key.append((char) ((int) random.nextInt(26) + 97));
-				break;
-			case 1:
-				key.append((char) ((int) random.nextInt(26) + 65));
-			case 2:
-				key.append(random.nextInt(9));
-				break;
-			}
-		}
-		authNum = key.toString();
-	}
-
-	// 메일 양식 신청
-	public MimeMessage createEmailForm(String email) throws MessagingException, UnsupportedEncodingException {
-		createCode(); // 인증 코드 생성
-		String setForm = "hjeong0711@gmail.com";
-		String toEmail = email; // 받는 사람
-		String title = "[CineDate 이메일 인증]"; // 제목
-
-		MimeMessage message = emailSender.createMimeMessage();
+	public void sendSimpleMessage(String toEmail, String title, String text) {
+		
+		SimpleMailMessage emailForm = createEmailForm(toEmail, title, text);
 		
 		try {
-			MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-			helper.setTo(email);
-			helper.setSubject(title);
-			helper.setFrom(setForm);
-			helper.setText(setContext(authNum),true);
+			mailSender.send(emailForm);
+			log.info("이메일이 성공적으로 전송되었습니다. 대상: {}", toEmail);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("MailService.sendEmail exception occurred. toEmail: {}, title: {}, text: {}", toEmail, title, text, e);
+            throw new RuntimeException("이메일 전송 중 오류가 발생했습니다.");
 		}
+		
+	}
 
+	private SimpleMailMessage createEmailForm(String toEmail, String title, String text) {
+		
+		SimpleMailMessage message = new SimpleMailMessage();
+		
+		message.setTo(toEmail);
+		message.setSubject(title);
+		message.setText(text);
+		
 		return message;
 	}
 
-	// 실제 메일 전송
-	public String sendEmail(String toEmail) throws MessagingException, UnsupportedEncodingException  {
-		// 메일 전송에 필요한 정보 설정
-		MimeMessage emailForm = createEmailForm(toEmail);
+	// 랜덤 암호 생성
+	private static String createKey() {
+		StringBuffer key = new StringBuffer();
+		Random random = new Random();
 
-		// 실제 메일 전송
-		emailSender.send(emailForm);
+		for (int i = 0; i < 8; i++) {
+			int index = random.nextInt();
 
-		return authNum;
-	}
+			switch (index) {
+			case 0:
+				// a ~ z (ex. 1+97=98 => (char)98 = 'b')
+				key.append((char) ((int) (random.nextInt(26)) + 97));
+				break;
 
-	// 타임 리프를 이용한 context 설정
-	private String setContext(String code) {
-		Context context = new Context();
-		context.setVariable("code", code);
-		return templateEngine.process("main", context); // main.html
+			case 1:
+				// a ~ z
+				key.append((char) (int) (random.nextInt(26) + 65));
+				break;
+
+			case 2:
+				// 0 ~ 9
+				key.append((random.nextInt(10)));
+				break;
+			}
+		}
+		return key.toString();
 	}
 
 }
