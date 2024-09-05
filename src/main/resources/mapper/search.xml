@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tenco.movie.repository.interfaces.SearchRepository">
+
+	<select id="searchMoiveTitle" resultType="com.tenco.movie.repository.model.Search">
+		SELECT m.title , m.movie_img, m.movie_desc, m.release_date, md.prd_stat_nm, md.watch_grade_Nm
+	    FROM movies_tb AS m
+	    LEFT JOIN movie_detail_tb AS md ON m.id = md.id
+	    WHERE m.title LIKE CONCAT('%', #{title}, '%')
+	</select>
+
+</mapper>

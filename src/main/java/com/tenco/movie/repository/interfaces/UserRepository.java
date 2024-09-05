@@ -16,9 +16,10 @@ public interface UserRepository {
 	int kakaoInsert(User user);
 	int updateById(User user);
 	int deleteById();
-	User findById(); // loginId
+	User findById(@Param("login_id")String name); // loginId
 	User findPassword();
 	List<User> findAll();
+	void update(User user);
 	
 	// 이름과 이메일로 아이디 찾기
 	public User findByLoginIdForEmail(@Param("name") String name, @Param("email") String email);
@@ -39,7 +40,7 @@ public interface UserRepository {
 	
 	// 휴대폰 번호 중복 검사 
 	User isPhoneNumDuplicated(String phoneNum);
-	
+	void updateUsername(Long userId, String username);
 	
 
 }

@@ -136,9 +136,6 @@ public class HomeService {
 	@Transactional
 	public void findGenreId(String genreName, int movieId) {
 		int genreId = 0;
-		System.out.println("---------------------------------");
-		System.out.println("genreName : " + genreName + " movieId : " + movieId);
-		System.out.println("---------------------------------");
 		Genres genresEntity = null;
 		try {
 
@@ -156,8 +153,6 @@ public class HomeService {
 			}
 			genreId = genresEntity.getId();
 //			// 2. movie_genre_tb에 movie_id가 있는지 찾아 본다.
-			System.out.println("movieId : " + movieId);
-			System.out.println("genreId : " + genreId);
 			MovieGenre movieGenre = homeRepository.checkMovieGenreExists(movieId, genreId);
 //			// 2-1. movie_genre_tb에 movie_id가 없으면 movie_id와 genre_id를 인설트 해준다.
 			if (movieGenre == null) {

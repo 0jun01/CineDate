@@ -14,7 +14,11 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
-
+/**
+ * 리뷰
+ * @author 가령
+ */
+	
 	@Autowired
 	private ReviewRepository reviewRepository;
 	

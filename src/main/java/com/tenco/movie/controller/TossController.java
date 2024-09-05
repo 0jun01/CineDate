@@ -39,14 +39,14 @@ public class TossController {
 	// 
 	/**
 	 * 토스결제 성공
-	 * 
+	 * @author 병호
 	 * @return
 	 */
 	@GetMapping("/success")
-	public String seccese(@RequestParam(name = "orderId") String orderId,
-	                      @RequestParam(name = "paymentKey") String paymentKey, 
-	                      @RequestParam(name = "amount") String amount,
-	                      @SessionAttribute(name = "principal") User principal)
+	public String seccese(@RequestParam(name = "orderId")String orderId,
+	                      @RequestParam(name = "paymentKey")String paymentKey, 
+	                      @RequestParam(name = "amount")String amount,
+	                      @SessionAttribute(name = "principal")User principal)
 	        throws IOException, InterruptedException {
 
 	    System.out.println("orderId : " + orderId);
@@ -56,7 +56,7 @@ public class TossController {
 	    RestTemplate restTemplate = new RestTemplate();
 
 	    HttpHeaders headers = new HttpHeaders();
-	    headers.add("Authorization", "Basic dGVzdF9za19lcVJHZ1lPMXI1UDdFZ0RLd05KYlZRbk4yRXlhOg==");
+	    headers.add("Authorization", "Basic dGVzdF9za19lcVJHZ1lPMXI1UDdFZ0RLd05KYlZRbk4yRXlhOg=="); // basic64 << 인코딩 
 	    headers.add("Content-Type", "application/json");
 
 	    // JSON 형식의 요청 본문 생성

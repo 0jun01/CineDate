@@ -1,4 +1,3 @@
-
 package com.tenco.movie.controller;
 
 import java.net.URI;
@@ -238,11 +237,6 @@ public class HomeController {
 							if (movieInfoResult != null) {
 								MovieInfo movieInfo = movieInfoResult.getMovieInfo();
 								if (movieInfo != null) {
-									System.out.println("Movie Name (Korean): " + movieInfo.getMovieNm());
-									System.out.println("Movie Name (English): " + movieInfo.getMovieNmEn());
-									System.out.println("Show Time: " + movieInfo.getShowTm());
-									System.out.println("Open Date: " + movieInfo.getOpenDt());
-									System.out.println("Production Status: " + movieInfo.getPrdtStatNm());
 									title = movieInfo.getMovieNm();
 									titleEn = movieInfo.getMovieNmEn();
 									showTm = movieInfo.getShowTm();
@@ -292,8 +286,8 @@ public class HomeController {
 									}
 
 									// TODO 나중에 빌더 패턴 써서 정리 movie_detail_tb에 인설트
-									homeService.insertMovieDetail(movieId, title, titleEn, showTm, openDt, prdStatNm,
-											watchGradeNm);
+//									homeService.insertMovieDetail(movieId, title, titleEn, showTm, openDt, prdStatNm,
+//											watchGradeNm);
 
 								}
 							}

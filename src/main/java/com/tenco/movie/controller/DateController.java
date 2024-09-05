@@ -1,5 +1,9 @@
 package com.tenco.movie.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -31,6 +35,7 @@ public class DateController {
 	private final DateProfileService dateService;
 
 	private final PaymentService payservice;
+	
 
 	/**
 	 * 데이트 페이지 요청
@@ -38,19 +43,73 @@ public class DateController {
 	 * @author 김가령
 	 */
 	@GetMapping("/date")
-	public String getDatePage(@SessionAttribute(Define.PRINCIPAL) User principal) {
+	public String getDatePage(@SessionAttribute(Define.PRINCIPAL) User principal,Model model) {
 
 		/**
-		 * @author 배병호 principal 기준으로 회원가입 페이지 main page or 회원가입 페이지 전화
+		 * @author 배병호 principal 기준으로 회원가입 페이지 date page or 회원가입 페이지 전화
 		 */
 		DateProfile prifile = dateService.searchProfile(principal.getId());
 		if (prifile == null) {
 			return "date/DateSignUp";
 		}
-
-		return "date/datePage";
+		List<DateProfile> list = dateService.searchPartner(principal.getId(), principal.getGender());
+		System.out.println(list);
+		model.addAttribute("list", list);
+		
+		return "date/ProfileList";
 	}
-	
+	/**
+	 * 데이트페이지 정보수정 이동
+	 * @author 성후
+	 */
+	@GetMapping("/profilePage")
+	public String getProfilePage(@SessionAttribute(Define.PRINCIPAL) User principal, Model model) {
+	    DateProfile profile = dateService.searchProfile(principal.getId());
+	    if (profile == null) {
+	        return "date/DateSignUp";
+	    }
+	    String imageUrl = "/DateProfileIMAGE/" + profile.getFirstUploadFileName();
+	    model.addAttribute("profile", profile);
+	    model.addAttribute("imageUrl", imageUrl);  
+	    return "date/profilePage";
+	}
+	/**
+	 * 데이트페이지 수정
+	 * @author 성후
+	 * @param nickName
+	 * @param introduce
+	 * @param file1
+	 * @param file2
+	 * @param file3
+	 * @param file4
+	 * @param file5
+	 * @param userId
+	 * @param principal
+	 * @return
+	 * @throws IOException
+	 */
+	@PostMapping("/updateProfile")
+	public String updateProfile(
+			 @RequestParam("nickname") String nickName,
+		        @RequestParam("introduce") String introduce,
+		        @RequestParam("profile_upload_file1") MultipartFile file1,
+		        @RequestParam("profile_upload_file2") MultipartFile file2,
+		        @RequestParam("profile_upload_file3") MultipartFile file3,
+		        @RequestParam("profile_upload_file4") MultipartFile file4,
+		        @RequestParam("profile_upload_file5") MultipartFile file5,
+		        @RequestParam("profile_upload_file6") MultipartFile file6,
+		        @RequestParam("profile_upload_file7") MultipartFile file7,
+		        @RequestParam("userId") int userId,
+		        @SessionAttribute("principal") User principal) throws IOException {
+
+	    if (principal.getId() != userId) {
+	        return ""; // 적절한 에러 페이지 URL로 수정
+	    }
+
+	    dateService.updateProfile(nickName, introduce, file1, file2, file3, file4, file5, file6, file7, userId);
+
+	    return "redirect:/date/date";
+	}
 	
 	/**
 	 * @author 성후
@@ -86,8 +145,6 @@ public class DateController {
 		return "date/popcornStore";
 	}
 	
-	
-	
 	/**
 	 * 팝콘 -> 토스로 충전
 	 * 
@@ -103,7 +160,7 @@ public class DateController {
 		int conCount = Integer.parseInt(popcorn);
 
 		int amount = 100 * conCount;
-		String orderId = payservice.getOderId();
+		String orderId = payservice.getOderId(); /// 6~ 64 
 		String orderName = "con";
 		String customerName = principal.getName();
 		

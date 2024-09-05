@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class DateProfileService {
 
 	@Autowired
 	private final ProfileRepository profileRepository;
+	
+	
 
 	@Value("${file.upload-dir}")
 	private String uploadDir;
@@ -40,6 +43,12 @@ public class DateProfileService {
 		return profile;
 	}
 	
+	/**
+	 * @author 병호  파일 업로드 구현
+	 * @param principal
+	 * @param signUp
+	 * @return
+	 */
 	@Transactional
 	public int createdProfile(User principal, DateProfileSignUp signUp) {
 		int result = 0;
@@ -59,19 +68,23 @@ public class DateProfileService {
 		result = profileRepository.createdProfile(signUp.toProfile(principal.getId()));
 		
 		if(result != 1) {
-			throw new DataDeliveryException("회원가입 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new DataDeliveryException(Define.FAIL_TO_CREATE_USER, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 
 		return result;
 	}
 
-	// 파일 업로드 구현
+	/**
+	 * @author 병호  파일 이름변화 
+	 * @param mFile
+	 * @return
+	 */
 	private String[] uploadFile(MultipartFile mFile) {
 
 		// 크기
 		if (mFile.getSize() > Define.MAX_FILE_SIZE) {
-			throw new DataDeliveryException("파일 크기는 20MB 이상 클 수 없습니다", HttpStatus.BAD_REQUEST);
+			throw new DataDeliveryException(Define.FILE_SIZE_EXCEEDED, HttpStatus.BAD_REQUEST);
 		}
 		String saveDirectory = uploadDir;
 
@@ -86,7 +99,7 @@ public class DateProfileService {
             try {
                 Files.createDirectories(uploadPath1);
             } catch (IOException e) {
-                throw new DataDeliveryException("업로드 디렉토리를 생성할 수 없습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+                throw new DataDeliveryException(Define.UPLOAD_DIR_CREATION_FAILED, HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
 		
@@ -95,17 +108,94 @@ public class DateProfileService {
 			mFile.transferTo(destination);
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
-			throw new DataDeliveryException("파일 업로드 중에 오류가 발생 했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new DataDeliveryException(Define.FILE_UPLOAD_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		return new String[] { mFile.getOriginalFilename(), uploadFileName };
 	}
-
+	
+	/**
+	 * @author 병호 닉네임 중복검사 
+	 * @param nickname
+	 * @return
+	 */
 	public DateProfile searchUsername(String nickname) {
 		
 		DateProfile profile = profileRepository.searchNickName(nickname);
 		
 		return profile;
 	}
+	/**
+	 * 마이페이지 업데이트
+	 * @author 성후
+	 * @return
+	 */
+	@Transactional
+	public void updateProfile(String newNickName, String newIntroduce,
+	        MultipartFile newFirstFile, MultipartFile newSecondFile,
+	        MultipartFile newThirdFile, MultipartFile newFourthFile,
+	        MultipartFile newFifthFile, MultipartFile newFirstUploadFile,
+	        MultipartFile newSecondUploadFile, int newUserId) throws IOException {
 
+	    // 파일 저장 및 파일 이름 가져오기
+	    String newFirstFileName = saveFile(newFirstFile);
+	    String newSecondFileName = saveFile(newSecondFile);
+	    String newThirdFileName = saveFile(newThirdFile);
+	    String newFourthFileName = saveFile(newFourthFile);
+	    String newFifthFileName = saveFile(newFifthFile);
+	    String newFirstUploadFileName = saveFile(newFirstUploadFile);
+	    String newSecondUploadFileName = saveFile(newSecondUploadFile);
+
+	    // 프로필 업데이트
+	    DateProfile dateProfile = DateProfile.builder()
+	            .nickName(newNickName)
+	            .introduce(newIntroduce)
+	            .firstOriginFileName(newFirstFileName)
+	            .secondOriginFileName(newSecondFileName)
+	            .thirdOriginFileName(newThirdFileName)
+	            .fourthOriginFileName(newFourthFileName)
+	            .fifthOriginFileName(newFifthFileName)
+	            .firstUploadFileName(newFirstUploadFileName)
+	            .secondUploadFileName(newSecondUploadFileName)
+	            .userId(newUserId)
+	            .build();
+
+	    profileRepository.updateProfile(dateProfile);
+	}
+
+	private String saveFile(MultipartFile file) throws IOException {
+	    if (file.isEmpty()) return "";
+
+	    // 파일 확장자 추출
+	    String fileExtension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
+	    
+	    // UUID와 파일 확장자를 결합하여 새로운 파일 이름 생성
+	    String fileName = UUID.randomUUID().toString() + "_" + fileExtension;
+
+	    // 업로드 디렉토리 경로 설정
+	    File targetFile = new File(uploadDir + File.separator + fileName);
+	    
+	    // 업로드 디렉토리가 존재하지 않으면 생성
+	    File uploadDirFile = new File(uploadDir);
+	   
+	    if (!uploadDirFile.exists()) {
+	        uploadDirFile.mkdirs();
+	    }
+
+	    // 파일을 지정된 위치에 저장
+	    file.transferTo(targetFile);
+	    
+	    return fileName; // UUID가 포함된 파일 이름 반환
+	}
+
+	
+	
+	public List<DateProfile> searchPartner(int principalId, String principalGender){
+		List<DateProfile> partnerList = null;
+		
+		partnerList = profileRepository.searchPartner(principalId, principalGender);
+		
+		return partnerList;
+	}
+	
 }

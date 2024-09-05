@@ -3,6 +3,7 @@
 header {
 	width: 100%;
 	position: relative;
+	border-bottom: 1px solid #bababa;
 }
 
 .memberInfo--wrap {
@@ -53,6 +54,22 @@ label.main--search {
 	width: 150px;
 }
 
+.date{
+	color: #ff2588;
+    font-weight: 600;
+    position: relative;
+}
+.date::before {
+    content: "💕";
+    color: #ff2588;
+    position: absolute;
+    right: -20px;
+    top: -7px;
+    transform: rotateZ(20deg);
+}
+.date:hover{
+	cursor: pointer;
+}
 .nav--menu {
 	display: flex;
 	justify-content: space-between;
