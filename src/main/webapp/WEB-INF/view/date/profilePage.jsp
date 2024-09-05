@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- header.jsp -->
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
-<!-- 성후 -->
 
 <!-- start of content.jsp(xxx.jsp) -->
 <div class="wrap">
@@ -9,6 +8,7 @@
     <input type="hidden" id="userTownMemberInfo" name="userTownMemberInfo" value="">
     <div class="in--wrap">
         <span class="thumb-image">
+        
             <img src="${imageUrl}" alt="Profile Image" style="width: 100px; margin-top: 50px;">
         </span>
     </div>
@@ -32,7 +32,7 @@
 </div>
 
 <!-- Update Profile Form -->
-<form action="/date/updateProfile" method="post" enctype="multipart/form-data">
+<form action="/date/updateProfile" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
     <table summary="나의 프로필 정보" class="">
         <caption>나의 프로필 정보</caption>
         <input type="hidden" name="userId" value="${profile.userId}">
@@ -58,22 +58,30 @@
                     </p>
                     <input type="hidden" id="user-image" name="user-image" value="">
                     <div class="profile--img">
-                        <div class="box--image">
+                        <div class="box--contents">
                             <span class="thumb--image">
-                                <img id="img_userprofileimage6" src="/img/usernone.jpg" alt="프로필 사진">
+                                <img id="img_userprofileimage6" src="/img/usernone.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file6').click();">
+                                <input type="file" id="profile_upload_file6" name="profile_upload_file6" title="내용" onchange="previewImage(this, 'img_userprofileimage6')" style="display: none;" required>
+                            </span>
+                              <span class="thumb--image">
+                            <img id="img_userprofileimage2" src="/img/usernone.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file2').click();">
+                            <input type="file" id="profile_upload_file2" name="profile_upload_file2" title="내용" onchange="previewImage(this, 'img_userprofileimage2')" style="display: none;" required>
+                                 </span>
+                                  <span class="thumb--image">
+                            <img id="img_userprofileimage3" src="/img/usernone.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file3').click();">
+                            <input type="file" id="profile_upload_file3" name="profile_upload_file3" title="내용" onchange="previewImage(this, 'img_userprofileimage3')" style="display: none;">
+                                 </span>
+                                 <span class="thumb--image">
+                            <img id="img_userprofileimage4" src="/img/usernone.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file4').click();">
+                            <input type="file" id="profile_upload_file4" name="profile_upload_file4" title="내용" onchange="previewImage(this, 'img_userprofileimage4')" style="display: none;">
+                            </span>
+                             <span class="thumb--image">
+                            <img id="img_userprofileimage5" src="/img/usernone.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file5').click();">
+                            <input type="file" id="profile_upload_file5" name="profile_upload_file5" title="내용" onchange="previewImage(this, 'img_userprofileimage5')" style="display: none;">
                             </span>
                         </div>
-                        <div class="box--contents">
-                            <p>jpg, gif, BMP, png 파일만 등록 가능합니다. (최대 3MB)</p>
-                            <input type="file" id="profile_upload_file6" value="이미지 미리보기" name="profile_upload_file6" title="내용" onchange="previewImage(this, 'img_userprofileimage6')">
-                            <input type="file" id="profile_upload_file1" name="profile_upload_file1" title="내용" onchange="previewImage(this, 'img_userprofileimage1')">
-                            <input type="file" id="profile_upload_file2" name="profile_upload_file2" title="내용" onchange="previewImage(this, 'img_userprofileimage2')">
-                            <input type="file" id="profile_upload_file3" name="profile_upload_file3" title="내용" onchange="previewImage(this, 'img_userprofileimage3')">
-                            <input type="file" id="profile_upload_file4" name="profile_upload_file4" title="내용" onchange="previewImage(this, 'img_userprofileimage4')">
-                            <input type="file" id="profile_upload_file5" name="profile_upload_file5" title="내용" onchange="previewImage(this, 'img_userprofileimage5')">
-                            <input type="file" id="profile_upload_file7" name="profile_upload_file7" title="내용" onchange="previewImage(this, 'img_userprofileimage7')">
-                        </div>
                     </div>
+                            <p>jpg, gif, BMP, png 파일만 등록 가능합니다. (최대 3MB)</p>
                     <div class="a">
                         <table style="width: 100%;" summary="개인정보 수집 및 활용 동의 표">
                             <caption>개인정보 수집 및 활용 동의</caption>
@@ -138,6 +146,18 @@ function previewImage(input, imgId) {
     } else {
         img.src = '/img/usernone.jpg'; // 파일이 선택되지 않은 경우 기본 이미지로 설정
     }
+}
+
+function validateForm() {
+    var file6 = document.getElementById('profile_upload_file6').files[0];
+    var file2 = document.getElementById('profile_upload_file2').files[0];
+    
+    if (!file6 || !file2) {
+        alert("첫 번째와 두 번째 사진은 반드시 등록하셔야 합니다.");
+        return false;
+    }
+    
+    return true;
 }
 </script>
 </body>

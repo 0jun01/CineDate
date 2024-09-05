@@ -23,7 +23,7 @@ public class EventService {
 
 	@Autowired
 	private final EventRepository eventRepository;
-
+	
 	@Transactional
 	public List<Event> readEventList() {
        return eventRepository.findNow();
@@ -46,6 +46,12 @@ public class EventService {
 		List<Event>  event = eventRepository.findEnd();
 		return event;
 	}
+	
+	public List<Event> readEventAll() {
+		List<Event>  event = eventRepository.findAll();
+		return event;
+	}
+	
 	
 	
 }

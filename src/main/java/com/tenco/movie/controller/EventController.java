@@ -53,24 +53,11 @@ public class EventController {
 	    }
 	  
 	  
-	  @RequestMapping("/event2")
-	  public String showEvent2() {
-		  return "event/event2";
-	  }
-	  @RequestMapping("/event3")
-	  public String showEvent3() {
-		  return "event/event3"; 
-	  }
-	  @RequestMapping("/event4")
-	  public String showEvent4() {
-		  return "event/event4"; 
-	  }
-	  @RequestMapping("/event5")
-	  public String showEvent5() {
-		  return "event/event5"; 
-	  }
-	  @RequestMapping("/event6")
-	  public String showEvent6() {
-		  return "event/event6"; 
-	  }
+	  @GetMapping("/allevent")
+	    public String allEvent(Model model) {
+		  	List<Event> eventList = eventService.readEventAll();
+	        model.addAttribute("eventList", eventList);
+	        return "/event/allEvent"; 
+	    }
+	 
 }

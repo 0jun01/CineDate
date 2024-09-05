@@ -1,6 +1,5 @@
 package com.tenco.movie.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -14,9 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.tenco.movie.dto.DateProfileSignUp;
+import com.tenco.movie.dto.DateProfileDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.User;
@@ -44,19 +42,7 @@ public class DateController {
 	 * @author 김가령
 	 */
 	@GetMapping("/date")
-	public String getDatePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,Model model, RedirectAttributes redirectAttributes) {
-/**
- * 데이트 페이지 들어갈때 로그인 안되있으면 로그인 하라고 방어코드 추가함
- * @author 성후
- */
-		if (principal == null) {
-            redirectAttributes.addFlashAttribute(Define.ENTER_YOUR_LOGIN, HttpStatus.BAD_REQUEST);
-            return "redirect:/user/signIn"; // 로그인으로 리다이렉트
-        }
-	
-		/**
-		 * @author 배병호 principal 기준으로 회원가입 페이지 date page or 회원가입 페이지 전화
-		 */
+	public String getDatePage(@SessionAttribute(Define.PRINCIPAL) User principal,Model model) {
 
 	
 		DateProfile prifile = dateService.searchProfile(principal.getId());
@@ -71,7 +57,6 @@ public class DateController {
 		
 		return "date/ProfileList";
 	}
-	
 	/**
 	 * 데이트페이지 정보수정 이동
 	 * @author 성후
@@ -106,21 +91,31 @@ public class DateController {
 	public String updateProfile(
 			 @RequestParam("nickname") String nickName,
 		        @RequestParam("introduce") String introduce,
-		        @RequestParam("profile_upload_file1") MultipartFile file1,
-		        @RequestParam("profile_upload_file2") MultipartFile file2,
-		        @RequestParam("profile_upload_file3") MultipartFile file3,
-		        @RequestParam("profile_upload_file4") MultipartFile file4,
-		        @RequestParam("profile_upload_file5") MultipartFile file5,
-		        @RequestParam("profile_upload_file6") MultipartFile file6,
-		        @RequestParam("profile_upload_file7") MultipartFile file7,
-		        @RequestParam("userId") int userId,
-		        @SessionAttribute("principal") User principal) throws IOException {
+		        @RequestParam(name = "profile_upload_file6") MultipartFile file1,
+		        @RequestParam(name = "profile_upload_file2") MultipartFile file2,
+		        @RequestParam(name = "profile_upload_file3") MultipartFile file3,
+		        @RequestParam(name =  "profile_upload_file4") MultipartFile file4,
+		        @RequestParam(name =  "profile_upload_file5") MultipartFile file5,
+		        @SessionAttribute(Define.PRINCIPAL)User principal, Model model) throws IOException {
 
-	    if (principal.getId() != userId) {
-	        return ""; // 적절한 에러 페이지 URL로 수정
+		// 필수 파일 체크
+	    if (file1 == null || file1.isEmpty() || file2 == null || file2.isEmpty()) {
+	        model.addAttribute(Define.MISSING_REQUIRED_FILES, HttpStatus.BAD_REQUEST);
+	        return "redirect:/date/profilePage"; 
 	    }
-
-	    dateService.updateProfile(nickName, introduce, file1, file2, file3, file4, file5, file6, file7, userId);
+		
+		
+		DateProfileDTO update = DateProfileDTO.builder()
+													.nickName(nickName)
+													.introduce(introduce)
+													.mFileOne(file1)
+													.mFileTwo(file2)
+													.mFile3(file3)
+													.mFile4(file4)
+													.mFile5(file5)
+													.build();
+		
+	    dateService.updateProfile(update, principal.getId());
 
 	    return "redirect:/date/date";
 	}
@@ -144,7 +139,7 @@ public class DateController {
 			throw new DataDeliveryException(Define.ENTER_YOUR_NICKNAME, HttpStatus.BAD_REQUEST);
 		}
 
-		DateProfileSignUp dto = DateProfileSignUp.builder().nickName(nickName).introduce(introduce).mFileOne(mFileOne)
+		DateProfileDTO dto = DateProfileDTO.builder().nickName(nickName).introduce(introduce).mFileOne(mFileOne)
 				.mFileTwo(mFileTwo).build();
 
 		dateService.createdProfile(principal, dto);
@@ -186,8 +181,6 @@ public class DateController {
 
 		return "pay/tossPay";
 	}
-
-
 	
 	@GetMapping("/detailPartner")
 	public String getMethodName(@RequestParam(name = "id")int id, @RequestParam(name = "userId")int userId,
@@ -204,4 +197,6 @@ public class DateController {
 	
 	
 	
+	
 }
+
