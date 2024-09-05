@@ -7,6 +7,28 @@
 
 	<div id="in--wrap">
 		<div class="choice--box">
+			<div class="date--box">
+				<div class="date--title--inner">
+					<h3>날짜</h3>
+				</div>
+				<div>
+					${currentYear}
+					<br>
+					${currentMonth}
+					<br>
+					<c:forEach var="entry" items="${date}">
+					<c:if test="${entry.day == 1}">
+						${entry.year}
+					</c:if>
+					<c:if test="${entry.day == 1}">
+						${entry.month}
+					</c:if>
+					${entry.dayOfWeek}
+					${entry.day}
+					<br>
+					</c:forEach>
+				</div>
+			</div>
 			<div class="list--box">
 				<div class="top--title--inner">
 					<h3>영화</h3>
