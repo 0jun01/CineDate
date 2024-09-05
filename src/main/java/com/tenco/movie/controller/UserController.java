@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.client.RestTemplate;
 
 import com.tenco.movie.dto.GoogleOAuthToken;
@@ -198,24 +199,40 @@ public class UserController {
 
 	/**
 	 * 마이페이지
+	 * 
 	 * @author 성후
 	 */
 	@GetMapping("/myPage")
-	public String myPage() {
-		return "user/myPage";
+	public String myPage( @SessionAttribute(Define.PRINCIPAL) User principal, Model model) {
+		
+		String name = principal.getLoginId();
+		
+	    User user = userService.getUserById(name);
+	    model.addAttribute("user", user);
+	    return "user/myPage";
 	}
-	
+
+
 	/**
 	 *마이페이지 
 	 *
-	 *@author 성후
+	 * @author 성후
 	 */
-	@PostMapping("/myPage")
-	public String myPageProFile() {
-		// 이름, 아이디, 닉네임 등록, 프로필 이미지 등록, 동의여부 확인, 수정하기버튼활성화
-		return "redirect:/user/myPage";
-	}
-	
+	 @PostMapping("/updateUser")
+	    public String updateUser(
+	        @RequestParam("password") String password,
+	        @RequestParam("email") String email,
+	        @RequestParam("phoneNum") String phoneNum,
+	        @RequestParam("userId") String loginId,
+	        @SessionAttribute("principal") User principal) {
+
+		 	if(!principal.getLoginId().equals(loginId)) {
+		 		return "";
+		 	}
+	        // 사용자 정보 업데이트
+	        userService.updateUser(loginId, password, email, phoneNum);
+	        return "redirect:/home";
+	    }
 
 	/**
 	 * 아이디 찾기

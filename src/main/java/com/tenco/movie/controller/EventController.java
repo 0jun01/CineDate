@@ -45,28 +45,19 @@ public class EventController {
 	 *  이벤트 페이지 이동
 	 * @return 성후
 	 */
-	  @RequestMapping("/event1")
-	    public String showEvent1() {
-	        return "event/event1"; // JSP 파일의 경로를 리턴
+	  @GetMapping("/endevent")
+	    public String endEvent(Model model) {
+		  	List<Event> eventList = eventService.readEventEnd();
+	        model.addAttribute("eventList", eventList);
+	        return "/event/endEvent"; 
 	    }
-	  @RequestMapping("/event2")
-	  public String showEvent2() {
-		  return "event/event2";
-	  }
-	  @RequestMapping("/event3")
-	  public String showEvent3() {
-		  return "event/event3"; 
-	  }
-	  @RequestMapping("/event4")
-	  public String showEvent4() {
-		  return "event/event4"; 
-	  }
-	  @RequestMapping("/event5")
-	  public String showEvent5() {
-		  return "event/event5"; 
-	  }
-	  @RequestMapping("/event6")
-	  public String showEvent6() {
-		  return "event/event6"; 
-	  }
+	  
+	  
+	  @GetMapping("/allevent")
+	    public String allEvent(Model model) {
+		  	List<Event> eventList = eventService.readEventAll();
+	        model.addAttribute("eventList", eventList);
+	        return "/event/allEvent"; 
+	    }
+	 
 }

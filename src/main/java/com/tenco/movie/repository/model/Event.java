@@ -2,6 +2,7 @@ package com.tenco.movie.repository.model;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,5 +35,15 @@ public class Event {
     	SimpleDateFormat endTime = new SimpleDateFormat("yyyy-MM-dd");
     	
     	return endTime.format(endDate);
+    }
+    public String getStatus() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime endDateTime = endDate.toLocalDateTime();
+
+        if (now.isBefore(endDateTime)) {
+            return "진행중";
+        } else {
+            return "종료됨";
+        }
     }
 }
