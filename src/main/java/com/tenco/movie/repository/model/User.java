@@ -31,4 +31,6 @@ public class User {
 	private String originFileName;
 	private String uploadFileName;
 	
+	
+	
 }

@@ -86,43 +86,7 @@
 						<div class="time-label">
 							<span class="text-bg-success">3 Jan. 2023</span>
 						</div>
-						<!-- /.timeline-label -->
-						<!-- timeline item -->
-						<div>
-							<i class="timeline-icon bi bi-camera text-bg-primary"></i>
-							<div class="timeline-item">
-								<span class="time"> <i class="bi bi-clock-fill"></i> 2 days ago
-								</span>
-								<h3 class="timeline-header">
-									<a href="#">Mina Lee</a> uploaded new photos
-								</h3>
-								<div class="timeline-body">
-									<img src="../../../dist/assets/img/user1-128x128.jpg" alt="..."> <img src="../../../dist/assets/img/user1-128x128.jpg" alt="..."> <img
-										src="../../../dist/assets/img/user1-128x128.jpg" alt="..."> <img src="../../../dist/assets/img/user1-128x128.jpg" alt="...">
-								</div>
-							</div>
-						</div>
-						<!-- END timeline item -->
-						<!-- timeline item -->
-						<div>
-							<i class="timeline-icon bi bi-camera-film text-bg-info"></i>
-							<div class="timeline-item">
-								<span class="time"> <i class="bi bi-clock-fill"></i> 5 days ago
-								</span>
-								<h3 class="timeline-header">
-									<a href="#">Mr. Doe</a> shared a video
-								</h3>
-								<div class="timeline-body">
-									<div class="ratio ratio-16x9">
-										<iframe src="https://www.youtube.com/embed/tMWkeBIohBs" allowfullscreen></iframe>
-									</div>
-								</div>
-								<div class="timeline-footer">
-									<a href="#" class="btn btn-sm text-bg-warning"> See comments </a>
-								</div>
-							</div>
-						</div>
-						<!-- END timeline item -->
+						
 						<div>
 							<i class="timeline-icon bi bi-clock-fill text-bg-secondary"></i>
 						</div>
