@@ -2,6 +2,7 @@ package com.tenco.movie.service;
 
 import java.net.URI;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,7 +29,7 @@ public class CalendarService {
 	private String serviceKey;
 
 	@Cacheable("holidayCache")
-	public Set<LocalDate> getHolidays() {
+	public Set<String> getHolidays() {
 
 		System.out.println("캐시 호출 됨.");
 		// URI 구성
@@ -56,6 +57,10 @@ public class CalendarService {
 				))
 				// 스트림의 각 요소를 컬렉션으로 수집, 스트림의 요소를 set으로 변환하여 중복 제거
 				.collect(Collectors.toSet());
-		return holidays;
+
+		// localDate타입을 String으로 변환하는 과정
+		Set<String> holidayStrings = holidays.stream().map(date -> date.format(DateTimeFormatter.ISO_LOCAL_DATE))
+				.collect(Collectors.toSet());
+		return holidayStrings;
 	}
 }

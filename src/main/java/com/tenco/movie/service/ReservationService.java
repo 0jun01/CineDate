@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tenco.movie.repository.interfaces.ReservationRepository;
+import com.tenco.movie.repository.model.MovieDetail;
 import com.tenco.movie.repository.model.MovieDetailTB;
 import com.tenco.movie.repository.model.Regions;
 import com.tenco.movie.repository.model.SubRegions;
@@ -111,5 +112,16 @@ public class ReservationService {
 			e.printStackTrace();
 		}
 		return subRegionList;
+	}
+
+	public List<MovieDetail> fetchMovieListByDate(String date) {
+		List<MovieDetail> fetchedMovieList = null;
+
+		try {
+			fetchedMovieList = reservationRepository.findMovieByFetchedDate(date);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return fetchedMovieList;
 	}
 }

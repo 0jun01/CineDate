@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.tenco.movie.repository.model.MovieDetail;
 import com.tenco.movie.repository.model.MovieDetailTB;
 import com.tenco.movie.repository.model.Regions;
 import com.tenco.movie.repository.model.SubRegions;
@@ -25,4 +26,6 @@ public interface ReservationRepository {
 	
 	// 영화 예매 페이지 id로 소분류 네임 얻어내기
 	List<SubRegions> findSubRegionById(int id);
+	
+	List<MovieDetail> findMovieByFetchedDate(String date);
 }

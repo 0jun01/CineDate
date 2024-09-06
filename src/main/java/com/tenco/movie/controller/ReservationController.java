@@ -2,12 +2,13 @@ package com.tenco.movie.controller;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenco.movie.handler.exception.DataDeliveryException;
+import com.tenco.movie.repository.model.MovieDetail;
 import com.tenco.movie.repository.model.MovieDetailTB;
+import com.tenco.movie.repository.model.Movies;
 import com.tenco.movie.repository.model.Regions;
 import com.tenco.movie.repository.model.SubRegions;
 import com.tenco.movie.service.CalendarService;
@@ -73,7 +76,7 @@ public class ReservationController {
 		List<Map<String, Object>> dateToDayOfWeekList = new ArrayList<>();
 
 		// 공휴일 같은 데이터는 중복을 제거 해줘야 하기 때문에 set 자료구조를 사용
-		Set<LocalDate> holidays = calendarService.getHolidays();
+		Set<String> holidays = calendarService.getHolidays();
 
 		// stream은 이 리스트를 스트림으로 변환시켜줌.
 		// stream은 컬렉션의 요소를 순차적으로 처리할 수 있게 해주는 기능
@@ -86,7 +89,6 @@ public class ReservationController {
 			dateMap.put("dayOfWeek", changeDayOfWeekInKorean(date.getDayOfWeek()));
 			dateToDayOfWeekList.add(dateMap);
 		}
-
 		movieList = reservationService.readAllMovie();
 		regionList = reservationService.readAllRegion();
 		subRegionList = reservationService.readfirstSubRegion();
@@ -98,7 +100,6 @@ public class ReservationController {
 		if (regionList == null) {
 			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.BAD_REQUEST);
 		}
-
 		// 모델에 데이터 추가
 		model.addAttribute("currentYear", today.getYear());
 		model.addAttribute("currentMonth", today.getMonthValue());
@@ -137,6 +138,12 @@ public class ReservationController {
 		return subRegiList;
 	}
 
+	/**
+	 * 영어로 나오는 요일을 한글로 변환시키는 메서드
+	 * 
+	 * @param dayOfWeek
+	 * @return String
+	 */
 	private String changeDayOfWeekInKorean(DayOfWeek dayOfWeek) {
 		switch (dayOfWeek) {
 		case MONDAY:
@@ -158,4 +165,22 @@ public class ReservationController {
 		}
 	}
 
+	@GetMapping("/date")
+	@ResponseBody
+	public List<MovieDetail> fetchDateItems(@RequestParam("date") String date) {
+		List<MovieDetail> fetchedMovieList = reservationService.fetchMovieListByDate(date);
+
+		if (fetchedMovieList == null) {
+			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.BAD_REQUEST);
+		}
+		return fetchedMovieList;
+	}
+
+	@GetMapping("/selectedMovie")
+	@ResponseBody
+	public void fetchSelectedMovie(@RequestParam("movie") int movieId) {
+		System.out.println("-------------------");
+		System.out.println("movieId : " + movieId);
+		System.out.println("-------------------");
+	}
 }
