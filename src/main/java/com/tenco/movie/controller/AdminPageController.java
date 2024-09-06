@@ -18,6 +18,8 @@ import com.tenco.movie.dto.EventWriterDTO;
 import com.tenco.movie.dto.NoticeWriterDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.Event;
+import com.tenco.movie.repository.model.History;
+import com.tenco.movie.repository.model.HistoryTimeLine;
 import com.tenco.movie.repository.model.Notice;
 import com.tenco.movie.repository.model.User;
 import com.tenco.movie.service.AdminPageService;
@@ -32,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AdminPageController {
 	@Autowired
-	private final AdminPageService adminPageService;
+	private AdminPageService adminPageService;
 	@Autowired
 	private UserService userService;
 	
@@ -43,7 +45,7 @@ public class AdminPageController {
 	// 메인보드 시작
 	
 	@GetMapping("/logout")
-	public String logout() {
+	public String logoutAdmin() {
 		session.invalidate();
 		return "redirect:/user/signIn";
 	}
@@ -376,4 +378,23 @@ public class AdminPageController {
 //회원정보 끝
 //-------------------------------------------------------------
 //결제 테이블 시작
+		
+		@GetMapping("/adminHistory")
+		public String adminHistoryPage(@SessionAttribute(Define.PRINCIPAL) User principal, Model model) {
+			
+			String name = principal.getLoginId();
+			
+			User user = userService.getUserById(name);
+			
+			
+			List<HistoryTimeLine> historyTimeLine = adminPageService.countHistory();
+			List<History> historyList = adminPageService.readAllHistory();
+			
+			model.addAttribute("user", user);
+			model.addAttribute("historyTimeLine",historyTimeLine);
+			model.addAttribute("historyList",historyList);
+			
+			
+			return "/admin/adminHistory";
+		}
 }

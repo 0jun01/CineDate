@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.tenco.movie.repository.model.Event;
+import com.tenco.movie.repository.model.History;
+import com.tenco.movie.repository.model.HistoryTimeLine;
 import com.tenco.movie.repository.model.Notice;
 import com.tenco.movie.repository.model.User;
 
@@ -48,5 +50,10 @@ public interface AdminRepository {
 	
 	public int countAdminMemberAll();
 	public int countAdminMember(String search);
+	
+	// ------------------------------------------------
+	
+	public List<HistoryTimeLine> countAdminHistory();
+	public List<History> findHistoryAll();
 }
 

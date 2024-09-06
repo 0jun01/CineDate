@@ -15,6 +15,8 @@ import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.AdminRepository;
 import com.tenco.movie.repository.model.Event;
+import com.tenco.movie.repository.model.History;
+import com.tenco.movie.repository.model.HistoryTimeLine;
 import com.tenco.movie.repository.model.Notice;
 import com.tenco.movie.repository.model.User;
 
@@ -25,8 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class AdminPageService {
 
 	@Autowired
-	
-	private final AdminRepository adminRepository;
+	private AdminRepository adminRepository;
 	
 	@Transactional
 	public void createNotice(NoticeWriterDTO dto) { // 공지 글쓰기
@@ -236,7 +237,16 @@ public class AdminPageService {
 		return list;
 	}
 	
+//----------------------------------------------------------
+	//결제내역
 	
+	public List<HistoryTimeLine> countHistory(){
+		return adminRepository.countAdminHistory();
+	}
+	
+	public List<History> readAllHistory(){
+		return adminRepository.findHistoryAll(); 
+	}
 	
 	
 }
