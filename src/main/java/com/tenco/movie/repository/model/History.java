@@ -36,7 +36,30 @@ public class History {
 		
 		TimeZone tz = TimeZone.getTimeZone("UTC");
 		
-		DateFormat changeDate = new SimpleDateFormat("YYYY-MM-DD'T'HH:mm:ssXXX");
+		DateFormat changeDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+		changeDate.setTimeZone(tz);
+		Date date = new Date();
+		try {
+			date = changeDate.parse(approvedAt);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("전환됨" + date);
+		
+		SimpleDateFormat changeTime = new SimpleDateFormat("HH:mm");
+		
+		System.out.println("전환됨" + changeTime.format(date));
+		
+		return changeTime.format(date);
+		
+	
+	}
+	
+	public String dateToDate() {
+		TimeZone tz = TimeZone.getTimeZone("UTC");
+		DateFormat changeDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+		
 		changeDate.setTimeZone(tz);
 		Date date = new Date();
 		try {
@@ -46,11 +69,14 @@ public class History {
 			e.printStackTrace();
 		}
 		
-		SimpleDateFormat changeTime = new SimpleDateFormat("HH:mm");
+		System.out.println("전환됨" + date);
+		
+		SimpleDateFormat changeTime = new SimpleDateFormat("yyyy-MM-dd");
+		
+		System.out.println("전환됨" + changeTime.format(date));
 		
 		return changeTime.format(date);
 		
-	
 	}
 	
 }

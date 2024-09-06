@@ -92,12 +92,13 @@
 	<!-- ===================================================================================== -->
 	
 	<select id = "countAdminHistory">
-		SELECT DATE(approved_at) as `approvedAt`, COUNT(id) as `id` FROM toss_hitory_tb GROUP BY DATE(approved_at)
+		SELECT DATE(approved_at) as `approvedAt`, COUNT(id) as `id` FROM toss_hitory_tb GROUP BY DATE(approved_at) order by approvedAt DESC
 	</select>
 	
 	<select id = "findHistoryAll">
 		select * from toss_hitory_tb order by id desc
 	</select>
+	
 	
 	
 	

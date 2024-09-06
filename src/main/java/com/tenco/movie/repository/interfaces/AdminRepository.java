@@ -55,5 +55,6 @@ public interface AdminRepository {
 	
 	public List<HistoryTimeLine> countAdminHistory();
 	public List<History> findHistoryAll();
+	
 }
 

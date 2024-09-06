@@ -42,7 +42,9 @@
 							<!-- timeline item -->
 							<c:forEach var="history" items="${historyList}">
 								<div>
-									<i class="timeline-icon bi bi-envelope text-bg-primary"></i>
+									<c:choose>
+									<c:when test="${history.dateToDate() == historytime.approvedAt}">
+									<i class="timeline-icon bi bi-chat-text-fill text-bg-primary"></i>
 									<div class="timeline-item">
 										<span class="time"> <i class="bi bi-clock-fill"></i> ${history.dateToTime()}
 										</span>
@@ -65,6 +67,9 @@
 											<a class="btn btn-primary btn-sm">자세히보기</a> <a class="btn btn-danger btn-sm">환불</a>
 										</div>
 									</div>
+									</c:when>
+									<c:otherwise></c:otherwise>
+									</c:choose>
 								</div>
 								<!-- END timeline item -->
 							</c:forEach>
