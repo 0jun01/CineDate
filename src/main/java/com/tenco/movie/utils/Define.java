@@ -62,6 +62,7 @@ public class Define {
 	
 	// review
 	public static final String DUPLICATION_REVIEW = "이미 리뷰를 작성한 영화입니다.";
+	public static final String NOT_FOUND_REVIEW = "수정할 리뷰가 존재하지 않습니다.";
 
 	// upload
 	public static final String FILE_SIZE_EXCEEDED = "파일 크기는 20MB 이상 클 수 없습니다.";

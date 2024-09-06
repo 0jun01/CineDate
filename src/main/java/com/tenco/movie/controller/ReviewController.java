@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.MovieDetail;
+import com.tenco.movie.repository.model.Movies;
 import com.tenco.movie.repository.model.Review;
 import com.tenco.movie.repository.model.User;
 import com.tenco.movie.service.MovieService;
@@ -76,4 +79,82 @@ public class ReviewController {
 
         return "redirect:/movie/detail?title=" + encodedTitle;
     }
+    
+    /**
+     * 관람평 삭제 기능
+     * @return 영화 디테일 페이지
+     * @author 김가령
+     */
+    @PostMapping("/review/delete")
+    public String deleteReview(
+            @RequestParam(name = "id") int id,
+            @SessionAttribute(name = "principal") User principal) {
+        
+        // ID가 0이거나 부적절한 경우 예외 처리
+        if (id <= 0) {
+            throw new DataDeliveryException(Define.INVALID_INPUT, HttpStatus.BAD_REQUEST);
+        }
+
+        // 리뷰를 찾기
+        Review review = reviewService.findReviewById(id);
+        if (review == null) {
+            // 로그 추가
+            System.out.println("Review not found for ID: " + id);
+            throw new DataDeliveryException(Define.INVALID_INPUT, HttpStatus.BAD_REQUEST);
+        }
+
+        // 리뷰 작성자 확인
+        if (review.getUserId() != principal.getId()) {
+            // 로그 추가
+            System.out.println("User ID mismatch: expected " + review.getUserId() + ", found " + principal.getId());
+            throw new DataDeliveryException(Define.INVALID_INPUT, HttpStatus.BAD_REQUEST);
+        }
+        
+        // 리뷰 삭제
+        reviewService.deleteReview(id);
+        
+        // 영화 제목 인코딩 및 페이지 리다이렉트
+        int movieId = review.getMovieId();
+        MovieDetail movie = movieService.readMovieAllofData(movieId);
+        if (movie == null) {
+            throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE, HttpStatus.NOT_FOUND);
+        }
+
+        String encodedTitle;
+        try {
+            encodedTitle = URLEncoder.encode(movie.getTitle(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("Encoding error occurred", e);
+        }
+        
+        return "redirect:/movie/detail?title=" + encodedTitle;
+    }
+
+    /**
+     * 관람평 수정 기능
+     * @return 영화 디테일 페이지
+     * @author 김가령
+     */
+    @PostMapping("/review/update")
+    public String updateReview(
+            @RequestParam(name ="id") int id,
+            @RequestParam(name ="reviewText") String reviewText,
+            @RequestParam(name ="rating") int rating,
+            @SessionAttribute(name="principal") User principal) throws UnsupportedEncodingException {
+
+        Review review = reviewService.findReviewById(id);
+        if (review == null || review.getUserId() != principal.getId()) {
+            throw new DataDeliveryException(Define.INVALID_INPUT, HttpStatus.BAD_REQUEST);
+        }
+
+        review.setReviewText(reviewText);
+        review.setRating(rating);
+        review.setReviewDate(Timestamp.from(Instant.now()));
+
+        reviewService.updateReview(review);
+
+        String encodedTitle = URLEncoder.encode(movieService.readMovieAllofData(review.getMovieId()).getTitle(), "UTF-8");
+        return "redirect:/movie/detail?title=" + encodedTitle;
+    }
+    
 }
