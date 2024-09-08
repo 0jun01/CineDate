@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.tenco.movie.repository.interfaces.ReservationRepository;
 import com.tenco.movie.repository.model.MovieDetail;
 import com.tenco.movie.repository.model.MovieDetailTB;
+import com.tenco.movie.repository.model.Movies;
 import com.tenco.movie.repository.model.Regions;
 import com.tenco.movie.repository.model.SubRegions;
 
@@ -123,5 +124,17 @@ public class ReservationService {
 			e.printStackTrace();
 		}
 		return fetchedMovieList;
+	}
+
+	public Movies fetchMovieTitleAndImg(int movieId) {
+		Movies movie = null;
+		
+		try {
+			movie = reservationRepository.findById(movieId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return movie;
+		
 	}
 }

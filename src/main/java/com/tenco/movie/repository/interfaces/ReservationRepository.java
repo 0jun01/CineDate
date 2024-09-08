@@ -1,11 +1,14 @@
 package com.tenco.movie.repository.interfaces;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.tenco.movie.repository.model.MovieDetail;
 import com.tenco.movie.repository.model.MovieDetailTB;
+import com.tenco.movie.repository.model.Movies;
 import com.tenco.movie.repository.model.Regions;
 import com.tenco.movie.repository.model.SubRegions;
 
@@ -28,4 +31,8 @@ public interface ReservationRepository {
 	List<SubRegions> findSubRegionById(int id);
 	
 	List<MovieDetail> findMovieByFetchedDate(String date);
+	
+	List<SubRegions> findByMovieIdAndShowDate(@Param("id") int id, @Param("showDate") Date showDate);
+	
+	Movies findById(int id);
 }

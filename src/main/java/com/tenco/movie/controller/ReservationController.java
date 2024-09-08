@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.MovieDetail;
@@ -178,9 +179,24 @@ public class ReservationController {
 
 	@GetMapping("/selectedMovie")
 	@ResponseBody
-	public void fetchSelectedMovie(@RequestParam("movie") int movieId) {
+	public int fetchSelectedMovie(@RequestParam("movie") int movieId) {
 		System.out.println("-------------------");
 		System.out.println("movieId : " + movieId);
 		System.out.println("-------------------");
+		return movieId;
+	}
+	
+	@GetMapping("/movieDetail")
+	@ResponseBody
+	public Movies fetchSelectedMovieDetail(@RequestParam("movieId") int movieId) {
+		Movies movie = reservationService.fetchMovieTitleAndImg(movieId);
+		
+		return movie;
+	}
+	
+	@GetMapping("/subregions")
+	@ResponseBody
+	public void fetchSubRegion(@RequestParam("movieId") int movieId) {
+		System.out.println("여기 들어오낭");
 	}
 }

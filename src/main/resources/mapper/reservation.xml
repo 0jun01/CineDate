@@ -49,8 +49,26 @@
 	<select id="findMovieByFetchedDate"
 		resultType="com.tenco.movie.repository.model.MovieDetailTB">
 		select distinct(m.movie_id), m.title, m.watch_grade_Nm
-		from showtimes as s
+		from
+		showtimes as s
 		left join movie_detail_tb as m on s.movie_id = m.id
 		where show_date = #{date}
+	</select>
+
+	<select id="findById"
+		resultType="com.tenco.movie.repository.model.Movies">
+		select * from movies_tb
+		where id = #{id}
+	</select>
+
+	<select id="findByMovieIdAndShowDate"
+		resultType="com.tenco.movie.repository.model.SubRegions">
+		select sub.id as sub_id ,re.id as re_id, sub.name from
+		showtimes as sh
+		left join screens_tb as s on sh.screen_id = s.id
+		left join theaters_tb as t on s.theater_id = t.id
+		left join subregions_tb as sub on sub.id = t.subregion_id
+		left join regions_tb as re on re.id = sub.region_id
+		where sh.movie_id = #{id} AND sh.show_date = #{showDate}
 	</select>
 </mapper>

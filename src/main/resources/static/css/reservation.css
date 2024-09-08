@@ -170,10 +170,23 @@ button {
 .choice--movie--box{
 	background-color: #333333;
 	width: 100%;
-	height: 100px;
+	height: 160px;
 }
 
 .selectable-date.selected {
     background-color: #cce5ff; 
     font-weight: bold; 
+}
+
+.movie--poster img{
+	width: 100px;
+}
+
+.choice--movie--box{
+	display: flex;
+}
+
+.movie--detail--box{
+	display: flex;
+	flex-direction: column;
 }
