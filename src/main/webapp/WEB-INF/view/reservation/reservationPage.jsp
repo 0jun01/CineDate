@@ -128,7 +128,15 @@
 			</div>
 		</div>
 	</div>
-	<div class="choice--movie--box">영화 이미지 자리, 영화 타이틀 자리 , 극장선택 , >좌석 선택> 결제 좌석선택 버튼</div>
+	<div class="choice--movie--box">
+		<span>극장</span>
+		<br>
+		<span>일시&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="choosen--date"></span>
+		<br>
+		<span>상영관</span>
+		<br>
+		<span>인원</span>
+	</div>
 	<script>
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('sortByKorean').addEventListener('click', function() {
@@ -245,6 +253,11 @@ function viewSelectedDate(selectedDate, element) {
         selectedItem.classList.add('selected');
     }
     
+    const chosenDateSpan  = document.querySelector('.choosen--date');
+    if (chosenDateSpan){
+    	chosenDateSpan.innerHTML = selectedDate + (textValue);
+    }
+    
     fetch(`http://localhost:8080/reservation/date?date=` + selectedDate)
         .then(response =>{
             if (!response.ok){
@@ -281,10 +294,10 @@ function handleUnavailableMovieClick() {
 function updateMovieListByDate(movieList) {
     const movieItems = document.querySelectorAll('#movie-list li'); // 모든 영화 요소 선택
     const movieListIds = movieList.map(movie => String(movie.movieId)); // 받아온 영화 리스트에서 ID 추출
-    const movieId = item.querySelector('span[data-id]').getAttribute('data-id');
 
     movieItems.forEach(item => {
 
+    const movieId = item.querySelector('span[data-id]').getAttribute('data-id');
         // 기존 클릭 이벤트 리스너 제거
         item.removeEventListener('click', handleAvailableMovieClick);
         item.removeEventListener('click', handleUnavailableMovieClick);
@@ -300,25 +313,7 @@ function updateMovieListByDate(movieList) {
         }
     });
     
-    fetch(`http://localhost:8080/reservation/selectedMovie?movie=`+movieId)
-    .then(response =>{
-        if (!response.ok){
-            throw new Error('연결을 실패했습니다.')
-        }
-        return response.json();
-    })
-    .then(data =>{
-        console.log('success',data);
-    })
-    .catch(error =>{
-        alert('패치중 문제가 발생')
-        console.error('Fetch error:', error);
-    })
 
-    // 영화 리스트가 비어있을 때의 처리
-    if (movieList.length === 0) {
-        alert('선택한 날짜에는 영화가 없습니다.');
-    }
     
     
 }

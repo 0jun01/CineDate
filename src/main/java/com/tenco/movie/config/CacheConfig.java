@@ -12,12 +12,11 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 @Configuration
 @EnableCaching
 public class CacheConfig {
-	
+
 	@Bean
 	public CaffeineCacheManager cacheManager() {
 		CaffeineCacheManager cacheManager = new CaffeineCacheManager();
-		cacheManager.setCaffeine(Caffeine.newBuilder()
-				.expireAfterWrite(30, TimeUnit.DAYS) // 캐시 만료 시간
+		cacheManager.setCaffeine(Caffeine.newBuilder().expireAfterWrite(30, TimeUnit.DAYS) // 캐시 만료 시간
 				.maximumSize(100)); // 캐시 최대 크기
 		return cacheManager;
 	}
