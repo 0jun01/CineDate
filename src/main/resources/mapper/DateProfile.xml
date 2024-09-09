@@ -11,20 +11,29 @@
 	</select>
 
 	<insert id="createdProfile">
-		INSERT INTO profile_tb (user_id,
-		nick_name,
-		introduce,
-		first_origin_file_name,
-		seocnd_origin_file_name,
-		first_upload_file_name,
-		second_upload_file_name，
-        third_origin_file_name，
-        fourth_origin_file_name，
+		INSERT INTO profile_tb (
+        user_id,
+        nick_name,
+        introduce,
+        first_origin_file_name,
+        seocnd_origin_file_name,
+        first_upload_file_name,
+        second_upload_file_name,
+        third_origin_file_name,
+        fourth_origin_file_name,
         fifth_origin_file_name
-		) VALUES ( #{userId},
-		#{nickName}, #{introduce}, #{firstOriginFileName},
-		#{seocndOriginFileName}, #{firstUploadFileName},
-		#{secondUploadFileName}, #{thirdOriginFileName}, #{fourthOriginFileName}, #{fifthOriginFileName})
+    ) VALUES (
+        #{userId},
+        #{nickName},
+        #{introduce},
+        #{firstOriginFileName},
+        #{seocndOriginFileName},
+        #{firstUploadFileName},
+        #{secondUploadFileName},
+        #{thirdOriginFileName},
+        #{fourthOriginFileName},
+        #{fifthOriginFileName}
+    )
 	</insert>
 
 	<select id="searchNickName"

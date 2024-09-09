@@ -19,13 +19,26 @@
                     <label for="introduce">자기소개</label>
                     <input type="text" id="introduce" name="introduce" placeholder="자기소개를 입력해주세요. (최대 50자)">
 
-                    <label for="mFileOne">첫 번째 사진</label>
-                    <input type="file" id="mFileOne" name="mFileOne" accept="image/*" placeholder="사진을 업로드 해주세요">
-
-                    <label for="mFileTwo">두 번째 사진</label>
-                    <input type="file" id="mFileTwo" name="mFileTwo" accept="image/*" placeholder="사진을 업로드 해주세요">
-
-                    <button type="submit" class="btn" id="join--btn">가입하기</button>
+		            <label for="mFileOne">사진(1번, 2번은 필수)</label>
+					<div class="thumb--image" style="width: 400px; display: flex; justify-content: space-between;"> <!-- 3번사진 -->
+	                   <img id="img_userprofileimage1" src="/img/Basic.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file1').click();" width="18%">
+	                   <input type="file" id="profile_upload_file1" name="mFileOne" title="내용" onchange="previewImage(this, 'img_userprofileimage1')" style="display: none;">
+	                   
+	                   <img id="img_userprofileimage2" src="/img/Basic.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file2').click();" width="18%">
+	                   <input type="file" id="profile_upload_file2" name="mFileTwo" title="내용" onchange="previewImage(this, 'img_userprofileimage2')" style="display: none;">
+	                   
+	                   <img id="img_userprofileimage3" src="/img/Basic.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file3').click();" width="18%">
+	                   <input type="file" id="profile_upload_file3" name="mFile3" title="내용" onchange="previewImage(this, 'img_userprofileimage3')" style="display: none;">
+	                   
+	                   <img id="img_userprofileimage4" src="/img/Basic.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file4').click();" width="18%">
+	                   <input type="file" id="profile_upload_file4" name="mFile4" title="내용" onchange="previewImage(this, 'img_userprofileimage4')" style="display: none;">
+	                   
+	                   <img id="img_userprofileimage5" src="/img/Basic.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file5').click();" width="18%">
+	                   <input type="file" id="profile_upload_file5" name="mFile5" title="내용" onchange="previewImage(this, 'img_userprofileimage5')" style="display: none;">
+	                   
+                     </div>
+					
+                   <button type="submit" class="btn" id="join--btn">가입하기</button>
                 </div>
             </form>
         </div>
@@ -53,6 +66,22 @@
                     });
             });
         });
+        function previewImage(input, imgId) {
+            var file = input.files[0];
+            var img = document.getElementById(imgId);
+            
+            if (file) {
+                var reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    img.src = e.target.result; // 미리보기 이미지 업데이트
+                };
+                
+                reader.readAsDataURL(file);
+            } else {
+                img.src = '/img/Basic.jpg'; // 파일이 선택되지 않은 경우 기본 이미지로 설정
+            }
+        }
     </script>
 
     <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

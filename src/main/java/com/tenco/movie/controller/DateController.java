@@ -20,6 +20,7 @@ import com.tenco.movie.dto.DateProfileDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.User;
+import com.tenco.movie.service.DateManagerService;
 import com.tenco.movie.service.DateProfileService;
 import com.tenco.movie.service.PaymentService;
 import com.tenco.movie.utils.Define;
@@ -36,6 +37,9 @@ public class DateController {
 	private final DateProfileService dateService;
 
 	private final PaymentService payservice;
+	
+	@Autowired
+	private final DateManagerService dateManagerService;
 	
 
 	/**
@@ -137,15 +141,24 @@ public class DateController {
 	@PostMapping("/signUp")
 	public String postDateSignUp(@SessionAttribute(Define.PRINCIPAL) User principal,
 			@RequestParam(name = "mFileOne") MultipartFile mFileOne,
-			@RequestParam(name = "mFileTwo") MultipartFile mFileTwo, @RequestParam(name = "nickName") String nickName,
+			@RequestParam(name = "mFileTwo") MultipartFile mFileTwo,
+			@RequestParam(name = "mFile3") MultipartFile mFile3,
+			@RequestParam(name = "mFile4") MultipartFile mFile4,
+			@RequestParam(name = "mFile5") MultipartFile mFile5,
+			@RequestParam(name = "nickName") String nickName,
 			@RequestParam(name = "introduce") String introduce) {
 
 		if (nickName == null || nickName.isEmpty()) {
 			throw new DataDeliveryException("닉네임을 입력하세요", HttpStatus.BAD_REQUEST);
 		}
+		
+		
+		
+		
 
-		DateProfileDTO dto = DateProfileDTO.builder().nickName(nickName).introduce(introduce).mFileOne(mFileOne)
-				.mFileTwo(mFileTwo).build();
+		DateProfileDTO dto = 
+				DateProfileDTO.builder().nickName(nickName).introduce(introduce).mFileOne(mFileOne)
+				.mFileTwo(mFileTwo).mFile3(mFile3).mFile4(mFile4).mFile5(mFile5).build();
 
 		dateService.createdProfile(principal, dto);
 
@@ -191,15 +204,24 @@ public class DateController {
 	public String getMethodName(@RequestParam(name = "id")int id, @RequestParam(name = "userId")int userId,
 			Model model) {
 		
-		
 		DateProfile detail = dateService.detailPartner(userId,id);
 		
+		model.addAttribute("userId", userId);
 		model.addAttribute("detail", detail);
-		
 		
 		return "date/detailPartner";
 	}
 	
+	@GetMapping("/machingList")
+	public String getMethodName(@SessionAttribute(name =Define.PRINCIPAL)User principal, Model model) {
+		
+		
+		List<DateProfile> list = dateManagerService.matchingList(principal.getId());
+		
+		model.addAttribute("list", list);
+		
+		return "date/matchingList";
+	}
 	
 	
 	

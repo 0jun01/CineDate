@@ -65,6 +65,22 @@ public class DateProfileService {
 			signUp.setTwoOriginFileName(fileNames[0]);
 			signUp.setTwoUproadFileName(fileNames[1]);
 		}
+		
+		
+		if(signUp.getMFile3() != null && !signUp.getMFile3().isEmpty()) {
+			String[] fileNames = uploadFile(signUp.getMFile3());
+			signUp.setThirdOriginFileName(fileNames[1]);
+		}
+		if(signUp.getMFile4() != null && !signUp.getMFile4().isEmpty()) {
+			String[] fileNames = uploadFile(signUp.getMFile4());
+			signUp.setFourthOriginFileName(fileNames[1]);
+		}
+		if(signUp.getMFile5() != null && !signUp.getMFile5().isEmpty()) {
+			String[] fileNames = uploadFile(signUp.getMFile5());
+			signUp.setFifthOriginFileName(fileNames[1]);
+		}
+		
+		
 		result = profileRepository.createdProfile(signUp.toProfile(principal.getId()));
 		
 		if(result != 1) {
@@ -171,37 +187,11 @@ public class DateProfileService {
 			String[] fileNames = uploadFile(uptate.getMFile5());
 			uptate.setFifthOriginFileName(fileNames[1]);
 		}
-		System.out.println("=======================================================================");
-		System.out.println(uptate);
-		System.out.println("=======================================================================");
 		
 	    profileRepository.updateProfile(uptate.toProfile(principalId));
 	}
 
-	private String saveFile(MultipartFile file) throws IOException {
-	    if (file.isEmpty()) return "";
-
-	    // 파일 확장자 추출
-	    String fileExtension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
-	    
-	    // UUID와 파일 확장자를 결합하여 새로운 파일 이름 생성
-	    String fileName = UUID.randomUUID().toString() + "_" + fileExtension;
-
-	    // 업로드 디렉토리 경로 설정
-	    File targetFile = new File(uploadDir + File.separator + fileName);
-	    
-	    // 업로드 디렉토리가 존재하지 않으면 생성
-	    File uploadDirFile = new File(uploadDir);
-	   
-	    if (!uploadDirFile.exists()) {
-	        uploadDirFile.mkdirs();
-	    }
-
-	    // 파일을 지정된 위치에 저장
-	    file.transferTo(targetFile);
-	    
-	    return fileName; // UUID가 포함된 파일 이름 반환
-	}
+	
 
 	
 	/**
@@ -218,7 +208,12 @@ public class DateProfileService {
 		return partnerList;
 	}
 	
-	
+	/**
+	 * 상세보기 
+	 * @param userId
+	 * @param id
+	 * @return
+	 */
 	public DateProfile detailPartner(int userId,int id) {
 		
 		
@@ -228,3 +223,6 @@ public class DateProfileService {
 	}
 	
 }
+	
+	
+	

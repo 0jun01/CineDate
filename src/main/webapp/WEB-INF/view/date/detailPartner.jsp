@@ -95,13 +95,13 @@ button.disabled {
 
         <c:choose>
             <c:when test="${detail.status == 1}">
-                <button id="action-button">신청</button>
+                <button id="action-button" value="${detail.userId}">신청</button>
             </c:when>
             <c:when test="${detail.status == 2}">
                 <button id="action-button" class="disabled" disabled>매칭 요청 대기 중</button>
             </c:when>
             <c:when test="${detail.status == 4}">
-                <button id="action-button">재도전</button>
+                <button id="action-button" value="${detail.userId}">재도전</button>
             </c:when>
         </c:choose>
     </c:if>
@@ -113,7 +113,24 @@ button.disabled {
         var span = document.getElementsByClassName('close')[0];
         var actionButton = document.getElementById('action-button');
         var btn = document.querySelector("#action-button");
-      	
+        
+        btn.addEventListener('click', function() {
+        	const partNerId = btn.value;
+        	const url = "http://localhost:8080/duplication/movieSuggest?userId=" + ${userId} + "&partNerId="+ partNerId;
+        	fetch(url)
+        		.then(response => response.json())
+        		 .then(isDate => {
+                     if (isDate) {
+                         alert("신청 완료");
+                         window.location.reload();
+                     } else {
+                         alert("신청 실패");
+                     }
+                 })
+                 .catch(error => {
+                     console.log("error ", error);
+                 });
+         });
         
         images.forEach(function(img) {
             img.addEventListener('click', function() {
