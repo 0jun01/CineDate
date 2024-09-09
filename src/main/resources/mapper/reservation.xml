@@ -80,19 +80,36 @@
 		SELECT
 		r.id AS region_id,
 		sub.id as sub_id,
-		r.name AS region_name,
+		r.name AS
+		region_name,
 		sub.name,
 		COUNT(sh.id) AS movie_count
+		FROM
+		showtimes AS sh
+		LEFT JOIN screens_tb AS s ON s.id = sh.screen_id
+		LEFT JOIN theaters_tb
+		AS t ON t.id = s.theater_id
+		LEFT JOIN subregions_tb AS sub ON sub.id =
+		t.subregion_id
+		LEFT JOIN regions_tb AS r ON r.id = sub.region_id
+		WHERE
+		sh.show_date = #{showDate}
+		AND sh.movie_id = #{movieId}
+		GROUP BY
+		r.id,
+		r.name;
+	</select>
+
+	<select id="findTimeByShowDateAndMovieIdAndSubregionId"
+		resultType="com.tenco.movie.dto.TimeDTO">
+		SELECT
+		sh.id as showtime_id, show_time , capacity, s.name
 		FROM
 		showtimes AS sh
 		LEFT JOIN screens_tb AS s ON s.id = sh.screen_id
 		LEFT JOIN theaters_tb AS t ON t.id = s.theater_id
 		LEFT JOIN subregions_tb AS sub ON sub.id = t.subregion_id
 		LEFT JOIN regions_tb AS r ON r.id = sub.region_id
-		WHERE
-		sh.show_date = #{showDate}
-		AND sh.movie_id = #{movieId}
-		GROUP BY
-		r.id, r.name;
+		where show_date = #{showDate} and movie_id = #{movieId} and subregion_id = #{subregionId}
 	</select>
 </mapper>

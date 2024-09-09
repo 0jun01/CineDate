@@ -121,8 +121,13 @@
 				<div class="top--title--inner">
 					<h3>시간</h3>
 				</div>
-				<div class="movie--list">
-					<ul id="movie-list">
+				<div class="time--list">
+					<span class="title"> <span class="floor"></span> <span class="seatcount"></span>
+					</span>
+					<ul>
+						<li><a> <span class=time> <span></span>
+							</span> <span class="count"></span>
+						</a></li>
 					</ul>
 				</div>
 			</div>
@@ -135,7 +140,7 @@
 			</span>
 		</div>
 		<div class="movie--detail--box">
-			<span>극장</span><span class="theater"></span><span>일시&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="choosen--date"></span><span>상영관</span><span>인원</span>
+			<span>극장</span> <span class="theater"></span> <span>일시&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="choosen--date"></span> <span>상영관</span> <span class="room"></span> <span>인원</span>
 		</div>
 	</div>
 	<script>
@@ -472,21 +477,107 @@ function updateSubRegionList(subRegions) {
         listElement.appendChild(subRegionItem);
     });
 }
-
 function checkMovie(theaterName, subregionId){
 	console.log('Clicked sub-region ID:', subregionId);
     console.log('Clicked sub-region Name:', theaterName);
 	if(movieCheck){
     	alert ('영화를 먼저 선택해주세요.')
     } else {
-    // filterSubRegion(subRegion.id);
      const theaterElement = document.querySelector('.movie--detail--box .theater');
      if (theaterElement) {
          theaterElement.textContent = theaterName; // subRegion.name을 theater에 표시
      }
-
+	fetch(`http://localhost:8080/reservation/timeList?date=`+ selectedDate1 + `&movieId=` +selectedMovieId+ `&subregionId=` + subregionId)
+		.then(response => {
+            if (!response.ok){
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+        	console.log('들어온당')
+        	updateTimeList(data);
+        })
+		}
     }
+//영화와 상영 시간 정보를 기반으로 HTML 업데이트
+function updateTimeList(data) {
+const timeListContainer = document.querySelector('.time--list');
+let room = null;
+    // 기존 시간 리스트 제거
+    const existingUl = timeListContainer.querySelector('ul');
+    if (existingUl) {
+        existingUl.remove();
+    }
+
+    // 데이터가 없으면 빈 리스트를 표시
+    if (data.length === 0) {
+		alert('상영 일정이 없습니다');    	
+    }
+
+ // 새로운 시간 리스트 생성
+    const ul = document.createElement('ul');
+
+    // 데이터의 첫 항목에서 floor와 seatcount 정보를 가져오기
+    if (data.length > 0) {
+        const firstItem = data[0];
+        console.log('First item data:', firstItem);
+        const titleSpan = timeListContainer.querySelector('.title');
+        const floorSpan = titleSpan.querySelector('.floor');
+        const seatcountSpan = titleSpan.querySelector('.seatcount');
+		
+        floorSpan.textContent = firstItem.name; // 1관 설정
+        room = firstItem.name
+        seatcountSpan.textContent = `총(` + firstItem.capacity+`)`; // 총 좌석 수 설정
+    }
+
+    // 시간과 좌석 수 항목 추가
+    data.forEach(item => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+	
+        // a 태그에 href와 onclick 속성 추가
+        a.href = "javascript:void(0)";
+        
+        
+        const timeSpan = document.createElement('span');
+        timeSpan.className = 'time';
+        const timeInnerSpan = document.createElement('span');
+        
+        // 'showTime'이 'HH:MM:SS' 형식이므로 'HH:MM' 형식으로 변환
+        const timeString = item.showTime; // '20:00:00'
+        const timeParts = timeString.split(':'); // ['20', '00', '00']
+        timeInnerSpan.textContent = timeParts[0] +`:`+timeParts[1]; // '20:00'
+        
+        timeSpan.appendChild(timeInnerSpan);
+
+        const countSpan = document.createElement('span');
+        countSpan.className = 'count';
+        countSpan.textContent = item.capacity+`석`; // 좌석 수
+
+        a.onclick = function() {
+        	const roomElement = document.querySelector('.movie--detail--box .room');
+            if (roomElement) {
+                roomElement.textContent = room; // 상영관 정보를 업데이트
+            }
+            const choosenDateElement = document.querySelector('.choosen--date');
+            if (choosenDateElement) {
+                // 기존 내용에 새로운 시간 추가
+                choosenDateElement.textContent = selectedDate1+` `+timeParts[0] +`:`+timeParts[1]; // 기존 내용 뒤에 새로운 날짜를 추가
+            }
+        };
+        
+        
+        a.appendChild(timeSpan);
+        a.appendChild(countSpan);
+
+        li.appendChild(a);
+        ul.appendChild(li);
+    });
+
+    timeListContainer.appendChild(ul);
 }
+
 </script>
 	<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
 	</body>

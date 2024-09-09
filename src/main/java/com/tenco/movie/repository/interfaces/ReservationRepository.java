@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.tenco.movie.dto.TheaterCountDTO;
+import com.tenco.movie.dto.TimeDTO;
 import com.tenco.movie.repository.model.MovieDetail;
 import com.tenco.movie.repository.model.MovieDetailTB;
 import com.tenco.movie.repository.model.Movies;
@@ -38,4 +39,6 @@ public interface ReservationRepository {
 	Movies findById(int id);
 
 	List<TheaterCountDTO> findTheaterByMovieIdAndshowDate(@Param("movieId") int id, @Param("showDate") String showDate);
+	
+	List<TimeDTO> findTimeByShowDateAndMovieIdAndSubregionId(@Param("showDate") Date showDate, @Param("movieId") int movieId, @Param("subregionId") int subregionId);
 }

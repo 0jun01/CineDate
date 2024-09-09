@@ -1,5 +1,6 @@
 package com.tenco.movie.controller;
 
+import java.sql.Date;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenco.movie.dto.TheaterCountDTO;
+import com.tenco.movie.dto.TimeDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.MovieDetail;
 import com.tenco.movie.repository.model.MovieDetailTB;
@@ -183,25 +185,36 @@ public class ReservationController {
 		System.out.println("-------------------");
 		return movieId;
 	}
-	
+
 	@GetMapping("/movieDetail")
 	@ResponseBody
 	public Movies fetchSelectedMovieDetail(@RequestParam("movieId") int movieId) {
 		Movies movie = reservationService.fetchMovieTitleAndImg(movieId);
-		
+
 		return movie;
 	}
-	
+
 	@GetMapping("/subregions")
 	@ResponseBody
 	public void fetchSubRegion(@RequestParam("movieId") int movieId) {
 	}
-	
+
 	@GetMapping("/theater")
 	@ResponseBody
 	public List<TheaterCountDTO> fetchTheater(@RequestParam("movieId") int movieId, @RequestParam("date") String date) {
-		List<TheaterCountDTO> dto =reservationService.fetchTheater(movieId,date);
+		List<TheaterCountDTO> dto = reservationService.fetchTheater(movieId, date);
 		System.out.println(dto.toString());
+		return dto;
+	}
+
+	@GetMapping("/timeList")
+	@ResponseBody
+	public List<TimeDTO> fetchTimeList(@RequestParam("subregionId") int subregionId,
+			@RequestParam("movieId") int movieId, @RequestParam("date") Date date) {
+		List<TimeDTO> dto = reservationService.fetchTimeList(subregionId, movieId, date);
+		if (dto == null) {
+			throw new DataDeliveryException("알 수 없는 오류", HttpStatus.BAD_REQUEST);
+		}
 		return dto;
 	}
 }
