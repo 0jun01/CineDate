@@ -9,6 +9,13 @@
 <!-- start of content.jsp(xxx.jsp) -->
 <div id="wrap">
 
+	<!-- 메시지 표시 -->
+        <c:if test="${not empty message}">
+            <div class="alert alert-info">
+                ${message}
+            </div>
+        </c:if>
+
 	<div id="in--wrap">
 		영화 제목: ${movie.title} <br> 영화 영어 제목 : ${movieDetail.titleEn} <br> 상영시간 : ${movieDetail.showTm}분 <br> ${movieDetail.prdStatNm} <br> ${movieDetail.watchGradeNm}
 		<br> ${movieDetail.genre} <br> <a href="/reservation/reservation">예매하기</a> <br> 감독 : ${movieDetail.director} <img alt="이미지 준비중입니다."
@@ -144,111 +151,119 @@
 	</div>
 
 	<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const stars = document.querySelectorAll('#starRating .star');
-    const ratingInput = document.getElementById('ratingValue');
-    const reviewForm = document.getElementById('reviewForm');
-    const reviewFormContainer = document.getElementById('reviewFormContainer');
-    const formTitle = document.getElementById('formTitle');
+	document.addEventListener('DOMContentLoaded', function() {
+	    // 별점 클릭 이벤트 핸들러
+	    const stars = document.querySelectorAll('#starRating .star');
+	    const ratingInput = document.getElementById('ratingValue');
+	    const reviewForm = document.getElementById('reviewForm');
+	    const reviewFormContainer = document.getElementById('reviewFormContainer');
+	    const formTitle = document.getElementById('formTitle');
 
-    // 별점 클릭 이벤트 핸들러
-    stars.forEach(star => {
-        star.addEventListener('click', function() {
-            const value = parseFloat(this.getAttribute('data-value'));
-            const currentState = parseInt(this.getAttribute('data-state')) || 0;
-            const newState = (currentState + 1) % 3; // 상태 0 (빈 별), 1 (반쪽 별), 2 (전체 별)만 가능
+	    stars.forEach(star => {
+	        star.addEventListener('click', function() {
+	            const value = parseFloat(this.getAttribute('data-value'));
+	            const currentState = parseInt(this.getAttribute('data-state')) || 0;
+	            const newState = (currentState + 1) % 3; // 상태 0 (빈 별), 1 (반쪽 별), 2 (전체 별)만 가능
 
-            updateStars(newState, value);
-            ratingInput.value = getRatingValue(newState, value);
-            this.setAttribute('data-state', newState);
-        });
-    });
+	            updateStars(newState, value);
+	            ratingInput.value = getRatingValue(newState, value);
+	            this.setAttribute('data-state', newState);
+	        });
+	    });
 
-    function updateStars(state, value) {
-        stars.forEach(star => {
-            const starValue = parseFloat(star.getAttribute('data-value'));
+	    function updateStars(state, value) {
+	        stars.forEach(star => {
+	            const starValue = parseFloat(star.getAttribute('data-value'));
 
-            if (starValue < value) {
-                star.classList.add('filled');
-                star.classList.remove('half');
-            } else if (starValue === value) {
-                if (state === 1) {
-                    star.classList.add('half');
-                    star.classList.remove('filled');
-                } else if (state === 2) {
-                    star.classList.add('filled');
-                    star.classList.remove('half');
-                } else {
-                    star.classList.remove('filled', 'half');
-                }
-            } else {
-                star.classList.remove('filled', 'half');
-            }
-        });
-    }
+	            if (starValue < value) {
+	                star.classList.add('filled');
+	                star.classList.remove('half');
+	            } else if (starValue === value) {
+	                if (state === 1) {
+	                    star.classList.add('half');
+	                    star.classList.remove('filled');
+	                } else if (state === 2) {
+	                    star.classList.add('filled');
+	                    star.classList.remove('half');
+	                } else {
+	                    star.classList.remove('filled', 'half');
+	                }
+	            } else {
+	                star.classList.remove('filled', 'half');
+	            }
+	        });
+	    }
 
-    function getRatingValue(state, value) {
-        if (state === 1) {
-            return value - 1; // 반쪽 별 (1점)
-        } else if (state === 2) {
-            return value; // 전체 별 (2점 단위)
-        } else {
-            return 0; // 빈 별
-        }
-    }
+	    function getRatingValue(state, value) {
+	        if (state === 1) {
+	            return value - 1; // 반쪽 별 (1점)
+	        } else if (state === 2) {
+	            return value; // 전체 별 (2점 단위)
+	        } else {
+	            return 0; // 빈 별
+	        }
+	    }
 
-    // 리뷰 수정 버튼 클릭 이벤트 핸들러
-    document.querySelectorAll('.edit-button').forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.preventDefault(); // 기본 폼 제출 방지
+	    // 리뷰 수정 버튼 클릭 이벤트 핸들러
+	    document.querySelectorAll('.edit-button').forEach(button => {
+	        button.addEventListener('click', function(event) {
+	            event.preventDefault(); // 기본 폼 제출 방지
 
-            // 리뷰 데이터 가져오기
-            const reviewId = this.getAttribute('data-review-id');
-            const reviewText = this.getAttribute('data-review-text');
-            const reviewRating = parseFloat(this.getAttribute('data-review-rating'));
+	            const reviewId = this.getAttribute('data-review-id');
+	            const reviewText = this.getAttribute('data-review-text');
+	            const reviewRating = parseFloat(this.getAttribute('data-review-rating'));
 
-            // 폼 업데이트
-            formTitle.textContent = '리뷰 수정하기';
-            reviewForm.action = '/movie/review/update';
-            document.getElementById('reviewId').value = reviewId;
-            document.getElementById('reviewText').value = reviewText;
+	            formTitle.textContent = '리뷰 수정하기';
+	            reviewForm.action = '/movie/review/update';
+	            document.getElementById('reviewId').value = reviewId;
+	            document.getElementById('reviewText').value = reviewText;
 
-            // 별점 초기화
-            setInitialRating(reviewRating);
+	            setInitialRating(reviewRating);
 
-            reviewFormContainer.style.display = 'block'; // 폼 보이기
-        });
-    });
+	            reviewFormContainer.style.display = 'block'; // 폼 보이기
+	        });
+	    });
 
-    function setInitialRating(value) {
-        stars.forEach(star => {
-            const starValue = parseFloat(star.getAttribute('data-value'));
-            if (starValue <= value) {
-                star.classList.add('filled');
-                star.classList.remove('half');
-            } else if (starValue === value + 1) {
-                star.classList.add('half');
-                star.classList.remove('filled');
-            } else {
-                star.classList.remove('filled', 'half');
-            }
-        });
-    }
-});
+	    function setInitialRating(value) {
+	        stars.forEach(star => {
+	            const starValue = parseFloat(star.getAttribute('data-value'));
+	            if (starValue <= value) {
+	                star.classList.add('filled');
+	                star.classList.remove('half');
+	            } else if (starValue === value + 1) {
+	                star.classList.add('half');
+	                star.classList.remove('filled');
+	            } else {
+	                star.classList.remove('filled', 'half');
+	            }
+	        });
+	    }
 
-//페이지 전환 전에 스크롤 위치 저장
-window.addEventListener('beforeunload', function () {
-    sessionStorage.setItem('scrollPosition', window.scrollY);
-});
+	 // 리뷰 작성 폼 제출 시 별점 입력 체크
+	    reviewForm.addEventListener('submit', function(event) {
+	        if (reviewForm.action.includes('/movie/review')) { // 리뷰 작성 요청일 때만 체크
+	            if (ratingInput.value === "" || ratingInput.value === "0") {
+	                event.preventDefault(); // 폼 제출 방지
+	                alert('평점을 입력하세요.');
+	            }
+	        }
+	    });
 
-// 페이지 로드 시 저장된 스크롤 위치 복원
-window.addEventListener('load', function () {
-    const scrollPosition = sessionStorage.getItem('scrollPosition');
-    if (scrollPosition !== null) {
-        window.scrollTo(0, parseInt(scrollPosition, 10));
-        sessionStorage.removeItem('scrollPosition'); 
-    }
-});
+	    // 페이지 전환 전에 스크롤 위치 저장
+	    window.addEventListener('beforeunload', function () {
+	        sessionStorage.setItem('scrollPosition', window.scrollY);
+	    });
+
+	    // 페이지 로드 시 저장된 스크롤 위치 복원
+	    window.addEventListener('load', function () {
+	        const scrollPosition = sessionStorage.getItem('scrollPosition');
+	        if (scrollPosition !== null) {
+	            window.scrollTo(0, parseInt(scrollPosition, 10));
+	            sessionStorage.removeItem('scrollPosition'); 
+	        }
+	    });
+	});
+
 
 </script>
 

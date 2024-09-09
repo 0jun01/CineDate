@@ -45,40 +45,45 @@ public class ReviewController {
 	 * @return 영화 상세보기 페이지
 	 * @author 김가령
 	 */
-    @PostMapping("/review")
-    public String submitReview(
-            @RequestParam(name ="movieId")int movieId,
-            @RequestParam(name ="reviewText")String reviewText,
-            @RequestParam(name ="rating")int rating,
-            @SessionAttribute(name="principal")User principal,
-            Model model) throws UnsupportedEncodingException {
-    	
-    	int userId = principal.getId(); // principal에서 userId를 가져옴
-    		
-    	 // 이미 작성된 리뷰가 있는지 확인
-        boolean hasReviewed = reviewService.hasUserReviewed(movieId, userId);
-    	
-        if(hasReviewed) {
-        	throw new DataDeliveryException(Define.DUPLICATION_REVIEW, HttpStatus.BAD_REQUEST);
-        }
-    	
-    	MovieDetail selectedMovie = movieService.readMovieAllofData(movieId);
-    	String movieTitle = selectedMovie.getTitle();
-    	
-    	String encodedTitle = URLEncoder.encode(movieTitle, "UTF-8");
-    	
-        Review review = Review.builder()
-                .movieId(movieId)
-                .userId(userId) // String 타입으로 설정
-                .reviewText(reviewText)
-                .rating(rating)
-                .reviewDate(Timestamp.from(Instant.now()))
-                .build();
+	@PostMapping("/review")
+	public String submitReview(
+	        @RequestParam(name = "movieId") int movieId,
+	        @RequestParam(name = "reviewText") String reviewText,
+	        @RequestParam(name = "rating") int rating,
+	        @SessionAttribute(name = "principal") User principal,
+	        Model model) throws UnsupportedEncodingException {
 
-        reviewService.saveReview(review);
+	    int userId = principal.getId(); // principal에서 userId를 가져옴
 
-        return "redirect:/movie/detail?title=" + encodedTitle;
-    }
+	    // 별점 검증
+	    if (rating <= 0) {
+	        throw new DataDeliveryException(Define.INPUT_STAR_RATING, HttpStatus.BAD_REQUEST);
+	    }
+	    
+	    // 이미 작성된 리뷰가 있는지 확인
+	    boolean hasReviewed = reviewService.hasUserReviewed(movieId, userId);
+
+	    if (hasReviewed) {
+	        throw new DataDeliveryException(Define.DUPLICATION_REVIEW, HttpStatus.BAD_REQUEST);
+	    }
+
+	    MovieDetail selectedMovie = movieService.readMovieAllofData(movieId);
+	    String movieTitle = selectedMovie.getTitle();
+	    
+	    String encodedTitle = URLEncoder.encode(movieTitle, "UTF-8");
+
+	    Review review = Review.builder()
+	            .movieId(movieId)
+	            .userId(userId)
+	            .reviewText(reviewText)
+	            .rating(rating)
+	            .reviewDate(Timestamp.from(Instant.now()))
+	            .build();
+
+	    reviewService.saveReview(review);
+
+	    return "redirect:/movie/detail?title=" + encodedTitle;
+	}
     
     /**
      * 관람평 삭제 기능

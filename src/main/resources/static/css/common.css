@@ -563,4 +563,10 @@ table, th, td {
     color: #dc3545; /* 삭제 버튼 색상 설정 */
 }
 
+.page--item.disabled .page-link {
+    color: #c0c0c0;
+    pointer-events: none; 
+    cursor: not-allowed;
+}
+
 
