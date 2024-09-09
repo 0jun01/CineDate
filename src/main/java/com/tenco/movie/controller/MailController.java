@@ -3,13 +3,16 @@ package com.tenco.movie.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tenco.movie.dto.EmailVerificationResult;
 import com.tenco.movie.service.MailSendService;
 
 
@@ -17,29 +20,47 @@ import com.tenco.movie.service.MailSendService;
 @RequestMapping("/mail")
 public class MailController {
 	
+	
+	@Autowired
 	private MailSendService mailSendService;
 	
-	// @PostMapping("/mail")
-	// @ResponseBody
-/*	public ResponseEntity<Map<String,Object>> mailPage(@RequestBody Map<String, Object> body) {
-		System.out.println("메일 들어왔늬 : " + body.get("email"));
+	
+	String authCode;
+
+	/**
+	 * 이메일 인증 보내는 영역
+	 * @param email
+	 * @return
+	 * @author 형정
+	 */
+	@PostMapping("/verification-requests")
+	public ResponseEntity<Map<String, Object>> sendMessageProc(@RequestParam("email")String email){
+		
+		authCode = mailSendService.sendCodeToEmail(email);
+		
 		Map<String, Object> response = new HashMap<>();
+		response.put("success", true);
+		System.out.println("성공핸니?? 이자식아");
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 		
-        try {
-        	// String code = mailSendService.sendSimpleMessage("email");
-            response.put("success", true);
-            System.out.println("메일 들어왔다아");
-            // response.put("code", code); // Send the code back to the client for verification
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.put("success", false);
-            response.put("message", "메일 전송 실패다아");
-        }
+	}
+
+	/**	
+	 * 이메일 인증 확인 영역
+	 * @param email
+	 * @return
+	 * @author 형정
+	 */
+	@GetMapping("/verifications")
+	public ResponseEntity<EmailVerificationResult> handleVerificationEmail(@RequestParam("email") String email, @RequestParam("code") String authCode){
 		
-		// response.put("success", true);
-		// response.put("success", false);
-		return ResponseEntity.ok(response);
-	}*/
+		EmailVerificationResult result = mailSendService.verifiedCode(email, authCode);
+		System.out.println("email : " + email + ", " + "authCode : " + authCode);
+			
+		return new ResponseEntity<>(result, HttpStatus.OK);
+		
+	}
+	
 	
 	
 }

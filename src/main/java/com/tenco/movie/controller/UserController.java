@@ -133,66 +133,71 @@ public class UserController {
 //		if (dto.getLoginId().length() < 7 || dto.getLoginId().length() > 16) {
 //			throw new DataDeliveryException(Define.ENTER_ID_LENGTH, HttpStatus.BAD_REQUEST);
 //		}
-//
-//		// 이름 유효성 검사
-//		// 이름 비어져있을 때
-//		if (dto.getName() == null || dto.getName().trim().isEmpty()) {
-//			throw new DataDeliveryException(Define.ENTER_YOUR_NAME, HttpStatus.BAD_REQUEST);
-//		}
-//
-//		// 비밀번호 유효성 검사
-//		// 비밀번호가 없거나 비어 있을 때
-//		if (dto.getPassword() == null || dto.getPassword().trim().isEmpty()) {
-//			throw new DataDeliveryException(Define.ENTER_YOUR_PASSWORD, HttpStatus.BAD_REQUEST);
-//		}
-//		// 비밀번호 글자 제한
-//		if (dto.getPassword().length() < 8 || dto.getPassword().length() > 20) {
-//			throw new DataDeliveryException(Define.ENTER_PASSWORD_LENGTH, HttpStatus.BAD_REQUEST);
-//		}
-//		// 비밀번호 영어 포함
-//		if (!dto.getPassword().matches(".*[A-Za-z].*")) {
-//			throw new DataDeliveryException(Define.ENTER_PASSWORD_CHAR, HttpStatus.BAD_REQUEST);
-//		}
-//		// 비밀번호 
-//		if (!dto.getPassword().matches(".*\\d.*")) {
-//			throw new DataDeliveryException(Define.ENTER_PASSWORD_NUM, HttpStatus.BAD_REQUEST);
-//		}
-//		// 비밀번호 특수 문자
-//		if (!dto.getPassword().matches(".*[!@#$%^&*(),.?\":{}|<>].*")) {
-//			throw new DataDeliveryException(Define.ENTER_PASSWORD_SPECIAL_CHAR, HttpStatus.BAD_REQUEST);
-//		}
-//		// 비밀번호 중복 검사
-//		if (!dto.getPassword().equals(dto.getEnterPassword())) {
-//			throw new DataDeliveryException(Define.NOT_VALIDATE_PASSWORD, HttpStatus.BAD_REQUEST);
-//		}
-//
-//		// 이메일 유효성 검사
-//		// 이메일이 없거나 빈칸일 때
+
+		// 이름 유효성 검사
+		// 이름 비어져있을 때
+		if (dto.getName() == null || dto.getName().trim().isEmpty()) {
+			throw new DataDeliveryException(Define.ENTER_YOUR_NAME, HttpStatus.BAD_REQUEST);
+		}
+
+		// 비밀번호 유효성 검사
+		// 비밀번호가 없거나 비어 있을 때
+		if (dto.getPassword() == null || dto.getPassword().trim().isEmpty()) {
+			throw new DataDeliveryException(Define.ENTER_YOUR_PASSWORD, HttpStatus.BAD_REQUEST);
+		}
+		// 비밀번호 글자 제한
+		if (dto.getPassword().length() < 8 || dto.getPassword().length() > 20) {
+			throw new DataDeliveryException(Define.ENTER_PASSWORD_LENGTH, HttpStatus.BAD_REQUEST);
+		}
+		// 비밀번호 영어 포함
+		if (!dto.getPassword().matches(".*[A-Za-z].*")) {
+			throw new DataDeliveryException(Define.ENTER_PASSWORD_CHAR, HttpStatus.BAD_REQUEST);
+		}
+		// 비밀번호 
+		if (!dto.getPassword().matches(".*\\d.*")) {
+			throw new DataDeliveryException(Define.ENTER_PASSWORD_NUM, HttpStatus.BAD_REQUEST);
+		}
+		// 비밀번호 특수 문자
+		if (!dto.getPassword().matches(".*[!@#$%^&*(),.?\":{}|<>].*")) {
+			throw new DataDeliveryException(Define.ENTER_PASSWORD_SPECIAL_CHAR, HttpStatus.BAD_REQUEST);
+		}
+		// 비밀번호 중복 검사
+		if (!dto.getPassword().equals(dto.getEnterPassword())) {
+			throw new DataDeliveryException(Define.NOT_VALIDATE_PASSWORD, HttpStatus.BAD_REQUEST);
+		}
+
+		// 이메일 유효성 검사
+		// 이메일이 없거나 빈칸일 때
 //		if (dto.getEmail() == null || dto.getEmail().trim().isEmpty()) {
 //			throw new DataDeliveryException(Define.ENTER_YOUR_EMAIL, HttpStatus.BAD_REQUEST);
 //		}
-//
-//		// 휴대폰 번호 유효성 검사
-//		// 휴대폰 번호가 없거나 빈킨일 때
-//		if (dto.getPhoneNum() == null || dto.getPhoneNum().trim().isEmpty()) {
-//			throw new DataDeliveryException(Define.ENTER_YOUR_PHONE_NUM, HttpStatus.BAD_REQUEST);
+
+		// 휴대폰 번호 유효성 검사
+		// 휴대폰 번호가 없거나 빈킨일 때
+		if (dto.getPhoneNum() == null || dto.getPhoneNum().trim().isEmpty()) {
+			throw new DataDeliveryException(Define.ENTER_YOUR_PHONE_NUM, HttpStatus.BAD_REQUEST);
+		}
+		// 휴대폰 번호가 10~11자가 아닐 때
+		if (!dto.getPhoneNum().matches("\\d{10,11}")) {
+			throw new DataDeliveryException(Define.NOT_VALIDATE_PHONE_NUM, HttpStatus.BAD_REQUEST);
+		}
+
+		// 생일 유효성 검사
+//		if (dto.getBirthday() == null) {
+//			throw new DataDeliveryException(Define.ENTER_YOUR_BIRTH, HttpStatus.BAD_REQUEST);
 //		}
-//		// 휴대폰 번호가 10~11자가 아닐 때
-//		if (!dto.getPhoneNum().matches("\\d{10,11}")) {
-//			throw new DataDeliveryException(Define.NOT_VALIDATE_PHONE_NUM, HttpStatus.BAD_REQUEST);
-//		}
-//
-//		// 성별 유효성 검사
-//		if (dto.getGender() == null || (!dto.getGender().equals("여") && !dto.getGender().equals("남"))) {
-//			throw new DataDeliveryException(Define.ENTER_YOUR_GENDER, HttpStatus.BAD_REQUEST);
-//		}
+		
+		// 성별 유효성 검사
+		if (dto.getGender() == null || (!dto.getGender().equals("여") && !dto.getGender().equals("남"))) {
+			throw new DataDeliveryException(Define.ENTER_YOUR_GENDER, HttpStatus.BAD_REQUEST);
+		}
 
 		System.out.println("여기까지는 왔나?");
 
 		userService.createUser(dto);
 
 		System.out.println("회원가입 성공");
-
+		
 		return "redirect:/user/signIn";
 
 	}

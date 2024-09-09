@@ -1,5 +1,7 @@
 package com.tenco.movie.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -42,10 +44,18 @@ public class UserService {
 		System.out.println("여기로 왔냐");
 
 		int result = 0;
+		
+		User user = dto.toUser();
 
 		try {
+			
+			if(user.getBirthDay()  == null) {
+				throw new DataDeliveryException(Define.ENTER_YOUR_BIRTH, HttpStatus.BAD_REQUEST);
+			}
+			
+			
 			System.out.println("11111111여긴왔낭리ㅏㅓㅇ너ㅏㅣㅎ이ㅏㄴ");
-			result = userRepository.insert(dto.toUser());
+			result = userRepository.insert(user);
 			System.out.println("11111성공했늬");
 		} catch (DataDeliveryException e) {
 			throw new DataDeliveryException(Define.DUPLICATION_NAME, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -262,5 +272,15 @@ public class UserService {
 	public User searchEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
-
+	
+	/**
+	 * 이메일 인증 요청시 필요한 email
+	 * @param email
+	 * @return
+	 */
+	public Optional<User> searchEmails(String email) {
+		System.out.println("이메일 여기 들어완니");
+		return userRepository.findByEmails(email);
+	}
+	
 }
