@@ -71,4 +71,8 @@
         where id = #{id}
 	</update>
 	
+	<select id="checkAdmin" resultType="com.tenco.movie.repository.model.Admin" >
+		select admin_tb.id from admin_tb left join user_tb on user_tb.id = admin_tb.user_id where user_tb.login_id = #{loginId};
+	</select>
+	
 </mapper>

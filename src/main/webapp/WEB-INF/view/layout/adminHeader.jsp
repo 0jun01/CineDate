@@ -84,13 +84,13 @@
 					<!--end::Fullscreen Toggle-->
 					<!--begin::User Menu Dropdown-->
 					<li class="nav-item dropdown user-menu"><a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> <img src="/img/user2-160x160.jpg"
-							class="user-image rounded-circle shadow" alt="User Image"> <span class="d-none d-md-inline">관리자</span>
+							class="user-image rounded-circle shadow" alt="User Image"> <span class="d-none d-md-inline">${user.loginId} 관리자님</span>
 					</a>
 						<ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
 							<!--begin::User Image-->
 							<li class="user-header text-bg-primary"><img src="/img/user2-160x160.jpg" class="rounded-circle shadow" alt="User Image">
 								<p>
-									김멍청 <small>2024년 8월 가입</small>
+									${user.loginId} <small>2024년 8월 가입</small>
 								</p></li>
 							<!--end::User Image-->
 							<!--begin::Menu Body-->
@@ -110,7 +110,7 @@
 							</li>
 							<!--end::Menu Body-->
 							<!--begin::Menu Footer-->
-							<li class="user-footer"><a href="#" class="btn btn-default btn-flat">프로필</a> <a href="#" class="btn btn-default btn-flat float-end">로그아웃</a></li>
+							<li class="user-footer"><a href="#" class="btn btn-default btn-flat">프로필</a> <a href="/logout" class="btn btn-default btn-flat float-end">로그아웃</a></li>
 							<!--end::Menu Footer-->
 						</ul></li>
 					<!--end::User Menu Dropdown-->
