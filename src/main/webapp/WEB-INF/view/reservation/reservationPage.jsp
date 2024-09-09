@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- header.jsp -->
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <link href="/css/reservation.css" rel="stylesheet">
@@ -16,8 +15,7 @@
 					<ul id="date--list">
 						<li>
 							<div>
-								<span class="year">${currentYear}</span> <br> <span
-									class="">${currentMonth}월</span>
+								<span class="year">${currentYear}</span> <br> <span class="">${currentMonth}월</span>
 							</div>
 						</li>
 						<c:forEach var="entry" items="${date}">
@@ -28,34 +26,27 @@
 							<c:set var="formattedDay">
 								<fmt:formatNumber value="${entry.day}" pattern="00" />
 							</c:set>
-							<c:set var="formattedDate"
-								value="${entry.year}-${formattedMonth}-${formattedDay}" />
+							<c:set var="formattedDate" value="${entry.year}-${formattedMonth}-${formattedDay}" />
 							<c:if test="${entry.day == 1}">
 								<li>
 									<div>
-										<span class="year">${entry.year}</span> <br> <span
-											class="month">${entry.month}월</span>
+										<span class="year">${entry.year}</span> <br> <span class="month">${entry.month}월</span>
 									</div>
 								</li>
 							</c:if>
 
-							<li id="date-${formattedDate}" class="selectable-date"><a
-								href="javascript:void(0)"
-								onclick="viewSelectedDate('${formattedDate}', this)"> <c:choose>
+							<li id="date-${formattedDate}" class="selectable-date"><a href="javascript:void(0)" onclick="viewSelectedDate('${formattedDate}', this)"> <c:choose>
 										<c:when test="${holidays.contains(formattedDate)}">
 											<span class="holiday" data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
-											<span class="holiday" data-date-value="${formattedDate}">${entry.day}
-											</span>
+											<span class="holiday" data-date-value="${formattedDate}">${entry.day} </span>
 										</c:when>
 										<c:when test="${entry.dayOfWeek == '일'}">
 											<span class="holiday" data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
-											<span class="holiday" data-date-value="${formattedDate}">${entry.day}
-											</span>
+											<span class="holiday" data-date-value="${formattedDate}">${entry.day} </span>
 										</c:when>
 										<c:when test="${entry.dayOfWeek == '토'}">
 											<span class="satur" data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
-											<span class="satur" data-date-value="${formattedDate}">${entry.day}
-											</span>
+											<span class="satur" data-date-value="${formattedDate}">${entry.day} </span>
 										</c:when>
 										<c:otherwise>
 											<span data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
@@ -74,16 +65,13 @@
 					<h3>영화</h3>
 				</div>
 				<div class="filter--box">
-					<button type="button" id="sortByKorean" value="korean"
-						name="filter--btn">가나다순</button>
+					<button type="button" id="sortByKorean" value="korean" name="filter--btn">가나다순</button>
 					<button type="button" id="sortByAge" value="age" name="filter--btn">시청등급순</button>
 				</div>
 				<div class="scroll--list">
 					<ul id="movie-list">
 						<c:forEach var="movie" items="${movieList}">
-							<li><a href="javascript:void(0)"
-								data-movie-id="${movie.movieId}"
-								onclick="handleAvailableMovieClick(this)"><c:choose>
+							<li><a href="javascript:void(0)" data-movie-id="${movie.movieId}" onclick="handleAvailableMovieClick(this)"><c:choose>
 										<c:when test="${movie.watchGradeNm eq '전체관람가'}">
 											<span class="grade-all">ALL</span>
 											<span data-id="${movie.movieId}">${movie.title}</span>
@@ -116,16 +104,14 @@
 					<div class="region--list">
 						<ul id="region-list">
 							<c:forEach var="region" items="${regionList}">
-								<li class="region--name--box"><a href="javascript:void(0)"
-									onclick="applyRegionFilter('${region.id}')">${region.name}</a></li>
+								<li class="region--name--box"><a href="javascript:void(0)" onclick="applyRegionFilter('${region.id}')">${region.name}</a></li>
 							</c:forEach>
 						</ul>
 					</div>
 					<div class="scroll--list">
 						<ul id="sub--region--list">
 							<c:forEach var="subRegion" items="${subRegionList}">
-								<li><a href="javascript:void(0)" onclick="">
-										${subRegion.name} </a></li>
+								<li id="subregion-${subRegion.id}"><a href="javascript:void(0)" onclick="checkMovie('${subRegion.name}', '${subRegion.id}')"> ${subRegion.name} </a></li>
 							</c:forEach>
 						</ul>
 					</div>
@@ -135,8 +121,13 @@
 				<div class="top--title--inner">
 					<h3>시간</h3>
 				</div>
-				<div class="movie--list">
-					<ul id="movie-list">
+				<div class="time--list">
+					<span class="title"> <span class="floor"></span> <span class="seatcount"></span>
+					</span>
+					<ul>
+						<li><a> <span class=time> <span></span>
+							</span> <span class="count"></span>
+						</a></li>
 					</ul>
 				</div>
 			</div>
@@ -149,14 +140,15 @@
 			</span>
 		</div>
 		<div class="movie--detail--box">
-			<span>극장</span><span>일시&nbsp;&nbsp;&nbsp;&nbsp;</span> <span
-				class="choosen--date"></span><span>상영관</span><span>인원</span>
+			<span>극장</span> <span class="theater"></span> <span>일시&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="choosen--date"></span> <span>상영관</span> <span class="room"></span> <span>인원</span>
 		</div>
 	</div>
 	<script>
 	
 let selectedMovieId = null;
 let selectedDate1 = null;
+let step = 0;
+
 document.addEventListener('DOMContentLoaded', function() {
 	
 	if (selectedMovieId && selectedDate1) {
@@ -241,6 +233,7 @@ function viewSelectedDate(selectedDate, element) {
     const textValue = spanElement ? spanElement.textContent : null; // 텍스트 값 가져오기
     console.log('Selected Date:', date);
     console.log('Span Text Value:', textValue);
+    step = 1;
     // 선택된 날짜 항목 강조
     const selectedItem = document.getElementById('date-' + selectedDate);
     if (selectedItem) {
@@ -287,6 +280,7 @@ selectedMovieId = movieId;
 
 
 let shouldUpdate = true; // 초기값을 true로 설정
+let movieCheck = true;
 //영화의 세부 정보를 가져오는 함수
 function fetchMovieDetails(movieId) {
 	 shouldUpdate = true;
@@ -299,15 +293,59 @@ function fetchMovieDetails(movieId) {
             return response.json();
         })
         .then(data => {
+        	if(step != 1){
+        	alert('날짜를 먼저 선택해주세요');
+        	} else{
+        	movieCheck = false;
             console.log('Movie Details:', data);
             if(shouldUpdate){
             updateMovieDetail(data);
-        }
+          	  }
+            fetchSelectedDateAndMovie();
+        	}
         })
         .catch(error => {
             console.error('Error fetching movie details:', error);
         });
 }
+
+function fetchSelectedDateAndMovie(){
+	fetch(`http://localhost:8080/reservation/theater?movieId=` + selectedMovieId + `&date=` + selectedDate1)
+		.then(response => {
+			if (!response.ok){
+				throw new Error('error');
+			}
+			return response.json();
+		})
+		.then(data => {
+			console.log('theater : ', data);
+			// 데이터에서 지역 목록 추출
+            const availableRegions = data.map(item => item.regionName);
+            const availableSubRegions = data.map(item => item.subId.toString()); // ID를 문자열로 변환
+            document.querySelectorAll('#region-list li').forEach(li => {
+                const regionName = li.textContent.trim();
+                if (!availableRegions.includes(regionName)) {
+                    li.style.opacity = '0.1'; // 투명도를 낮춤
+                } else {
+                    li.style.opacity = '1'; // 원래 투명도로 설정
+                }
+            });
+            
+            // 서브 지역 리스트 항목의 투명도 조정
+            document.querySelectorAll('#sub--region--list li').forEach(li => {
+            	const subRegionId = li.id.split('-')[1];
+                if (!availableSubRegions.includes(subRegionId)) {
+                    li.style.opacity = '0.1'; // 투명도를 낮춤
+                } else {
+                    li.style.opacity = '1'; // 원래 투명도로 설정
+                }
+            });
+		})
+		.catch(error => {
+            console.error('Error fetching movie details:', error);
+        });
+}
+
 
 function updateMovieDetail(movie) {
     // 영화 포스터와 제목 요소를 선택
@@ -388,8 +426,13 @@ function applyRegionFilter(regionId){
             return response.json();
         })
         .then(data => {
+        	if(movieCheck){
+        		alert('영화를 먼저 선택해주세요')
+        	} else{
+        	
             console.log('success:',data);
             updateSubRegionList(data);
+        	}
         })
         .catch(error =>{
             alert('An error occurred while fetching the movies.');
@@ -414,8 +457,17 @@ function updateSubRegionList(subRegions) {
         // 필요에 따라 onclick 이벤트 핸들러 추가
         link.onclick = function() {
             // 클릭 시 동작 정의 (예: 서브지역 필터링 등)
+            if(movieCheck){
+            	alert ('영화를 먼저 선택해주세요.')
+            } else {
              console.log('Clicked sub-region:', subRegion.name);
             // filterSubRegion(subRegion.id);
+             const theaterElement = document.querySelector('.movie--detail--box .theater');
+             if (theaterElement) {
+                 theaterElement.textContent = subRegion.name; // subRegion.name을 theater에 표시
+             }
+
+            }
         };
 
         // <li>에 <a> 태그 추가
@@ -425,6 +477,107 @@ function updateSubRegionList(subRegions) {
         listElement.appendChild(subRegionItem);
     });
 }
+function checkMovie(theaterName, subregionId){
+	console.log('Clicked sub-region ID:', subregionId);
+    console.log('Clicked sub-region Name:', theaterName);
+	if(movieCheck){
+    	alert ('영화를 먼저 선택해주세요.')
+    } else {
+     const theaterElement = document.querySelector('.movie--detail--box .theater');
+     if (theaterElement) {
+         theaterElement.textContent = theaterName; // subRegion.name을 theater에 표시
+     }
+	fetch(`http://localhost:8080/reservation/timeList?date=`+ selectedDate1 + `&movieId=` +selectedMovieId+ `&subregionId=` + subregionId)
+		.then(response => {
+            if (!response.ok){
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+        	console.log('들어온당')
+        	updateTimeList(data);
+        })
+		}
+    }
+//영화와 상영 시간 정보를 기반으로 HTML 업데이트
+function updateTimeList(data) {
+const timeListContainer = document.querySelector('.time--list');
+let room = null;
+    // 기존 시간 리스트 제거
+    const existingUl = timeListContainer.querySelector('ul');
+    if (existingUl) {
+        existingUl.remove();
+    }
+
+    // 데이터가 없으면 빈 리스트를 표시
+    if (data.length === 0) {
+		alert('상영 일정이 없습니다');    	
+    }
+
+ // 새로운 시간 리스트 생성
+    const ul = document.createElement('ul');
+
+    // 데이터의 첫 항목에서 floor와 seatcount 정보를 가져오기
+    if (data.length > 0) {
+        const firstItem = data[0];
+        console.log('First item data:', firstItem);
+        const titleSpan = timeListContainer.querySelector('.title');
+        const floorSpan = titleSpan.querySelector('.floor');
+        const seatcountSpan = titleSpan.querySelector('.seatcount');
+		
+        floorSpan.textContent = firstItem.name; // 1관 설정
+        room = firstItem.name
+        seatcountSpan.textContent = `총(` + firstItem.capacity+`)`; // 총 좌석 수 설정
+    }
+
+    // 시간과 좌석 수 항목 추가
+    data.forEach(item => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+	
+        // a 태그에 href와 onclick 속성 추가
+        a.href = "javascript:void(0)";
+        
+        
+        const timeSpan = document.createElement('span');
+        timeSpan.className = 'time';
+        const timeInnerSpan = document.createElement('span');
+        
+        // 'showTime'이 'HH:MM:SS' 형식이므로 'HH:MM' 형식으로 변환
+        const timeString = item.showTime; // '20:00:00'
+        const timeParts = timeString.split(':'); // ['20', '00', '00']
+        timeInnerSpan.textContent = timeParts[0] +`:`+timeParts[1]; // '20:00'
+        
+        timeSpan.appendChild(timeInnerSpan);
+
+        const countSpan = document.createElement('span');
+        countSpan.className = 'count';
+        countSpan.textContent = item.capacity+`석`; // 좌석 수
+
+        a.onclick = function() {
+        	const roomElement = document.querySelector('.movie--detail--box .room');
+            if (roomElement) {
+                roomElement.textContent = room; // 상영관 정보를 업데이트
+            }
+            const choosenDateElement = document.querySelector('.choosen--date');
+            if (choosenDateElement) {
+                // 기존 내용에 새로운 시간 추가
+                choosenDateElement.textContent = selectedDate1+` `+timeParts[0] +`:`+timeParts[1]; // 기존 내용 뒤에 새로운 날짜를 추가
+            }
+        };
+        
+        
+        a.appendChild(timeSpan);
+        a.appendChild(countSpan);
+
+        li.appendChild(a);
+        ul.appendChild(li);
+    });
+
+    timeListContainer.appendChild(ul);
+}
+
 </script>
 	<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
 	</body>
