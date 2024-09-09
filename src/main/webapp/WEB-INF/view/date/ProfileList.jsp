@@ -24,7 +24,7 @@
 								<button style="width: 60px; height: 150px;">매칭완료(쪽지보내기)</button>
 							</c:when>
 							<c:otherwise>
-								<button onclick="openPopup('${list.userId}')" value="${list.id}">상세 보기</button>
+								<button onclick="openPopup('${list.userId}')" >상세 보기</button>
 							</c:otherwise>
 							</c:choose>
 					</td>
