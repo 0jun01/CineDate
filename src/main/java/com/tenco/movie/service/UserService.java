@@ -14,6 +14,7 @@ import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.UserRepository;
 import com.tenco.movie.repository.model.User;
+import com.tenco.movie.repository.model.Admin;
 import com.tenco.movie.repository.model.Search;
 import com.tenco.movie.utils.Define;
 
@@ -137,9 +138,12 @@ public class UserService {
 	public User readUser(SignInDTO dto) {
 
 		User userEntity = null;
+		
 
 		try {
 			userEntity = userRepository.findByLoginId(dto.getLoginId());
+			
+			
 		} catch (DataAccessException e) {
 			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
@@ -293,5 +297,19 @@ public class UserService {
 		    
 		    
 		    userRepository.update(user);
+		}
+		
+		
+		public Admin checkAdmin(String loginId) {
+			Admin adminEntity = null;
+			try {
+				adminEntity = userRepository.checkAdmin(loginId);
+			}catch (DataAccessException e) {
+				throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.INTERNAL_SERVER_ERROR);
+			} catch (Exception e) {
+				throw new DataDeliveryException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
+			}
+			
+			return adminEntity;
 		}
 }

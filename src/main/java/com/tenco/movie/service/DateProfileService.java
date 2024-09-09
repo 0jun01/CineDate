@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.tenco.movie.dto.DateProfileSignUp;
+import com.tenco.movie.dto.DateProfileDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.interfaces.ProfileRepository;
 import com.tenco.movie.repository.model.DateProfile;
@@ -50,7 +50,7 @@ public class DateProfileService {
 	 * @return
 	 */
 	@Transactional
-	public int createdProfile(User principal, DateProfileSignUp signUp) {
+	public int createdProfile(User principal, DateProfileDTO signUp) {
 		int result = 0;
 		
 		if(signUp.getMFileOne() != null && !signUp.getMFileOne().isEmpty()) {
@@ -65,6 +65,22 @@ public class DateProfileService {
 			signUp.setTwoOriginFileName(fileNames[0]);
 			signUp.setTwoUproadFileName(fileNames[1]);
 		}
+		
+		
+		if(signUp.getMFile3() != null && !signUp.getMFile3().isEmpty()) {
+			String[] fileNames = uploadFile(signUp.getMFile3());
+			signUp.setThirdOriginFileName(fileNames[1]);
+		}
+		if(signUp.getMFile4() != null && !signUp.getMFile4().isEmpty()) {
+			String[] fileNames = uploadFile(signUp.getMFile4());
+			signUp.setFourthOriginFileName(fileNames[1]);
+		}
+		if(signUp.getMFile5() != null && !signUp.getMFile5().isEmpty()) {
+			String[] fileNames = uploadFile(signUp.getMFile5());
+			signUp.setFifthOriginFileName(fileNames[1]);
+		}
+		
+		
 		result = profileRepository.createdProfile(signUp.toProfile(principal.getId()));
 		
 		if(result != 1) {
@@ -131,65 +147,59 @@ public class DateProfileService {
 	 * @return
 	 */
 	@Transactional
-	public void updateProfile(String newNickName, String newIntroduce,
-	        MultipartFile newFirstFile, MultipartFile newSecondFile,
-	        MultipartFile newThirdFile, MultipartFile newFourthFile,
-	        MultipartFile newFifthFile, MultipartFile newFirstUploadFile,
-	        MultipartFile newSecondUploadFile, int newUserId) throws IOException {
-
+	public void updateProfile(DateProfileDTO uptate, int principalId) throws IOException {
+		
+		DateProfile profile = searchProfile(principalId);
+		System.out.println("=======================================================================");
+		System.out.println(profile);
+		System.out.println("=======================================================================");
+		uptate.setOneOriginFileName(profile.getFirstOriginFileName());
+		uptate.setOneUproadFileName(profile.getFirstUploadFileName());
+		uptate.setTwoOriginFileName(profile.getSeocndOriginFileName());
+		uptate.setTwoUproadFileName(profile.getSecondUploadFileName());
 	    // 파일 저장 및 파일 이름 가져오기
-	    String newFirstFileName = saveFile(newFirstFile);
-	    String newSecondFileName = saveFile(newSecondFile);
-	    String newThirdFileName = saveFile(newThirdFile);
-	    String newFourthFileName = saveFile(newFourthFile);
-	    String newFifthFileName = saveFile(newFifthFile);
-	    String newFirstUploadFileName = saveFile(newFirstUploadFile);
-	    String newSecondUploadFileName = saveFile(newSecondUploadFile);
-
-	    // 프로필 업데이트
-	    DateProfile dateProfile = DateProfile.builder()
-	            .nickName(newNickName)
-	            .introduce(newIntroduce)
-	            .firstOriginFileName(newFirstFileName)
-	            .secondOriginFileName(newSecondFileName)
-	            .thirdOriginFileName(newThirdFileName)
-	            .fourthOriginFileName(newFourthFileName)
-	            .fifthOriginFileName(newFifthFileName)
-	            .firstUploadFileName(newFirstUploadFileName)
-	            .secondUploadFileName(newSecondUploadFileName)
-	            .userId(newUserId)
-	            .build();
-
-	    profileRepository.updateProfile(dateProfile);
-	}
-
-	private String saveFile(MultipartFile file) throws IOException {
-	    if (file.isEmpty()) return "";
-
-	    // 파일 확장자 추출
-	    String fileExtension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
-	    
-	    // UUID와 파일 확장자를 결합하여 새로운 파일 이름 생성
-	    String fileName = UUID.randomUUID().toString() + "_" + fileExtension;
-
-	    // 업로드 디렉토리 경로 설정
-	    File targetFile = new File(uploadDir + File.separator + fileName);
-	    
-	    // 업로드 디렉토리가 존재하지 않으면 생성
-	    File uploadDirFile = new File(uploadDir);
-	   
-	    if (!uploadDirFile.exists()) {
-	        uploadDirFile.mkdirs();
-	    }
-
-	    // 파일을 지정된 위치에 저장
-	    file.transferTo(targetFile);
-	    
-	    return fileName; // UUID가 포함된 파일 이름 반환
+		
+		if(uptate.getMFileOne() != null && !uptate.getMFileOne().isEmpty()) {
+			// 파일 업로드 로직 구현
+			String[] fileNames = uploadFile(uptate.getMFileOne());
+			uptate.setOneOriginFileName(fileNames[0]);
+			uptate.setOneUproadFileName(fileNames[1]);
+		} 
+		
+		
+		
+		if(uptate.getMFileTwo() != null && !uptate.getMFileTwo().isEmpty()) {
+			// 파일 업로드 로직 구현
+			String[] fileNames = uploadFile(uptate.getMFileTwo());
+			uptate.setTwoOriginFileName(fileNames[0]);
+			uptate.setTwoUproadFileName(fileNames[1]);
+		} 
+		
+		if(uptate.getMFile3() != null && !uptate.getMFile3().isEmpty()) {
+			String[] fileNames = uploadFile(uptate.getMFile3());
+			uptate.setThirdOriginFileName(fileNames[1]);
+		}
+		if(uptate.getMFile4() != null && !uptate.getMFile4().isEmpty()) {
+			String[] fileNames = uploadFile(uptate.getMFile4());
+			uptate.setFourthOriginFileName(fileNames[1]);
+		}
+		if(uptate.getMFile5() != null && !uptate.getMFile5().isEmpty()) {
+			String[] fileNames = uploadFile(uptate.getMFile5());
+			uptate.setFifthOriginFileName(fileNames[1]);
+		}
+		
+	    profileRepository.updateProfile(uptate.toProfile(principalId));
 	}
 
 	
+
 	
+	/**
+	 * 전체목록
+	 * @param principalId
+	 * @param principalGender
+	 * @return
+	 */
 	public List<DateProfile> searchPartner(int principalId, String principalGender){
 		List<DateProfile> partnerList = null;
 		
@@ -198,4 +208,21 @@ public class DateProfileService {
 		return partnerList;
 	}
 	
+	/**
+	 * 상세보기 
+	 * @param userId
+	 * @param id
+	 * @return
+	 */
+	public DateProfile detailPartner(int userId,int id) {
+		
+		
+		DateProfile profile =  profileRepository.detailPartner(userId, id);
+		
+		return profile;
+	}
+	
 }
+	
+	
+	

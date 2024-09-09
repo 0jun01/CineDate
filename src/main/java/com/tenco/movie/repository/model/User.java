@@ -15,7 +15,7 @@ import lombok.ToString;
 @ToString
 public class User {
 	
-	
+
 	private int id;
 	private String loginId;
 	private String name;
@@ -30,5 +30,7 @@ public class User {
 	private MultipartFile mFile;
 	private String originFileName;
 	private String uploadFileName;
+	
+	
 	
 }

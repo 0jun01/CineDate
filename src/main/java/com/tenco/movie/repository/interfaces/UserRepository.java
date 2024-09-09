@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.tenco.movie.repository.model.Admin;
 import com.tenco.movie.repository.model.User;
 
 @Mapper
@@ -42,5 +43,9 @@ public interface UserRepository {
 	User isPhoneNumDuplicated(String phoneNum);
 	void updateUsername(Long userId, String username);
 	
+	
+	//------------------------------
+	// 어드민 체크
+	public Admin checkAdmin(@Param("loginId") String loginId);
 
 }

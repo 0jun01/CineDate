@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page import="java.util.Date" %>
 
 <!DOCTYPE html>
 <html>
@@ -29,6 +31,7 @@
 <!--end::Third Party Plugin(Bootstrap Icons)-->
 <!--begin::Required Plugin(AdminLTE)-->
 <link rel="stylesheet" href="/css/adminlte.css">
+<link rel="stylesheet" href="/css/common.css">
 <!--end::Required Plugin(AdminLTE)-->
 <!-- apexcharts -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css" integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0="
@@ -43,7 +46,7 @@
 			<div class="container-fluid">
 				<!--begin::Start Navbar Links-->
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link" data-lte-toggle="sidebar" href="/adminMain" role="button"> <i class="bi bi-list"></i>
+					<li class="nav-item"><a class="nav-link" data-lte-toggle="sidebar" href="#" role="button"> <i class="bi bi-list"></i>
 					</a></li>
 					<li class="nav-item d-none d-md-block"><a href="/adminMain" class="nav-link">홈</a></li>
 					<li class="nav-item d-none d-md-block"><a href="#" class="nav-link">고객문의현황</a></li>
@@ -81,13 +84,13 @@
 					<!--end::Fullscreen Toggle-->
 					<!--begin::User Menu Dropdown-->
 					<li class="nav-item dropdown user-menu"><a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> <img src="/img/user2-160x160.jpg"
-							class="user-image rounded-circle shadow" alt="User Image"> <span class="d-none d-md-inline">관리자</span>
+							class="user-image rounded-circle shadow" alt="User Image"> <span class="d-none d-md-inline">${user.loginId} 관리자님</span>
 					</a>
 						<ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
 							<!--begin::User Image-->
 							<li class="user-header text-bg-primary"><img src="/img/user2-160x160.jpg" class="rounded-circle shadow" alt="User Image">
 								<p>
-									김멍청 <small>2024년 8월 가입</small>
+									${user.loginId} <small>2024년 8월 가입</small>
 								</p></li>
 							<!--end::User Image-->
 							<!--begin::Menu Body-->
@@ -107,7 +110,7 @@
 							</li>
 							<!--end::Menu Body-->
 							<!--begin::Menu Footer-->
-							<li class="user-footer"><a href="#" class="btn btn-default btn-flat">프로필</a> <a href="#" class="btn btn-default btn-flat float-end">로그아웃</a></li>
+							<li class="user-footer"><a href="#" class="btn btn-default btn-flat">프로필</a> <a href="/logout" class="btn btn-default btn-flat float-end">로그아웃</a></li>
 							<!--end::Menu Footer-->
 						</ul></li>
 					<!--end::User Menu Dropdown-->
@@ -133,7 +136,7 @@
 				<nav class="mt-2">
 					<!--begin::Sidebar Menu-->
 					<ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
-						<li class="nav-item menu-open"><a href="#" class="nav-link active"> <i class="nav-icon bi bi-speedometer"></i>
+						<li class="nav-item"><a href="#" class="nav-link active"> <i class="nav-icon bi bi-speedometer"></i>
 								<p>
 									대쉬보드 <i class="nav-arrow bi bi-chevron-right"></i>
 								</p>
@@ -145,18 +148,18 @@
 							</ul></li>
 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon bi bi-clipboard-fill"></i>
 								<p>
-									게시판 관리 <i class="nav-arrow bi bi-chevron-right"></i>
+									관리 <i class="nav-arrow bi bi-chevron-right"></i>
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="/adminMain/notice" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+								<li class="nav-item"><a href="/adminNotice" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
 										<p>공지사항</p>
 								</a></li>
-								<li class="nav-item"><a href="./widgets/info-box.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+								<li class="nav-item"><a href="/adminEvent" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
 										<p>이벤트</p>
 								</a></li>
-								<li class="nav-item"><a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>기타</p>
+								<li class="nav-item"><a href="/adminMemberList" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+										<p>회원정보</p>
 								</a></li>
 							</ul></li>
 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon bi bi-box-seam-fill"></i>
@@ -197,7 +200,7 @@
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="./UI/general.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+								<li class="nav-item"><a href="/adminHistory" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
 										<p>결제내역</p>
 								</a></li>
 								<li class="nav-item"><a href="./UI/timeline.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>

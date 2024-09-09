@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper
+	namespace="com.tenco.movie.repository.interfaces.DateManagerRepocitory">
+
+	<!-- 매치신청 기다리기 -->
+	<insert id="movieSuggest">
+		INSERT INTO matching_tb(s_user_id, r_user_id) VALUES
+		( #{userId}, #{partNerId} )
+	</insert>
+
+	<select id="matchingList"
+		resultType="com.tenco.movie.repository.model.DateProfile">
+
+		SELECT p.*, m.status
+		FROM profile_tb p
+		JOIN matching_tb m
+		ON p.user_id = m.r_user_id
+		WHERE m.s_user_id = #{principalId};
+
+	</select>
+
+
+</mapper>

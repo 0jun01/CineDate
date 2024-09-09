@@ -18,4 +18,6 @@ public interface ProfileRepository {
 	
 	public List<DateProfile> searchPartner(@Param("userId")int userId,@Param("gender")String gender);
 	
+	public DateProfile detailPartner(@Param("userId")int userId, @Param("id")int id);
+	
 }

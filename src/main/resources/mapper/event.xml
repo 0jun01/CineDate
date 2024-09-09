@@ -8,6 +8,20 @@
 		resultType="com.tenco.movie.repository.model.Event">
 		select * from event_tb
 	</select>
+	
+	<select id="findNow"
+		resultType="com.tenco.movie.repository.model.Event">
+		select * from event_tb where end_date > now()
+	</select>
+
+	<select id="findEnd"
+		resultType="com.tenco.movie.repository.model.Event">
+		 <![CDATA[
+        SELECT * 
+        FROM event_tb 
+        WHERE end_date < NOW()
+        ]]>
+	</select>
 
 	<select id="findById"
 		resultType="com.tenco.movie.repository.model.Event">

@@ -17,5 +17,10 @@ public interface NoticeRepository {
 	public int countNotice();
 	
 	
+	public int insert(Notice notice); // 공지사항 작성
+	public int updateById(Notice notice); // 공지사항 수정
+	public int deleteById(int id); // 공지사항 삭제
+	
+	
 }
 

@@ -297,8 +297,11 @@ table, th, td {
 	align-items: center;
 	justify-content: center;
 }
-
+.box--contents{
+	display: flex;
+}
 .profile--img .thumb--image img {
+	display: flex;
 	width: 100%; /* 너비에 맞추어 크기 조정 */
 	height: auto; /* 비율 유지 */
 	object-fit: cover; /* 이미지가 박스를 완전히 채우도록 */
@@ -327,11 +330,12 @@ table, th, td {
 }
 
 .evt--area--menu {
-	margin-top: 10px;
-	display: flex;
-	justify-content: space-around;
-	font-size: large;
-	margin-bottom: 30px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: end;
+    font-size: large;
+    margin-bottom: 30px;
+    margin-right: 5%;
 }
 
 .evt--prize {
@@ -412,6 +416,20 @@ table, th, td {
     gap: 40px; 
     border: 1px solid #ddd; 
     padding: 15px; 
+    border-radius: 5px; 
+}
+/*공지*/
+.page--btn--a{
+	display: flex;
+	justify-content: center;
+	gap: 40px; 
+}
+.page--item{
+	display: flex; 
+    flex-direction: row; 
+    gap: 40px; 
+    border: 1px solid #ddd; 
+    padding: 10px; 
     border-radius: 5px; 
 }
 
