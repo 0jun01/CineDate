@@ -158,6 +158,10 @@
 let selectedMovieId = null;
 let selectedDate1 = null;
 document.addEventListener('DOMContentLoaded', function() {
+	
+	if (selectedMovieId && selectedDate1) {
+        fetchSubRegionShowtimes();
+    }
     document.getElementById('sortByKorean').addEventListener('click', function() {
         fetchMovies('korean');
     });
