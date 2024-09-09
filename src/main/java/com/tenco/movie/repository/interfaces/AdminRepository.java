@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.Event;
 import com.tenco.movie.repository.model.History;
 import com.tenco.movie.repository.model.HistoryTimeLine;
@@ -55,6 +56,12 @@ public interface AdminRepository {
 	
 	public List<HistoryTimeLine> countAdminHistory();
 	public List<History> findHistoryAll();
+	
+	// ------------------------------------------- profile -------------
+	public List<DateProfile> readProfileList(@Param("search")String search, @Param("limit") int limit, @Param("offset") int offset);
+	public int countAdminProfileList(@Param("search")String search);
+	public DateProfile searchProfileById(int id);
+	public int lifeStatusUpdate(@Param("status")int status,@Param("id")int id);
 	
 }
 

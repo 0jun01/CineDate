@@ -37,56 +37,66 @@ public class DateController {
 	private final DateProfileService dateService;
 
 	private final PaymentService payservice;
-	
+
 	@Autowired
 	private final DateManagerService dateManagerService;
-	
 
 	/**
 	 * 데이트 페이지 요청
+	 * 
 	 * @author 배병호 principal 기준으로 회원가입 페이지 date page or 회원가입 페이지 전화
 	 * @author 김가령
 	 */
 	@GetMapping("/date")
-	public String getDatePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,Model model, RedirectAttributes redirectAttributes) {
+	public String getDatePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model,
+			RedirectAttributes redirectAttributes) {
 		/**
 		 * 데이트 페이지 들어갈때 로그인 안되있으면 로그인 하라고 방어코드 추가함
+		 * 
 		 * @author 성후
 		 */
-				if (principal == null) {
-		            redirectAttributes.addFlashAttribute(Define.ENTER_YOUR_LOGIN, HttpStatus.BAD_REQUEST);
-		            return "redirect:/user/signIn"; // 로그인으로 리다이렉트
-		        }
-	
-		DateProfile prifile = dateService.searchProfile(principal.getId());
-		if (prifile == null) {
-			return "date/DateSignUp";
+		if (principal == null) {
+			redirectAttributes.addFlashAttribute(Define.ENTER_YOUR_LOGIN, HttpStatus.BAD_REQUEST);
+			return "redirect:/user/signIn"; // 로그인으로 리다이렉트
 		}
+
+		DateProfile proifile = dateService.searchProfile(principal.getId());
+		if (proifile == null) {
+			return "date/DateSignUp";
+		} else if(proifile.getLifeStatus() == 1) {
+			throw new DataDeliveryException(Define.PROFILE_SUSPENDING, HttpStatus.BAD_REQUEST);
+		}
+		
+		
+		
 		List<DateProfile> list = dateService.searchPartner(principal.getId(), principal.getGender());
 		System.out.println(list);
-		
-		
+
 		model.addAttribute("list", list);
-		
+
 		return "date/ProfileList";
 	}
+
 	/**
 	 * 데이트페이지 정보수정 이동
+	 * 
 	 * @author 성후
 	 */
 	@GetMapping("/profilePage")
 	public String getProfilePage(@SessionAttribute(Define.PRINCIPAL) User principal, Model model) {
-	    DateProfile profile = dateService.searchProfile(principal.getId());
-	    if (profile == null) {
-	        return "date/DateSignUp";
-	    }
-	    String imageUrl = "/DateProfileIMAGE/" + profile.getFirstUploadFileName();
-	    model.addAttribute("profile", profile);
-	    model.addAttribute("imageUrl", imageUrl);  
-	    return "date/profilePage";
+		DateProfile profile = dateService.searchProfile(principal.getId());
+		if (profile == null) {
+			return "date/DateSignUp";
+		}
+		String imageUrl = "/DateProfileIMAGE/" + profile.getFirstUploadFileName();
+		model.addAttribute("profile", profile);
+		model.addAttribute("imageUrl", imageUrl);
+		return "date/profilePage";
 	}
+
 	/**
 	 * 데이트페이지 수정
+	 * 
 	 * @author 성후
 	 * @param nickName
 	 * @param introduce
@@ -101,34 +111,25 @@ public class DateController {
 	 * @throws IOException
 	 */
 	@PostMapping("/updateProfile")
-	public String updateProfile(
-			 @RequestParam("nickname") String nickName,
-		        @RequestParam("introduce") String introduce,
-		        @RequestParam(name = "profile_upload_file6") MultipartFile file1,
-		        @RequestParam(name = "profile_upload_file2") MultipartFile file2,
-		        @RequestParam(name = "profile_upload_file3") MultipartFile file3,
-		        @RequestParam(name =  "profile_upload_file4") MultipartFile file4,
-		        @RequestParam(name =  "profile_upload_file5") MultipartFile file5,
-		        @SessionAttribute(Define.PRINCIPAL)User principal) throws IOException {
+	public String updateProfile(@RequestParam("nickname") String nickName, @RequestParam("introduce") String introduce,
+			@RequestParam(name = "profile_upload_file6") MultipartFile file1,
+			@RequestParam(name = "profile_upload_file2") MultipartFile file2,
+			@RequestParam(name = "profile_upload_file3") MultipartFile file3,
+			@RequestParam(name = "profile_upload_file4") MultipartFile file4,
+			@RequestParam(name = "profile_upload_file5") MultipartFile file5,
+			@SessionAttribute(Define.PRINCIPAL) User principal) throws IOException {
 
 //	    if (principal.getId() != userId) {
 //	        return ""; // 적절한 에러 페이지 URL로 수정
 //	    }
-		DateProfileDTO update = DateProfileDTO.builder()
-													.nickName(nickName)
-													.introduce(introduce)
-													.mFileOne(file1)
-													.mFileTwo(file2)
-													.mFile3(file3)
-													.mFile4(file4)
-													.mFile5(file5)
-													.build();
+		DateProfileDTO update = DateProfileDTO.builder().nickName(nickName).introduce(introduce).mFileOne(file1)
+				.mFileTwo(file2).mFile3(file3).mFile4(file4).mFile5(file5).build();
 
-	    dateService.updateProfile(update, principal.getId());
+		dateService.updateProfile(update, principal.getId());
 
-	    return "redirect:/date/date";
+		return "redirect:/date/date";
 	}
-	
+
 	/**
 	 * @author 성후
 	 * @param principal
@@ -142,36 +143,28 @@ public class DateController {
 	public String postDateSignUp(@SessionAttribute(Define.PRINCIPAL) User principal,
 			@RequestParam(name = "mFileOne") MultipartFile mFileOne,
 			@RequestParam(name = "mFileTwo") MultipartFile mFileTwo,
-			@RequestParam(name = "mFile3") MultipartFile mFile3,
-			@RequestParam(name = "mFile4") MultipartFile mFile4,
-			@RequestParam(name = "mFile5") MultipartFile mFile5,
-			@RequestParam(name = "nickName") String nickName,
+			@RequestParam(name = "mFile3") MultipartFile mFile3, @RequestParam(name = "mFile4") MultipartFile mFile4,
+			@RequestParam(name = "mFile5") MultipartFile mFile5, @RequestParam(name = "nickName") String nickName,
 			@RequestParam(name = "introduce") String introduce) {
 
 		if (nickName == null || nickName.isEmpty()) {
 			throw new DataDeliveryException("닉네임을 입력하세요", HttpStatus.BAD_REQUEST);
 		}
-		
-		
-		
-		
 
-		DateProfileDTO dto = 
-				DateProfileDTO.builder().nickName(nickName).introduce(introduce).mFileOne(mFileOne)
+		DateProfileDTO dto = DateProfileDTO.builder().nickName(nickName).introduce(introduce).mFileOne(mFileOne)
 				.mFileTwo(mFileTwo).mFile3(mFile3).mFile4(mFile4).mFile5(mFile5).build();
 
 		dateService.createdProfile(principal, dto);
 
 		return "redirect:/date/date";
 	}
-	
+
 	@GetMapping("/popcornStore")
 	public String postPopcornStore() {
-		
-		
+
 		return "date/popcornStore";
 	}
-	
+
 	/**
 	 * 팝콘 -> 토스로 충전
 	 * 
@@ -187,10 +180,10 @@ public class DateController {
 		int conCount = Integer.parseInt(popcorn);
 
 		int amount = 100 * conCount;
-		String orderId = payservice.getOderId(); /// 6~ 64 
+		String orderId = payservice.getOderId(); /// 6~ 64
 		String orderName = "con";
 		String customerName = principal.getName();
-		
+
 		// 모델에 데이터 추가
 		model.addAttribute("amount", amount);
 		model.addAttribute("orderId", orderId);
@@ -199,30 +192,27 @@ public class DateController {
 
 		return "pay/tossPay";
 	}
-	
+
 	@GetMapping("/detailPartner")
-	public String getMethodName(@RequestParam(name = "id")int id, @RequestParam(name = "userId")int userId,
+	public String getMethodName(@RequestParam(name = "id") int id, @RequestParam(name = "userId") int userId,
 			Model model) {
-		
-		DateProfile detail = dateService.detailPartner(userId,id);
-		
+
+		DateProfile detail = dateService.detailPartner(userId, id);
+
 		model.addAttribute("userId", userId);
 		model.addAttribute("detail", detail);
-		
+
 		return "date/detailPartner";
 	}
-	
+
 	@GetMapping("/machingList")
-	public String getMethodName(@SessionAttribute(name =Define.PRINCIPAL)User principal, Model model) {
-		
-		
+	public String getMethodName(@SessionAttribute(name = Define.PRINCIPAL) User principal, Model model) {
+
 		List<DateProfile> list = dateManagerService.matchingList(principal.getId());
-		
+
 		model.addAttribute("list", list);
-		
+
 		return "date/matchingList";
 	}
-	
-	
-	
+
 }

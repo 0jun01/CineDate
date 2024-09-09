@@ -161,6 +161,11 @@
 								<li class="nav-item"><a href="/adminMemberList" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
 										<p>회원정보</p>
 								</a></li>
+								<li class="nav-item"><a href="/adminProfileList" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+										<p>프로필 정보</p>
+								</a></li>
+								
+								
 							</ul></li>
 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon bi bi-box-seam-fill"></i>
 								<p>
@@ -205,6 +210,9 @@
 								</a></li>
 								<li class="nav-item"><a href="./UI/timeline.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
 										<p>결제top10</p>
+								</a></li>
+								<li class="nav-item"><a href="/adminCancelHistory" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+										<p>결제 취소 내역</p>
 								</a></li>
 							</ul></li>
 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon bi bi-pencil-square"></i>

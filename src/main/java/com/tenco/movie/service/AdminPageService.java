@@ -14,6 +14,7 @@ import com.tenco.movie.dto.NoticeWriterDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.AdminRepository;
+import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.Event;
 import com.tenco.movie.repository.model.History;
 import com.tenco.movie.repository.model.HistoryTimeLine;
@@ -246,6 +247,35 @@ public class AdminPageService {
 	
 	public List<History> readAllHistory(){
 		return adminRepository.findHistoryAll(); 
+	}
+	
+//=========================== profile ===============================
+	public List<DateProfile> readProfileList(String search, int page, int size){
+		int limit = size;
+		int offset = (page - 1) * size;
+		return adminRepository.readProfileList(search, limit, offset);
+	}
+	
+	
+	public int countAdminProfileList(String search) {
+		return adminRepository.countAdminProfileList(search);
+	};
+	
+	
+	public DateProfile searchProfileById(int id) {
+		return adminRepository.searchProfileById(id);
+	}
+	
+	@Transactional
+	public int lifeStatusUpdate(int id) {
+		DateProfile user = adminRepository.searchProfileById(id);
+		
+		if (user.getLifeStatus() == 1) {
+			user.setLifeStatus(0);
+		} else if (user.getLifeStatus() == 0) {
+			user.setLifeStatus(1);
+		}
+		return adminRepository.lifeStatusUpdate(user.getLifeStatus(), id);
 	}
 	
 	
