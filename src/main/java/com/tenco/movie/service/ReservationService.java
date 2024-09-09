@@ -1,10 +1,12 @@
 package com.tenco.movie.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tenco.movie.dto.TheaterCountDTO;
 import com.tenco.movie.repository.interfaces.ReservationRepository;
 import com.tenco.movie.repository.model.MovieDetail;
 import com.tenco.movie.repository.model.MovieDetailTB;
@@ -136,5 +138,15 @@ public class ReservationService {
 		}
 		return movie;
 		
+	}
+
+	public List<TheaterCountDTO> fetchTheater(int movieId, String date) {
+		List<TheaterCountDTO> dto = null;
+		try {
+			dto = reservationRepository.findTheaterByMovieIdAndshowDate(movieId, date);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
 	}
 }
