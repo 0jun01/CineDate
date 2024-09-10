@@ -2,7 +2,10 @@ package com.tenco.movie.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,18 +13,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tenco.movie.dto.DateProfileDTO;
+import com.tenco.movie.dto.MessageDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.DateProfile;
+import com.tenco.movie.repository.model.Message;
 import com.tenco.movie.repository.model.User;
 import com.tenco.movie.service.DateManagerService;
 import com.tenco.movie.service.DateProfileService;
+import com.tenco.movie.service.MessageService;
 import com.tenco.movie.service.PaymentService;
 import com.tenco.movie.utils.Define;
 
@@ -35,12 +43,13 @@ public class DateController {
 
 	@Autowired
 	private final DateProfileService dateService;
-
+	@Autowired
 	private final PaymentService payservice;
 	
 	@Autowired
 	private final DateManagerService dateManagerService;
-	
+	@Autowired
+	private final MessageService messageService;
 
 	/**
 	 * 데이트 페이지 요청
@@ -222,7 +231,36 @@ public class DateController {
 		
 		return "date/matchingList";
 	}
-	
+	/**
+	 * 메세지기능
+	 * @author 성후
+	 * @param messageDTO
+	 * @return
+	 */
+	@PostMapping("/sendMessage")
+	public @ResponseBody Map<String, Object> sendMessage(@RequestBody MessageDTO messageDTO, @SessionAttribute(Define.PRINCIPAL) User principal) {
+	    Map<String, Object> response = new HashMap<>();
+	    try {
+	    	
+	    	System.out.println("messageDTO 오나: " + messageDTO); // 데이터 확인
+	        System.out.println("Principal 오나: " + principal); // 세션에서의 사용자 정보 확인
+	    	
+	        Message message = new Message();
+	        message.setSenderId(principal.getId()); // 발신자 ID
+	        message.setRecipientId(messageDTO.getRecipientId()); // 수신자 ID
+	        message.setMessage(messageDTO.getMessage()); // 메시지 내용
+	        message.setTimestamp(LocalDateTime.now()); // 타임스탬프
+	        
+	        System.out.println("여기는 컨트롤러 메세지 들어오나: " + message); // 로그 추가
+	        
+	        messageService.save(message);
+	        response.put("success", true);
+	    } catch (Exception e) {
+	        response.put("success", false);
+	        response.put("error", e.getMessage());
+	    }
+	    return response;
+	}
 	
 	
 }
