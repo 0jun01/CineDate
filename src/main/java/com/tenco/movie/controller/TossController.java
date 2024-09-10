@@ -98,22 +98,6 @@ public class TossController {
 		return "user/signUp";
 	}
 
-	// 토스 결제 취소
-	@GetMapping("/cancel")
-	public String cancelToss() throws IOException, InterruptedException {
-
-		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("https://api.tosspayments.com/v1/payments/tviva20240902175023zZOP5/cancel")) //paymentKey
-				// 시크릿 키를 Basic Authorization 방식으로 base64를 이용하여 인코딩하여 꼭 보내야함
-				.header("Authorization", "Basic dGVzdF9za19lcVJHZ1lPMXI1UDdFZ0RLd05KYlZRbk4yRXlhOg==")
-				.header("Content-Type", "application/json")
-				.method("POST", HttpRequest.BodyPublishers.ofString("{\"cancelReason\":\"고객이 취소를 원함\"}")).build(); 
-		HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-		System.out.println(response.body());
-		
-		
-		
-		return null;
-	}
+	
 
 }

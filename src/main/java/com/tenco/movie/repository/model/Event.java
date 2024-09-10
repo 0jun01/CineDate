@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +24,7 @@ public class Event {
 	private Timestamp createdAt; 
 	private Timestamp releaseDate; // 이벤트 시작일자
 	private Timestamp endDate; // 이벤트 종료일자
+	
 	private String originFileName; // 이벤트 이미지 파일명
 	private String uploadFileName; // 이벤트 이미지 업로드 파일명
 	// 시간 포맷
@@ -46,4 +49,6 @@ public class Event {
             return "종료됨";
         }
     }
+    
+
 }

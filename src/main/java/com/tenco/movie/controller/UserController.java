@@ -62,6 +62,7 @@ public class UserController {
 	 */
 	@GetMapping("/signIn")
 	public String signIn() {
+		session.invalidate();
 		return "user/signIn";
 	}
 

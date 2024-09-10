@@ -64,7 +64,10 @@
 										
 										</div>
 										<div class="timeline-footer">
-											<a class="btn btn-primary btn-sm">자세히보기</a> <a class="btn btn-danger btn-sm">환불</a>
+											<a class="btn btn-primary btn-sm">자세히보기</a> 
+											<form action="/cancel" method="POST">
+											<button class="btn btn-danger btn-sm" name="payId" value="${history.id}" disabled="disabled">환불</button>
+											</form>
 										</div>
 									</div>
 									</c:when>

@@ -2,6 +2,8 @@ package com.tenco.movie.dto;
 
 import java.sql.Timestamp;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.tenco.movie.repository.model.Event;
 
 import lombok.AllArgsConstructor;
@@ -23,16 +25,17 @@ public class EventWriterDTO {
 	private Timestamp createdAt;
 	private Timestamp releaseDate;
 	private Timestamp endDate;
+	private MultipartFile mFileOne;
 	private String originFileName;
 	private String uploadFileName;
 	
 	public Event toWrite() {
 		return Event.builder()
-				.title(this.title)
-				.releaseDate(this.releaseDate)
-				.endDate(this.endDate)
-				.originFileName(this.originFileName)
-				.uploadFileName(this.uploadFileName)
+				.title(title)
+				.releaseDate(releaseDate)
+				.endDate(endDate)
+				.originFileName(originFileName)
+				.uploadFileName(uploadFileName)
 				.build();
 	}
 }

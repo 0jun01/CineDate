@@ -32,7 +32,7 @@
 				<div class="col-12">
 					<!-- Default box -->
 					<div class="card">
-						<form action="/adminEventSend" method="post" enctype="multipart/form-data">
+						<form action="/adminEventSend" method="post">
 							<div class="card-header">
 								<div style="display: flex; flex-direction: row;">
 									<input type="text" class="card-title col-9" placeholder="제목을 입력하세요" name="title" id="title"> &nbsp;&nbsp;&nbsp;
@@ -42,14 +42,13 @@
 											max="9999-12-31" class="col-md-4">
 									</div>
 								</div>
-								<br>
-								<div>
-									파일 : <input type="file"name="file" accept="jpeg, png, gif, jpg"/>
-								</div>
+
 
 							</div>
 							<div class="card-body">
-								<img class="img-box" name="img-box">
+								<label for="mFileOne"> <img id="img_eventimage1" src="/img/Basic.jpg" alt="프로필 사진" onclick="document.getElementById('event_upload_file1').click();"
+									> <input type="file" id="event_upload_file1" name="mFileOne" title="내용" onchange="previewImage(this, 'img_eventimage1')" style="display: none;">
+								</label>
 							</div>
 							<!-- /.card-body -->
 							<div class="card-footer">
@@ -70,11 +69,31 @@
 
 </main>
 <!--end::App Main-->
+<script type="text/javascript">
+	function previewImage(input, imgId) {
+		var file = input.files[0];
+		var img = document.getElementById(imgId);
 
+		if (file) {
+			var reader = new FileReader();
+
+			reader.onload = function(e) {
+				img.src = e.target.result; // 미리보기 이미지 업데이트
+			};
+
+			reader.readAsDataURL(file);
+		} else {
+			img.src = '/img/Basic.jpg'; // 파일이 선택되지 않은 경우 기본 이미지로 설정
+		}
+	}
+</script>
 
 
 </div>
 </div>
 </div>
+
+
 <!-- end of content.jsp(xxx.jsp) -->
 <%@ include file="/WEB-INF/view/layout/adminFooter.jsp"%>
+

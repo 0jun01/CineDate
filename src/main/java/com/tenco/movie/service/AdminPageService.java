@@ -1,31 +1,40 @@
 package com.tenco.movie.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
 import java.lang.management.RuntimeMXBean;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.tenco.movie.dto.EventWriterDTO;
 import com.tenco.movie.dto.NoticeWriterDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.AdminRepository;
+import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.Event;
 import com.tenco.movie.repository.model.History;
 import com.tenco.movie.repository.model.HistoryTimeLine;
 import com.tenco.movie.repository.model.Notice;
 import com.tenco.movie.repository.model.User;
-
+import com.tenco.movie.utils.Define;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -38,6 +47,11 @@ public class AdminPageService {
 
 	@Autowired
 	private AdminRepository adminRepository;
+	
+	
+	@Value("${file.upload-dir}")
+	private String uploadDir;
+	
 	
 	//-----------------------------------------------
 	//메인 시작
@@ -175,21 +189,49 @@ public class AdminPageService {
 	public void createEvent(EventWriterDTO dto) { // 이벤트 작성
 		int result = 0;
 		
-		try {
-	
+		if(dto.getMFileOne() != null && !dto.getMFileOne().isEmpty()) {
+			String[] fileNames = uploadFile(dto.getMFileOne());
+			dto.setOriginFileName(fileNames[0]);
+			dto.setUploadFileName(fileNames[1]);
 			
-			result = adminRepository.insertEvent(dto.toWrite());
-		} catch (DataDeliveryException e) {
-			throw new DataDeliveryException("잘못된 요청입니다", HttpStatus.INTERNAL_SERVER_ERROR);
-		}catch (Exception e) {
-			throw new RedirectException("알 수 없는 오류 입니다", HttpStatus.SERVICE_UNAVAILABLE);
+		}
+		result = adminRepository.insertEvent(dto.toWrite());
+		
+		if(result != 1) {
+			throw new DataDeliveryException(Define.FAIL_TO_CREATE_USER, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+	
+	private String[] uploadFile(MultipartFile mFile) {
+		
+		if(mFile.getSize() > Define.MAX_FILE_SIZE) {
+			throw new DataDeliveryException(Define.FILE_SIZE_EXCEEDED, HttpStatus.BAD_REQUEST);
+		}
+		String saveDriectory = uploadDir;
+		
+		String uploadFileName = UUID.randomUUID() + "_" + mFile.getOriginalFilename();
+		String uploadPath = saveDriectory + File.separator + uploadFileName;
+		
+		File destination = new File(uploadPath);
+		
+		Path uploadPath1 = Paths.get(uploadDir);
+		if(!Files.exists(uploadPath1)) {
+			try {
+				Files.createDirectories(uploadPath1);
+			} catch (Exception e) {
+				throw new DataDeliveryException(Define.UPLOAD_DIR_CREATION_FAILED,HttpStatus.INTERNAL_SERVER_ERROR);
+			}
 		}
 		
-		if(result == 0) {
-			throw new DataDeliveryException("정상 처리 되지 않았습니다", HttpStatus.INTERNAL_SERVER_ERROR);
+		try {
+			mFile.transferTo(destination);
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+			throw new DataDeliveryException(Define.FILE_UPLOAD_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		
+		return new String[] {mFile.getOriginalFilename(),uploadFileName};
 	}
 	
 	
@@ -275,6 +317,35 @@ public class AdminPageService {
 	
 	public List<History> readAllHistory(){
 		return adminRepository.findHistoryAll(); 
+	}
+	
+//=========================== profile ===============================
+	public List<DateProfile> readProfileList(String search, int page, int size){
+		int limit = size;
+		int offset = (page - 1) * size;
+		return adminRepository.readProfileList(search, limit, offset);
+	}
+	
+	
+	public int countAdminProfileList(String search) {
+		return adminRepository.countAdminProfileList(search);
+	};
+	
+	
+	public DateProfile searchProfileById(int id) {
+		return adminRepository.searchProfileById(id);
+	}
+	
+	@Transactional
+	public int lifeStatusUpdate(int id) {
+		DateProfile user = adminRepository.searchProfileById(id);
+		
+		if (user.getLifeStatus() == 1) {
+			user.setLifeStatus(0);
+		} else if (user.getLifeStatus() == 0) {
+			user.setLifeStatus(1);
+		}
+		return adminRepository.lifeStatusUpdate(user.getLifeStatus(), id);
 	}
 	
 	
