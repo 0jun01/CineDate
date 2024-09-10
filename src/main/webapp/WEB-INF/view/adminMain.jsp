@@ -47,7 +47,7 @@
 								<span class="info-box-icon text-bg-danger shadow-sm"> <i class="bi bi-hand-thumbs-up-fill"></i>
 								</span>
 								<div class="info-box-content">
-									<span class="info-box-text">리뷰 수</span> <span class="info-box-number">41,410</span>
+									<span class="info-box-text">리뷰 수</span> <span class="info-box-number">${reviewCount}</span>
 								</div>
 								<!-- /.info-box-content -->
 							</div>
@@ -61,7 +61,7 @@
 								<span class="info-box-icon text-bg-success shadow-sm"> <i class="bi bi-cart-fill"></i>
 								</span>
 								<div class="info-box-content">
-									<span class="info-box-text">판매 수</span> <span class="info-box-number">760</span>
+									<span class="info-box-text">판매 수</span> <span class="info-box-number">${sellCount}</span>
 								</div>
 								<!-- /.info-box-content -->
 							</div>
@@ -73,7 +73,7 @@
 								<span class="info-box-icon text-bg-warning shadow-sm"> <i class="bi bi-people-fill"></i>
 								</span>
 								<div class="info-box-content">
-									<span class="info-box-text">신규 회원가입수</span> <span class="info-box-number">2,000</span>
+									<span class="info-box-text">회원 수</span> <span class="info-box-number">${memberCount}</span>
 								</div>
 								<!-- /.info-box-content -->
 							</div>

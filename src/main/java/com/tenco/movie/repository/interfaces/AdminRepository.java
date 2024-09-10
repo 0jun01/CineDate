@@ -14,6 +14,13 @@ import com.tenco.movie.repository.model.User;
 @Mapper
 public interface AdminRepository {
 	
+	public int reviewAdminCount();
+	public int sellAdminCount();
+	
+	
+	//-------------------------------------------------
+	
+	
 	public List<Notice> findAll(); // 공지사항 리스트 조회
 	public int insertAdmin(Notice notice); // 공지사항 작성
 	public int updateAdminById(Notice notice); // 공지사항 수정
@@ -55,6 +62,9 @@ public interface AdminRepository {
 	
 	public List<HistoryTimeLine> countAdminHistory();
 	public List<History> findHistoryAll();
+
+
+	
 	
 }
 

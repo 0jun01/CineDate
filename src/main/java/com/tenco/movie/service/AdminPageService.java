@@ -1,7 +1,13 @@
 package com.tenco.movie.service;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.OperatingSystemMXBean;
+import java.lang.management.RuntimeMXBean;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -20,6 +26,10 @@ import com.tenco.movie.repository.model.HistoryTimeLine;
 import com.tenco.movie.repository.model.Notice;
 import com.tenco.movie.repository.model.User;
 
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -29,6 +39,25 @@ public class AdminPageService {
 	@Autowired
 	private AdminRepository adminRepository;
 	
+	//-----------------------------------------------
+	//메인 시작
+	
+	public int countReview() {
+		return adminRepository.reviewAdminCount();
+	}
+
+	public int countSell() {
+		return adminRepository.sellAdminCount();
+	}
+	
+	public int countMember() {
+		return adminRepository.countAdminMemberAll();
+	}
+	
+	
+	//메인 끝
+	//------------------------------------------------
+	//공지시작
 	@Transactional
 	public void createNotice(NoticeWriterDTO dto) { // 공지 글쓰기
 		int result = 0;

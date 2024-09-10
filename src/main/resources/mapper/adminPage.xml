@@ -3,6 +3,16 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tenco.movie.repository.interfaces.AdminRepository">
 
+	<select id = "reviewAdminCount" resultType="int">
+		select count(*) from review_tb
+	</select>
+
+	<select id = "sellAdminCount" resultType="int">
+		select count(*) from toss_hitory_tb
+	</select>
+
+	<!-- =================================================================  -->
+
 	<select id="findAll" resultType="com.tenco.movie.repository.model.Notice">
 		select * from notice_tb order by id desc;
 	</select>

@@ -63,6 +63,13 @@ public class AdminPageController {
 		
 		User user = userService.getUserById(name);
 		
+		int reviewCount = adminPageService.countReview();
+		int sellCount = adminPageService.countSell();
+		int memberCount = adminPageService.countMember();
+		
+		model.addAttribute("sellCount",sellCount);
+		model.addAttribute("reviewCount",reviewCount);
+		model.addAttribute("memberCount", memberCount);
 		model.addAttribute("user", user);
 		
 		
