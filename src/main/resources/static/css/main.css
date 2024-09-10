@@ -24,10 +24,12 @@ body {
 .btn, select {
 	cursor: pointer;
 }
-button{
+
+button {
 	font-family: 'NanumSquareNeoBold';
 	cursor: pointer;
 }
+
 ::placeholder {
 	color: #bababa;
 }
@@ -36,33 +38,28 @@ button{
 	background-color: #ff2588;
 	color: #fff;
 }
+
 input:-internal-autofill-selected {
-    appearance: menulist-button;
-    background-image: none !important;
-    background-color: #efefef !important;
-    color: #999 !important;
+	appearance: menulist-button;
+	background-image: none !important;
+	background-color: #efefef !important;
+	color: #999 !important;
 }
+
 .eng {
 	font-family: 'Tium';
 }
-.pointFont{
+
+.pointFont {
 	font-family: 'Paperlogy-8ExtraBold';
 }
+
 .text-center {
 	text-align: center;
 }
 
 .text-left {
 	text-align: left;
-}
-
-#wrap {
-	position: relative;
-}
-
-#in--wrap {
-	width: 980px;
-	margin: auto;
 }
 
 .flex--wrap {
@@ -82,9 +79,11 @@ input:-internal-autofill-selected {
 	display: flex;
 	flex-direction: column;
 }
-.flex--center{
+
+.flex--center {
 	align-items: center;
 }
+
 .login--wrap input {
 	margin-bottom: 15px;
 }
@@ -207,7 +206,7 @@ label {
 	padding: 10px;
 }
 
-.email--certification{
+.email--certification {
 	display: flex;
 }
 
@@ -252,9 +251,10 @@ label {
 	left: 50%;
 	transform: translate(-50%, -74%) rotate(45deg);
 }
-.find--result{
-    font-size: 16px;
-    margin-bottom: 30px;
+
+.find--result {
+	font-size: 16px;
+	margin-bottom: 30px;
 }
 
 table, th, td {

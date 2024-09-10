@@ -40,6 +40,7 @@ public interface UserRepository {
 	// 이메일 중복 검사
 	public User findByEmail(@Param("email") String email);
 
+	// 이메일 발송
 	public Optional<User> findByEmails(@Param("email") String email);
 
 	// 휴대폰 번호 중복 검사 
