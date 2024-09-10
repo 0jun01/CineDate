@@ -23,9 +23,29 @@
 			              const loginIdElement = document.querySelector("#loginId");
 			              let isLoginIdChecked = false;
 			              duplicationId.addEventListener("click", function () {
+			            	 
+			            	// 빈칸 검사
+			            	const login = loginIdElement.value.trim();
+			                    if (!login) {
+			                        alert("아이디를 입력해주세요.");
+			                        return;
+			                    }
+			                    
+			                 // 글자 수 검사
+			                    if (login.length < 6 || login.length > 15) {
+			                        alert("아이디는 6자 이상 15자 이하로 입력해주세요.");
+			                        return;
+			                    }
+
+			                    // 영문자만 허용하는 정규 표현식
+			                    const alphanumericRegex = /^[a-zA-Z0-9]+$/;
+						        if (!alphanumericRegex.test(login)) {
+						            alert("아이디는 영문자와 숫자만 포함해야 합니다.");
+						            return;
+						        }
+			            	  
 			                const loginId = loginIdElement.value;
-			                const url = "http://localhost:8080/api-user/check-loginId?loginId=" +
-			                  loginId;
+			                const url = "http://localhost:8080/api-user/check-loginId?loginId=" + loginId;
 			                fetch(url)
 			                  .then((response) => response.json()) // 응답을 JSON 형식으로 반환
 			                  .then((isUse) => {
@@ -45,10 +65,11 @@
 			                      
 			                      verificationIdButton.disabled = true;
 			                      verificationIdButton.style.backgroundColor = "#d198b2";
-			                      isLoginIdChecked = true;
+			                      
 			                    } else {
-			                      loginIdResultElement.textContent = "사용불가능";
 			                      alert("중복된 아이디입니다.");
+			                      loginIdResultElement.textContent = "사용불가능";
+			                      isLoginIdChecked = false;
 			                    }
 			                  })
 			                  .catch((error) => {
@@ -78,8 +99,22 @@
 				              const duplicationEmail = document.querySelector("#duplicationEmail");
 				              const emailElement = document.querySelector("#email");
 				              let isEmailChecked = false;
-				
 				              duplicationEmail.addEventListener("click", function () {
+				            	  
+				            	  const emailDu = emailElement.value.trim();
+
+				                  // 유효성 검사
+				                  if (!emailDu) {
+				                      alert("이메일을 입력해주세요.");
+				                      return;
+				                  }
+				                  
+					              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+				                  if (!emailRegex.test(emailDu)) {
+				                      alert("유효한 이메일 주소를 입력해주세요.");
+				                      return;
+				                  }
+				                  
 				                const email = emailElement.value;
 				                const url = "http://localhost:8080/api-user/check-email?email=" + email;
 				                fetch(url)
@@ -99,11 +134,13 @@
 				                      verificationEmailButton.style.color = "#999";
 				                   
 				                      duplicationEmail.disabled = true;
-				                      duplicationEmail.style.backgroundColor = "#d198b2";
-				                      isEmailChecked = true;
+				                      duplicationEmail.style.backgroundColor = "#d198b2";                                                
+				                       
+				                      
 				                    } else {
-				                      emailResultElement.textContent = "사용불가능";
 				                      alert("중복된 이메일입니다.");
+				                      emailResultElement.textContent = "사용불가능";
+				                      isEmailChecked = false;
 				                    }
 				                  })
 				                  .catch((error) => {
@@ -281,8 +318,23 @@
       });
     
     document.querySelector("#signupForm").addEventListener("submit", function (event) {
+        // 아이디 및 이메일 필드 값 확인
+        const loginId = document.querySelector("#loginId").value.trim();
+        const email = document.querySelector("#email").value.trim();
+
+        if (!loginId) {
+            alert("아이디를 입력해주세요.");
+            event.preventDefault(); // 폼 제출 방지
+            return;
+        }
+
+        if (!email) {
+            alert("이메일 주소를 입력해주세요.");
+            event.preventDefault(); // 폼 제출 방지
+            return;
+        }
+
         // 아이디 중복 확인 상태
-        console.log("들어왔냐;");
         if (!isLoginIdChecked) {
             alert("아이디 중복 확인을 해주세요.");
             event.preventDefault(); // 폼 제출 방지

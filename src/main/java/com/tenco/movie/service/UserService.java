@@ -1,6 +1,7 @@
 package com.tenco.movie.service;
 
 import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -29,9 +30,6 @@ public class UserService {
 	
     @Autowired
     private FileStorageService fileStorageService;
-
-	// @Autowired
-	// private final PasswordEncoder passwordEncoder;
 
 	/**
 	 * 회원 가입 기능
@@ -175,14 +173,6 @@ public class UserService {
 			throw new DataDeliveryException(Define.NOT_VALIDATE_PASSWORD, HttpStatus.BAD_REQUEST);
 		}
 
-		// TODO - 비밀번호 암호화
-		// boolean isPwdMathched = passwordEncoder.matches(dto.getPassword(),
-		// userEntity.getPassword());
-		// if(isPwdMathched == false) {
-		// throw new DataDeliveryException(Define.NOT_VALIDATE_PASSWORD,
-		// HttpStatus.BAD_REQUEST);
-		// }
-
 		return userEntity;
 
 	}
@@ -217,22 +207,62 @@ public class UserService {
 	 * @return
 	 * @author 형정
 	 */
+	@Transactional
 	public User findByLoginIdForPassword(String loginId, String email) {
 
 		User userEntity = null;
 		try {
 			userEntity = userRepository.findByLoginIdForPassword(loginId, email);
-		} catch (DataAccessException e) {
-			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.INTERNAL_SERVER_ERROR);
-		} catch (Exception e) {
-			throw new DataDeliveryException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
-		}
 
-		if (userEntity == null) {
-			throw new DataDeliveryException("등록된 정보가 없습니다. 다시 확인해주세요.", HttpStatus.BAD_REQUEST);
-		}
+			if (userEntity == null) {
+				throw new DataDeliveryException("등록된 정보가 없습니다. 다시 확인해주세요.", HttpStatus.BAD_REQUEST);
+			}
+			
+			// 랜덤 비밀번호 생성
+			String newPassword = randomPassword();
+			System.out.println("임시 비밀번호 : " + newPassword);
+			
+			userRepository.updatePassword(newPassword, loginId);
+			
+			} catch (DataAccessException e) {
+				throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.INTERNAL_SERVER_ERROR);
+			} catch (Exception e) {
+				throw new DataDeliveryException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
+			}
 
 		return userEntity;
+	}
+	/**
+	 * 비밀번호 랜덤키 발급
+	 * @return
+	 * @author 형정
+	 */
+	private static String randomPassword() {
+		
+		StringBuffer randomKey = new StringBuffer();
+		Random random = new Random();
+		
+		for(int i = 0; i < 10; i++) {
+			int index = random.nextInt(3);
+			
+			switch (index) {
+			case 0:
+				// a ~ z (1+97=98 => (char)98 = 'b')
+				randomKey.append((char) ((int) (random.nextInt(15)) + 97));
+				break;
+			case 1:
+				// a ~ z
+				randomKey.append((char) (int) (random.nextInt(26) + 65));
+				break;
+			case 2:
+				// 0 ~ 9
+				randomKey.append((random.nextInt(10)));
+				break;
+			}
+		}
+		
+		return randomKey.toString();
+		
 	}
 
 	/**
@@ -276,10 +306,10 @@ public class UserService {
 	/**
 	 * 이메일 인증 요청시 필요한 email
 	 * @param email
-	 * @return
+	 * @return	 
+	 * @author 형정
 	 */
 	public Optional<User> searchEmails(String email) {
-		System.out.println("이메일 여기 들어완니");
 		return userRepository.findByEmails(email);
 	}
 	

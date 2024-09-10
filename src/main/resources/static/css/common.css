@@ -36,7 +36,12 @@ button{
 	background-color: #ff2588;
 	color: #fff;
 }
-
+input:-internal-autofill-selected {
+    appearance: menulist-button;
+    background-image: none !important;
+    background-color: #efefef !important;
+    color: #999 !important;
+}
 .eng {
 	font-family: 'Tium';
 }

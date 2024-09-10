@@ -62,4 +62,9 @@
 		select * from user_tb where name = #{name}
 	</select>
 	
+	<!-- 비밀번호 업데이트 -->
+	<update id="updatePassword">
+		update user_tb set password = #{password} where login_id = #{loginId}
+	</update>
+	
 </mapper>

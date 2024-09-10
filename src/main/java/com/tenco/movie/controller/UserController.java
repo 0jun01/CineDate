@@ -123,17 +123,6 @@ public class UserController {
 
 		System.out.println("회원가입 들어왔니?");
 
-//		// 아이디 유효성 검사
-//		// 아이디 비어져있을 때
-//		if (dto.getLoginId() == null || dto.getLoginId().trim().isEmpty()) {
-//			throw new DataDeliveryException(Define.ENTER_YOUR_ID, HttpStatus.BAD_REQUEST);
-//		}
-//		
-//		// 아이디 글자 제한
-//		if (dto.getLoginId().length() < 7 || dto.getLoginId().length() > 16) {
-//			throw new DataDeliveryException(Define.ENTER_ID_LENGTH, HttpStatus.BAD_REQUEST);
-//		}
-
 		// 이름 유효성 검사
 		// 이름 비어져있을 때
 		if (dto.getName() == null || dto.getName().trim().isEmpty()) {
@@ -166,27 +155,17 @@ public class UserController {
 			throw new DataDeliveryException(Define.NOT_VALIDATE_PASSWORD, HttpStatus.BAD_REQUEST);
 		}
 
-		// 이메일 유효성 검사
-		// 이메일이 없거나 빈칸일 때
-//		if (dto.getEmail() == null || dto.getEmail().trim().isEmpty()) {
-//			throw new DataDeliveryException(Define.ENTER_YOUR_EMAIL, HttpStatus.BAD_REQUEST);
-//		}
-
 		// 휴대폰 번호 유효성 검사
 		// 휴대폰 번호가 없거나 빈킨일 때
 		if (dto.getPhoneNum() == null || dto.getPhoneNum().trim().isEmpty()) {
 			throw new DataDeliveryException(Define.ENTER_YOUR_PHONE_NUM, HttpStatus.BAD_REQUEST);
 		}
+		
 		// 휴대폰 번호가 10~11자가 아닐 때
 		if (!dto.getPhoneNum().matches("\\d{10,11}")) {
 			throw new DataDeliveryException(Define.NOT_VALIDATE_PHONE_NUM, HttpStatus.BAD_REQUEST);
 		}
 
-		// 생일 유효성 검사
-//		if (dto.getBirthday() == null) {
-//			throw new DataDeliveryException(Define.ENTER_YOUR_BIRTH, HttpStatus.BAD_REQUEST);
-//		}
-		
 		// 성별 유효성 검사
 		if (dto.getGender() == null || (!dto.getGender().equals("여") && !dto.getGender().equals("남"))) {
 			throw new DataDeliveryException(Define.ENTER_YOUR_GENDER, HttpStatus.BAD_REQUEST);
@@ -222,7 +201,6 @@ public class UserController {
 		return "redirect:/user/myPage";
 	}
 	
-
 	/**
 	 * 아이디 찾기
 	 * @return
@@ -257,7 +235,7 @@ public class UserController {
 	 * @return
 	 */
 	@GetMapping("/findPassword")
-	public String findPasswrod() {
+	public String findPassword() {
 		
 		return "user/findPassword";
 	}

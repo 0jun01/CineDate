@@ -42,6 +42,7 @@ public interface UserRepository {
 	// 휴대폰 번호 중복 검사 
 	User isPhoneNumDuplicated(String phoneNum);
 	
-	
+	// 비밀번호 랜덤키 발급
+	public User updatePassword(@Param("password")String newPassword, @Param("loginId")String loginId);
 
 }
