@@ -97,7 +97,9 @@
 		AND sh.movie_id = #{movieId}
 		GROUP BY
 		r.id,
-		r.name;
+		sub.id,
+		r.name,
+		sub.name
 	</select>
 
 	<select id="findTimeByShowDateAndMovieIdAndSubregionId"
@@ -108,8 +110,11 @@
 		showtimes AS sh
 		LEFT JOIN screens_tb AS s ON s.id = sh.screen_id
 		LEFT JOIN theaters_tb AS t ON t.id = s.theater_id
-		LEFT JOIN subregions_tb AS sub ON sub.id = t.subregion_id
-		LEFT JOIN regions_tb AS r ON r.id = sub.region_id
-		where show_date = #{showDate} and movie_id = #{movieId} and subregion_id = #{subregionId}
+		LEFT JOIN
+		subregions_tb AS sub ON sub.id = t.subregion_id
+		LEFT JOIN regions_tb AS
+		r ON r.id = sub.region_id
+		where show_date = #{showDate} and movie_id =
+		#{movieId} and subregion_id = #{subregionId}
 	</select>
 </mapper>
