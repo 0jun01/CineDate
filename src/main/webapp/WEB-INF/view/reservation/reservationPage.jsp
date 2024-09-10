@@ -157,109 +157,109 @@
 				</li>
 			</ul>
 
+			<div class="container">
+				<div class="row">
+					<div class="row-label">A</div>
+					<div class="seat" data-seat="A1"></div>
+					<div class="seat" data-seat="A2"></div>
+					<div class="seat" data-seat="A3"></div>
+					<div class="seat" data-seat="A4"></div>
+					<div class="seat" data-seat="A5"></div>
+					<div class="seat" data-seat="A6"></div>
+					<div class="seat" data-seat="A7"></div>
+					<div class="seat" data-seat="A8"></div>
+					<div class="seat" data-seat="A9"></div>
+					<div class="seat" data-seat="A10"></div>
+					<div class="seat" data-seat="A11"></div>
+					<div class="seat" data-seat="A12"></div>
+					<div class="seat" data-seat="A13"></div>
+				</div>
 
-			<div class="row">
-				<div class="row-label">A</div>
-				<div class="seat" data-seat="A1"></div>
-				<div class="seat" data-seat="A2"></div>
-				<div class="seat" data-seat="A3"></div>
-				<div class="seat" data-seat="A4"></div>
-				<div class="seat" data-seat="A5"></div>
-				<div class="seat" data-seat="A6"></div>
-				<div class="seat" data-seat="A7"></div>
-				<div class="seat" data-seat="A8"></div>
-				<div class="seat" data-seat="A9"></div>
-				<div class="seat" data-seat="A10"></div>
-				<div class="seat" data-seat="A11"></div>
-				<div class="seat" data-seat="A12"></div>
-				<div class="seat" data-seat="A13"></div>
+				<div class="row">
+					<div class="row-label">B</div>
+					<div class="seat" data-seat="B1"></div>
+					<div class="seat" data-seat="B2"></div>
+					<div class="seat" data-seat="B3"></div>
+					<div class="seat" data-seat="B4"></div>
+					<div class="seat" data-seat="B5"></div>
+					<div class="seat" data-seat="B6"></div>
+					<div class="seat" data-seat="B7"></div>
+					<div class="seat" data-seat="B8"></div>
+					<div class="seat" data-seat="B9"></div>
+					<div class="seat" data-seat="B10"></div>
+					<div class="seat" data-seat="B11"></div>
+					<div class="seat" data-seat="B12"></div>
+					<div class="seat" data-seat="B13"></div>
+				</div>
+
+				<div class="row">
+					<div class="row-label">C</div>
+					<div class="seat" data-seat="C1"></div>
+					<div class="seat" data-seat="C2"></div>
+					<div class="seat" data-seat="C3"></div>
+					<div class="seat" data-seat="C4"></div>
+					<div class="seat" data-seat="C5"></div>
+					<div class="seat" data-seat="C6"></div>
+					<div class="seat" data-seat="C7"></div>
+					<div class="seat" data-seat="C8"></div>
+					<div class="seat" data-seat="C9"></div>
+					<div class="seat" data-seat="C10"></div>
+					<div class="seat" data-seat="C11"></div>
+					<div class="seat" data-seat="C12"></div>
+					<div class="seat" data-seat="C13"></div>
+				</div>
+
+				<div class="row">
+					<div class="row-label">D</div>
+					<div class="seat" data-seat="D1"></div>
+					<div class="seat" data-seat="D2"></div>
+					<div class="seat" data-seat="D3"></div>
+					<div class="seat" data-seat="D4"></div>
+					<div class="seat" data-seat="D5"></div>
+					<div class="seat" data-seat="D6"></div>
+					<div class="seat" data-seat="D7"></div>
+					<div class="seat" data-seat="D8"></div>
+					<div class="seat" data-seat="D9"></div>
+					<div class="seat" data-seat="D10"></div>
+					<div class="seat" data-seat="D11"></div>
+					<div class="seat" data-seat="D12"></div>
+					<div class="seat" data-seat="D13"></div>
+				</div>
+
+				<div class="row">
+					<div class="row-label">E</div>
+					<div class="seat" data-seat="E1"></div>
+					<div class="seat" data-seat="E2"></div>
+					<div class="seat" data-seat="E3"></div>
+					<div class="seat" data-seat="E4"></div>
+					<div class="seat" data-seat="E5"></div>
+					<div class="seat" data-seat="E6"></div>
+					<div class="seat" data-seat="E7"></div>
+					<div class="seat" data-seat="E8"></div>
+					<div class="seat" data-seat="E9"></div>
+					<div class="seat" data-seat="E10"></div>
+					<div class="seat" data-seat="E11"></div>
+					<div class="seat" data-seat="E12"></div>
+					<div class="seat" data-seat="E13"></div>
+				</div>
+
+				<div class="row">
+					<div class="row-label">F</div>
+					<div class="seat couple" data-seat="F1"></div>
+					<div class="seat couple" data-seat="F2"></div>
+					<div class="seat couple" data-seat="F3"></div>
+					<div class="seat couple" data-seat="F4"></div>
+					<div class="seat empty-seat"></div>
+					<div class="seat empty-seat"></div>
+					<div class="seat empty-seat"></div>
+					<div class="seat empty-seat"></div>
+					<div class="seat empty-seat"></div>
+					<div class="seat couple" data-seat="F10"></div>
+					<div class="seat couple" data-seat="F11"></div>
+					<div class="seat empty-seat"></div>
+					<div class="seat handicap" data-seat="F13"></div>
+				</div>
 			</div>
-
-			<div class="row">
-				<div class="row-label">B</div>
-				<div class="seat" data-seat="B1"></div>
-				<div class="seat" data-seat="B2"></div>
-				<div class="seat" data-seat="B3"></div>
-				<div class="seat" data-seat="B4"></div>
-				<div class="seat" data-seat="B5"></div>
-				<div class="seat" data-seat="B6"></div>
-				<div class="seat" data-seat="B7"></div>
-				<div class="seat" data-seat="B8"></div>
-				<div class="seat" data-seat="B9"></div>
-				<div class="seat" data-seat="B10"></div>
-				<div class="seat" data-seat="B11"></div>
-				<div class="seat" data-seat="B12"></div>
-				<div class="seat" data-seat="B13"></div>
-			</div>
-
-			<div class="row">
-				<div class="row-label">C</div>
-				<div class="seat" data-seat="C1"></div>
-				<div class="seat" data-seat="C2"></div>
-				<div class="seat" data-seat="C3"></div>
-				<div class="seat" data-seat="C4"></div>
-				<div class="seat" data-seat="C5"></div>
-				<div class="seat" data-seat="C6"></div>
-				<div class="seat" data-seat="C7"></div>
-				<div class="seat" data-seat="C8"></div>
-				<div class="seat" data-seat="C9"></div>
-				<div class="seat" data-seat="C10"></div>
-				<div class="seat" data-seat="C11"></div>
-				<div class="seat" data-seat="C12"></div>
-				<div class="seat" data-seat="C13"></div>
-			</div>
-
-			<div class="row">
-				<div class="row-label">D</div>
-				<div class="seat" data-seat="D1"></div>
-				<div class="seat" data-seat="D2"></div>
-				<div class="seat" data-seat="D3"></div>
-				<div class="seat" data-seat="D4"></div>
-				<div class="seat" data-seat="D5"></div>
-				<div class="seat" data-seat="D6"></div>
-				<div class="seat" data-seat="D7"></div>
-				<div class="seat" data-seat="D8"></div>
-				<div class="seat" data-seat="D9"></div>
-				<div class="seat" data-seat="D10"></div>
-				<div class="seat" data-seat="D11"></div>
-				<div class="seat" data-seat="D12"></div>
-				<div class="seat" data-seat="D13"></div>
-			</div>
-
-			<div class="row">
-				<div class="row-label">E</div>
-				<div class="seat" data-seat="E1"></div>
-				<div class="seat" data-seat="E2"></div>
-				<div class="seat" data-seat="E3"></div>
-				<div class="seat" data-seat="E4"></div>
-				<div class="seat" data-seat="E5"></div>
-				<div class="seat" data-seat="E6"></div>
-				<div class="seat" data-seat="E7"></div>
-				<div class="seat" data-seat="E8"></div>
-				<div class="seat" data-seat="E9"></div>
-				<div class="seat" data-seat="E10"></div>
-				<div class="seat" data-seat="E11"></div>
-				<div class="seat" data-seat="E12"></div>
-				<div class="seat" data-seat="E13"></div>
-			</div>
-
-			<div class="row">
-				<div class="row-label">F</div>
-				<div class="seat couple" data-seat="F1"></div>
-				<div class="seat couple" data-seat="F2"></div>
-				<div class="seat couple" data-seat="F3"></div>
-				<div class="seat couple" data-seat="F4"></div>
-				<div class="seat empty-seat"></div>
-				<div class="seat empty-seat"></div>
-				<div class="seat empty-seat"></div>
-				<div class="seat empty-seat"></div>
-				<div class="seat empty-seat"></div>
-				<div class="seat couple" data-seat="F10"></div>
-				<div class="seat couple" data-seat="F11"></div>
-				<div class="seat empty-seat"></div>
-				<div class="seat handicap" data-seat="F13"></div>
-			</div>
-
 			<p class="text">
 				선택한 좌석 수 <span id="count">0</span> <span id="total">0</span>원
 			</p>
@@ -276,7 +276,15 @@
 		<span>극장</span> <span class="theater"></span> <span>일시&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="choosen--date"></span> <span>상영관</span> <span class="room"></span> <span>인원</span>
 		<a href="javascript:void(0)" onclick="viewSeats()" id="seat--selection--btn" class="btn--right">좌석선택!!!!!!!!!!!!!!!!!</a>
 	</div>
+	
+	<div class="movie--seat--box">
+		<span>좌석명</span>
+		<span class="seat--type"></span>
+		<span>좌석번호</span>
+		<span class="seat--num"></span>
+	</div>
 </div>
+<script src="/js/seat.js"></script>
 <script>
 	
 let selectedMovieId = null;
@@ -738,6 +746,7 @@ function viewSeats(){
 }
 
 </script>
+
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
 </body>
 </html>
