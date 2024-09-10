@@ -54,10 +54,13 @@
 			<div class="top--title">
 				<a id="btn--all--view" class='btn--all--view'>전체보기</a>
 			</div>
+			<div>
 			<div class="movie--list--box">
 				<c:forEach var="movieList" items="${movieList}">
 					<div class="movie--text--box">
 						<img alt="" src="https://image.tmdb.org/t/p/w342/${movieList.movieImg}">
+							<a href="movie/detail?title=${movieList.title}" class="overlay-link">상세보기</a>
+							<a href="reservation/reservation" class="overlay-link">예매하기</a> 
 						<h3>${movieList.title}</h3>
 					</div>
 				</c:forEach>

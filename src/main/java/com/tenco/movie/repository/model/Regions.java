@@ -11,11 +11,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Actors {
-
-	private int id; // 액터 pk
-	private String name; // 배우 이름
-	private String role; // 직업
-	private String actorFaceFile; // 출연진 사진
-
+public class Regions {
+	private int id; // regions_tb 의 id
+	private String name; // 예: 서울, 경기, 부산~
 }

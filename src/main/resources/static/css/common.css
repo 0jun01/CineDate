@@ -291,7 +291,6 @@ table, th, td {
 	font-size: 36px;
 	margin-bottom: 20px;
 }
-
 /* 이미지 미리보기 박스 스타일 */
 .profile--img .thumb--image {
 	width: 100px; /* 고정된 너비 */

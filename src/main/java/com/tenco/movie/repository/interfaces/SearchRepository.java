@@ -12,5 +12,6 @@ public interface SearchRepository {
 
 	// 검색 리스트 불러오기
 	public List<Search> searchMoiveTitle(@Param("title")String title);
+	
 
 }

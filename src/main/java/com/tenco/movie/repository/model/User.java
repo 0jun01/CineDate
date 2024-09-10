@@ -22,8 +22,8 @@ public class User {
 	private String phoneNum;
 	private String birthDay;
 	private String gender;
-	
-	private int id;
+
+	private String id;
 	
 	private String username;
 	private String fullname;
