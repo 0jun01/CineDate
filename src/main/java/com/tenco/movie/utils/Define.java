@@ -63,7 +63,12 @@ public class Define {
 
 	// review
 	public static final String DUPLICATION_REVIEW = "이미 리뷰를 작성한 영화입니다.";
+	public static final String NOT_FOUND_REVIEW = "수정할 리뷰가 존재하지 않습니다.";
+	public static final String INPUT_STAR_RATING = "평점을 입력하세요.";
 
+	// paging
+	public static final String NOT_FOUND_PREVIOUS = "첫 번째 페이지 입니다.";
+	
 	// upload
 	public static final String FILE_SIZE_EXCEEDED = "파일 크기는 20MB 이상 클 수 없습니다.";
 	public static final String UPLOAD_DIR_CREATION_FAILED = "업로드 디렉토리를 생성할 수 없습니다.";
