@@ -6,7 +6,7 @@
 <div id="wrap">
 
 	<div id="in--wrap">
-		<div class="choice--box">
+		<div class="choice--box" id="choice--movie">
 			<div class="date--box">
 				<div class="date--title--inner">
 					<h3>날짜</h3>
@@ -132,21 +132,157 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="choice--movie--box">
-		<div class="img--title--box">
-			<span class="movie--poster"> <img alt="#" src="">
-			</span> <span class="movie--title"> <a></a>
-			</span>
+		<div class="movie-container hidden" id="movie-container">
+			<div class="movie-container">
+				<label for="movie">유형</label> <select id="movie">
+					<option value="12000">일반</option>
+					<option value="8000">청소년</option>
+				</select>
+			</div>
+			<ul class="showcase">
+				<li>
+					<div class="seat"></div> <small>리클라이너</small>
+				</li>
+				<li>
+					<div class="seat selected"></div> <small>선택</small>
+				</li>
+				<li>
+					<div class="seat occupied"></div> <small>예매완료</small>
+				</li>
+				<li>
+					<div class="seat couple"></div> <small>커플석</small>
+				</li>
+				<li>
+					<div class="seat handicap"></div> <small>장애인석</small>
+				</li>
+			</ul>
+
+
+			<div class="row">
+				<div class="row-label">A</div>
+				<div class="seat" data-seat="A1"></div>
+				<div class="seat" data-seat="A2"></div>
+				<div class="seat" data-seat="A3"></div>
+				<div class="seat" data-seat="A4"></div>
+				<div class="seat" data-seat="A5"></div>
+				<div class="seat" data-seat="A6"></div>
+				<div class="seat" data-seat="A7"></div>
+				<div class="seat" data-seat="A8"></div>
+				<div class="seat" data-seat="A9"></div>
+				<div class="seat" data-seat="A10"></div>
+				<div class="seat" data-seat="A11"></div>
+				<div class="seat" data-seat="A12"></div>
+				<div class="seat" data-seat="A13"></div>
+			</div>
+
+			<div class="row">
+				<div class="row-label">B</div>
+				<div class="seat" data-seat="B1"></div>
+				<div class="seat" data-seat="B2"></div>
+				<div class="seat" data-seat="B3"></div>
+				<div class="seat" data-seat="B4"></div>
+				<div class="seat" data-seat="B5"></div>
+				<div class="seat" data-seat="B6"></div>
+				<div class="seat" data-seat="B7"></div>
+				<div class="seat" data-seat="B8"></div>
+				<div class="seat" data-seat="B9"></div>
+				<div class="seat" data-seat="B10"></div>
+				<div class="seat" data-seat="B11"></div>
+				<div class="seat" data-seat="B12"></div>
+				<div class="seat" data-seat="B13"></div>
+			</div>
+
+			<div class="row">
+				<div class="row-label">C</div>
+				<div class="seat" data-seat="C1"></div>
+				<div class="seat" data-seat="C2"></div>
+				<div class="seat" data-seat="C3"></div>
+				<div class="seat" data-seat="C4"></div>
+				<div class="seat" data-seat="C5"></div>
+				<div class="seat" data-seat="C6"></div>
+				<div class="seat" data-seat="C7"></div>
+				<div class="seat" data-seat="C8"></div>
+				<div class="seat" data-seat="C9"></div>
+				<div class="seat" data-seat="C10"></div>
+				<div class="seat" data-seat="C11"></div>
+				<div class="seat" data-seat="C12"></div>
+				<div class="seat" data-seat="C13"></div>
+			</div>
+
+			<div class="row">
+				<div class="row-label">D</div>
+				<div class="seat" data-seat="D1"></div>
+				<div class="seat" data-seat="D2"></div>
+				<div class="seat" data-seat="D3"></div>
+				<div class="seat" data-seat="D4"></div>
+				<div class="seat" data-seat="D5"></div>
+				<div class="seat" data-seat="D6"></div>
+				<div class="seat" data-seat="D7"></div>
+				<div class="seat" data-seat="D8"></div>
+				<div class="seat" data-seat="D9"></div>
+				<div class="seat" data-seat="D10"></div>
+				<div class="seat" data-seat="D11"></div>
+				<div class="seat" data-seat="D12"></div>
+				<div class="seat" data-seat="D13"></div>
+			</div>
+
+			<div class="row">
+				<div class="row-label">E</div>
+				<div class="seat" data-seat="E1"></div>
+				<div class="seat" data-seat="E2"></div>
+				<div class="seat" data-seat="E3"></div>
+				<div class="seat" data-seat="E4"></div>
+				<div class="seat" data-seat="E5"></div>
+				<div class="seat" data-seat="E6"></div>
+				<div class="seat" data-seat="E7"></div>
+				<div class="seat" data-seat="E8"></div>
+				<div class="seat" data-seat="E9"></div>
+				<div class="seat" data-seat="E10"></div>
+				<div class="seat" data-seat="E11"></div>
+				<div class="seat" data-seat="E12"></div>
+				<div class="seat" data-seat="E13"></div>
+			</div>
+
+			<div class="row">
+				<div class="row-label">F</div>
+				<div class="seat couple" data-seat="F1"></div>
+				<div class="seat couple" data-seat="F2"></div>
+				<div class="seat couple" data-seat="F3"></div>
+				<div class="seat couple" data-seat="F4"></div>
+				<div class="seat empty-seat"></div>
+				<div class="seat empty-seat"></div>
+				<div class="seat empty-seat"></div>
+				<div class="seat empty-seat"></div>
+				<div class="seat empty-seat"></div>
+				<div class="seat couple" data-seat="F10"></div>
+				<div class="seat couple" data-seat="F11"></div>
+				<div class="seat empty-seat"></div>
+				<div class="seat handicap" data-seat="F13"></div>
+			</div>
+
+			<p class="text">
+				선택한 좌석 수 <span id="count">0</span> <span id="total">0</span>원
+			</p>
 		</div>
-		<div class="movie--detail--box">
-			<span>극장</span> <span class="theater"></span> <span>일시&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="choosen--date"></span> <span>상영관</span> <span class="room"></span> <span>인원</span>
-		</div>
 	</div>
-	<script>
+</div>
+<div class="choice--movie--box">
+	<div class="img--title--box">
+		<span class="movie--poster"> <img alt="#" src="">
+		</span> <span class="movie--title"> <a></a>
+		</span>
+	</div>
+	<div class="movie--detail--box">
+		<span>극장</span> <span class="theater"></span> <span>일시&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="choosen--date"></span> <span>상영관</span> <span class="room"></span> <span>인원</span>
+		<a href="javascript:void(0)" onclick="viewSeats()" id="seat--selection--btn" class="btn--right">좌석선택!!!!!!!!!!!!!!!!!</a>
+	</div>
+</div>
+<script>
 	
 let selectedMovieId = null;
 let selectedDate1 = null;
+let selectedTheater = null;
+let selectedTime = null;
 let step = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -480,6 +616,7 @@ function updateSubRegionList(subRegions) {
 function checkMovie(theaterName, subregionId){
 	console.log('Clicked sub-region ID:', subregionId);
     console.log('Clicked sub-region Name:', theaterName);
+    selectedTheater = theaterName;
 	if(movieCheck){
     	alert ('영화를 먼저 선택해주세요.')
     } else {
@@ -564,6 +701,7 @@ let room = null;
             if (choosenDateElement) {
                 // 기존 내용에 새로운 시간 추가
                 choosenDateElement.textContent = selectedDate1+` `+timeParts[0] +`:`+timeParts[1]; // 기존 내용 뒤에 새로운 날짜를 추가
+                selectedTime = timeParts[0] +`:`+timeParts[1];
             }
         };
         
@@ -578,7 +716,28 @@ let room = null;
     timeListContainer.appendChild(ul);
 }
 
+function viewSeats(){
+	console.log('들어오나');
+	if(selectedDate1 == null){
+		alert('날짜 먼저 선택해주세요')
+	} else if(selectedMovieId == null){
+		alert('영화를 선택해 주세요')
+	} else if(selectedTheater == null){
+		alert('극장을 선택해 주세요')
+	} else if(selectedTime == null){
+		alert('시간을 선택해 주세요')
+	} else {
+	// 기존 콘텐츠 숨기기
+	 document.getElementById('choice--movie').style.display = 'none';
+	// 새 콘텐츠 보이기
+     document.getElementById('movie-container').style.display = 'block';
+	
+	// 버튼 텍스트 변경
+	document.getElementById('seat--selection--btn').textContent = '결제선택'
+	}
+}
+
 </script>
-	<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
-	</body>
-	</html>
+<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
+</body>
+</html>
