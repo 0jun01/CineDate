@@ -12,6 +12,7 @@ import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.NoticeRepository;
 import com.tenco.movie.repository.model.Notice;
+import com.tenco.movie.utils.Define;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,9 +38,9 @@ public class NoticeService {
 		try {
 			noticeListEntity = noticeRepository.findAll(limit, offset);
 		} catch (DataAccessException e) {
-			throw new DataDeliveryException("잘못된 처리입니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new DataDeliveryException(Define.INVALID_INPUT, HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
-			throw new RedirectException("알 수 없는 오류", HttpStatus.SERVICE_UNAVAILABLE);
+			throw new RedirectException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
 		}
 		
 		return noticeListEntity;
@@ -56,9 +57,9 @@ public class NoticeService {
 		 try {
 	            notice = noticeRepository.findById(id);
 	        } catch (DataAccessException e) {
-	            throw new DataDeliveryException("잘못된 처리입니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+	            throw new DataDeliveryException(Define.INVALID_INPUT, HttpStatus.INTERNAL_SERVER_ERROR);
 	        } catch (Exception e) {
-	            throw new RedirectException("알 수 없는 오류", HttpStatus.SERVICE_UNAVAILABLE);
+	            throw new RedirectException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
 	        }
 		
 		return notice;
@@ -71,7 +72,7 @@ public class NoticeService {
 		totals = noticeRepository.countNotice();
 		
 		if(totals == 0 ) {
-			throw new DataDeliveryException("카운터 에러 발생", HttpStatus.BAD_REQUEST);
+			throw new DataDeliveryException(Define.NOT_FOUND_PREVIOUS, HttpStatus.BAD_REQUEST);
 		}
 		
 		

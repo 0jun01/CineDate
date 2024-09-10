@@ -138,39 +138,40 @@ public class HomeController {
 		model.addAttribute("movieList", moviesList);
 		return "main";
 	}
-	
-	@GetMapping("/TMDB")
-	@ResponseBody
-	public TMDBDTO parseTMDB() {
 
-//		String tmdbURL = baseURL + "popular?api_key=" + key
-//				+ "&language=ko-KR&page=1&query=범죄도시&append_to_response=credits&language=ko-kr";
-
-		// URI 영화 title이 필사의 추격인 영화 조회
-		URI uri = UriComponentsBuilder.fromUriString(TMDBBASEURL + TMDBKEY + "&language=ko-KR&page=1&query=에이리언: 로물루스")
-				.build().toUri();
-
-		// RestTemplate으로 호출
-		RestTemplate restTemplate1 = new RestTemplate();
-		ResponseEntity<TMDBDTO> response = restTemplate1.exchange(uri, HttpMethod.GET, null, TMDBDTO.class);
-
-		// json 받기
-		TMDBDTO tmdbdto = response.getBody();
-
-		// TMDB 오픈 API의 결과 가져오기
-		if (tmdbdto != null) {
-			List<TMDBMovies> tmdbMoviesList = tmdbdto.getResults();
-			if (tmdbMoviesList != null) {
-				TMDBMovies tmdbMovie = tmdbMoviesList.get(0);
-				System.out.println("title: " + tmdbMovie.getOriginalTitle());
-				System.out.println("overview: " + tmdbMovie.getOverview());
-				System.out.println("imageAddress : " + tmdbMovie.getPosterPath());
-			}
-		}
-		System.out.println("tmdbDTO : " + tmdbdto);
-		System.out.println(response.getBody().toString());
-		return response.getBody();
-	}
+	// TODO삭제예정
+//	@GetMapping("/TMDB")
+//	@ResponseBody
+//	public TMDBDTO parseTMDB() {
+//
+////		String tmdbURL = baseURL + "popular?api_key=" + key
+////				+ "&language=ko-KR&page=1&query=범죄도시&append_to_response=credits&language=ko-kr";
+//
+//		// URI 영화 title이 필사의 추격인 영화 조회
+//		URI uri = UriComponentsBuilder.fromUriString(TMDBBASEURL + TMDBKEY + "&language=ko-KR&page=1&query=에이리언: 로물루스")
+//				.build().toUri();
+//
+//		// RestTemplate으로 호출
+//		RestTemplate restTemplate1 = new RestTemplate();
+//		ResponseEntity<TMDBDTO> response = restTemplate1.exchange(uri, HttpMethod.GET, null, TMDBDTO.class);
+//
+//		// json 받기
+//		TMDBDTO tmdbdto = response.getBody();
+//
+//		// TMDB 오픈 API의 결과 가져오기
+//		if (tmdbdto != null) {
+//			List<TMDBMovies> tmdbMoviesList = tmdbdto.getResults();
+//			if (tmdbMoviesList != null) {
+//				TMDBMovies tmdbMovie = tmdbMoviesList.get(0);
+//				System.out.println("title: " + tmdbMovie.getOriginalTitle());
+//				System.out.println("overview: " + tmdbMovie.getOverview());
+//				System.out.println("imageAddress : " + tmdbMovie.getPosterPath());
+//			}
+//		}
+//		System.out.println("tmdbDTO : " + tmdbdto);
+//		System.out.println(response.getBody().toString());
+//		return response.getBody();
+//	}
 
 	// TODO삭제예정
 	@GetMapping("/movieSearch")
@@ -299,9 +300,4 @@ public class HomeController {
 
 		return movieDetailDTO;
 	}
-
-	
 }
-
-
-

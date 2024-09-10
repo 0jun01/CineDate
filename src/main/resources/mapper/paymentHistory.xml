@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper
+	namespace="com.tenco.movie.repository.interfaces.PaymentHistoryRepository">
+
+	<insert id="insertTossHistory">
+		INSERT INTO toss_hitory_tb(payment_key, user_id,
+		order_id, order_name, amount, method, requested_at, approved_at)
+		VALUES ( #{paymentKey}, #{userId}, #{oderId}, #{oderName}, #{amount},
+		#{method}, #{requestedAt}, #{approvedAt})
+	</insert>
+	
+	<select id="searchPaymentHistory" resultType="com.tenco.movie.dto.TossHistoryDTO">
+		SELECT * FROM toss_hitory_tb WHERE id = #{id}
+	</select>
+	
+	<delete id="cancelTossPayment">
+		DELETE FROM toss_hitory_tb WHERE payment_key = #{paymentKey} AND order_id = #{oderId}
+	</delete>
+	
+	<insert id="insertCancelTossPaymenHistory">
+		INSERT INTO cancel_toss_hitory_tb(payment_key, user_id,
+		order_id, order_name, amount, method, requested_at, approved_at)
+		VALUES ( #{paymentKey}, #{userId}, #{oderId}, #{oderName}, #{amount},
+		#{method}, #{requestedAt}, #{approvedAt})
+	</insert>
+	
+
+</mapper>

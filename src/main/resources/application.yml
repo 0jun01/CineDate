@@ -12,6 +12,7 @@ spring:
       suffix: .jsp #뷰 이름에 자동으로 추가될 파일 확장자를 설정합니다.
   servlet:
     multipart:
+      enabled: true
       max-file-size: 20MB #파일 최대 크기는 20MB
       max-request-size: 20MB #멀티파트 전체 요청 크기 20MB제한  
 
@@ -49,7 +50,8 @@ spring:
       client:
         registration:
           google: # /oauth2/authorization/google 이 주소를 동작하게 한다.
-            client-id: 
+
+            client-id:
             client-secret: 
             redirect-uri: http://localhost:8080/user/google
             scope:
@@ -86,3 +88,4 @@ tenco:
 # application.yml
 api:
   serviceKey: s6ybUNWeYjuAxJIjYbfYoHajlaPp5/7kHUBpsHu73yTGVoD93p9W45y1B7FBWBDiyHWUVeJLI5AyIvgvBCQdIw==  # 실제 API 키를 여기에 입력
+

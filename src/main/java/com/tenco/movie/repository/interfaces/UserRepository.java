@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.tenco.movie.repository.model.Admin;
 import com.tenco.movie.repository.model.User;
 
 @Mapper
@@ -17,9 +18,10 @@ public interface UserRepository {
 	int kakaoInsert(User user);
 	int updateById(User user);
 	int deleteById();
-	User findById(); // loginId
+	User findById(@Param("login_id")String name); // loginId
 	User findPassword();
 	List<User> findAll();
+	void update(User user);
 	
 	// 이름과 이메일로 아이디 찾기
 	public User findByLoginIdForEmail(@Param("name") String name, @Param("email") String email);
@@ -46,5 +48,9 @@ public interface UserRepository {
 	// 비밀번호 랜덤키 발급
 	public User updatePassword(@Param("password")String newPassword, @Param("loginId")String loginId);
 
+	void updateUsername(Long userId, String username);
+	
+	// 어드민 체크
+	public Admin checkAdmin(@Param("loginId") String loginId);
 
 }

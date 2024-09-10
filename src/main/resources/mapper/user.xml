@@ -42,6 +42,10 @@
 	<select id ="findByEmails" resultType="com.tenco.movie.repository.model.User">
 		select * from user_tb where email = #{email}
 	</select>
+	
+	<select id ="findById" resultType="com.tenco.movie.repository.model.User">
+		select * from user_tb where login_id = #{login_id};
+	</select>
 
 	<!-- 아이디 이메일로 찾기 -->
 	<select id="findByLoginIdForEmail" resultType="com.tenco.movie.repository.model.User">
@@ -57,9 +61,23 @@
 	<select id="findByLoginIdForPassword" resultType="com.tenco.movie.repository.model.User">
 		select * from user_tb where login_id = #{loginId} AND email = #{email}
 	</select>
-	
+	<!--  -->
 	<select id="findByUsername" resultType="com.tenco.movie.repository.model.User">
 		select * from user_tb where name = #{name}
+	</select>
+	
+	<!-- 마이페이지 변경 -->
+	<update id="update">
+		 update user_tb set
+            name = #{name},
+            password = #{password},
+            email = #{email},
+            phone_num = #{phoneNum}
+        where id = #{id}
+	</update>
+	
+	<select id="checkAdmin" resultType="com.tenco.movie.repository.model.Admin" >
+		select admin_tb.id from admin_tb left join user_tb on user_tb.id = admin_tb.user_id where user_tb.login_id = #{loginId};
 	</select>
 	
 	<!-- 비밀번호 업데이트 -->

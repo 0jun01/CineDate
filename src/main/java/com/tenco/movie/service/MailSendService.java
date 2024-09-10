@@ -2,8 +2,6 @@ package com.tenco.movie.service;
 
 import java.util.Map;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.mail.SimpleMailMessage;
