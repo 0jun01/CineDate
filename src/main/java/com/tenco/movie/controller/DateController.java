@@ -48,11 +48,8 @@ public class DateController {
 
 	@Autowired
 	private final DateManagerService dateManagerService;
-<<<<<<< HEAD
-=======
 	@Autowired
 	private final MessageService messageService;
->>>>>>> 20e99aabf7bc5e935266a23b97ce0d938aac430a
 
 	/**
 	 * 데이트 페이지 요청
@@ -227,9 +224,6 @@ public class DateController {
 
 		return "date/matchingList";
 	}
-<<<<<<< HEAD
-
-=======
 	/**
 	 * 메세지기능
 	 * @author 성후
@@ -262,5 +256,4 @@ public class DateController {
 	}
 	
 	
->>>>>>> 20e99aabf7bc5e935266a23b97ce0d938aac430a
 }
