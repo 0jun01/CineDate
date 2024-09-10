@@ -19,12 +19,12 @@
 <body>
 
 		
-	<div class="main--banner">
-		<img src="/img/xIcon.png" alt="x" class="x--icon">
-		<img src="/img/main_pop.jpg" alt="시데 데이트 배너">
-	</div>
 
 	<header>
+		<div class="main--banner">
+			<img src="/img/xIcon.png" alt="x" class="x--icon">
+			<img src="/img/main_pop.jpg" alt="시데 데이트 배너">
+		</div>
         <div class="memberInfo--wrap">
             <ul class="member" id="in--wrap">
                 <c:choose>

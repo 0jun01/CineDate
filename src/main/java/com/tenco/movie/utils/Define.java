@@ -63,10 +63,20 @@ public class Define {
 
 	// review
 	public static final String DUPLICATION_REVIEW = "이미 리뷰를 작성한 영화입니다.";
+	public static final String NOT_FOUND_REVIEW = "수정할 리뷰가 존재하지 않습니다.";
+	public static final String INPUT_STAR_RATING = "평점을 입력하세요.";
 
+	// paging
+	public static final String NOT_FOUND_PREVIOUS = "첫 번째 페이지 입니다.";
+	
 	// upload
 	public static final String FILE_SIZE_EXCEEDED = "파일 크기는 20MB 이상 클 수 없습니다.";
 	public static final String UPLOAD_DIR_CREATION_FAILED = "업로드 디렉토리를 생성할 수 없습니다.";
 	public static final String FILE_UPLOAD_ERROR = "파일 업로드 중에 오류가 발생 했습니다.";
 	public static final String MISSING_REQUIRED_FILES = "첫 번째와 두 번째 사진은 반드시 등록하셔야 합니다.";
+	
+	
+	// DateSignIn 
+	public static final String PROFILE_SUSPENDING = "현재 이계정은 정지 상태입니다.";
+	
 }

@@ -11,6 +11,7 @@ import lombok.ToString;
 @Builder
 public class TossHistoryDTO {
 	
+	private int id;
 	private String paymentKey;
 	private int userId;
 	private String oderId;

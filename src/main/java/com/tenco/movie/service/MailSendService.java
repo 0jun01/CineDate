@@ -1,50 +1,113 @@
 package com.tenco.movie.service;
 
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.tenco.movie.dto.EmailVerificationResult;
+import com.tenco.movie.repository.interfaces.UserRepository;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+@Transactional
+@RequiredArgsConstructor
 public class MailSendService {
 
-	private int authNumber;
-//
-//	// 임의의 6자리 양수를 반환합니다.
-//	public void makeRandomNumber() {
-//		Random random = new Random();
-//		String randomNumber = "";
-//		for (int i = 0; i < 6; i++) {
-//			randomNumber += Integer.toString(random.nextInt(10));
-//		}
-//
-//		authNumber = Integer.parseInt(randomNumber);
-//	}
-//
-//	// mail을 어디서 보내는지, 어디로 보내는지 , 인증 번호를 html 형식으로 어떻게 보내는지 작성합니다.
-//	public String joinEmail(String email) {
-//		makeRandomNumber();
-//		String setFrom = "dionisos198@naver.com"; // email-config에 설정한 자신의 이메일 주소를 입력
-//		String toMail = email;
-//		String title = "회원 가입 인증 이메일 입니다."; // 이메일 제목
-//		String content = "나의 APP을 방문해주셔서 감사합니다." + // html 형식으로 작성 !
-//				"<br><br>" + "인증 번호는 " + authNumber + "입니다." + "<br>" + "인증번호를 제대로 입력해주세요"; // 이메일 내용 삽입
-//		mailSend(setFrom, toMail, title, content);
-//		return Integer.toString(authNumber);
-//	}
-//
-//	// 이메일을 전송합니다.
-//	public void mailSend(String setFrom, String toMail, String title, String content) {
-//		MimeMessage message = mailSender.createMimeMessage();// JavaMailSender 객체를 사용하여 MimeMessage 객체를 생성
-//		try {
-//			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");// 이메일 메시지와 관련된 설정을 수행
-//			// true를 전달하여 multipart 형식의 메시지를 지원하고, "utf-8"을 전달하여 문자 인코딩을 설정
-//			helper.setFrom(setFrom);// 이메일의 발신자 주소 설정
-//			helper.setTo(toMail);// 이메일의 수신자 주소 설정
-//			helper.setSubject(title);// 이메일의 제목을 설정
-//			helper.setText(content, true);// 이메일의 내용 설정 두 번째 매개 변수에 true를 설정하여 html 설정
-//			mailSender.send(message);
-//		} catch (MessagingException e) {// 이메일 서버에 연결할 수 없거나, 잘못된 이메일 주소를 사용하거나, 인증 오류가 발생하는 등 오류
-//			// 이러한 경우 MessagingException이 발생
-//			e.printStackTrace();// e.printStackTrace()는 예외를 기본 오류 스트림에 출력하는 메서드
-//		}
-//	}
+	private final JavaMailSender mailSender;
+	private final UserRepository userRepository;
+	private static final String AUTH_CODE_PREFIX = "AuthCode ";
 	
+	private final Map<String, String> authCodeStore = new ConcurrentHashMap<>();
+
+	 public void sendEmail(String email, String title, String text) {
+		 System.out.println(text);
+	        SimpleMailMessage emailForm = createEmailForm(email, title, text);
+	        try {
+	        	mailSender.send(emailForm);
+	            log.info("이메일이 성공적으로 전송되었습니다. 대상: {}", email);
+	        } catch (Exception e) {
+	            log.error("MailService.sendEmail exception occurred. toEmail: {}, title: {}, text: {}", email, title, text);
+	            throw new RuntimeException("이메일 전송 중 오류가 발생했습니다.");
+	        }
+	    }
 	
+	// 이메일 보내는 메서드
+	public String sendCodeToEmail(String email) {
+		String title = "CineDate 이메일 인증 번호";
+		String authCode = createKey();
+		
+		System.out.println("인증 요청");
+		System.out.println(authCode);
+		// 이메일 발송
+		sendEmail(email, title, authCode);
+		
+		authCodeStore.put(AUTH_CODE_PREFIX + email, authCode);
+		
+		return authCode;
+	}
+	
+	// 인증 코드 검증
+	public EmailVerificationResult verifiedCode(String email, String authCode) {
+		
+		String storedAuthCode = authCodeStore.get(AUTH_CODE_PREFIX + email);
+		boolean authResult = storedAuthCode != null && storedAuthCode.equals(authCode);
+		
+		return EmailVerificationResult.of(authResult);
+		
+	}
+
+	private SimpleMailMessage createEmailForm(String email, String title, String text) {
+		
+		SimpleMailMessage message = new SimpleMailMessage();
+		
+		message.setTo(email);
+		message.setSubject(title);
+		message.setText(text);
+		
+		return message;
+	}
+
+	// 이메일 중복 확인
+	public boolean isEmailDuplicate(String email) {
+		return userRepository.findByEmails(email).isPresent();
+	}
+	
+	// 랜덤 암호 생성
+	private static String createKey() {
+		StringBuffer key = new StringBuffer();
+		Random random = new Random();
+
+		for (int i = 0; i < 8; i++) {
+			int index = random.nextInt(3);
+
+			switch (index) {
+			case 0:
+				// a ~ z (ex. 1+97=98 => (char)98 = 'b')
+				key.append((char) ((int) (random.nextInt(26)) + 97));
+				break;
+
+			case 1:
+				// a ~ z
+				key.append((char) (int) (random.nextInt(26) + 65));
+				break;
+
+			case 2:
+				// 0 ~ 9
+				key.append((random.nextInt(10)));
+				break;
+			}
+		}
+		return key.toString();
+	}
+
+
 	
 }

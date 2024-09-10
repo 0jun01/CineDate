@@ -1,105 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tenco.movie.repository.interfaces.AdminRepository">
+<mapper
+	namespace="com.tenco.movie.repository.interfaces.AdminRepository">
 
-	<select id="findAll" resultType="com.tenco.movie.repository.model.Notice">
+	<select id="findAll"
+		resultType="com.tenco.movie.repository.model.Notice">
 		select * from notice_tb order by id desc;
 	</select>
-	
+
 	<insert id="insertAdmin">
-		insert into notice_tb(admin_id, category, title, content)
+		insert into notice_tb(admin_id, category, title,
+		content)
 		values(#{adminId}, #{category}, #{title}, #{content})
 	</insert>
-	
+
 	<update id="updateAdminById">
-		update notice_tb set category = #{category}, title = #{title}, content = #{content} where id = #{id}
+		update notice_tb set category = #{category}, title =
+		#{title}, content = #{content} where id = #{id}
 	</update>
-	
+
 	<delete id="deleteAdminById">
 		delete from notice_tb where id = #{id}
 	</delete>
 
 	<select id="findAdminById">
-	select * from notice_tb where id = #{id} order by id desc
+		select * from notice_tb where id = #{id} order by id desc
 	</select>
-	
+
 	<select id="findAdminByName">
-	select * from notice_tb where title like CONCAT('%', #{search}, '%') order by id desc  limit #{limit} offset #{offset}
+		select * from notice_tb where title like CONCAT('%', #{search}, '%') order
+		by id desc limit #{limit} offset #{offset}
 	</select>
-	
+
 	<select id="pageCountAdmin">
-	select * from notice_tb order by id desc limit #{limit} offset #{offset}
+		select * from notice_tb order by id desc limit #{limit} offset #{offset}
 	</select>
-	
-	
-		
-	<select id = "countAdminNoticeAll" resultType="int">
-		select count(*) from notice_tb
+
+
+
+	<select id="countAdminNoticeAll" resultType="int">
+		select count(*) from
+		notice_tb
 	</select>
-	
-	<select id = "countAdminNotice" resultType="int">
-		select count(*) from notice_tb where title like CONCAT('%', #{search}, '%')
+
+	<select id="countAdminNotice" resultType="int">
+		select count(*) from
+		notice_tb where title like CONCAT('%', #{search}, '%')
 	</select>
-	
+
 
 	<!-- ========================================================================================== -->
-	<select id = "findEventAll">
-	select * from event_tb order by id desc limit #{limit} offset #{offset}
+	<select id="findEventAll">
+		select * from event_tb order by id desc limit #{limit} offset #{offset}
 	</select>
-	
-	<select id = "findEventById">
-	select * from event_tb where id = #{id} order by id desc
+
+	<select id="findEventById">
+		select * from event_tb where id = #{id} order by id desc
 	</select>
-	
+
 	<delete id="deleteByEventById">
 		delete from event_tb where id = #{id}
 	</delete>
-	
+
 	<select id="findAdminEventByName">
-	select * from event_tb where title like CONCAT('%', #{search}, '%') order by id desc  limit #{limit} offset #{offset}
+		select * from event_tb where title like CONCAT('%', #{search}, '%') order by
+		id desc limit #{limit} offset #{offset}
 	</select>
 
-	<select id ="countEventAll" resultType="int">
-		select count(*) from event_tb
+	<select id="countEventAll" resultType="int">
+		select count(*) from
+		event_tb
 	</select>
-	
-	<select id = "countAdminEvent" resultType="int">
-		select count(*) from event_tb where title like CONCAT('%', #{search}, '%')
+
+	<select id="countAdminEvent" resultType="int">
+		select count(*) from
+		event_tb where title like CONCAT('%', #{search}, '%')
 	</select>
 
 
 	<!-- ========================================================================================== -->
-	
-	
+
+
 	<select id="findAdminMemberExceptPW">
-	select * from user_tb order by id desc limit #{limit} offset #{offset}
+		select * from user_tb order by id desc limit #{limit} offset #{offset}
 	</select>
-	
+
 	<select id="findAdminMemberByName">
-	select * from user_tb where login_id like CONCAT('%', #{search}, '%') order by id desc limit #{limit} offset #{offset}
+		select * from user_tb where login_id like CONCAT('%', #{search}, '%') order
+		by id desc limit #{limit} offset #{offset}
 	</select>
-	
-	
-	<select id = "countAdminMemberAll" resultType="int">
-		select count(*) from user_tb
+
+
+	<select id="countAdminMemberAll" resultType="int">
+		select count(*) from
+		user_tb
 	</select>
-	
-	<select id = "countAdminMember" resultType="int">
-		select count(*) from user_tb where login_id like CONCAT('%', #{search}, '%')
+
+	<select id="countAdminMember" resultType="int">
+		select count(*) from
+		user_tb where login_id like CONCAT('%', #{search}, '%')
 	</select>
-	
+
 	<!-- ===================================================================================== -->
-	
-	<select id = "countAdminHistory">
-		SELECT DATE(approved_at) as `approvedAt`, COUNT(id) as `id` FROM toss_hitory_tb GROUP BY DATE(approved_at) order by approvedAt DESC
+
+	<select id="countAdminHistory">
+		SELECT DATE(approved_at) as `approvedAt`, COUNT(id)
+		as `id` FROM toss_hitory_tb GROUP BY DATE(approved_at) order by
+		approvedAt DESC
 	</select>
-	
-	<select id = "findHistoryAll">
+
+	<select id="findHistoryAll">
 		select * from toss_hitory_tb order by id desc
 	</select>
+
+
+	<!-- =========================== Profile =============================== -->
+	<select id="readProfileList" resultType="com.tenco.movie.repository.model.DateProfile">
+		select * from profile_tb where nick_name like
+		CONCAT('%', #{search}, '%')
+		limit #{limit} offset #{offset}
+	</select>
+
+	<select id="countAdminProfileList" resultType="int">
+		select count(*) from profile_tb where nick_name like CONCAT('%', #{search}, '%')
+	</select>
+
+	<select id="searchProfileById" resultType="com.tenco.movie.repository.model.DateProfile">
+		select * from profile_tb where id = #{id}
+	</select>
 	
-	
-	
-	
+	<update id="lifeStatusUpdate">
+		UPDATE profile_tb SET life_status = ${status} WHERE id = #{id}
+	</update>
+
+
 </mapper>

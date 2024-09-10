@@ -1,6 +1,7 @@
 package com.tenco.movie.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +18,21 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.tenco.movie.dto.EventWriterDTO;
 import com.tenco.movie.dto.NoticeWriterDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
+import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.Event;
 import com.tenco.movie.repository.model.History;
 import com.tenco.movie.repository.model.HistoryTimeLine;
 import com.tenco.movie.repository.model.Notice;
 import com.tenco.movie.repository.model.User;
 import com.tenco.movie.service.AdminPageService;
+import com.tenco.movie.service.PaymentService;
 import com.tenco.movie.service.UserService;
 import com.tenco.movie.utils.Define;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 @RequestMapping("/")
@@ -37,6 +42,9 @@ public class AdminPageController {
 	private AdminPageService adminPageService;
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private final PaymentService paymentService;
 	
 	private final HttpSession session;
 	
@@ -357,8 +365,8 @@ public class AdminPageController {
 		model.addAttribute("user", user);
 		model.addAttribute("search", search);
 		model.addAttribute("userList", userList);
-		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("currentPage", page);
 		model.addAttribute("size", size);
 
 		return "/admin/adminMemberList";
@@ -397,4 +405,80 @@ public class AdminPageController {
 			
 			return "/admin/adminHistory";
 		}
+		
+		
+		/**
+		 * 결제 취소
+		 * @param id
+		 * @return
+		 * @throws IOException
+		 * @throws InterruptedException
+		 */
+		@PostMapping("/cancel")
+		public String adminPaymentCancel(@RequestParam(name="payId")int id) throws IOException, InterruptedException {
+			
+			String cancel = paymentService.cancelPaymentHistory(id);
+			
+			return "redirect:/adminHistory";
+		}
+		
+		
+		/**
+		 * 결제 취소 리스트
+		 * @param param
+		 * @return
+		 */
+		@GetMapping("/adminCancelHistory")
+		public String getCancelHistory(@RequestParam String param,
+				@RequestParam(name = "page", defaultValue = "1") int page,
+				@RequestParam(name = "size", defaultValue = "10") int size,
+				Model model) {
+			
+			return new String(); // <-- 나중에 리스트 뽑기 cancel_toss_History_tb
+		}
+		
+		
+		
+		//==================== profile ====================
+		
+		
+		/**
+		 * 데이팅 프로필 리스트
+		 * @param page
+		 * @param size
+		 * @param search
+		 * @param model
+		 * @return
+		 */
+		@GetMapping("/adminProfileList")
+		public String getMethodName(@RequestParam(name = "page", defaultValue = "1") int page,
+				@RequestParam(name = "size", defaultValue = "10") int size,
+				 @RequestParam(name = "search", defaultValue = "") String search,
+				 Model model) {
+			
+			
+			
+			int totalCount = adminPageService.countAdminProfileList(search);
+			int totalPages = (int) Math.ceil((double) totalCount / size);
+			
+			List<DateProfile> list = adminPageService.readProfileList(search, page, size);
+			model.addAttribute("totalPages", totalPages);
+			model.addAttribute("list",list);
+			model.addAttribute("currentPage", page);
+			model.addAttribute("size", size);
+			
+			return "admin/adminProfileList";
+		}
+		
+		@PostMapping("/lifeStatus")
+		public String postMethodName(@RequestParam(name="id")int id) {
+			adminPageService.lifeStatusUpdate(id);
+			return "redirect:/adminProfileList";
+		}
+		
+		
+		
+		
+		
+		
 }

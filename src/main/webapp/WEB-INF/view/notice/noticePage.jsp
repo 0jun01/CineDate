@@ -41,31 +41,41 @@
 	
 	<br>
 		<!-- Pagination -->
-		<div class="page--btn--a" >
-			<ul class="pagination" style="display: flex;">
-				<!-- Previous Page Link -->
-				<li class="page--item  <c:if test='${currentPage == 1}'>disabled</c:if>">
-					<a class="page-link" href="?page=${currentPage - 1}&size=${size}" >Previous</a>
-				</li>
-				
-				<!-- Page Numbers -->
-				<!-- [Previous]  1 2 3 4 5 6 7 8   [Next] -->
-				<c:forEach begin="1" end="${totalPages}"  var="page" >
-				<li class="page--item  <c:if test='${page == currentPage}'>active </c:if>">
-					<a class="page-link"  href="?page=${page}&size=${size}" >${page}</a>
-				</li>
-				</c:forEach>
-				
-				<!-- Next Page Link  -->	
-				<li class="page--item <c:if test='${currentPage == totalPages}'>disabled</c:if>" >
-					<a class="page-link" href="?page=${currentPage + 1}&size=${size}" >Next</a>
-				</li>
-			</ul>
-			
-		</div>
-	
-</div>
-</div>
+    <div class="page--btn--a">
+        <ul class="pagination" style="display: flex;">
+            <!-- Previous Page Link -->
+            <li class="page--item <c:if test="${currentPage == 1}">disabled</c:if>">
+                <c:choose>
+                    <c:when test="${currentPage == 1}">
+                        <span class="page-link">Previous</span>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="page-link" href="?page=${currentPage - 1}&size=${size}">Previous</a>
+                    </c:otherwise>
+                </c:choose>
+            </li>
+            
+            <!-- Page Numbers -->
+            <!-- [Previous]  1 2 3 4 5 6 7 8   [Next] -->
+            <c:forEach begin="1" end="${totalPages}" var="page">
+                <li class="page--item <c:if test="${page == currentPage}">active</c:if>">
+                    <a class="page-link" href="?page=${page}&size=${size}">${page}</a>
+                </li>
+            </c:forEach>
+            
+            <!-- Next Page Link -->
+            <li class="page--item <c:if test="${currentPage == totalPages}">disabled</c:if>">
+                <c:choose>
+                    <c:when test="${currentPage == totalPages}">
+                        <span class="page-link">Next</span>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="page-link" href="?page=${currentPage + 1}&size=${size}">Next</a>
+                    </c:otherwise>
+                </c:choose>
+            </li>
+        </ul>
+    </div>
 </div>
 <!-- end of content.jsp(xxx.jsp) -->
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

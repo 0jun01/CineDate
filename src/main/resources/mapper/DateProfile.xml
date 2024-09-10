@@ -12,28 +12,28 @@
 
 	<insert id="createdProfile">
 		INSERT INTO profile_tb (
-        user_id,
-        nick_name,
-        introduce,
-        first_origin_file_name,
-        seocnd_origin_file_name,
-        first_upload_file_name,
-        second_upload_file_name,
-        third_origin_file_name,
-        fourth_origin_file_name,
-        fifth_origin_file_name
-    ) VALUES (
-        #{userId},
-        #{nickName},
-        #{introduce},
-        #{firstOriginFileName},
-        #{seocndOriginFileName},
-        #{firstUploadFileName},
-        #{secondUploadFileName},
-        #{thirdOriginFileName},
-        #{fourthOriginFileName},
-        #{fifthOriginFileName}
-    )
+		user_id,
+		nick_name,
+		introduce,
+		first_origin_file_name,
+		seocnd_origin_file_name,
+		first_upload_file_name,
+		second_upload_file_name,
+		third_origin_file_name,
+		fourth_origin_file_name,
+		fifth_origin_file_name
+		) VALUES (
+		#{userId},
+		#{nickName},
+		#{introduce},
+		#{firstOriginFileName},
+		#{seocndOriginFileName},
+		#{firstUploadFileName},
+		#{secondUploadFileName},
+		#{thirdOriginFileName},
+		#{fourthOriginFileName},
+		#{fifthOriginFileName}
+		)
 	</insert>
 
 	<select id="searchNickName"
@@ -45,16 +45,23 @@
 		update profile_tb set
 		nick_Name = #{nickName},
 		introduce = #{introduce},
-		first_origin_file_name = #{firstOriginFileName},
-		seocnd_origin_file_name = #{seocndOriginFileName},
-		third_origin_file_name = #{thirdOriginFileName},
-		fourth_origin_file_name = #{fourthOriginFileName},
-		fifth_origin_file_name = #{fifthOriginFileName},
-		first_upload_file_name = #{firstUploadFileName},
-        second_upload_file_name = #{secondUploadFileName}
+		first_origin_file_name =
+		#{firstOriginFileName},
+		seocnd_origin_file_name =
+		#{seocndOriginFileName},
+		third_origin_file_name =
+		#{thirdOriginFileName},
+		fourth_origin_file_name =
+		#{fourthOriginFileName},
+		fifth_origin_file_name =
+		#{fifthOriginFileName},
+		first_upload_file_name =
+		#{firstUploadFileName},
+		second_upload_file_name =
+		#{secondUploadFileName}
 		where user_Id = #{userId}
 	</update>
-	
+
 	<select id="searchPartner"
 		resultType="com.tenco.movie.repository.model.DateProfile">
 SELECT p.*,
@@ -90,16 +97,17 @@ SELECT p.*,
 		SELECT
 		p.*,
 		CASE
-		WHEN m.s_user_id IS NULL AND m.r_user_id IS NULL THEN 1 
+		WHEN COALESCE(m.s_user_id, m.r_user_id) IS NULL THEN 1
 		WHEN m.status = 0 THEN 2
-		WHEN m.status = 1 THEN 3 
-		WHEN m.status = 2 THEN 4 
+		WHEN m.status = 1 THEN 3
+		WHEN m.status = 2 THEN 4
+		ELSE 1
 		END AS status
 		FROM profile_tb p
 		LEFT JOIN matching_tb m
 		ON (p.user_id = m.s_user_id AND m.r_user_id = #{id})
 		OR (p.user_id = m.r_user_id AND m.s_user_id = #{userId})
-		WHERE p.user_id = #{id}
+		WHERE p.user_id = #{id};
 	</select>
 
 </mapper>

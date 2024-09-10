@@ -1,10 +1,5 @@
 package com.tenco.movie.controller;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -20,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.client.RestTemplate;
 
 import com.tenco.movie.dto.GoogleOAuthToken;
@@ -37,6 +31,7 @@ import com.tenco.movie.service.UserService;
 import com.tenco.movie.utils.Define;
 
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/user")
@@ -46,7 +41,7 @@ public class UserController {
 	private UserService userService;
 
 	private final HttpSession session;
-
+	
 	@Value("${tenco.key}")
 	private String tencoKey;
 
@@ -57,7 +52,6 @@ public class UserController {
 
 	/**
 	 * 로그인
-	 * 
 	 * @author 성후
 	 */
 	@GetMapping("/signIn")
@@ -67,7 +61,6 @@ public class UserController {
 
 	/**
 	 * 로그인 주소 설계
-	 * 
 	 * @param
 	 * @return
 	 * @author 형정
@@ -93,29 +86,16 @@ public class UserController {
 		// user principal 생성
 		User principal = userService.readUser(dto);
 
-		// -------------------------------------------------
-		if (userService.checkAdmin(dto.getLoginId()) != null) {
-			System.out.println("여기임까333333");
-			
-			session.setAttribute(Define.PRINCIPAL, principal);
-			
-			return "redirect:/adminMain";
-		}
+		System.out.println("여기냐4444433");
+		
+		// user principal 세션 생성
+		session.setAttribute(Define.PRINCIPAL, principal);
 
-		// -------------------------------------------------
-		else {
-			System.out.println("여기냐4444433");
-
-			// user principal 세션 생성
-			session.setAttribute(Define.PRINCIPAL, principal);
-
-			return "redirect:/home";
-		}
+		return "redirect:/home";
 	}
 
 	/**
 	 * 회원가입
-	 * 
 	 * @author 성후
 	 */
 	@GetMapping("/signUp")
@@ -125,7 +105,6 @@ public class UserController {
 
 	/**
 	 * 로그아웃
-	 * 
 	 * @author 성후, 형정
 	 */
 	@GetMapping("/logout")
@@ -136,7 +115,6 @@ public class UserController {
 
 	/**
 	 * 회원가입
-	 * 
 	 * @return
 	 * @author 형정
 	 */
@@ -144,17 +122,6 @@ public class UserController {
 	public String signUpPage(SignUpDTO dto, Model model) {
 
 		System.out.println("회원가입 들어왔니?");
-
-		// 아이디 유효성 검사
-		// 아이디 비어져있을 때
-		if (dto.getLoginId() == null || dto.getLoginId().trim().isEmpty()) {
-			throw new DataDeliveryException(Define.ENTER_YOUR_ID, HttpStatus.BAD_REQUEST);
-		}
-
-		// 아이디 글자 제한
-		if (dto.getLoginId().length() < 7 || dto.getLoginId().length() > 16) {
-			throw new DataDeliveryException(Define.ENTER_ID_LENGTH, HttpStatus.BAD_REQUEST);
-		}
 
 		// 이름 유효성 검사
 		// 이름 비어져있을 때
@@ -175,7 +142,7 @@ public class UserController {
 		if (!dto.getPassword().matches(".*[A-Za-z].*")) {
 			throw new DataDeliveryException(Define.ENTER_PASSWORD_CHAR, HttpStatus.BAD_REQUEST);
 		}
-		// 비밀번호
+		// 비밀번호 
 		if (!dto.getPassword().matches(".*\\d.*")) {
 			throw new DataDeliveryException(Define.ENTER_PASSWORD_NUM, HttpStatus.BAD_REQUEST);
 		}
@@ -188,17 +155,12 @@ public class UserController {
 			throw new DataDeliveryException(Define.NOT_VALIDATE_PASSWORD, HttpStatus.BAD_REQUEST);
 		}
 
-		// 이메일 유효성 검사
-		// 이메일이 없거나 빈칸일 때
-		if (dto.getEmail() == null || dto.getEmail().trim().isEmpty()) {
-			throw new DataDeliveryException(Define.ENTER_YOUR_EMAIL, HttpStatus.BAD_REQUEST);
-		}
-
 		// 휴대폰 번호 유효성 검사
 		// 휴대폰 번호가 없거나 빈킨일 때
 		if (dto.getPhoneNum() == null || dto.getPhoneNum().trim().isEmpty()) {
 			throw new DataDeliveryException(Define.ENTER_YOUR_PHONE_NUM, HttpStatus.BAD_REQUEST);
 		}
+		
 		// 휴대폰 번호가 10~11자가 아닐 때
 		if (!dto.getPhoneNum().matches("\\d{10,11}")) {
 			throw new DataDeliveryException(Define.NOT_VALIDATE_PHONE_NUM, HttpStatus.BAD_REQUEST);
@@ -214,47 +176,33 @@ public class UserController {
 		userService.createUser(dto);
 
 		System.out.println("회원가입 성공");
-
-		return "redirect:/user/signIn?success=true";
+		
+		return "redirect:/user/signIn";
 
 	}
 
 	/**
 	 * 마이페이지
-	 * 
 	 * @author 성후
 	 */
 	@GetMapping("/myPage")
-	public String myPage(@SessionAttribute(Define.PRINCIPAL) User principal, Model model) {
-
-		String name = principal.getLoginId();
-
-		User user = userService.getUserById(name);
-		model.addAttribute("user", user);
+	public String myPage() {
 		return "user/myPage";
 	}
-
+	
 	/**
-	 * 마이페이지
+	 *마이페이지 
 	 *
-	 * @author 성후
+	 *@author 성후
 	 */
-	@PostMapping("/updateUser")
-	public String updateUser(@RequestParam("password") String password, @RequestParam("email") String email,
-			@RequestParam("phoneNum") String phoneNum, @RequestParam("userId") String loginId,
-			@SessionAttribute("principal") User principal) {
-
-		if (!principal.getLoginId().equals(loginId)) {
-			return "";
-		}
-		// 사용자 정보 업데이트
-		userService.updateUser(loginId, password, email, phoneNum);
-		return "redirect:/home";
+	@PostMapping("/myPage")
+	public String myPageProFile() {
+		// 이름, 아이디, 닉네임 등록, 프로필 이미지 등록, 동의여부 확인, 수정하기버튼활성화
+		return "redirect:/user/myPage";
 	}
-
+	
 	/**
 	 * 아이디 찾기
-	 * 
 	 * @return
 	 * @author 형정
 	 */
@@ -264,24 +212,22 @@ public class UserController {
 	}
 
 	@PostMapping("/findID")
-	public String findId(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email,
-			Model model) {
-
+	public String findId(@RequestParam(name ="name")String name, @RequestParam(name ="email")String email, Model model) {
+		
 		User user = userService.findByLoginIdForEmail(name, email);
-
+		
 		model.addAttribute("loginId", user.getLoginId());
-
+		
 		return "user/findNextID";
 	}
-
+	
 	@PostMapping("/findNextID")
 	public String findNextID() {
 		return "redirect:/user/findNextID";
 	}
-
+	
 	/**
 	 * 비밀번호 찾기
-	 * 
 	 * @param name
 	 * @param phoneNum
 	 * @param model
@@ -289,27 +235,26 @@ public class UserController {
 	 * @return
 	 */
 	@GetMapping("/findPassword")
-	public String findPasswrod() {
-
+	public String findPassword() {
+		
 		return "user/findPassword";
 	}
-
+	
 	@PostMapping("/findNextPassword")
-	public String findNextPassword(@RequestParam(name = "loginId") String loginId,
-			@RequestParam(name = "email") String email, Model model) {
-
+	public String findNextPassword(@RequestParam(name = "loginId") String loginId, @RequestParam(name ="email") String email, Model model) {
+		
 		System.out.println("비밀번호 찾기 들어옴?2222222222");
 		System.out.println(loginId);
 		System.out.println(email);
 		User user = userService.findByLoginIdForPassword(loginId, email);
 		model.addAttribute("password", user.getPassword());
-
+		
 		return "user/findNextPassword";
 	}
-
+	
+	
 	/**
 	 * 카카오 로그인
-	 * 
 	 * @param code
 	 * @return
 	 * @author 형정
@@ -332,8 +277,7 @@ public class UserController {
 
 		HttpEntity<MultiValueMap<String, String>> reqkakaoMessage = new HttpEntity<>(params1, header1);
 
-		ResponseEntity<KakaoOAuthToken> response1 = rt1.exchange("https://kauth.kakao.com/oauth/token", HttpMethod.POST,
-				reqkakaoMessage, KakaoOAuthToken.class);
+		ResponseEntity<KakaoOAuthToken> response1 = rt1.exchange("https://kauth.kakao.com/oauth/token", HttpMethod.POST,reqkakaoMessage, KakaoOAuthToken.class);
 
 		System.out.println("response : " + response1.getBody().toString());
 
@@ -346,54 +290,56 @@ public class UserController {
 
 		HttpEntity<MultiValueMap<String, String>> reqKakaoInfoMessage = new HttpEntity<>(headers2);
 
-		ResponseEntity<KakaoProfile> response2 = rt2.exchange("https://kapi.kakao.com/v2/user/me", HttpMethod.POST,
-				reqKakaoInfoMessage, KakaoProfile.class);
+		ResponseEntity<KakaoProfile> response2 = rt2.exchange("https://kapi.kakao.com/v2/user/me", HttpMethod.POST, reqKakaoInfoMessage, KakaoProfile.class);
 
+		
 		KakaoProfile kakaoProfile = response2.getBody();
 
 		System.out.println("kakaoProfile : " + kakaoProfile);
-
+		
 		SignUpDTO signUpDTO = SignUpDTO.builder()
 				.loginId(kakaoProfile.getProperties().getNickname() + "_" + kakaoProfile.getId())
-				.username(kakaoProfile.getProperties().getNickname()).password(tencoKey)
-				.email(kakaoProfile.getProperties().getEmail()).build();
-
+				.username(kakaoProfile.getProperties().getNickname())
+				.password(tencoKey)
+				.email(kakaoProfile.getProperties().getEmail())
+				.build();
+		
+		
 		User oldUser = userService.searchUsername(signUpDTO.getUsername());
-		if (oldUser == null) {
+		if(oldUser == null) {
 
 			oldUser = new User();
-
+			
 			signUpDTO.setOriginFileName(kakaoProfile.getProperties().getProfileImage());
-
+			
 			userService.createKakaoUser(signUpDTO);
-
+			
 			oldUser.setName(signUpDTO.getUsername());
 			oldUser.setPassword(null);
 			// oldUser.set(signUpDTO.getName());
-
+			
 			// 프로필 이미지 여부에 따라 조건식 추가
 			signUpDTO.setOriginFileName(kakaoProfile.getProperties().getThumbnailImage());
 			userService.createKakaoUser(signUpDTO);
-
+			
 			System.out.println("여기됐나나아아아아");
 		}
-
+		
 		// 자동 로그인 처리
 		session.setAttribute(Define.PRINCIPAL, oldUser);
-
+		
 		return "redirect:/home";
 	}
-
+	
 	/**
 	 * 네이버 로그인
-	 * 
 	 * @return
 	 * @author 형정
 	 */
 	@GetMapping("/naver")
 	public String naver(@RequestParam(name = "code") String code, @RequestParam(name = "state") String state) {
 		System.out.println("네이버 들어옴?");
-
+	
 		System.out.println("code : " + code);
 		System.out.println("state : " + state);
 		RestTemplate rt1 = new RestTemplate();
@@ -407,59 +353,56 @@ public class UserController {
 		params1.add("client_secret", "AH4vWNTpun");
 		params1.add("code", code);
 		params1.add("state", state);
-
+		
 		HttpEntity<MultiValueMap<String, String>> reqNaverMessage = new HttpEntity<>(params1, header1);
 
-		ResponseEntity<NaverOAuthToken> response1 = rt1.exchange("https://nid.naver.com/oauth2.0/token",
-				HttpMethod.POST, reqNaverMessage, NaverOAuthToken.class);
+		ResponseEntity<NaverOAuthToken> response1 = rt1.exchange("https://nid.naver.com/oauth2.0/token", HttpMethod.POST,reqNaverMessage, NaverOAuthToken.class);
 
 		System.out.println("NaverOAuthToken : " + response1.getBody().toString());
-
+		
 		RestTemplate rt2 = new RestTemplate();
 
 		HttpHeaders headers2 = new HttpHeaders();
-
+		
 		headers2.add("Authorization", "Bearer " + response1.getBody().getAccessToken());
 		headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
 		HttpEntity<MultiValueMap<String, String>> reqNavernfoMessage = new HttpEntity<>(headers2);
 
-		ResponseEntity<NaverProfile> response2 = rt2.exchange("https://openapi.naver.com/v1/nid/me", HttpMethod.POST,
-				reqNavernfoMessage, NaverProfile.class);
+		ResponseEntity<NaverProfile> response2 = rt2.exchange("https://openapi.naver.com/v1/nid/me", HttpMethod.POST, reqNavernfoMessage, NaverProfile.class);
 
 		System.out.println("NaverProfile : " + response2.getBody().toString());
-
-		NaverProfile profile = response2.getBody();
-
+		
+		NaverProfile profile = response2.getBody(); 
+				
 		User oldUser = userService.searchLoginId(profile.getResponse().getId());
 		System.out.println(oldUser);
-		if (oldUser == null) {
+		if(oldUser == null) {
 			oldUser = new User();
 			oldUser.setLoginId(profile.getResponse().getId());
 			oldUser.setPassword(profile.getResponse().getId());
 
 			System.out.println("네이버 올드유저까지 왔늬");
 			userService.createNaverUser(profile.getResponse());
-
+			
 		}
 		session.setAttribute(Define.PRINCIPAL, oldUser);
-
+		
 		return "redirect:/home";
-
+		
 	}
-
+	
 	/**
 	 * 구글 로그인
-	 * 
 	 * @param code
-	 * @return
+	 * @return	 
 	 * @author 형정
 	 */
 	@GetMapping("/google")
 	public String google(@RequestParam(name = "code") String code) {
-
+		
 		System.out.println("구글 들어옴요");
-
+		
 		System.out.println("code : " + code);
 		RestTemplate rt1 = new RestTemplate();
 
@@ -467,18 +410,17 @@ public class UserController {
 		header1.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
 		MultiValueMap<String, String> params1 = new LinkedMultiValueMap<>();
-
+		
 		// 구글 시크릿 코드 및 add 자리
 		params1.add("code", code);
 		params1.add("client_id", "");
 		params1.add("client_secret", "");
 		params1.add("redirect_uri", "http://localhost:8080/user/google");
 		params1.add("grant_type", "authorization_code");
-
+		
 		HttpEntity<MultiValueMap<String, String>> reqGoogleMessage = new HttpEntity<>(params1, header1);
 
-		ResponseEntity<GoogleOAuthToken> response1 = rt1.exchange("https://oauth2.googleapis.com/token",
-				HttpMethod.POST, reqGoogleMessage, GoogleOAuthToken.class);
+		ResponseEntity<GoogleOAuthToken> response1 = rt1.exchange("https://oauth2.googleapis.com/token", HttpMethod.POST,reqGoogleMessage, GoogleOAuthToken.class);
 
 		System.out.println("GoogleAuthToken : " + response1.getBody().toString());
 
@@ -491,39 +433,37 @@ public class UserController {
 
 		HttpEntity<MultiValueMap<String, String>> reqGoogleInfoMessage = new HttpEntity<>(headers2);
 
-		ResponseEntity<GoogleProfile> response2 = rt2.exchange("https://www.googleapis.com/userinfo/v2/me",
-				HttpMethod.GET, reqGoogleInfoMessage, GoogleProfile.class);
+		ResponseEntity<GoogleProfile> response2 = rt2.exchange("https://www.googleapis.com/userinfo/v2/me", HttpMethod.GET, reqGoogleInfoMessage, GoogleProfile.class);
 
 		System.out.println("googleProfile : " + response2.getBody().toString());
-
-		GoogleProfile profile = response2.getBody();
-
-		System.out.println("profile :::: " + profile);
+		
+		GoogleProfile profile = response2.getBody(); 
+		
+		System.out.println("profile :::: "+ profile);
 		System.out.println("==========================================================================");
 		System.out.println(profile.getId() + "=====" + profile.getEmail() + "=====" + profile.getName());
 		System.out.println("==========================================================================");
-
+		
 		User oldUser = userService.searchLoginId(profile.getId());
-
+		
 		System.out.println("oldUser : " + oldUser);
-		if (oldUser == null) {
+		if(oldUser == null) {
 			oldUser = new User();
 			oldUser.setLoginId(profile.googleUser().getLoginId());
 			oldUser.setPassword(profile.googleUser().getLoginId());
 
 			System.out.println("구글 올드유저까지 왔늬");
-
+			
 			userService.createGoogleUser(profile);
-
+			
 		}
 		session.setAttribute(Define.PRINCIPAL, oldUser);
-
+		
 		return "redirect:/home";
 	}
 
 	/**
 	 * 이용약관
-	 * 
 	 * @return
 	 * @author 형정
 	 */
@@ -531,10 +471,9 @@ public class UserController {
 	public String termsOfUse() {
 		return "user/termsOfUse";
 	}
-
+	
 	/**
 	 * 개인정보처리방침
-	 * 
 	 * @return
 	 * @author 형정
 	 */
@@ -543,4 +482,5 @@ public class UserController {
 		return "user/privacyPolicy";
 	}
 
+	
 }

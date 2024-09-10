@@ -1,6 +1,7 @@
 package com.tenco.movie.repository.interfaces;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -38,13 +39,17 @@ public interface UserRepository {
 	
 	// 이메일 중복 검사
 	public User findByEmail(@Param("email") String email);
-	
+
+	public Optional<User> findByEmails(@Param("email") String email);
+
 	// 휴대폰 번호 중복 검사 
 	User isPhoneNumDuplicated(String phoneNum);
+
+	// 비밀번호 랜덤키 발급
+	public User updatePassword(@Param("password")String newPassword, @Param("loginId")String loginId);
+
 	void updateUsername(Long userId, String username);
 	
-	
-	//------------------------------
 	// 어드민 체크
 	public Admin checkAdmin(@Param("loginId") String loginId);
 
