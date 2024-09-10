@@ -116,7 +116,7 @@ public class MailSendService {
 			case 1:
 				// a ~ z
 				key.append((char) (int) (random.nextInt(26) + 65));
-				break;
+					break;
 
 			case 2:
 				// 0 ~ 9
