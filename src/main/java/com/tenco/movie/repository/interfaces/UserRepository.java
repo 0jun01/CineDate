@@ -46,7 +46,7 @@ public interface UserRepository {
 	User isPhoneNumDuplicated(String phoneNum);
 
 	// 비밀번호 랜덤키 발급
-	public User updatePassword(@Param("password")String newPassword, @Param("loginId")String loginId);
+	public int updatePassword(@Param("password")String newPassword, @Param("loginId")String loginId);
 
 	void updateUsername(Long userId, String username);
 	

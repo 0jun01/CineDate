@@ -334,20 +334,6 @@
             return;
         }
 
-        // 아이디 중복 확인 상태
-        if (!isLoginIdChecked) {
-            alert("아이디 중복 확인을 해주세요.");
-            event.preventDefault(); // 폼 제출 방지
-            return;
-        }
-
-        // 이메일 중복 확인 상태
-        if (!isEmailChecked) {
-            alert("이메일 중복 확인을 해주세요.");
-            event.preventDefault(); // 폼 제출 방지
-            return;
-        }
-
         // 이메일 인증 완료 여부
         const mailSendInput = document.querySelector("#mailSend").value.trim();
         if (!mailSendInput || mailSendInput === "") {
