@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!-- header.jsp -->
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <link href="/css/reservation.css" rel="stylesheet">
@@ -15,7 +16,8 @@
 					<ul id="date--list">
 						<li>
 							<div>
-								<span class="year">${currentYear}</span> <br> <span class="">${currentMonth}월</span>
+								<span class="year">${currentYear}</span> <br> <span
+									class="">${currentMonth}월</span>
 							</div>
 						</li>
 						<c:forEach var="entry" items="${date}">
@@ -26,27 +28,34 @@
 							<c:set var="formattedDay">
 								<fmt:formatNumber value="${entry.day}" pattern="00" />
 							</c:set>
-							<c:set var="formattedDate" value="${entry.year}-${formattedMonth}-${formattedDay}" />
+							<c:set var="formattedDate"
+								value="${entry.year}-${formattedMonth}-${formattedDay}" />
 							<c:if test="${entry.day == 1}">
 								<li>
 									<div>
-										<span class="year">${entry.year}</span> <br> <span class="month">${entry.month}월</span>
+										<span class="year">${entry.year}</span> <br> <span
+											class="month">${entry.month}월</span>
 									</div>
 								</li>
 							</c:if>
 
-							<li id="date-${formattedDate}" class="selectable-date"><a href="javascript:void(0)" onclick="viewSelectedDate('${formattedDate}', this)"> <c:choose>
+							<li id="date-${formattedDate}" class="selectable-date"><a
+								href="javascript:void(0)"
+								onclick="viewSelectedDate('${formattedDate}', this)"> <c:choose>
 										<c:when test="${holidays.contains(formattedDate)}">
 											<span class="holiday" data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
-											<span class="holiday" data-date-value="${formattedDate}">${entry.day} </span>
+											<span class="holiday" data-date-value="${formattedDate}">${entry.day}
+											</span>
 										</c:when>
 										<c:when test="${entry.dayOfWeek == '일'}">
 											<span class="holiday" data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
-											<span class="holiday" data-date-value="${formattedDate}">${entry.day} </span>
+											<span class="holiday" data-date-value="${formattedDate}">${entry.day}
+											</span>
 										</c:when>
 										<c:when test="${entry.dayOfWeek == '토'}">
 											<span class="satur" data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
-											<span class="satur" data-date-value="${formattedDate}">${entry.day} </span>
+											<span class="satur" data-date-value="${formattedDate}">${entry.day}
+											</span>
 										</c:when>
 										<c:otherwise>
 											<span data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
@@ -65,13 +74,16 @@
 					<h3>영화</h3>
 				</div>
 				<div class="filter--box">
-					<button type="button" id="sortByKorean" value="korean" name="filter--btn">가나다순</button>
+					<button type="button" id="sortByKorean" value="korean"
+						name="filter--btn">가나다순</button>
 					<button type="button" id="sortByAge" value="age" name="filter--btn">시청등급순</button>
 				</div>
 				<div class="scroll--list">
 					<ul id="movie-list">
 						<c:forEach var="movie" items="${movieList}">
-							<li><a href="javascript:void(0)" data-movie-id="${movie.movieId}" onclick="handleAvailableMovieClick(this)"><c:choose>
+							<li><a href="javascript:void(0)"
+								data-movie-id="${movie.movieId}"
+								onclick="handleAvailableMovieClick(this)"><c:choose>
 										<c:when test="${movie.watchGradeNm eq '전체관람가'}">
 											<span class="grade-all">ALL</span>
 											<span data-id="${movie.movieId}">${movie.title}</span>
@@ -104,14 +116,18 @@
 					<div class="region--list">
 						<ul id="region-list">
 							<c:forEach var="region" items="${regionList}">
-								<li class="region--name--box"><a href="javascript:void(0)" onclick="applyRegionFilter('${region.id}')">${region.name}</a></li>
+								<li class="region--name--box"><a href="javascript:void(0)"
+									onclick="applyRegionFilter('${region.id}')">${region.name}</a></li>
 							</c:forEach>
 						</ul>
 					</div>
 					<div class="scroll--list">
 						<ul id="sub--region--list">
 							<c:forEach var="subRegion" items="${subRegionList}">
-								<li id="subregion-${subRegion.id}"><a href="javascript:void(0)" onclick="checkMovie('${subRegion.name}', '${subRegion.id}')"> ${subRegion.name} </a></li>
+								<li id="subregion-${subRegion.id}"><a
+									href="javascript:void(0)"
+									onclick="checkMovie('${subRegion.name}', '${subRegion.id}')">
+										${subRegion.name} </a></li>
 							</c:forEach>
 						</ul>
 					</div>
@@ -122,7 +138,8 @@
 					<h3>시간</h3>
 				</div>
 				<div class="time--list">
-					<span class="title"> <span class="floor"></span> <span class="seatcount"></span>
+					<span class="title"> <span class="floor"></span> <span
+						class="seatcount"></span>
 					</span>
 					<ul>
 						<li><a> <span class=time> <span></span>
@@ -160,104 +177,104 @@
 			<div class="container">
 				<div class="row">
 					<div class="row-label">A</div>
-					<div class="seat" data-seat="A1"></div>
-					<div class="seat" data-seat="A2"></div>
-					<div class="seat" data-seat="A3"></div>
-					<div class="seat" data-seat="A4"></div>
-					<div class="seat" data-seat="A5"></div>
-					<div class="seat" data-seat="A6"></div>
-					<div class="seat" data-seat="A7"></div>
-					<div class="seat" data-seat="A8"></div>
-					<div class="seat" data-seat="A9"></div>
-					<div class="seat" data-seat="A10"></div>
-					<div class="seat" data-seat="A11"></div>
-					<div class="seat" data-seat="A12"></div>
-					<div class="seat" data-seat="A13"></div>
+					<div id="1" class="seat" data-seat="A1"></div>
+					<div id="2" class="seat" data-seat="A2"></div>
+					<div id="3" class="seat" data-seat="A3"></div>
+					<div id="4" class="seat" data-seat="A4"></div>
+					<div id="5" class="seat" data-seat="A5"></div>
+					<div id="6" class="seat" data-seat="A6"></div>
+					<div id="7" class="seat" data-seat="A7"></div>
+					<div id="8" class="seat" data-seat="A8"></div>
+					<div id="9" class="seat" data-seat="A9"></div>
+					<div id="10" class="seat" data-seat="A10"></div>
+					<div id="11" class="seat" data-seat="A11"></div>
+					<div id="12" class="seat" data-seat="A12"></div>
+					<div id="13" class="seat" data-seat="A13"></div>
 				</div>
 
 				<div class="row">
 					<div class="row-label">B</div>
-					<div class="seat" data-seat="B1"></div>
-					<div class="seat" data-seat="B2"></div>
-					<div class="seat" data-seat="B3"></div>
-					<div class="seat" data-seat="B4"></div>
-					<div class="seat" data-seat="B5"></div>
-					<div class="seat" data-seat="B6"></div>
-					<div class="seat" data-seat="B7"></div>
-					<div class="seat" data-seat="B8"></div>
-					<div class="seat" data-seat="B9"></div>
-					<div class="seat" data-seat="B10"></div>
-					<div class="seat" data-seat="B11"></div>
-					<div class="seat" data-seat="B12"></div>
-					<div class="seat" data-seat="B13"></div>
+					<div id="14" class="seat" data-seat="B1"></div>
+					<div id="15" class="seat" data-seat="B2"></div>
+					<div id="16" class="seat" data-seat="B3"></div>
+					<div id="17" class="seat" data-seat="B4"></div>
+					<div id="18" class="seat" data-seat="B5"></div>
+					<div id="19" class="seat" data-seat="B6"></div>
+					<div id="20" class="seat" data-seat="B7"></div>
+					<div id="21" class="seat" data-seat="B8"></div>
+					<div id="22" class="seat" data-seat="B9"></div>
+					<div id="23" class="seat" data-seat="B10"></div>
+					<div id="24" class="seat" data-seat="B11"></div>
+					<div id="25" class="seat" data-seat="B12"></div>
+					<div id="26" class="seat" data-seat="B13"></div>
 				</div>
 
 				<div class="row">
 					<div class="row-label">C</div>
-					<div class="seat" data-seat="C1"></div>
-					<div class="seat" data-seat="C2"></div>
-					<div class="seat" data-seat="C3"></div>
-					<div class="seat" data-seat="C4"></div>
-					<div class="seat" data-seat="C5"></div>
-					<div class="seat" data-seat="C6"></div>
-					<div class="seat" data-seat="C7"></div>
-					<div class="seat" data-seat="C8"></div>
-					<div class="seat" data-seat="C9"></div>
-					<div class="seat" data-seat="C10"></div>
-					<div class="seat" data-seat="C11"></div>
-					<div class="seat" data-seat="C12"></div>
-					<div class="seat" data-seat="C13"></div>
+					<div id="27" class="seat" data-seat="C1"></div>
+					<div id="28" class="seat" data-seat="C2"></div>
+					<div id="29" class="seat" data-seat="C3"></div>
+					<div id="30" class="seat" data-seat="C4"></div>
+					<div id="31" class="seat" data-seat="C5"></div>
+					<div id="32" class="seat" data-seat="C6"></div>
+					<div id="33" class="seat" data-seat="C7"></div>
+					<div id="34" class="seat" data-seat="C8"></div>
+					<div id="35" class="seat" data-seat="C9"></div>
+					<div id="36" class="seat" data-seat="C10"></div>
+					<div id="37" class="seat" data-seat="C11"></div>
+					<div id="38" class="seat" data-seat="C12"></div>
+					<div id="39" class="seat" data-seat="C13"></div>
 				</div>
 
 				<div class="row">
 					<div class="row-label">D</div>
-					<div class="seat" data-seat="D1"></div>
-					<div class="seat" data-seat="D2"></div>
-					<div class="seat" data-seat="D3"></div>
-					<div class="seat" data-seat="D4"></div>
-					<div class="seat" data-seat="D5"></div>
-					<div class="seat" data-seat="D6"></div>
-					<div class="seat" data-seat="D7"></div>
-					<div class="seat" data-seat="D8"></div>
-					<div class="seat" data-seat="D9"></div>
-					<div class="seat" data-seat="D10"></div>
-					<div class="seat" data-seat="D11"></div>
-					<div class="seat" data-seat="D12"></div>
-					<div class="seat" data-seat="D13"></div>
+					<div id="40" class="seat" data-seat="D1"></div>
+					<div id="41" class="seat" data-seat="D2"></div>
+					<div id="42" class="seat" data-seat="D3"></div>
+					<div id="43" class="seat" data-seat="D4"></div>
+					<div id="44" class="seat" data-seat="D5"></div>
+					<div id="45" class="seat" data-seat="D6"></div>
+					<div id="46" class="seat" data-seat="D7"></div>
+					<div id="47" class="seat" data-seat="D8"></div>
+					<div id="48" class="seat" data-seat="D9"></div>
+					<div id="49" class="seat" data-seat="D10"></div>
+					<div id="50" class="seat" data-seat="D11"></div>
+					<div id="51" class="seat" data-seat="D12"></div>
+					<div id="52" class="seat" data-seat="D13"></div>
 				</div>
 
 				<div class="row">
 					<div class="row-label">E</div>
-					<div class="seat" data-seat="E1"></div>
-					<div class="seat" data-seat="E2"></div>
-					<div class="seat" data-seat="E3"></div>
-					<div class="seat" data-seat="E4"></div>
-					<div class="seat" data-seat="E5"></div>
-					<div class="seat" data-seat="E6"></div>
-					<div class="seat" data-seat="E7"></div>
-					<div class="seat" data-seat="E8"></div>
-					<div class="seat" data-seat="E9"></div>
-					<div class="seat" data-seat="E10"></div>
-					<div class="seat" data-seat="E11"></div>
-					<div class="seat" data-seat="E12"></div>
-					<div class="seat" data-seat="E13"></div>
+					<div id="53" class="seat" data-seat="E1"></div>
+					<div id="54" class="seat" data-seat="E2"></div>
+					<div id="55" class="seat" data-seat="E3"></div>
+					<div id="56" class="seat" data-seat="E4"></div>
+					<div id="57" class="seat" data-seat="E5"></div>
+					<div id="58" class="seat" data-seat="E6"></div>
+					<div id="59" class="seat" data-seat="E7"></div>
+					<div id="60" class="seat" data-seat="E8"></div>
+					<div id="61" class="seat" data-seat="E9"></div>
+					<div id="62" class="seat" data-seat="E10"></div>
+					<div id="63" class="seat" data-seat="E11"></div>
+					<div id="64" class="seat" data-seat="E12"></div>
+					<div id="65" class="seat" data-seat="E13"></div>
 				</div>
 
 				<div class="row">
 					<div class="row-label">F</div>
-					<div class="seat couple" data-seat="F1"></div>
-					<div class="seat couple" data-seat="F2"></div>
-					<div class="seat couple" data-seat="F3"></div>
-					<div class="seat couple" data-seat="F4"></div>
+					<div id="66" class="seat couple" data-seat="F1"></div>
+					<div id="67" class="seat couple" data-seat="F2"></div>
+					<div id="68" class="seat couple" data-seat="F3"></div>
+					<div id="69" class="seat couple" data-seat="F4"></div>
 					<div class="seat empty-seat"></div>
 					<div class="seat empty-seat"></div>
 					<div class="seat empty-seat"></div>
 					<div class="seat empty-seat"></div>
 					<div class="seat empty-seat"></div>
-					<div class="seat couple" data-seat="F10"></div>
-					<div class="seat couple" data-seat="F11"></div>
+					<div id="70" class="seat couple" data-seat="F10"></div>
+					<div id="71" class="seat couple" data-seat="F11"></div>
 					<div class="seat empty-seat"></div>
-					<div class="seat handicap" data-seat="F13"></div>
+					<div id="72" class="seat handicap" data-seat="F13"></div>
 				</div>
 			</div>
 			<p class="text">
@@ -273,15 +290,15 @@
 		</span>
 	</div>
 	<div class="movie--detail--box">
-		<span>극장</span> <span class="theater"></span> <span>일시&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="choosen--date"></span> <span>상영관</span> <span class="room"></span> <span>인원</span>
-		<a href="javascript:void(0)" onclick="viewSeats()" id="seat--selection--btn" class="btn--right">좌석선택!!!!!!!!!!!!!!!!!</a>
+		<span>극장</span> <span class="theater"></span> <span>일시&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		<span class="choosen--date"></span> <span>상영관</span> <span
+			class="room"></span> <span>인원</span> <a href="javascript:void(0)"
+			onclick="viewSeats()" id="seat--selection--btn" class="btn--right">좌석선택!!!!!!!!!!!!!!!!!</a>
 	</div>
-	
+
 	<div class="movie--seat--box">
-		<span>좌석명</span>
-		<span class="seat--type"></span>
-		<span>좌석번호</span>
-		<span class="seat--num"></span>
+		<span>좌석명</span> <span class="seat--type"></span> <span>좌석번호</span> <span
+			class="seat--num"></span>
 	</div>
 </div>
 <script src="/js/seat.js"></script>
@@ -292,6 +309,7 @@ let selectedDate1 = null;
 let selectedTheater = null;
 let selectedTime = null;
 let step = 0;
+let showTimeId = null;
 
 document.addEventListener('DOMContentLoaded', function() {
 	
@@ -693,6 +711,8 @@ let room = null;
         const timeString = item.showTime; // '20:00:00'
         const timeParts = timeString.split(':'); // ['20', '00', '00']
         timeInnerSpan.textContent = timeParts[0] +`:`+timeParts[1]; // '20:00'
+	
+        showTimeId = item.showTimeId;
         
         timeSpan.appendChild(timeInnerSpan);
 
@@ -740,8 +760,19 @@ function viewSeats(){
 	// 새 콘텐츠 보이기
      document.getElementById('movie-container').style.display = 'block';
 	
-	// 버튼 텍스트 변경
-	document.getElementById('seat--selection--btn').textContent = '결제선택'
+  // 버튼 요소 선택
+     const button = document.getElementById('seat--selection--btn');
+
+     // 버튼의 텍스트를 '결제선택'으로 변경
+     button.textContent = '결제선택';
+
+     // 인라인 이벤트 리스너 제거
+     button.onclick = null; // 기존의 onclick 핸들러 제거
+
+     // 새 이벤트 리스너 추가
+     button.addEventListener('click', function() {
+         console.log(selectedSeatsId);
+     });
 	}
 }
 
