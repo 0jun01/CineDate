@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>CineDate</title>
@@ -10,6 +10,7 @@
 <link href="/css/header.css" rel="stylesheet">
 <link href="/css/font.css" rel="stylesheet">
 <link href="/css/main.css" rel="stylesheet">
+<link href="/css/date.css" rel="stylesheet">
 <link href="/css/footer.css" rel="stylesheet">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.ico">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -75,12 +76,12 @@
 					<a href="/reservation/reservation">예매</a>
 				</li>
 				<li class="date nav--menu--li">
-					<a href="/date/date">매칭</a>
+					매칭
 					<ul class="sub--menu">
-						<li><a href="">추가하세효1</a></li>
-						<li><a href="">추가하세효2</a></li>
-						<li><a href="">추가하세효3</a></li>
-						<li><a href="">추가하세효4</a></li>
+						<li><a href="/date/date">일반리스트</a></li>
+						<li><a href="/date/machingList">매칭리스트</a></li>
+						<li><a href="/date/popcornStore">상점</a></li>
+						<li><a href="/date/profilePage">마이페이지</a></li>
 					</ul>
 				</li>
 				<li class="nav--menu--li"><a href="/event/event">이벤트</a></li>

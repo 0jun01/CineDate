@@ -56,10 +56,10 @@ public class DateController {
 	 * 
 	 * @author 배병호 principal 기준으로 회원가입 페이지 date page or 회원가입 페이지 전화
 	 * @author 김가령
+	 * @author 유형정 슈퍼 리스트 추가
 	 */
 	@GetMapping("/date")
-	public String getDatePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model,
-			RedirectAttributes redirectAttributes) {
+	public String getDatePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model, RedirectAttributes redirectAttributes) {
 		/**
 		 * 데이트 페이지 들어갈때 로그인 안되있으면 로그인 하라고 방어코드 추가함
 		 * 
@@ -77,12 +77,14 @@ public class DateController {
 			throw new DataDeliveryException(Define.PROFILE_SUSPENDING, HttpStatus.BAD_REQUEST);
 		}
 		
-		
-		
 		List<DateProfile> list = dateService.searchPartner(principal.getId(), principal.getGender());
 		System.out.println(list);
+		
+		List<DateProfile> superList = dateService.superPartner(principal.getId(), principal.getGender());
+		System.out.println("superList : " + superList);
 
 		model.addAttribute("list", list);
+		model.addAttribute("superList", superList);
 
 		return "date/ProfileList";
 	}

@@ -166,8 +166,6 @@ public class DateProfileService {
 			uptate.setOneUproadFileName(fileNames[1]);
 		} 
 		
-		
-		
 		if(uptate.getMFileTwo() != null && !uptate.getMFileTwo().isEmpty()) {
 			// 파일 업로드 로직 구현
 			String[] fileNames = uploadFile(uptate.getMFileTwo());
@@ -191,9 +189,6 @@ public class DateProfileService {
 	    profileRepository.updateProfile(uptate.toProfile(principalId));
 	}
 
-	
-
-	
 	/**
 	 * 전체목록
 	 * @param principalId
@@ -222,6 +217,22 @@ public class DateProfileService {
 		return profile;
 	}
 	
+	/**
+	 * 슈퍼 파트너 리스트 / 상단 고정 3개
+	 * @param principalId
+	 * @param principalGender
+	 * @return
+	 * @author 형정
+	 */
+	public List<DateProfile> superPartner(int principalId, String principalGender){
+		
+		List<DateProfile> superPartnerList = null;
+		
+		superPartnerList = profileRepository.superPartner(principalId, principalGender);
+		
+		return superPartnerList;
+		
+	}
 	
 	
 }

@@ -73,6 +73,7 @@ input:-internal-autofill-selected {
 #in--wrap {
 	width: 980px;
 	margin: auto;
+	position: relative;
 }
 
 .flex--wrap {
@@ -268,11 +269,6 @@ label {
 .find--result {
 	font-size: 16px;
 	margin-bottom: 30px;
-}
-
-table, th, td {
-	border: 1px solid black;
-	border-collapse: collapse;
 }
 
 .notice--list {
