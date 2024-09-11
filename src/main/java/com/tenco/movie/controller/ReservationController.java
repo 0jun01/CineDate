@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,13 +12,17 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tenco.movie.dto.BookingRequest;
 import com.tenco.movie.dto.TheaterCountDTO;
 import com.tenco.movie.dto.TimeDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
@@ -29,6 +34,8 @@ import com.tenco.movie.repository.model.SubRegions;
 import com.tenco.movie.service.CalendarService;
 import com.tenco.movie.service.ReservationService;
 import com.tenco.movie.utils.Define;
+
+import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
 
 @Controller
 @RequestMapping("/reservation")
@@ -216,5 +223,22 @@ public class ReservationController {
 			throw new DataDeliveryException("알 수 없는 오류", HttpStatus.BAD_REQUEST);
 		}
 		return dto;
+	}
+
+	@PostMapping("/booking")
+	public ResponseEntity<Map<String, String>> bookMovie(@RequestBody BookingRequest request) {
+
+		int result = reservationService.insertBooking(request.getUserId(), request.getShowTimeId(),
+				request.getQuantity(), request.getSelectedSeatsId());
+		Map<String, String> response = new HashMap<>();
+		response.put("message", "예매 성공");
+		return ResponseEntity.ok(response);
+	}
+
+	@GetMapping("/checkDupliSeat")
+	@ResponseBody
+	public List<Integer> checkSeats(@RequestParam("showTimeId") int showTimeId) {
+		List<Integer> shId = reservationService.viewOccupiedSeats(showTimeId);
+		return shId;
 	}
 }

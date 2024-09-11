@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- header.jsp -->
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <link href="/css/reservation.css" rel="stylesheet">
@@ -16,8 +15,7 @@
 					<ul id="date--list">
 						<li>
 							<div>
-								<span class="year">${currentYear}</span> <br> <span
-									class="">${currentMonth}월</span>
+								<span class="year">${currentYear}</span> <br> <span class="">${currentMonth}월</span>
 							</div>
 						</li>
 						<c:forEach var="entry" items="${date}">
@@ -28,34 +26,27 @@
 							<c:set var="formattedDay">
 								<fmt:formatNumber value="${entry.day}" pattern="00" />
 							</c:set>
-							<c:set var="formattedDate"
-								value="${entry.year}-${formattedMonth}-${formattedDay}" />
+							<c:set var="formattedDate" value="${entry.year}-${formattedMonth}-${formattedDay}" />
 							<c:if test="${entry.day == 1}">
 								<li>
 									<div>
-										<span class="year">${entry.year}</span> <br> <span
-											class="month">${entry.month}월</span>
+										<span class="year">${entry.year}</span> <br> <span class="month">${entry.month}월</span>
 									</div>
 								</li>
 							</c:if>
 
-							<li id="date-${formattedDate}" class="selectable-date"><a
-								href="javascript:void(0)"
-								onclick="viewSelectedDate('${formattedDate}', this)"> <c:choose>
+							<li id="date-${formattedDate}" class="selectable-date"><a href="javascript:void(0)" onclick="viewSelectedDate('${formattedDate}', this)"> <c:choose>
 										<c:when test="${holidays.contains(formattedDate)}">
 											<span class="holiday" data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
-											<span class="holiday" data-date-value="${formattedDate}">${entry.day}
-											</span>
+											<span class="holiday" data-date-value="${formattedDate}">${entry.day} </span>
 										</c:when>
 										<c:when test="${entry.dayOfWeek == '일'}">
 											<span class="holiday" data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
-											<span class="holiday" data-date-value="${formattedDate}">${entry.day}
-											</span>
+											<span class="holiday" data-date-value="${formattedDate}">${entry.day} </span>
 										</c:when>
 										<c:when test="${entry.dayOfWeek == '토'}">
 											<span class="satur" data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
-											<span class="satur" data-date-value="${formattedDate}">${entry.day}
-											</span>
+											<span class="satur" data-date-value="${formattedDate}">${entry.day} </span>
 										</c:when>
 										<c:otherwise>
 											<span data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
@@ -74,16 +65,13 @@
 					<h3>영화</h3>
 				</div>
 				<div class="filter--box">
-					<button type="button" id="sortByKorean" value="korean"
-						name="filter--btn">가나다순</button>
+					<button type="button" id="sortByKorean" value="korean" name="filter--btn">가나다순</button>
 					<button type="button" id="sortByAge" value="age" name="filter--btn">시청등급순</button>
 				</div>
 				<div class="scroll--list">
 					<ul id="movie-list">
 						<c:forEach var="movie" items="${movieList}">
-							<li><a href="javascript:void(0)"
-								data-movie-id="${movie.movieId}"
-								onclick="handleAvailableMovieClick(this)"><c:choose>
+							<li><a href="javascript:void(0)" data-movie-id="${movie.movieId}" onclick="handleAvailableMovieClick(this)"><c:choose>
 										<c:when test="${movie.watchGradeNm eq '전체관람가'}">
 											<span class="grade-all">ALL</span>
 											<span data-id="${movie.movieId}">${movie.title}</span>
@@ -116,18 +104,14 @@
 					<div class="region--list">
 						<ul id="region-list">
 							<c:forEach var="region" items="${regionList}">
-								<li class="region--name--box"><a href="javascript:void(0)"
-									onclick="applyRegionFilter('${region.id}')">${region.name}</a></li>
+								<li class="region--name--box"><a href="javascript:void(0)" onclick="applyRegionFilter('${region.id}')">${region.name}</a></li>
 							</c:forEach>
 						</ul>
 					</div>
 					<div class="scroll--list">
 						<ul id="sub--region--list">
 							<c:forEach var="subRegion" items="${subRegionList}">
-								<li id="subregion-${subRegion.id}"><a
-									href="javascript:void(0)"
-									onclick="checkMovie('${subRegion.name}', '${subRegion.id}')">
-										${subRegion.name} </a></li>
+								<li id="subregion-${subRegion.id}"><a href="javascript:void(0)" onclick="checkMovie('${subRegion.name}', '${subRegion.id}')"> ${subRegion.name} </a></li>
 							</c:forEach>
 						</ul>
 					</div>
@@ -138,8 +122,7 @@
 					<h3>시간</h3>
 				</div>
 				<div class="time--list">
-					<span class="title"> <span class="floor"></span> <span
-						class="seatcount"></span>
+					<span class="title"> <span class="floor"></span> <span class="seatcount"></span>
 					</span>
 					<ul>
 						<li><a> <span class=time> <span></span>
@@ -290,15 +273,25 @@
 		</span>
 	</div>
 	<div class="movie--detail--box">
-		<span>극장</span> <span class="theater"></span> <span>일시&nbsp;&nbsp;&nbsp;&nbsp;</span>
-		<span class="choosen--date"></span> <span>상영관</span> <span
-			class="room"></span> <span>인원</span> <a href="javascript:void(0)"
-			onclick="viewSeats()" id="seat--selection--btn" class="btn--right">좌석선택!!!!!!!!!!!!!!!!!</a>
+		<div>
+			<span>극장</span> <span class="theater"></span>
+		</div>
+		<div>
+			<span>일시</span> <span class="choosen--date"></span>
+		</div>
+		<div>
+			<span>상영관</span> <span class="room"></span>
+		</div>
+		<span>인원</span> <a href="javascript:void(0)" onclick="viewSeats()" id="seat--selection--btn" class="btn--right">좌석선택!!!!!!!!!!!!!!!!!</a>
 	</div>
 
 	<div class="movie--seat--box">
-		<span>좌석명</span> <span class="seat--type"></span> <span>좌석번호</span> <span
-			class="seat--num"></span>
+		<div>
+			<span>좌석명</span> <span class="seat--type"></span>
+		</div>
+		<div>
+			<span>좌석번호</span> <span class="seat--num"></span>
+		</div>
 	</div>
 </div>
 <script src="/js/seat.js"></script>
@@ -310,7 +303,7 @@ let selectedTheater = null;
 let selectedTime = null;
 let step = 0;
 let showTimeId = null;
-
+const principal = "${principal.id}";
 document.addEventListener('DOMContentLoaded', function() {
 	
 	if (selectedMovieId && selectedDate1) {
@@ -745,7 +738,6 @@ let room = null;
 }
 
 function viewSeats(){
-	console.log('들어오나');
 	if(selectedDate1 == null){
 		alert('날짜 먼저 선택해주세요')
 	} else if(selectedMovieId == null){
@@ -760,7 +752,19 @@ function viewSeats(){
 	// 새 콘텐츠 보이기
      document.getElementById('movie-container').style.display = 'block';
 	
-  // 버튼 요소 선택
+	
+	fetch(`http://localhost:8080/reservation/checkDupliSeat?showTimeId=` + showTimeId)
+		.then(response => {
+            if (!response.ok){
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+       .then(data => {
+    	   updateSeatClasses(data);
+        })
+	
+ 	 // 버튼 요소 선택
      const button = document.getElementById('seat--selection--btn');
 
      // 버튼의 텍스트를 '결제선택'으로 변경
@@ -772,8 +776,56 @@ function viewSeats(){
      // 새 이벤트 리스너 추가
      button.addEventListener('click', function() {
          console.log(selectedSeatsId);
+         console.log(selectedTicketCount);
+         
+         if (!principal || principal === "null") {
+        	    alert("로그인 후 사용해 주세요.");
+        	} else if(selectedTicketCount === 0){
+        		alert("좌석을 선택해 주세요")
+        	}
+         fetch(`http://localhost:8080/reservation/booking`,{
+        	 method: 'POST',
+        	 headers: {
+        		 'Content-Type': 'application/json',
+        	 },
+        	 body: JSON.stringify({
+        		 userId: principal,
+        		 showTimeId: showTimeId,
+        		 quantity: selectedTicketCount,
+        		 selectedSeatsId: selectedSeatsId // << 얘 배열입니다.
+        	 })
+         })
+         .then(response => {
+            if (!response.ok){
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        }) .then(data => {
+        	alert("예매 완료!")
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
      });
 	}
+}
+
+function updateSeatClasses(occupiedSeats) {
+    seats.forEach(seat => {
+        const seatId = seat.id;
+
+        if (occupiedSeats.includes(parseInt(seatId))) {
+            // 'selected' 클래스를 제거
+            seat.classList.remove('selected');
+            // 'occupied' 클래스를 추가
+            seat.classList.add('occupied');
+        } else {
+            // 'occupiedSeats'에 포함되지 않는 좌석은 기본 상태로 유지
+            if (seat.classList.contains('occupied')) {
+                seat.classList.remove('occupied');
+            }
+        }
+    });
 }
 
 </script>

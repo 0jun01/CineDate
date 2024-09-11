@@ -117,4 +117,36 @@
 		where show_date = #{showDate} and movie_id =
 		#{movieId} and subregion_id = #{subregionId}
 	</select>
+
+	<insert id="insertBooking">
+		INSERT INTO bookings (user_id, showtime_id, quantity,
+		booking_time, status)
+		VALUES (#{userId}, #{showTimeId}, #{quantity},
+		NOW(), '완료');
+	</insert>
+
+	<insert id="insertBookingSeats">
+		insert into booking_seats (booking_id, seat_id)
+		values
+		<foreach collection="seatIds" item="seatId" separator=",">
+			(#{bookingId}, #{seatId})
+		</foreach>
+	</insert>
+
+	<select id="viewBookingByUserIdAndShowTimeId"
+		resultType="com.tenco.movie.repository.model.Bookings">
+		select
+		* from bookings where user_id = #{userId} and
+		showtime_id =
+		#{showTimeId}
+		ORDER BY booking_time DESC
+		LIMIT 1
+	</select>
+
+	<select id="checkOccupied" resultType="int">
+		select seat_id from
+		bookings as b
+		left join booking_seats as bs on b.id = bs.booking_id
+		where showtime_id = #{showtimeId}
+	</select>
 </mapper>
