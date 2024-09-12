@@ -13,8 +13,8 @@ import lombok.ToString;
 @ToString
 public class Message {
     private Long id;
-    private int senderId; // int로 유지
-    private String recipientId; // String으로 수정
+    private String senderId; 
+    private String recipientId;
     private String message;
     private LocalDateTime timestamp;
 
@@ -22,5 +22,4 @@ public class Message {
         // Default constructor
     }
 
-    // Lombok's @Data will generate getters and setters
 }

@@ -32,7 +32,6 @@ import com.tenco.movie.service.UserService;
 import com.tenco.movie.utils.Define;
 
 import jakarta.servlet.http.HttpSession;
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/user")
@@ -218,7 +217,7 @@ public class UserController {
 	 */
 	@GetMapping("/findID")
 	public String findIdPage() {
-		return "user/findID";
+		return "user/findID";	
 	}
 
 	@PostMapping("/findID")

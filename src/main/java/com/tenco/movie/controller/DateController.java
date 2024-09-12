@@ -1,6 +1,5 @@
 package com.tenco.movie.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -56,10 +55,10 @@ public class DateController {
 	 * 
 	 * @author 배병호 principal 기준으로 회원가입 페이지 date page or 회원가입 페이지 전화
 	 * @author 김가령
+	 * @author 유형정 슈퍼 리스트 추가
 	 */
 	@GetMapping("/date")
-	public String getDatePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model,
-			RedirectAttributes redirectAttributes) {
+	public String getDatePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model, RedirectAttributes redirectAttributes) {
 		/**
 		 * 데이트 페이지 들어갈때 로그인 안되있으면 로그인 하라고 방어코드 추가함
 		 * 
@@ -77,12 +76,14 @@ public class DateController {
 			throw new DataDeliveryException(Define.PROFILE_SUSPENDING, HttpStatus.BAD_REQUEST);
 		}
 		
-		
-		
 		List<DateProfile> list = dateService.searchPartner(principal.getId(), principal.getGender());
 		System.out.println(list);
+		
+		List<DateProfile> superList = dateService.superPartner(principal.getId(), principal.getGender());
+		System.out.println("superList : " + superList);
 
 		model.addAttribute("list", list);
+		model.addAttribute("superList", superList);
 
 		return "date/ProfileList";
 	}
@@ -231,18 +232,26 @@ public class DateController {
 	 * @return
 	 */
 	@PostMapping("/sendMessage")
-	public @ResponseBody Map<String, Object> sendMessage(@RequestBody MessageDTO messageDTO, @SessionAttribute(Define.PRINCIPAL) User principal) {
+	public @ResponseBody Map<String, Object> sendMessage(
+			@RequestBody MessageDTO messageDTO, @SessionAttribute(Define.PRINCIPAL) User principal) {
 	    Map<String, Object> response = new HashMap<>();
 	    try {
 	    	
 	    	System.out.println("messageDTO 오나: " + messageDTO); // 데이터 확인
 	        System.out.println("Principal 오나: " + principal); // 세션에서의 사용자 정보 확인
 	    	
-	        Message message = new Message();
-	        message.setSenderId(principal.getId()); // 발신자 ID
-	        message.setRecipientId(messageDTO.getRecipientId()); // 수신자 ID
+	        if (messageDTO.getRecipientId() == null) {
+	            response.put("success", false);
+	            response.put("error", "Recipient ID is missing");
+	            return response;
+	        }
+	        
+	        
+	        MessageDTO message = new MessageDTO();
+	        message.setSenderId(String.valueOf(principal.getId())); // 발신자 ID
+	        message.setRecipientId(messageDTO.getRecipientId()); // 수신자 ID 여기 왜 Null로 들어오지???
 	        message.setMessage(messageDTO.getMessage()); // 메시지 내용
-	        message.setTimestamp(LocalDateTime.now()); // 타임스탬프
+	        message.setTimestamp(LocalDateTime.now()); // 타임스탬프 이것도 null이야
 	        
 	        System.out.println("여기는 컨트롤러 메세지 들어오나: " + message); // 로그 추가
 	        
@@ -254,6 +263,15 @@ public class DateController {
 	    }
 	    return response;
 	}
-	
+	 @GetMapping("/conversation")
+	    public @ResponseBody List<MessageDTO> getConversation(
+	        @RequestParam("userId") String userId,
+	        @RequestParam("recipientId") String recipientId) {
+		 	System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>");
+		 	System.out.println("userId : " + userId);
+		 	System.out.println("recipientId : " + recipientId);
+		 	System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>");
+	        return messageService.getConversation(userId, recipientId);
+	    }
 	
 }

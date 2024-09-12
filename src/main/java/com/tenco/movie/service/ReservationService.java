@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mysql.cj.Session;
 import com.tenco.movie.dto.TheaterCountDTO;
 import com.tenco.movie.dto.TimeDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
@@ -22,7 +21,6 @@ import com.tenco.movie.repository.model.Regions;
 import com.tenco.movie.repository.model.SubRegions;
 import com.tenco.movie.utils.Define;
 
-import jakarta.security.auth.message.config.AuthConfig;
 import lombok.RequiredArgsConstructor;
 
 @Service

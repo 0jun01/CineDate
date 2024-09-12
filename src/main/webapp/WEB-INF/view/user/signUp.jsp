@@ -134,7 +134,12 @@
 				                      verificationEmailButton.style.color = "#999";
 				                   
 				                      duplicationEmail.disabled = true;
-				                      duplicationEmail.style.backgroundColor = "#d198b2";                                                
+				                      duplicationEmail.style.backgroundColor = "#d198b2";
+				                      
+				                      isEmailChecked = true; // 이메일 중복 확인 완료 상태로 설정
+
+				                      // 인증번호 발급 및 인증하기 버튼 활성화
+				                      document.getElementById("sendAuthCode").disabled = false;
 				                       
 				                      
 				                    } else {
@@ -251,6 +256,11 @@
 
     document.getElementById("sendAuthCode").addEventListener("click", function () {
         const email = document.getElementById("email").value;
+        
+        if(!isEmailChecked){
+        	alert("이메일 중복 확인 먼저 해주세요.");
+        	return;
+        }
 
         // 이메일이 중복되지 않은 경우 인증번호 요청
         const url2 = "http://localhost:8080/mail/verification-requests?email=" + email;
@@ -305,8 +315,9 @@
               sendAuthEnterCode.disabled = true;
               sendAuthEnterCode.style.backgroundColor = "#d198b2";
 
-                // 이메일 인증 완료 플래그 설정
-                isEmailVerified = true;
+              // 이메일 인증 완료 플래그 설정
+              isEmailVerified = true;
+              
             } else {
               alert("인증 코드가 유효하지 않습니다.");
             }
@@ -319,31 +330,31 @@
     
     document.querySelector("#signupForm").addEventListener("submit", function (event) {
         // 아이디 및 이메일 필드 값 확인
-        const loginId = document.querySelector("#loginId").value.trim();
-        const email = document.querySelector("#email").value.trim();
+        const loginForm = document.querySelector("#loginId").value.trim();
+        const emailForm = document.querySelector("#email").value.trim();
 
-        if (!loginId) {
+        if (!loginForm) {
             alert("아이디를 입력해주세요.");
             event.preventDefault(); // 폼 제출 방지
             return;
         }
 
-        if (!email) {
-            alert("이메일 주소를 입력해주세요.");
-            event.preventDefault(); // 폼 제출 방지
-            return;
-        }
-
-        // 아이디 중복 확인 상태
-        if (!isLoginIdChecked) {
+     	// 아이디 중복 확인을 하지 않은 경우
+        if (!document.querySelector("#duplicationId").disabled && !isLoginIdChecked) {
             alert("아이디 중복 확인을 해주세요.");
             event.preventDefault(); // 폼 제출 방지
             return;
         }
 
-        // 이메일 중복 확인 상태
-        if (!isEmailChecked) {
+        // 이메일 중복 확인을 하지 않은 경우
+        if (!document.querySelector("#duplicationEmail").disabled && !isEmailChecked) {
             alert("이메일 중복 확인을 해주세요.");
+            event.preventDefault(); // 폼 제출 방지
+            return;
+        }
+        
+        if (!emailForm) {
+            alert("이메일 주소를 입력해주세요.");
             event.preventDefault(); // 폼 제출 방지
             return;
         }
@@ -366,9 +377,8 @@
             event.preventDefault(); // 폼 제출 방지
             return;
         }
+        
     });
-    
-    
 
   </script>
 

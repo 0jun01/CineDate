@@ -6,4 +6,12 @@
         INSERT INTO Message (sender_id, recipient_id, message, timestamp)
         VALUES (#{senderId}, #{recipientId}, #{message}, #{timestamp})
     </insert>
+    
+    <select id="findConversation" resultType="com.tenco.movie.dto.MessageDTO">
+    SELECT * FROM Message WHERE (sender_id = 
+ 	#{senderId} AND recipient_id = #{recipientId}) 
+ 	OR (sender_id = #{recipientId} 
+ 	AND recipient_id = #{senderId}) 
+ 	ORDER BY timestamp
+    </select>
 </mapper>

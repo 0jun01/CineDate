@@ -64,50 +64,93 @@
 
 	<select id="searchPartner"
 		resultType="com.tenco.movie.repository.model.DateProfile">
-SELECT p.*,
-        CASE
-        WHEN m1.status IS NULL AND m2.status IS NULL THEN 0
-        WHEN m1.status IS NOT NULL THEN
-        CASE
-        WHEN m1.status = 0 THEN 1
-        WHEN m1.status = 1 THEN 2
-        WHEN m1.status = 2 THEN 3
-        END
-        WHEN m2.status IS NOT NULL THEN
-        CASE
-        WHEN m2.status = 0 THEN 1
-        WHEN m2.status = 1 THEN 2
-        WHEN m2.status = 2 THEN 3
-        END
-        ELSE 0
-        END AS status
-        FROM profile_tb AS p
-        JOIN user_tb AS u ON u.id = p.user_id
-        LEFT JOIN matching_tb AS m1 ON (u.id = m1.r_user_id AND m1.s_user_id =
-        #{userId})
-        LEFT JOIN matching_tb AS m2 ON (u.id = m2.s_user_id AND m2.r_user_id =
-        #{userId})
-        WHERE u.id != #{userId}
-        AND u.gender != #{gender}
+		SELECT p.*,
+		CASE
+		WHEN m1.status IS NULL AND m2.status IS NULL
+		THEN 0
+		WHEN m1.status IS NOT NULL THEN
+		CASE
+		WHEN m1.status = 0 THEN 1
+		WHEN m1.status = 1 THEN 2
+		WHEN m1.status = 2 THEN 3
+		END
+		WHEN m2.status IS
+		NOT NULL THEN
+		CASE
+		WHEN m2.status = 0 THEN 1
+		WHEN m2.status = 1 THEN 2
+		WHEN m2.status = 2 THEN 3
+		END
+		ELSE 0
+		END AS status
+		FROM profile_tb AS p
+		JOIN user_tb AS u ON u.id = p.user_id
+		LEFT JOIN matching_tb AS m1 ON
+		(u.id = m1.r_user_id AND m1.s_user_id =
+		#{userId})
+		LEFT JOIN matching_tb
+		AS m2 ON (u.id = m2.s_user_id AND m2.r_user_id =
+		#{userId})
+		WHERE u.id
+		!= #{userId}
+		AND u.gender != #{gender}
 	</select>
 
+	<select id="superPartner"
+		resultType="com.tenco.movie.repository.model.DateProfile">
+		SELECT p.*,
+		CASE
+		WHEN m1.status IS NULL AND m2.status IS NULL
+		THEN 0
+		WHEN m1.status IS NOT NULL THEN
+		CASE
+		WHEN m1.status = 0 THEN 1
+		WHEN m1.status = 1 THEN 2
+		END
+		WHEN m2.status IS
+		NOT NULL THEN
+		CASE
+		WHEN
+		m2.status = 0 THEN 1
+		WHEN m2.status = 1 THEN 2
+		END
+		ELSE 0
+		END AS status
+		FROM profile_tb AS p
+		JOIN user_tb AS u ON u.id = p.user_id
+		LEFT JOIN
+		matching_tb AS m1 ON
+		(u.id = m1.r_user_id AND m1.s_user_id = #{userId})
+		LEFT JOIN matching_tb
+		AS m2 ON (u.id = m2.s_user_id AND m2.r_user_id =
+		#{userId})
+		WHERE u.id
+		!= #{userId}
+		AND u.gender != #{gender} AND
+		p.list_status = 1 limit 3
+	</select>
 
 	<select id="detailPartner"
 		resultType="com.tenco.movie.repository.model.DateProfile">
 		SELECT
 		p.*,
 		CASE
-		WHEN COALESCE(m.s_user_id, m.r_user_id) IS NULL THEN 1
+		WHEN COALESCE(m.s_user_id, m.r_user_id) IS
+		NULL THEN 1
 		WHEN m.status = 0 THEN 2
 		WHEN m.status = 1 THEN 3
-		WHEN m.status = 2 THEN 4
+		WHEN
+		m.status = 2 THEN 4
 		ELSE 1
 		END AS status
 		FROM profile_tb p
-		LEFT JOIN matching_tb m
+		LEFT JOIN
+		matching_tb m
 		ON (p.user_id = m.s_user_id AND m.r_user_id = #{id})
-		OR (p.user_id = m.r_user_id AND m.s_user_id = #{userId})
-		WHERE p.user_id = #{id};
+		OR
+		(p.user_id = m.r_user_id AND m.s_user_id = #{userId})
+		WHERE p.user_id =
+		#{id}
 	</select>
 
 </mapper>
