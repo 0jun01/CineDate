@@ -1,7 +1,5 @@
 package com.tenco.movie.repository.model;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,9 +11,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-public class HistoryTimeLine {
+public class Theater {
 
-	Date approvedAt;
-	int count;
+	private int id;
+	private String name;
+	private int subregionId;
+	private String address;
 	
 }

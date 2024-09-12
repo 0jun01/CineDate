@@ -384,6 +384,28 @@ label {
 }
 
 
+.review-item {
+    display: flex; 
+    flex-direction: row; 
+    gap: 40px; 
+    border: 1px solid #ddd; 
+    padding: 15px; 
+    border-radius: 5px; 
+}
+/*공지*/
+.page--btn--a{
+	display: flex;
+	justify-content: center;
+	gap: 40px; 
+}
+.page--item{
+	display: flex; 
+    flex-direction: row; 
+    gap: 40px; 
+    border: 1px solid #ddd; 
+    padding: 10px; 
+    border-radius: 5px; 
+}
 
 .star-rating {
 	font-size: 0;
@@ -487,6 +509,11 @@ label {
 .star-empty {
 	color: #d3d3d3; /* 빈 별 색상: 회색 */
 }
+/*공지*/
+.page--btn--a{
+	display: flex;
+	justify-content: center;
+	gap: 40px; 
 
 /**
 *메세지
@@ -543,3 +570,10 @@ label {
 .edit-button, .delete-button {
 	color: #dc3545; /* 삭제 버튼 색상 설정 */
 }
+
+.page--item.disabled .page-link {
+    color: #c0c0c0;
+    pointer-events: none; 
+    cursor: not-allowed;
+}
+
