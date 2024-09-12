@@ -8,7 +8,7 @@
         SELECT * FROM regions_tb ORDER BY id
     </select>
     
-     <select id="findByRegionId" parameterType="int" resultType="com.tenco.movie.repository.model.Subregions">
+     <select id="findByRegionId" parameterType="int" resultType="com.tenco.movie.repository.model.SubRegions">
         SELECT * FROM subregions_tb WHERE region_id = #{regionId}
     </select>
 

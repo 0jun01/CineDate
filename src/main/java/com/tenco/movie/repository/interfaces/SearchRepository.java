@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.tenco.movie.repository.model.Search;
 
+
 @Mapper
 public interface SearchRepository {
 
