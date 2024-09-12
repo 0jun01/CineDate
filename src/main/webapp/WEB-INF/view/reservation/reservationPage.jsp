@@ -780,7 +780,8 @@ function viewSeats(){
          
          if (!principal || principal === "null") {
         	    alert("로그인 후 사용해 주세요.");
-        	} else if(selectedTicketCount === 0){
+        	    window.location.href = "/user/signIn";
+        	} else if(selectedTicketCount == null || selectedTicketCount == 0){
         		alert("좌석을 선택해 주세요")
         	}
          fetch(`http://localhost:8080/reservation/booking`,{

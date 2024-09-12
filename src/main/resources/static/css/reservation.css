@@ -255,16 +255,16 @@ button {
 	border-top-right-radius: 10px;
 }
 
-.seat.selected {
-	background-color: #f85757;
-}
-
 .seat.couple {
 	background-color: pink;
 }
 
 .seat.handicap {
 	background-color: green;
+}
+
+.seat.selected {
+	background-color: #f85757;
 }
 
 .seat.occupied {
@@ -343,4 +343,8 @@ p.text span {
 	align-content: flex-start;
 	justify-content: space-evenly;
 	align-items: flex-start;
+}
+
+.container {
+	margin-left: 30%;
 }
