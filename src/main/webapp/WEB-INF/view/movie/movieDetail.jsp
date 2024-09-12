@@ -37,13 +37,13 @@
 			    <div class="swiper-wrapper">
 			    	<div class="swiper-slide">
 			      		<img alt="${movieDetail.directorFaceFile}" src="https://image.tmdb.org/t/p/w342${movieDetail.directorFaceFile}">
-						${movieDetail.director}
+						${movieDetail.director}<br><br>감독
 				  	</div>
 				    <c:forEach var="actors" items="${actors}" varStatus="status">
 					     <div class="swiper-slide">
 							<c:if test="${status.index < 5}">
 								<img alt="${actors.actorFaceFile}" src="https://image.tmdb.org/t/p/w342${actors.actorFaceFile}">
-								${actors.name}
+								${actors.name}<br><br>배우
 							</c:if>
 						</div>
 					</c:forEach>
