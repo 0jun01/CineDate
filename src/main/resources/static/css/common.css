@@ -39,6 +39,17 @@ button {
 	color: #fff;
 }
 
+:root {
+	--swiper-theme-color: #ff2588 !important;
+}
+
+input:-internal-autofill-selected {
+	appearance: menulist-button;
+	background-image: none !important;
+	background-color: #efefef !important;
+	color: #999 !important;
+}
+
 .eng {
 	font-family: 'Tium';
 }
@@ -62,6 +73,7 @@ button {
 #in--wrap {
 	width: 980px;
 	margin: auto;
+	position: relative;
 }
 
 .flex--wrap {
@@ -208,6 +220,10 @@ label {
 	padding: 10px;
 }
 
+.email--certification {
+	display: flex;
+}
+
 .birth option {
 	font-family: 'NanumSquareNeo';
 }
@@ -255,45 +271,6 @@ label {
 	margin-bottom: 30px;
 }
 
-.find--result {
-	font-size: 16px;
-	margin-bottom: 30px;
-}
-
-table, th, td {
-	border: 1px solid black;
-	border-collapse: collapse;
-}
-
-.notice--list {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin: 20px;
-}
-
-.notice--list table {
-	width: 80%;
-	border-collapse: collapse;
-}
-
-.notice--list th, .notice--list td {
-	padding: 10px;
-	text-align: center;
-}
-
-.notice--list th {
-	background-color: #f4f4f4;
-}
-
-.notice--list td {
-	border: 1px solid #ddd;
-}
-
-.notice--title {
-	font-size: 36px;
-	margin-bottom: 20px;
-}
 /* 이미지 미리보기 박스 스타일 */
 .profile--img .thumb--image {
 	width: 100px; /* 고정된 너비 */
@@ -406,50 +383,7 @@ table, th, td {
 	border: 1 solid black;
 }
 
-/*
-*무비 페이지
-*/
-.movie-container {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-evenly;
-	margin-top: 5%;
-	margin-inline: 15% auto;
-	padding-inline: 5%;
-}
 
-.review-list {
-	display: flex;
-	flex-direction: column;
-	gap: 15px;
-}
-
-.review-item {
-	display: flex;
-	flex-direction: row;
-	gap: 40px;
-	border: 1px solid #ddd;
-	padding: 15px;
-	border-radius: 5px;
-}
-<<<<<<< HEAD
-/*공지*/
-.page--btn--a {
-	display: flex;
-	justify-content: center;
-	gap: 40px;
-}
-
-.page--item {
-	display: flex;
-	flex-direction: row;
-	gap: 40px;
-	border: 1px solid #ddd;
-	padding: 10px;
-	border-radius: 5px;
-}
-=======
->>>>>>> 39a78230b59a6a42bf0fcaf3f6d8be52c2428368
 
 .star-rating {
 	font-size: 0;
@@ -553,7 +487,6 @@ table, th, td {
 .star-empty {
 	color: #d3d3d3; /* 빈 별 색상: 회색 */
 }
-<<<<<<< HEAD
 
 /**
 *메세지
@@ -579,58 +512,34 @@ table, th, td {
 	align-self: flex-start;
 	text-align: left;
 }
-=======
-/*공지*/
-.page--btn--a{
-	display: flex;
-	justify-content: center;
-	gap: 40px; 
-}
-.page--item{
-	display: flex; 
-    flex-direction: row; 
-    gap: 40px; 
-    border: 1px solid #ddd; 
-    padding: 10px; 
-    border-radius: 5px; 
-}
 
 /* 취소 버튼과 제출 버튼 공통 스타일 */
 .submit-button, .cancel-button, .edit-button, .delete-button {
-    border: none; /* 테두리 제거 */
-    background: none; /* 배경 제거 */
-    cursor: pointer; /* 클릭 가능한 아이콘 표시 */
-    padding: 0; /* 기본 패딩 제거 */
-    font: inherit; /* 폰트 스타일 상속 */
-    color: #007bff; /* 텍스트 색상 설정 */
-    display: inline; /* 버튼을 인라인 요소로 설정 */
+	border: none; /* 테두리 제거 */
+	background: none; /* 배경 제거 */
+	cursor: pointer; /* 클릭 가능한 아이콘 표시 */
+	padding: 0; /* 기본 패딩 제거 */
+	font: inherit; /* 폰트 스타일 상속 */
+	color: #007bff; /* 텍스트 색상 설정 */
+	display: inline; /* 버튼을 인라인 요소로 설정 */
 }
 
 /* 취소 버튼 hover 상태 */
 .cancel-button:hover {
-    color: #0056b3; /* 호버 시 색상 변경 */
+	color: #0056b3; /* 호버 시 색상 변경 */
 }
 
 /* 수정 버튼 hover 상태 */
 .edit-button:hover {
-    color: #0056b3; /* 호버 시 색상 변경 */
+	color: #0056b3; /* 호버 시 색상 변경 */
 }
 
 /* 삭제 버튼 hover 상태 */
 .delete-button:hover {
-    color: #0056b3; /* 호버 시 색상 변경 */
+	color: #0056b3; /* 호버 시 색상 변경 */
 }
 
 /* 수정, 삭제 버튼 스타일 추가 */
 .edit-button, .delete-button {
-    color: #dc3545; /* 삭제 버튼 색상 설정 */
+	color: #dc3545; /* 삭제 버튼 색상 설정 */
 }
-
-.page--item.disabled .page-link {
-    color: #c0c0c0;
-    pointer-events: none; 
-    cursor: not-allowed;
-}
-
-
->>>>>>> 39a78230b59a6a42bf0fcaf3f6d8be52c2428368
