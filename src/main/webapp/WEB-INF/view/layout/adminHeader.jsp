@@ -83,14 +83,14 @@
 					</a></li>
 					<!--end::Fullscreen Toggle-->
 					<!--begin::User Menu Dropdown-->
-					<li class="nav-item dropdown user-menu"><a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> <img src="/img/user2-160x160.jpg"
+					<li class="nav-item dropdown user-menu"><a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> <img src="/DateProfileIMAGE/${profile.firstUploadFileName}"
 							class="user-image rounded-circle shadow" alt="User Image"> <span class="d-none d-md-inline">${user.loginId} 관리자님</span>
 					</a>
 						<ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
 							<!--begin::User Image-->
-							<li class="user-header text-bg-primary"><img src="/img/user2-160x160.jpg" class="rounded-circle shadow" alt="User Image">
+							<li class="user-header text-bg-primary"><img src="/DateProfileIMAGE/${profile.firstUploadFileName}" class="rounded-circle shadow" alt="User Image">
 								<p>
-									${user.loginId} <small>2024년 8월 가입</small>
+									${user.loginId} 관리자님
 								</p></li>
 							<!--end::User Image-->
 							<!--begin::Menu Body-->
@@ -167,38 +167,7 @@
 								
 								
 							</ul></li>
-						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon bi bi-box-seam-fill"></i>
-								<p>
-									박스오피스 <span class="nav-badge badge text-bg-secondary me-3">3</span> <i class="nav-arrow bi bi-chevron-right"></i>
-								</p>
-						</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="./layout/unfixed-sidebar.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>일간 박스오피스</p>
-								</a></li>
-								<li class="nav-item"><a href="./layout/fixed-sidebar.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>주간 박스오피스</p>
-								</a></li>
-								<li class="nav-item"><a href="./layout/fixed-complete.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>월간 박스오피스</p>
-								</a></li>
-								<li class="nav-item"><a href="./layout/sidebar-mini.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>준비중</p>
-								</a></li>
-								<li class="nav-item"><a href="./layout/collapsed-sidebar.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>
-											준비중 <small>+ ...</small>
-										</p>
-								</a></li>
-								<li class="nav-item"><a href="./layout/logo-switch.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>
-											아 암튼준비중임 <small>+ ...</small>
-										</p>
-								</a></li>
-								<li class="nav-item"><a href="./layout/layout-rtl.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>.....</p>
-								</a></li>
-							</ul></li>
+						
 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon bi bi-tree-fill"></i>
 								<p>
 									결제내역 <i class="nav-arrow bi bi-chevron-right"></i>
@@ -232,7 +201,7 @@
 						</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item"><a href="./tables/simple.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>Simple Tables</p>
+										<p>신고 내역</p>
 								</a></li>
 							</ul></li>
 						

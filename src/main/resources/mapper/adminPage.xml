@@ -120,7 +120,16 @@
 		#{search}, '%') order
 		by id desc limit #{limit} offset #{offset}
 	</select>
-
+	
+	<select id="findAdminMemberById">
+		select * from user_tb where id = #{id}
+	</select>
+	
+	<update id="updateMemberById">
+		update user_tb set name = #{name}, email =
+		#{email}, phone_num = #{phoneNum}, birth_day = #{birthDay}, gender = #{gender} where id = #{id}
+	
+	</update>
 
 	<select id="countAdminMemberAll" resultType="int">
 		select count(*) from

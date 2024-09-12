@@ -12,6 +12,7 @@ import com.tenco.movie.repository.model.History;
 import com.tenco.movie.repository.model.HistoryTimeLine;
 import com.tenco.movie.repository.model.Notice;
 import com.tenco.movie.repository.model.User;
+import com.tenco.movie.repository.model.UserWrite;
 
 @Mapper
 public interface AdminRepository {
@@ -56,6 +57,8 @@ public interface AdminRepository {
 	
 	public List<User> findAdminMemberByName(@Param("search")String search, @Param("limit") int limit, @Param("offset") int offset);
 	
+	public User findAdminMemberById(int id);
+	public int updateMemberById(UserWrite user);
 	
 	public int countAdminMemberAll();
 	public int countAdminMember(String search);

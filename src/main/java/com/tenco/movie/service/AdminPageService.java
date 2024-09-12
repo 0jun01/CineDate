@@ -25,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.tenco.movie.dto.EventWriterDTO;
 import com.tenco.movie.dto.NoticeWriterDTO;
+import com.tenco.movie.dto.SignUpDTO;
+import com.tenco.movie.dto.UserWriterDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.AdminRepository;
@@ -341,7 +343,35 @@ public class AdminPageService {
 		return userEntity;
 
 	}
+	
+	@Transactional
+	public User readMemberById(Integer id) {
+		User user = adminRepository.findAdminMemberById(id);
+		
+		if (user == null) {
+			throw new DataDeliveryException("존재하지 않는 회원 입니다", HttpStatus.BAD_REQUEST);
+		}
+		return user;
+	}
 
+	
+	@Transactional
+	public void reCreateMember(UserWriterDTO dto) {
+
+		int result = 0;
+
+		try {
+			result = adminRepository.updateMemberById(dto.toUser());
+		} catch (DataAccessException e) {
+			throw new DataDeliveryException("잘못된 요청입니다", HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			throw new RedirectException("알 수 없는 오류 입니다", HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		if (result == 0) {
+			throw new DataDeliveryException("정상 처리 되지 않았습니다", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	public int countMemberAll() { // 멤버 목록 불러오기 위한 카운팅
 		return adminRepository.countAdminMemberAll();
 	}

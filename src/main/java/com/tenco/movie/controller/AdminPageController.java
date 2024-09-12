@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tenco.movie.dto.EventWriterDTO;
 import com.tenco.movie.dto.NoticeWriterDTO;
+import com.tenco.movie.dto.UserWriterDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.Event;
@@ -31,6 +32,7 @@ import com.tenco.movie.repository.model.HistoryTimeLine;
 import com.tenco.movie.repository.model.Notice;
 import com.tenco.movie.repository.model.User;
 import com.tenco.movie.service.AdminPageService;
+import com.tenco.movie.service.DateProfileService;
 import com.tenco.movie.service.PaymentService;
 import com.tenco.movie.service.UserService;
 import com.tenco.movie.utils.Define;
@@ -46,6 +48,8 @@ public class AdminPageController {
 	private AdminPageService adminPageService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private DateProfileService dateProfileService;
 
 	@Autowired
 	private final PaymentService paymentService;
@@ -54,6 +58,7 @@ public class AdminPageController {
 
 	private Notice notice;
 	private Event event;
+	private User member;
 	// 메인보드 시작
 
 	@GetMapping("/logout")
@@ -79,6 +84,7 @@ public class AdminPageController {
 		String name = principal.getLoginId();
 
 		User user = userService.getUserById(name);
+		DateProfile userProfile = dateProfileService.searchProfile(user.getId());
 
 		int reviewCount = adminPageService.countReview();
 		int sellCount = adminPageService.countSell();
@@ -88,6 +94,7 @@ public class AdminPageController {
 		model.addAttribute("reviewCount", reviewCount);
 		model.addAttribute("memberCount", memberCount);
 		model.addAttribute("user", user);
+		model.addAttribute("profile",userProfile);
 
 		return "/adminMain";
 	}
@@ -540,6 +547,50 @@ public class AdminPageController {
 		return "/admin/adminMemberList";
 
 	}
+	
+	@GetMapping("/adminMemberDetail/{id}")
+	public String adminMemberDetailPage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
+			@PathVariable(name = "id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+		
+		if (principal == null) {
+			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
+			return "redirect:/home";
+		}
+		
+		member = adminPageService.readMemberById(id);
+
+		String name = principal.getLoginId();
+		User user = userService.getUserById(name);
+
+		model.addAttribute("user", user);
+		model.addAttribute("member", member);
+		System.out.println(event);
+
+		return "/admin/adminMemberDetail";
+		
+		
+	}
+	
+	@PostMapping("/adminMemberDetail/{id}")
+	public String adminMemberDetailProc(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
+			@PathVariable(name = "id") Integer id, UserWriterDTO dto, Model model, RedirectAttributes redirectAttributes) {
+		
+		if (principal == null) {
+			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
+			return "redirect:/home";
+		}
+		
+		String name = principal.getLoginId();
+		User user = userService.getUserById(name);
+ 
+		
+		model.addAttribute("user", user);
+		
+		adminPageService.reCreateMember(dto);
+		
+		return "redirect:/adminMemberList";
+		
+	}
 
 	// 어드민 멤버 삭제 요청
 	@GetMapping("/adminMemberDelete/{id}")
@@ -554,7 +605,7 @@ public class AdminPageController {
 //결제 테이블 시작
 
 	@GetMapping("/adminHistory")
-	public String adminHistoryPage(@SessionAttribute(Define.PRINCIPAL) User principal, Model model,
+	public String adminHistoryPage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model,
 			RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {

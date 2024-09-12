@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%@ include file="/WEB-INF/view/layout/adminHeader.jsp"%>
 
 
@@ -12,12 +11,12 @@
 				<!--begin::Row-->
 				<div class="row">
 					<div class="col-sm-6">
-						<h3 class="mb-0">회원목록</h3>
+						<h3 class="mb-0">데이트 신청 목록</h3>
 					</div>
 					<div class="col-sm-6">
 						<ol class="breadcrumb float-sm-end">
 							<li class="breadcrumb-item"><a href="/adminMain">홈</a></li>
-							<li class="breadcrumb-item active" aria-current="page">회원목록</li>
+							<li class="breadcrumb-item active" aria-current="page">데이트 신청 목록</li>
 						</ol>
 					</div>
 				</div>
@@ -110,7 +109,7 @@
 
 															<td class="text-center">
 																<form action="/adminMemberDelete" method="get">
-																	<button type="submit" class="btn btn-danger">탈퇴</button>
+																	<button type="submit" class="btn btn-danger">삭제</button>
 																</form>
 															</td>
 														</tr>
@@ -122,7 +121,7 @@
 										</c:when>
 										<c:otherwise>
 											<div class="jumbotron display-4">
-												<h5>가입한 사람이 없습니다</h5>
+												<h5>게시글이 없습니다</h5>
 											</div>
 										</c:otherwise>
 									</c:choose>
@@ -163,5 +162,4 @@
 									</div>
 									</div>
 									<!-- end of content.jsp(xxx.jsp) -->
-
-									<%@ include file="/WEB-INF/view/layout/adminFooter.jsp"%>
+<%@ include file="/WEB-INF/view/layout/adminFooter.jsp"%>
