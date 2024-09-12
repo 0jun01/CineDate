@@ -34,12 +34,13 @@ table.table {
 
 table.table td {
 	border-bottom: 1px solid #ddd;
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-top: 15px;
+	padding-bottom: 15px;
 }
 
 .table--title th {
-	padding-bottom: 10px;
+	padding-top: 15px;
+	padding-bottom: 15px;
 	border-bottom: 2px solid #ddd;
 }
 
@@ -47,6 +48,32 @@ img.m--profile.list--profile {
 	width: 120px;
 	height: 120px;
 	border-radius: 50%;
+}
+
+.m--profile.list--profile.super--profile{
+	animation: borderColorChange 3s linear infinite;
+	border: 5px solid;
+}
+
+@keyframes borderColorChange {
+    0% {
+        border-color: #ff2589;
+    }
+    20% {
+        border-color: #6a0dad;
+    }
+    40% {
+        border-color: #ff4d4d;
+    }
+    60% {
+        border-color: #6a0dad;
+    }
+    80% {
+        border-color: #ff4d4d;
+    }
+    100% {
+        border-color: #ff2589;
+    }
 }
 
 table.table button {
@@ -107,6 +134,7 @@ h1.super::before {
 	transform:scale(0.5);
 	}
 }
+
 #chat--container {
 	display: none;
 	position: absolute;
@@ -250,14 +278,17 @@ button#send--chat {
     0% {margin-left: 0em;}
     100% {margin-left: 20em;}
 }
+
 .jumbotron.display-4 h1, .jumbotron.display-4 h5 {
 	color: #dadada;
 }
+
 .jumbotron.display-4 h1{
 	text-align: center;
     font-size: 100px;
     margin-top: 150px;
 }
+
 .jumbotron.display-4 h5{
 	text-align: center;
     font-size: 18px;

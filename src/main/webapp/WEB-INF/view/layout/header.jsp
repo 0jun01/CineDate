@@ -10,7 +10,9 @@
 <link href="/css/header.css" rel="stylesheet">
 <link href="/css/font.css" rel="stylesheet">
 <link href="/css/main.css" rel="stylesheet">
+<link href="/css/movie.css" rel="stylesheet">
 <link href="/css/date.css" rel="stylesheet">
+<link href="/css/notice.css" rel="stylesheet">
 <link href="/css/footer.css" rel="stylesheet">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.ico">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />

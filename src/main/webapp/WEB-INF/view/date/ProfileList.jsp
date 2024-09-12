@@ -10,7 +10,7 @@
 		<div class="table--scroll super--scroll">
 			<c:choose>
 				<c:when test="${superList != null}">
-					<table class="table">
+					<table class="table super--table">
 						<tr class="table--title">
 							<th>사진</th>
 							<th>닉네임</th>
@@ -19,7 +19,7 @@
 						</tr>
 						<c:forEach var="superList" items="${superList}">
 							<tr>
-								<td><img class="m--profile list--profile" alt="슈퍼 프로필 사진" src="/DateProfileIMAGE/${superList.firstUploadFileName}"></td>
+								<td><img class="m--profile list--profile super--profile" alt="슈퍼 프로필 사진" src="/DateProfileIMAGE/${superList.firstUploadFileName}"></td>
 								<td>${superList.nickName}</td>
 								<td>${superList.introduce}</td>
 								<td>
@@ -176,7 +176,7 @@
     
     
     // 채팅 창 드래그 기능 추가
-    (function() {
+    
         const chatHeader = document.getElementById('chat--header');
         const chatContainer = document.getElementById('chat--container');
         let isDragging = false;
@@ -203,6 +203,5 @@
         document.addEventListener('mouseup', () => {
             isDragging = false;
         });
-    })();
 </script>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
