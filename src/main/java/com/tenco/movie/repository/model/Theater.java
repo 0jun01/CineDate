@@ -1,7 +1,5 @@
 package com.tenco.movie.repository.model;
 
-import java.sql.Timestamp;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,9 +11,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Regions {
-	private int id; // regions_tb 의 id
-	private String name; // 예: 서울, 경기, 부산~
-	
+public class Theater {
+
+	private int id;
+	private String name;
+	private int subregionId;
+	private String address;
 	
 }
