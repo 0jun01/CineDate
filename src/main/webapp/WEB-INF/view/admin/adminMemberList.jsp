@@ -26,7 +26,7 @@
 			<!--end::Container-->
 		</div>
 		<!--end::App Content Header-->
-		<div class="app-content">
+		<div class="app-content">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 			<!--begin::Container-->
 			<div class="container-fluid">
 				<!--begin::Row-->

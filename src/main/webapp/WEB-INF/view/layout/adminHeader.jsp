@@ -201,15 +201,15 @@
 							</ul></li>
 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon bi bi-tree-fill"></i>
 								<p>
-									히스토리 <i class="nav-arrow bi bi-chevron-right"></i>
+									결제내역 <i class="nav-arrow bi bi-chevron-right"></i>
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item"><a href="/adminHistory" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>결제내역</p>
+										<p>토스결제 내역</p>
 								</a></li>
 								<li class="nav-item"><a href="./UI/timeline.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>결제top10</p>
+										<p>카카오 결제 내역</p>
 								</a></li>
 								<li class="nav-item"><a href="/adminCancelHistory" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
 										<p>결제 취소 내역</p>

@@ -4,8 +4,6 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,7 +20,9 @@ public class Event {
 	private int id;
 	private String title; // 이벤트명
 	private Timestamp createdAt; 
+
 	private Timestamp releaseDate; // 이벤트 시작일자
+
 	private Timestamp endDate; // 이벤트 종료일자
 	
 	private String originFileName; // 이벤트 이미지 파일명
@@ -34,11 +34,13 @@ public class Event {
 
         return startTime.format(releaseDate);
     }
+    
     public String timeendToString() {
     	SimpleDateFormat endTime = new SimpleDateFormat("yyyy-MM-dd");
     	
     	return endTime.format(endDate);
     }
+   
     public String getStatus() {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime endDateTime = endDate.toLocalDateTime();
@@ -49,6 +51,7 @@ public class Event {
             return "종료됨";
         }
     }
+
     
 
 }

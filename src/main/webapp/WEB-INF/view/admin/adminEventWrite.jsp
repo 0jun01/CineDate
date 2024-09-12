@@ -32,7 +32,7 @@
 				<div class="col-12">
 					<!-- Default box -->
 					<div class="card">
-						<form action="/adminEventSend" method="post">
+						<form action="/adminEventWrite" method="post" enctype="multipart/form-data">
 							<div class="card-header">
 								<div style="display: flex; flex-direction: row;">
 									<input type="text" class="card-title col-9" placeholder="제목을 입력하세요" name="title" id="title"> &nbsp;&nbsp;&nbsp;
@@ -46,13 +46,13 @@
 
 							</div>
 							<div class="card-body">
-								<label for="mFileOne"> <img id="img_eventimage1" src="/img/Basic.jpg" alt="프로필 사진" onclick="document.getElementById('event_upload_file1').click();"
+								<label for="mFileOne"> <img id="img_eventimage1" src="/img/Basic.jpg" alt="프로필 사진" onclick="document.getElementById('event_upload_file1').click();" width="40%"
 									> <input type="file" id="event_upload_file1" name="mFileOne" title="내용" onchange="previewImage(this, 'img_eventimage1')" style="display: none;">
 								</label>
 							</div>
 							<!-- /.card-body -->
 							<div class="card-footer">
-								<button type="submit" class="btn btn-success float-end" onclick="javascript : alert('이벤트가 등록되었습니다')">글쓰기완료</button>
+								<button type="submit" class="btn btn-success float-end" onclick="javascript : alert('이벤트가 작성되었습니다')">작성 완료</button>
 							</div>
 							<!-- /.card-footer-->
 						</form>

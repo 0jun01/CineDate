@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.Event;
+import com.tenco.movie.repository.model.EventWrite;
 import com.tenco.movie.repository.model.History;
 import com.tenco.movie.repository.model.HistoryTimeLine;
 import com.tenco.movie.repository.model.Notice;
@@ -38,8 +39,8 @@ public interface AdminRepository {
 	
 	//--------------------------------------------------
 	public List<Event> findEventAll(@Param("limit") int limit, @Param("offset") int offset); // 이벤트 리스트 조회
-	public int insertEvent(Event event);
-	public int updateEventById(Event event);
+	public int insertEvent(EventWrite event);
+	public int updateEventById(EventWrite event);
 	public int deleteByEventById(int id);
 	
 	public Event findEventById(int id);

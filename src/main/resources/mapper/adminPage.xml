@@ -76,6 +76,15 @@
 		desc
 	</select>
 	
+	<insert id="insertEvent">
+		insert into event_tb(title, release_date, end_date, origin_file_name, upload_file_name) values(#{title}, #{releaseDate}, #{endDate}, #{originFileName}, #{uploadFileName})
+	</insert>
+	
+	<update id="updateEventById">
+		update event_tb set title = #{title}, release_date =
+		#{releaseDate}, end_date = #{endDate}, origin_file_name = #{originFileName}, upload_file_name = #{uploadFileName} where id = #{id}
+	</update>
+	
 
 	<delete id="deleteByEventById">
 		delete from event_tb where id = #{id}
