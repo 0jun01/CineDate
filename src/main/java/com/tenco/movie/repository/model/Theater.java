@@ -7,9 +7,15 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class Email {
-	
+@ToString
+public class Theater {
+
+	private int id;
+	private String name;
+	private int subregionId;
+	private String address;
 	
 }

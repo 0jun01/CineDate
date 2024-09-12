@@ -31,10 +31,6 @@ dependencies {
 	providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
 	implementation 'org.springframework.security:spring-security-crypto'
 	
-	// 캐시 의존성
-	implementation 'org.springframework.boot:spring-boot-starter-cache' // 캐시 의존성 추가
-	implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
-	
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1' // json 의존성 추가
 	
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -50,11 +46,20 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	
 	// 이메일 의존성 추가
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '3.2.8'
+	implementation 'javax.mail:javax.mail-api'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+<<<<<<< HEAD
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '3.0.5'
 
+=======
+	
+	// 캐시 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-cache' // 캐시 의존성 추가
+    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
+>>>>>>> 76f41ec740dc7d8eaed224ee9124267e591a56d1
 }
 
 tasks.named('test') {

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.client.RestTemplate;
 
 import com.tenco.movie.dto.GoogleOAuthToken;
@@ -122,17 +123,6 @@ public class UserController {
 
 		System.out.println("회원가입 들어왔니?");
 
-		// 아이디 유효성 검사
-		// 아이디 비어져있을 때
-		if (dto.getLoginId() == null || dto.getLoginId().trim().isEmpty()) {
-			throw new DataDeliveryException(Define.ENTER_YOUR_ID, HttpStatus.BAD_REQUEST);
-		}
-		
-		// 아이디 글자 제한
-		if (dto.getLoginId().length() < 7 || dto.getLoginId().length() > 16) {
-			throw new DataDeliveryException(Define.ENTER_ID_LENGTH, HttpStatus.BAD_REQUEST);
-		}
-
 		// 이름 유효성 검사
 		// 이름 비어져있을 때
 		if (dto.getName() == null || dto.getName().trim().isEmpty()) {
@@ -165,17 +155,12 @@ public class UserController {
 			throw new DataDeliveryException(Define.NOT_VALIDATE_PASSWORD, HttpStatus.BAD_REQUEST);
 		}
 
-		// 이메일 유효성 검사
-		// 이메일이 없거나 빈칸일 때
-		if (dto.getEmail() == null || dto.getEmail().trim().isEmpty()) {
-			throw new DataDeliveryException(Define.ENTER_YOUR_EMAIL, HttpStatus.BAD_REQUEST);
-		}
-
 		// 휴대폰 번호 유효성 검사
 		// 휴대폰 번호가 없거나 빈킨일 때
 		if (dto.getPhoneNum() == null || dto.getPhoneNum().trim().isEmpty()) {
 			throw new DataDeliveryException(Define.ENTER_YOUR_PHONE_NUM, HttpStatus.BAD_REQUEST);
 		}
+		
 		// 휴대폰 번호가 10~11자가 아닐 때
 		if (!dto.getPhoneNum().matches("\\d{10,11}")) {
 			throw new DataDeliveryException(Define.NOT_VALIDATE_PHONE_NUM, HttpStatus.BAD_REQUEST);
@@ -191,8 +176,8 @@ public class UserController {
 		userService.createUser(dto);
 
 		System.out.println("회원가입 성공");
-
-		return "redirect:/user/signIn?success=true";
+		
+		return "redirect:/user/signIn";
 
 	}
 
@@ -201,22 +186,30 @@ public class UserController {
 	 * @author 성후
 	 */
 	@GetMapping("/myPage")
-	public String myPage() {
-		return "user/myPage";
-	}
+	public String myPage(@SessionAttribute(Define.PRINCIPAL) User principal, Model model) {
+
+        String name = principal.getLoginId();
+
+        User user = userService.getUserById(name);
+        model.addAttribute("user", user);
+        return "user/myPage";
+    }
 	
 	/**
-	 *마이페이지 
-	 *
-	 *@author 성후
-	 */
-	@PostMapping("/myPage")
-	public String myPageProFile() {
-		// 이름, 아이디, 닉네임 등록, 프로필 이미지 등록, 동의여부 확인, 수정하기버튼활성화
-		return "redirect:/user/myPage";
-	}
-	
+	 * 마이페이지*
+	@author 성후
+	*/
+	@PostMapping("/updateUser")
+	public String updateUser(@RequestParam("password") String password, @RequestParam("email") String email,@RequestParam("phoneNum") String phoneNum, @RequestParam("userId") String loginId,@SessionAttribute("principal") User principal) {
 
+	        if (!principal.getLoginId().equals(loginId)) {
+	            return "";
+	        }
+	        // 사용자 정보 업데이트
+	        userService.updateUser(loginId, password, email, phoneNum);
+	        return "redirect:/home";
+	    }
+	
 	/**
 	 * 아이디 찾기
 	 * @return
@@ -251,7 +244,7 @@ public class UserController {
 	 * @return
 	 */
 	@GetMapping("/findPassword")
-	public String findPasswrod() {
+	public String findPassword() {
 		
 		return "user/findPassword";
 	}

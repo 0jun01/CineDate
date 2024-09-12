@@ -10,8 +10,12 @@
 
 			<form action="/user/signIn" method="GET">
 				<div class="login--wrap flex--center">
-					<span class="find--result">입력하신 정보와 일치하는 비밀번호는 아래와 같습니다.</span>
+					<span class="find--result" style="text-align: center; line-height: 1.5;">
+						입력하신 정보의 임시 비밀번호는 아래와 같습니다.<br>
+						로그인 후 <strong style="color: #ff2588">비밀번호를 변경</strong> 해주세요.
+					</span>
 					<div class="result"> ${password}</div>
+					<span></span>
 					
 					<button type="submit" class="btn" id="join--btn">로그인</button>
 				</div>

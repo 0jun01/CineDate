@@ -12,28 +12,6 @@
         <div class="person-info">
             <em>${user.loginId}</em> 
             <strong>${user.name}님</strong> 
-    <div class="in--wrap">
-        <span class="thumb-image">
-            <img src="/img/ksh.jpg" alt="님 프로필 사진" style="width: 100px;">
-            <span class="profile-mask"></span>
-        </span>
-    </div>
-    <div class="top--title">
-        <div class="person-info">
-            <strong>${userId}님</strong> 
-            <em>${username}</em> 
-            <span>닉네임 : <i>${nickName}</i></span>
-        </div>
-    </div>
-</div>
-<div class="cols-benefit-info">
-    <div class="col-my-con">
-        <h3>MY CORN</h3>
-        <div class="btn">
-            <span style="display: flex;">
-                <img src="/img/corn.png" alt="콘 아이콘" style="width: 20px;">
-                <h2>X${mycorn}개</h2>
-            </span>
         </div>
     </div>
 </div>
@@ -79,7 +57,6 @@
     <div class="set--btn aright">
         <button type="submit" id="set_profile" class="btn">
             <span>수정하기</span>
-            <span>등록하기</span>
         </button>
     </div>
 </form>
@@ -96,121 +73,3 @@
     }
 </script>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
-<h3>나의 정보</h3>
-
-<!--1-->
-<form action="/user/updateProfile" method="post" enctype="multipart/form-data">
-    <div class="tbl-form">
-        <table summary="나의프로필정보 이름,아이디, 닉네임,프로필이미지 표기">
-            <caption>나의프로필정보</caption>
-            <colgroup>
-                <col width="19%">
-                <col width="*">
-            </colgroup>
-            <tbody>
-                <tr>
-                    <th scope="row">이름</th>
-                    <td><strong>${username}</strong></td>
-                </tr>
-                <tr>
-                    <th scope="row">아이디</th>
-                    <td><span>${userId}</span></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="nick_name">닉네임</label></th>
-                    <td>
-                        <p>한글, 영문, 숫자 혼용 가능 (한글 기준 10자 이내)</p>
-                        <input type="text" id="nick_name" name="nick_name" value="${nickName}" required maxlength="10" class="s-medium">
-                        <button id="check_duplication" type="button" class="round gray">
-                            <span>중복확인</span>
-                        </button>
-                        <span id="duplication_result"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">프로필이미지</th>
-                    <td>
-                        <p class="profile--info">
-                            각 서비스(이벤트, 매거진, 영화리뷰 등)의 리뷰 및 덧글작성시 등록하신 대표이미지가 노출됩니다.<br>프로필 이미지 종류를 선택해 주세요.
-                        </p>
-                        <input type="hidden" id="user-image" name="user-image" value="">
-                        <div class="profile--img">
-                            <div class="box--image">
-                                <span class="thumb--image">
-                                    <img id="img_userprofileimage" src="${profileImageUrl}" alt="님 프로필 사진" onerror="errorImage(this, {type:'profile'})">
-                                    <span class="profile-mask"></span>
-                                </span>
-                            </div>
-                            <div class="box--contents">
-                                <p>jpg, gif, BMP, png 파일만 등록 가능합니다. (최대 3MB)</p>
-                                <input type="file" id="profile_upload_file" name="profile_upload_file" title="내용" onchange="previewImage(this)">
-                            </div>
-                        </div>
-                        <div class="a">
-                            <table style="width: 100%;" summary="개인정보 수집 및 활용 동의 표">
-                                <caption>개인정보 수집 및 활용 동의</caption>
-                                <colgroup>
-                                    <col style="width: 16%;">
-                                    <col style="width: 34%;">
-                                    <col style="width: 34%;">
-                                    <col style="width: 16%;">
-                                </colgroup>
-                                <thead>
-                                    <tr>
-                                        <th scope="col">항목</th>
-                                        <th scope="col">이용목적</th>
-                                        <th scope="col">보유기간</th>
-                                        <th scope="col">동의여부</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">프로필 사진, 닉네임</th>
-                                        <td>
-                                            <ul class="dep1_lst">
-                                                <li class="dep1_lst_li">· 공개된 게시판 서비스의 이미지 등록</li>
-                                                <li class="dep1_lst_li">· 공개된 게시판의 익명성 보장</li>
-                                            </ul>
-                                        </td>
-                                        <td>약관 철회 후 1주일 까지</td>
-                                        <td>
-                                            <span class="inp_inbox">
-                                                <input name="rd_agree_profileInfo" id="rd_agree_profileInfo_Y" type="radio" value="Y" ${agreeProfileInfo == 'Y' ? 'checked' : ''}><label for="rd_agree_profileInfo_Y">동의함</label>
-                                            </span>
-                                            <span class="inp_inbox">
-                                                <input name="rd_agree_profileInfo" id="rd_agree_profileInfo_N" type="radio" value="N" ${agreeProfileInfo == 'N' ? 'checked' : ''}><label for="rd_agree_profileInfo_N">동의안함</label>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <p class="marginT10">※ 동의를 거부하실 권리가 있으며 이 경우 게시판 작성 시 아이디가 일부 숨김처리되어 보여집니다.</p>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="set--btn aright">
-        <button type="submit" id="set_profile" class="btn">
-            <span>수정하기</span>
-        </button>
-    </div>
-</form>
-</div>
-<!-- footer.jsp -->
-<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
-
-<script>
-    // 이미지 미리보기 기능
-    function previewImage(input) {
-        var file = input.files[0];
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById('img_userprofileimage').src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    }
-</script>
-</body>
-</html>

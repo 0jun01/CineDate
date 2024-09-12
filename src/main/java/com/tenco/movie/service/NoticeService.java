@@ -72,7 +72,7 @@ public class NoticeService {
 		totals = noticeRepository.countNotice();
 		
 		if(totals == 0 ) {
-			throw new DataDeliveryException(Define.INVALID_INPUT, HttpStatus.BAD_REQUEST);
+			throw new DataDeliveryException(Define.NOT_FOUND_PREVIOUS, HttpStatus.BAD_REQUEST);
 		}
 		
 		

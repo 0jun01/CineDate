@@ -18,4 +18,5 @@ public class Movies {
 	private String movieDesc; // 영화 상세 설명
 	private String movieImg; // 무비 URL주소
 	private String releaseDate; // 개봉일자
+	
 }

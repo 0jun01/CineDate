@@ -1,30 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="com.tenco.movie.repository.interfaces.ProfileRepository">
+<mapper namespace="com.tenco.movie.repository.interfaces.ProfileRepository">
 
 	<select id="searchProfile"
 		resultType="com.tenco.movie.repository.model.DateProfile">
-		SELECT * FROM profile_tb WHERE user_id = #{userId}
+		SELECT *
+		FROM profile_tb WHERE user_id = #{userId}
 	</select>
 
 	<insert id="createdProfile">
-		INSERT INTO profile_tb (user_id,
+		INSERT INTO profile_tb (
+		user_id,
 		nick_name,
 		introduce,
 		first_origin_file_name,
 		seocnd_origin_file_name,
 		first_upload_file_name,
-		second_upload_file_name
-		) VALUES ( #{userId},
-		#{nickName}, #{introduce}, #{firstOriginFileName},
-		#{secondOriginFileName}, #{firstUploadFileName},
-		#{secondUploadFileName})
+		second_upload_file_name,
+		third_origin_file_name,
+		fourth_origin_file_name,
+		fifth_origin_file_name
+		) VALUES (
+		#{userId},
+		#{nickName},
+		#{introduce},
+		#{firstOriginFileName},
+		#{seocndOriginFileName},
+		#{firstUploadFileName},
+		#{secondUploadFileName},
+		#{thirdOriginFileName},
+		#{fourthOriginFileName},
+		#{fifthOriginFileName}
+		)
 	</insert>
 
-	<select id="searchNickName"
-		resultType="com.tenco.movie.repository.model.DateProfile">
+	<select id="searchNickName" resultType="com.tenco.movie.repository.model.DateProfile">
 		SELECT * FROM profile_tb WHERE nick_name = #{nickname}
 	</select>
 
@@ -32,30 +43,105 @@
 		update profile_tb set
 		nick_Name = #{nickName},
 		introduce = #{introduce},
-		first_origin_file_name = #{firstOriginFileName},
-		seocnd_origin_file_name = #{secondOriginFileName},
-		third_origin_file_name = #{thirdOriginFileName},
-		fourth_origin_file_name = #{fourthOriginFileName},
-		fifth_origin_file_name = #{fifthOriginFileName},
-		first_upload_file_name = #{firstUploadFileName},
-        second_upload_file_name = #{secondUploadFileName}
+		first_origin_file_name =
+		#{firstOriginFileName},
+		seocnd_origin_file_name =
+		#{seocndOriginFileName},
+		third_origin_file_name =
+		#{thirdOriginFileName},
+		fourth_origin_file_name =
+		#{fourthOriginFileName},
+		fifth_origin_file_name =
+		#{fifthOriginFileName},
+		first_upload_file_name =
+		#{firstUploadFileName},
+		second_upload_file_name =
+		#{secondUploadFileName}
 		where user_Id = #{userId}
 	</update>
-	<select id="searchPartner"
-		resultType="com.tenco.movie.repository.model.DateProfile">
+
+	<select id="searchPartner" resultType="com.tenco.movie.repository.model.DateProfile">
 		SELECT p.*,
 		CASE
-		WHEN m.status IS NULL THEN 0
-		WHEN m.status = 0 THEN 1
-		WHEN m.status = 1 THEN 2
-		WHEN m.status = 2 THEN 3
+		WHEN m1.status IS NULL AND m2.status IS NULL
+		THEN 0
+		WHEN m1.status IS NOT NULL THEN
+		CASE
+		WHEN m1.status = 0 THEN 1
+		WHEN m1.status = 1 THEN 2
+		WHEN m1.status = 2 THEN 3
+		END
+		WHEN m2.status IS
+		NOT NULL THEN
+		CASE
+		WHEN m2.status = 0 THEN 1
+		WHEN m2.status = 1 THEN 2
+		WHEN m2.status = 2 THEN 3
+		END
+		ELSE 0
 		END AS status
 		FROM profile_tb AS p
 		JOIN user_tb AS u ON u.id = p.user_id
-		LEFT JOIN matching_tb AS m ON (u.id = m.r_user_id AND m.s_user_id = #{userId})
-		WHERE u.id != #{userId}
+		LEFT JOIN matching_tb AS m1 ON
+		(u.id = m1.r_user_id AND m1.s_user_id =
+		#{userId})
+		LEFT JOIN matching_tb
+		AS m2 ON (u.id = m2.s_user_id AND m2.r_user_id =
+		#{userId})
+		WHERE u.id
+		!= #{userId}
 		AND u.gender != #{gender}
 	</select>
 
+	<select id= "superPartner" resultType="com.tenco.movie.repository.model.DateProfile">
+		SELECT p.*,
+		CASE
+		WHEN m1.status IS NULL AND m2.status IS NULL
+		THEN 0
+		WHEN m1.status IS NOT NULL THEN
+		CASE
+		WHEN m1.status = 0 THEN 1
+		WHEN m1.status = 1 THEN 2
+		END
+		WHEN m2.status IS
+		NOT NULL THEN
+		CASE
+		WHEN m2.status = 0 THEN 1
+		WHEN m2.status = 1 THEN 2
+		END
+		ELSE 0
+		END AS status
+		FROM profile_tb AS p
+		JOIN user_tb AS u ON u.id = p.user_id
+		LEFT JOIN matching_tb AS m1 ON
+		(u.id = m1.r_user_id AND m1.s_user_id = #{userId})
+		LEFT JOIN matching_tb
+		AS m2 ON (u.id = m2.s_user_id AND m2.r_user_id = #{userId})
+		WHERE u.id
+		!= #{userId}
+		AND u.gender != #{gender} AND p.list_status = 1 limit 3;
+	</select>
+
+	<select id="detailPartner" resultType="com.tenco.movie.repository.model.DateProfile">
+		SELECT
+		p.*,
+		CASE
+		WHEN COALESCE(m.s_user_id, m.r_user_id) IS
+		NULL THEN 1
+		WHEN m.status = 0 THEN 2
+		WHEN m.status = 1 THEN 3
+		WHEN
+		m.status = 2 THEN 4
+		ELSE 1
+		END AS status
+		FROM profile_tb p
+		LEFT JOIN
+		matching_tb m
+		ON (p.user_id = m.s_user_id AND m.r_user_id = #{id})
+		OR
+		(p.user_id = m.r_user_id AND m.s_user_id = #{userId})
+		WHERE p.user_id =
+		#{id};
+	</select>
 
 </mapper>

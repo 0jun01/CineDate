@@ -15,21 +15,22 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ReviewService {
 /**
- * 리뷰
- * @author 가령
+ * 리뷰 서비스 
+ * @author 김가령
  */
 	
 	@Autowired
 	private ReviewRepository reviewRepository;
 	
 	
-	public List<Review> getReviewsByMovieId(int movieId) {
-		return reviewRepository.findByMovieId(movieId);
-	}
+	public List<Review> getReviewsByMovieId(int movieId, int page, int size) {
+        int offset = (page - 1) * size;
+        return reviewRepository.findByMovieIdWithPagination(movieId, offset, size);
+    }
 	
 	// 리뷰 평균 계산
-	public double getAverageRatingByMovieId(int movieId) {
-        List<Review> reviews = getReviewsByMovieId(movieId);
+    public double getAverageRatingByMovieId(int movieId) {
+        List<Review> reviews = getReviewsByMovieId(movieId, 1, Integer.MAX_VALUE);
         if (reviews.isEmpty()) {
             return 0.0;
         }
@@ -51,5 +52,29 @@ public class ReviewService {
     public boolean hasUserReviewed(int movieId, int userId) {
         return reviewRepository.existsByMovieIdAndUserId(movieId, userId);
     }
+
+    
+    /**
+     * 리뷰 ID로 리뷰 삭제
+     * @param id 삭제할 리뷰의 ID
+     */
+    @Transactional
+    public void deleteReview(int id) {
+        reviewRepository.deleteReviewById(id);
+    }
+    
+    /**
+     * 리뷰 ID로 리뷰 찾기
+     * @param id 리뷰의 ID
+     * @return 리뷰 객체
+     */
+    public Review findReviewById(int id) {
+        return reviewRepository.findById(id);
+    }
 	
+    
+ // 리뷰 업데이트
+    public void updateReview(Review review) {
+        reviewRepository.updateReview(review);
+    }
 }

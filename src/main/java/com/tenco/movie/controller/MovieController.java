@@ -9,12 +9,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.Actors;
 import com.tenco.movie.repository.model.MovieDetail;
 import com.tenco.movie.repository.model.Movies;
+import com.tenco.movie.repository.model.Review;
+import com.tenco.movie.repository.model.User;
 import com.tenco.movie.service.MovieService;
+import com.tenco.movie.service.ReviewService;
 import com.tenco.movie.utils.Define;
 
 @Controller
@@ -22,10 +26,12 @@ import com.tenco.movie.utils.Define;
 public class MovieController {
 	
 	private final MovieService movieService;
+	private final ReviewService reviewService;
 	
 	@Autowired
-	public MovieController(MovieService movieService) {
+	public MovieController(MovieService movieService, ReviewService reviewService) {
 		this.movieService = movieService;
+		this.reviewService = reviewService;
 	}
 	/**
 	 * 영화 페이지 요청
@@ -49,11 +55,14 @@ public class MovieController {
 	/**
 	 * @param title 박스오피스 영화 제목
 	 * @return 무비디테일 페이지
-	 * @author 변영준
+	 * @author 변영준, 김가령
 	 */
 	@GetMapping("/detail")
-	public String detailPage(Model model, @RequestParam("title") String title) {
-
+	public String detailPage(Model model, @RequestParam("title") String title,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "5") int size,
+            @SessionAttribute(name = "principal", required = false) User principal) {
+		
 		// 타이틀 유효성 검사
 		if (title == null || title.isEmpty()) {
 			throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE, HttpStatus.BAD_REQUEST);
@@ -78,40 +87,30 @@ public class MovieController {
 		// 그 무비에 출연한 배우,감독을 출력하는 리스트
 		List<Actors> movieActors = movieService.readActorsByMovieId(movieId);
 		MovieDetail movieDetail = movieService.readMovieAllofData(movieId);
+		
+		List<Review> movieReviews = reviewService.getReviewsByMovieId(movieId, page, size);
+		double averageRating = reviewService.getAverageRatingByMovieId(movieId);
+		
 		// movieDetail.jsp에 올려줌
 		model.addAttribute("actors", movieActors);
 		model.addAttribute("movie", selectedMovies);
+		model.addAttribute("averageRating", averageRating);
 		model.addAttribute("movieDetail", movieDetail);
-		return "/movie/movieDetail";
-	}
+		model.addAttribute("reviews", movieReviews);
+		
+		// 페이징 관련 속성
+        int totalReviews = reviewService.getReviewsByMovieId(movieId, 1, Integer.MAX_VALUE).size();
+        int totalPages = (int) Math.ceil((double) totalReviews / size);
+        
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("size", size);
+        
+		// 로그인 상태 확인
+		System.out.println("Principal: " + principal);
+		boolean isLoggedIn = (principal != null);
+		model.addAttribute("isLoggedIn", isLoggedIn);
 
-	public String moviePage(Model model,@RequestParam("title") String title) {
-		
-		if(title == null || title.isEmpty()) {
-			throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE,HttpStatus.BAD_REQUEST);
-		}
-		
-		Movies selectedMovies = movieService.readMovieByTitle(title);
-		
-		if(selectedMovies == null) {
-			throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE, HttpStatus.BAD_REQUEST);
-		}
-		
-		int movieId = selectedMovies.getId();
-		if(movieId == 0) {
-			throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE, HttpStatus.BAD_REQUEST);
-		}
-		System.out.println("--------------");
-		System.out.println(movieId);
-		System.out.println("--------------");
-		List<Actors> movieActors = movieService.readActorsByMovieId(movieId);
-		for (Actors actors : movieActors) {
-			System.out.println(actors);
-		}
-		
-		model.addAttribute("actors",movieActors);
-		model.addAttribute("movie",selectedMovies);
 		return "/movie/movieDetail";
 	}
-	
 }

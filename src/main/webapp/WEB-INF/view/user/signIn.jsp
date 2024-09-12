@@ -10,8 +10,8 @@
 
 			<form action="/user/signIn" method="POST" enctype="multipart/form-data">
 				<div class="login--wrap">
-					<input type="text" id="id" name="loginId" placeholder="아이디를 입력해주세요." value="rtg369">
-					<input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요." value="asd123">
+					<input type="text" id="id" name="loginId" placeholder="아이디를 입력해주세요." value="ryeonng">
+					<input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요." value="dkssud123!">
 					<button type="submit" class="btn" id="login--btn">로그인</button>
 				</div>
 			</form>
