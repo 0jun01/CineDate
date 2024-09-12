@@ -11,10 +11,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Subregions {
-
-	private int id;
-	private int regionId; // regions_tb pk
-	private String name;
-	private String regionImage;
+public class Screens {
+	private int id; 
+	private int theaterId; // 극장 pk
+	private String name; // Movies - pk
+	private int capacity; // 좌석수
 }

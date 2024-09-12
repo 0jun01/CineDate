@@ -15,7 +15,6 @@ import lombok.ToString;
 @ToString
 public class Regions {
 	
-	private int id;
-	private String name; // 지역이름
-	
+	private int id; // regions_tb 의 id
+	private String name; // 예: 서울, 경기, 부산~
 }

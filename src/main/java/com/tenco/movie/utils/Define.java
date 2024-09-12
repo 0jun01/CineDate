@@ -74,4 +74,9 @@ public class Define {
 	public static final String UPLOAD_DIR_CREATION_FAILED = "업로드 디렉토리를 생성할 수 없습니다.";
 	public static final String FILE_UPLOAD_ERROR = "파일 업로드 중에 오류가 발생 했습니다.";
 	public static final String MISSING_REQUIRED_FILES = "첫 번째와 두 번째 사진은 반드시 등록하셔야 합니다.";
+	
+	
+	// DateSignIn 
+	public static final String PROFILE_SUSPENDING = "현재 이계정은 정지 상태입니다.";
+	
 }

@@ -132,7 +132,7 @@ public class MovieParseController {
 											int movieId = homeService.readMovieByTitle(title);
 											Actors actors = Actors.builder().name(castDTO.getName())
 													.actorFaceFile(castDTO.getProfilePath()).build();
-//											homeService.insertActors(actors, movieId);
+											homeService.insertActors(actors, movieId);
 										}
 										for (CrewDTO crewDTO : crewList) {
 											if (crewDTO.getJob().equals("Director")) {

@@ -1,7 +1,5 @@
 package com.tenco.movie.repository.model;
 
-import java.sql.Timestamp;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,9 +11,18 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Screen {
-	private int id; 
-	private int locationId; // Location - pk
-	private int movieId; // Movies - pk
-	private Timestamp screenStart; // 상영 시작 시간
+public class CancelHistory {
+	
+	Integer id;
+	String paymentKey;
+	int userId;
+	String orderId;
+	String orderName;
+	String amount;
+	String method;
+	String requestedAt;
+	String approvedAt;
+	String cancelAt;
+	
+
 }

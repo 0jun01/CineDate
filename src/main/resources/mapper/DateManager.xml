@@ -19,7 +19,7 @@
 		FROM profile_tb p
 		JOIN matching_tb m
 		ON p.user_id = m.r_user_id
-		WHERE m.s_user_id = #{principalId};
+		WHERE m.s_user_id = #{principalId} OR m.r_user_id = #{principalId};
 
 	</select>
 

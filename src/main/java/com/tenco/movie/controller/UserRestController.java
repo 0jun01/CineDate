@@ -41,8 +41,9 @@ public class UserRestController {
 	public boolean getMethodEmail(@RequestParam(name = "email") String email) {
 		System.out.println(email);
 		boolean isUse =  userService.searchEmail(email) == null ? true : false;
-		System.out.println(isUse);
+		System.out.println("check-email : " + isUse);
 		return isUse;
 	}
+
 	
 }

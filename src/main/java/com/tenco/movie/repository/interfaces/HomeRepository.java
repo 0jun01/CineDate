@@ -64,4 +64,5 @@ public interface HomeRepository {
 
 	// movies_actors_tb에 이미 값이 있으면 못들어가게 하기
 	public MovieActor findByMovieAndGenre(@Param("movieId") int movieid, @Param("actorId") int actorId);
+
 }
