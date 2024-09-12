@@ -779,8 +779,12 @@ function viewSeats(){
          console.log(selectedTicketCount);
          
          if (!principal || principal === "null") {
-        	    alert("로그인 후 사용해 주세요.");
-        	    window.location.href = "/user/signIn";
+        	 if (confirm("로그인이 필요한 서비스입니다. \n로그인 페이지로 이동하시겠습니까?")) {
+        	        window.location.href = "/user/signIn"; // 로그인 페이지로 이동
+        	    } else {
+        	        // 사용자가 취소(No)를 선택한 경우 처리
+        	        console.log("사용자가 로그인 페이지 이동을 취소했습니다.");
+        	    }
         	} else if(selectedTicketCount == null || selectedTicketCount == 0){
         		alert("좌석을 선택해 주세요")
         	}
