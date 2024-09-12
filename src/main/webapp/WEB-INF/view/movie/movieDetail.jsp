@@ -58,33 +58,33 @@
 		<div class="movie--content">${movieDetail.movieDesc}</div>
 		
 
-		<!-- 평균 평점 표시 -->
-		<div>
-			<h3>
-				관람객 평점: <span class="rating-container"> 
-				<!-- 별점 표시 --> 
-				<span class="star filled" style="width: ${averageRating * 10}%;">&#9733;</span> 
-				
-				<!-- 평균 평점 숫자 표시 -->
-				<fmt:formatNumber value="${averageRating}" type="number" maxFractionDigits="2" />
-				</span>
-			</h3>
+		<div class="rating-container">
+			<div class="rating--star">
+				<h3>관람평</h3>
+				<div class="rating--avg">
+					<h3>관람객 평점 : </h3>				
+					<!-- 별점 표시 --> 
+					<span class="star filled">&#9733;</span> 
+					<!-- 평균 평점 숫자 표시 -->
+					<fmt:formatNumber value="${averageRating}" type="number" maxFractionDigits="2" />
+				</div>
+			</div>
 		</div>
+
 
 		<!-- 관람평 목록 -->
 		<div id="review-section">
-			<h2>관람평</h2>
 			<div class="review-list">
 				<c:forEach var="review" items="${reviews}">
 					<div class="review-item">
 						<p>
-							<strong>ID:</strong> ${MaskingUtil.maskUserId(review.userLoginId)}
+							ID : ${MaskingUtil.maskUserId(review.userLoginId)}
 						</p>
 						<p>
-							<strong>관람평:</strong> ${review.reviewText}
+							관람평 : ${review.reviewText}
 						</p>
 						<p>
-							<strong>평점:</strong>
+							평점 :
 							<c:forEach var="i" begin="1" end="5">
 								<c:choose>
 									<c:when test="${review.rating >= i * 2}">
@@ -100,7 +100,7 @@
 							</c:forEach>
 						</p>
 						<p>
-							<strong>작성일:</strong> ${review.timestampToString()}
+							작성일: ${review.timestampToString()}
 						</p>
 						<c:if test="${review.userId == principal.id}">
 							<!-- 리뷰 작성자일 경우만 수정 및 삭제 버튼 표시 -->
@@ -110,7 +110,6 @@
 								<button type="submit" class="delete-button">삭제</button>
 							</form>
 						</c:if>
-						<hr>
 					</div>
 				</c:forEach>
 				<c:if test="${empty reviews}">
@@ -143,7 +142,6 @@
 					<!-- 로그인 된 경우 리뷰 작성 폼 표시 -->
 					<div class="review-form-container" id="reviewFormContainer">
 						<h3 id="formTitle">리뷰 작성하기</h3>
-						<br>
 
 						<form id="reviewForm" action="/movie/review" method="post">
 							<input type="hidden" id="reviewId" name="id" /> <input type="hidden" name="movieId" value="${movie.id}" />
@@ -156,8 +154,11 @@
 							<div class="form-group">
 								<label for="rating">평점:</label> <input type="hidden" id="ratingValue" name="rating" />
 								<div id="starRating" class="star-rating">
-									<span class="star" data-value="2">&#9733;</span> <span class="star" data-value="4">&#9733;</span> <span class="star" data-value="6">&#9733;</span> <span class="star"
-										data-value="8">&#9733;</span> <span class="star" data-value="10">&#9733;</span>
+									<span class="star" data-value="2">&#9733;</span>
+									<span class="star" data-value="4">&#9733;</span>
+									<span class="star" data-value="6">&#9733;</span> 
+									<span class="star" data-value="8">&#9733;</span>
+									<span class="star" data-value="10">&#9733;</span>
 								</div>
 							</div>
 							<br>

@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+.event--wrap{
+	margin-top: 150px;	
+}
+
+.evt--title {
+	height: 60px;
+	padding-top: 30px;
+	border-bottom: 3px solid black;
+	margin-top: 20px;
+	margin: 0;
+	padding: 0;
+	border: 1;
+	vertical-align: baseline;
+	word-break: break-all;
+}
+
+.evt--area{
+	width: 100%;
+	margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.evt--area--menu {
+	margin-top: 10px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.evt--item-container {
+	width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.evt--item--a {
+	margin: 25px;
+}
+
+.evt--item--detail {
+	display: block;
+	margin-inline: 15%;
+	padding: 10px;
+}
+
+.evt--item--a {
+	margin: 25px;
+}
+
+.evt--prize--win .evt--prize--end {
+	border: 1 solid black;
+}
+
+.notoce--detail{
+	margin-top: 150px;
+}
+
+.event--title {
+    font-size: 24px;
+}

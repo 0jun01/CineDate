@@ -12,6 +12,7 @@
 <link href="/css/main.css" rel="stylesheet">
 <link href="/css/movie.css" rel="stylesheet">
 <link href="/css/date.css" rel="stylesheet">
+<link href="/css/event.css" rel="stylesheet">
 <link href="/css/notice.css" rel="stylesheet">
 <link href="/css/footer.css" rel="stylesheet">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.ico">
@@ -64,7 +65,7 @@
 			</ul>
 		</div>
 		<div class="header--logo">
-			<a href="/home"><img src="/img/logo.png" alt="CineDate Logo"></a>
+			<a href="/home"><img src="/img/header_logo.png" alt="CineDate Logo"></a>
 		</div>
 		<nav class="nav--wrap" id="in--wrap">
 			<ul class="nav--menu">
@@ -95,7 +96,7 @@
 					<li class="bar bar03"></li>
 				</ul>
 
-				<div class="mobile--all--menu" style="display:none;">
+				<div class="mobile--all--menu" style="display:none">
 					<div class="all--bg" style="display: block;"></div>
 					<div class="all--menu">
 						<ul>
@@ -119,7 +120,7 @@
 	</header>
 
 	<script>
-	<!-- 헤더 상단 팝업 배너 -->
+		<!-- 헤더 상단 팝업 배너 -->
 		document.addEventListener('DOMContentLoaded', function() {
 			var xIcon = document.querySelector('.x--icon');
 
