@@ -18,7 +18,7 @@
 		<div class="movie--wrap">
 			<img src="https://image.tmdb.org/t/p/w342/${movie.movieImg}" alt="${movie.title}" >
 			<div class="movie--detail">
-				<span>영화 제목: ${movie.title}</span>
+				<h1>${movie.title}</h1>
 				<span>영화 영어 제목 : ${movieDetail.titleEn}</span>
 				<span>상영시간 : ${movieDetail.showTm}분</span>
 				<span>개봉일 : ${movieDetail.releaseDate}</span>
