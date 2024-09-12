@@ -3,13 +3,37 @@
 .movie--wrap {
 	display: flex;
 	margin-top: 150px;
-	margin-bottom: 30px;
+	margin-bottom: 50px;
+	gap: 50px;
 }
 
 .movie--detail {
 	display: flex;
 	flex-direction: column;
+	gap: 20px 0;
 }
+
+.movie--detail h3{
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.movie--title--wrap{
+	display: flex;
+    align-items: stretch;
+    gap: 20px;
+}
+
+.movie--title--wrap .movie--prdStatNm{
+    width: 50px;
+    padding: 3px;
+    text-align: center;
+	border: 1px solid #ff2588;
+    border-radius: 5px;
+    color: #ff2588;
+    font-size: 14px;
+    line-height: 26px;
+ }
 
 .movie--detail .movie--btn{
 	background-color: #ff2588;
@@ -44,12 +68,13 @@
 
 .movie--info{
 	position: relative;
+	border-top: 1px solid #999;
+	border-bottom: 1px solid #999;
+	padding: 50px 0;
 }
 
 .movie--info h3 {
-	padding-top: 50px;
 	margin-bottom: 10px;
-	border-top: 2px solid #999;
 }
 
 .movie--info .swiper-slide img {

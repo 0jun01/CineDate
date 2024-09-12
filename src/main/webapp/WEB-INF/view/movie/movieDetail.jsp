@@ -18,13 +18,15 @@
 		<div class="movie--wrap">
 			<img src="https://image.tmdb.org/t/p/w342/${movie.movieImg}" alt="${movie.title}" >
 			<div class="movie--detail">
-				<h1>${movie.title}</h1>
-				<span>영화 영어 제목 : ${movieDetail.titleEn}</span>
-				<span>상영시간 : ${movieDetail.showTm}분</span>
+				<div class="movie--title--wrap">
+					<h1>${movie.title}</h1>
+					<span class="movie--prdStatNm">${movieDetail.prdStatNm}</span>
+				</div>
+				<h3>${movieDetail.titleEn}</h3>
 				<span>개봉일 : ${movieDetail.releaseDate}</span>
-				<span>${movieDetail.prdStatNm}</span>
+				<span>상영시간 : ${movieDetail.showTm}분</span>
 				<span>${movieDetail.watchGradeNm}</span>
-				<span>${movieDetail.genre}</span>
+				<span>장르 : ${movieDetail.genre}</span>
 				
 				<div class="movie--btn btn"><a href="/reservation/reservation">예매하기</a></div>
 			</div>
@@ -51,8 +53,6 @@
 			  </div>
 			  <div class="swiper-button-next"></div>
 			  <div class="swiper-button-prev"></div>
-
-			
 		</div>
 
 		<div class="movie--content">${movieDetail.movieDesc}</div>
@@ -71,11 +71,9 @@
 			</h3>
 		</div>
 
-		<br>
 		<!-- 관람평 목록 -->
 		<div id="review-section">
 			<h2>관람평</h2>
-			<br>
 			<div class="review-list">
 				<c:forEach var="review" items="${reviews}">
 					<div class="review-item">
