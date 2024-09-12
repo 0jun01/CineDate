@@ -227,7 +227,10 @@ public class ReservationController {
 
 	@PostMapping("/booking")
 	public ResponseEntity<Map<String, String>> bookMovie(@RequestBody BookingRequest request) {
-
+		System.out.println(request.toString());
+		System.out.println(request.toString());
+		System.out.println(request.toString());
+		System.out.println(request.toString());
 		int result = reservationService.insertBooking(request.getUserId(), request.getShowTimeId(),
 				request.getQuantity(), request.getSelectedSeatsId());
 		Map<String, String> response = new HashMap<>();

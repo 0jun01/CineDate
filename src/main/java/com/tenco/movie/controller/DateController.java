@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.tenco.movie.dto.BookingRequest;
 import com.tenco.movie.dto.DateProfileDTO;
 import com.tenco.movie.dto.MessageDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
@@ -59,7 +61,8 @@ public class DateController {
 	 * @author 유형정 슈퍼 리스트 추가
 	 */
 	@GetMapping("/date")
-	public String getDatePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model, RedirectAttributes redirectAttributes) {
+	public String getDatePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model,
+			RedirectAttributes redirectAttributes) {
 		/**
 		 * 데이트 페이지 들어갈때 로그인 안되있으면 로그인 하라고 방어코드 추가함
 		 * 
@@ -73,13 +76,13 @@ public class DateController {
 		DateProfile proifile = dateService.searchProfile(principal.getId());
 		if (proifile == null) {
 			return "date/DateSignUp";
-		} else if(proifile.getLifeStatus() == 1) {
+		} else if (proifile.getLifeStatus() == 1) {
 			throw new DataDeliveryException(Define.PROFILE_SUSPENDING, HttpStatus.BAD_REQUEST);
 		}
-		
+
 		List<DateProfile> list = dateService.searchPartner(principal.getId(), principal.getGender());
 		System.out.println(list);
-		
+
 		List<DateProfile> superList = dateService.superPartner(principal.getId(), principal.getGender());
 		System.out.println("superList : " + superList);
 
@@ -205,6 +208,27 @@ public class DateController {
 		return "pay/tossPay";
 	}
 
+	@GetMapping("/tickets")
+	public String postTicketProc(@RequestParam("quantity") int quantity, Model model,
+			@SessionAttribute(Define.PRINCIPAL) User principal) {
+		System.out.println(quantity);
+		System.out.println(quantity);
+		System.out.println(quantity);
+		int amount = 1 * quantity;
+		String orderId = payservice.getOderId();
+		String orderName = "ticket";
+		String customerName = principal.getName();
+
+		// 모델에 데이터 추가
+		model.addAttribute("amount", amount);
+		model.addAttribute("orderId", orderId);
+		model.addAttribute("orderName", orderName);
+		model.addAttribute("customerName", customerName);
+
+		return "pay/tossPay";
+
+	}
+
 	@GetMapping("/detailPartner")
 	public String getMethodName(@RequestParam(name = "id") int id, @RequestParam(name = "userId") int userId,
 			Model model) {
@@ -226,36 +250,38 @@ public class DateController {
 
 		return "date/matchingList";
 	}
+
 	/**
 	 * 메세지기능
+	 * 
 	 * @author 성후
 	 * @param messageDTO
 	 * @return
 	 */
 	@PostMapping("/sendMessage")
-	public @ResponseBody Map<String, Object> sendMessage(@RequestBody MessageDTO messageDTO, @SessionAttribute(Define.PRINCIPAL) User principal) {
-	    Map<String, Object> response = new HashMap<>();
-	    try {
-	    	
-	    	System.out.println("messageDTO 오나: " + messageDTO); // 데이터 확인
-	        System.out.println("Principal 오나: " + principal); // 세션에서의 사용자 정보 확인
-	    	
-	        Message message = new Message();
-	        message.setSenderId(principal.getId()); // 발신자 ID
-	        message.setRecipientId(messageDTO.getRecipientId()); // 수신자 ID
-	        message.setMessage(messageDTO.getMessage()); // 메시지 내용
-	        message.setTimestamp(LocalDateTime.now()); // 타임스탬프
-	        
-	        System.out.println("여기는 컨트롤러 메세지 들어오나: " + message); // 로그 추가
-	        
-	        messageService.save(message);
-	        response.put("success", true);
-	    } catch (Exception e) {
-	        response.put("success", false);
-	        response.put("error", e.getMessage());
-	    }
-	    return response;
+	public @ResponseBody Map<String, Object> sendMessage(@RequestBody MessageDTO messageDTO,
+			@SessionAttribute(Define.PRINCIPAL) User principal) {
+		Map<String, Object> response = new HashMap<>();
+		try {
+
+			System.out.println("messageDTO 오나: " + messageDTO); // 데이터 확인
+			System.out.println("Principal 오나: " + principal); // 세션에서의 사용자 정보 확인
+
+			Message message = new Message();
+			message.setSenderId(principal.getId()); // 발신자 ID
+			message.setRecipientId(messageDTO.getRecipientId()); // 수신자 ID
+			message.setMessage(messageDTO.getMessage()); // 메시지 내용
+			message.setTimestamp(LocalDateTime.now()); // 타임스탬프
+
+			System.out.println("여기는 컨트롤러 메세지 들어오나: " + message); // 로그 추가
+
+			messageService.save(message);
+			response.put("success", true);
+		} catch (Exception e) {
+			response.put("success", false);
+			response.put("error", e.getMessage());
+		}
+		return response;
 	}
-	
-	
+
 }

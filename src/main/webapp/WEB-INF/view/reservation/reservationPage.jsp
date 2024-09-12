@@ -268,13 +268,14 @@
 </div>
 <div class="choice--movie--box">
 	<div class="img--title--box">
-		<span class="movie--poster"> <img alt="#" src="">
-		</span> <span class="movie--title"> <a></a>
+		<span class="movie--poster"> <img alt="" src="">
+		</span> <span class="movie--title"> <a href=""></a>
 		</span>
 	</div>
 	<div class="movie--detail--box">
 		<div>
-			<span>극장</span> <span class="theater"></span>
+			<span>극장</span> <span class="theater"> <a href=""></a>
+			</span>
 		</div>
 		<div>
 			<span>일시</span> <span class="choosen--date"></span>
@@ -429,7 +430,6 @@ function handleAvailableMovieClick(element) {
 const movieId = element.getAttribute('data-movie-id');
 selectedMovieId = movieId;
     console.log(movieId)
-    alert(`선택한 영화의 ID:` + movieId);
     fetchMovieDetails(movieId);
 }
 
@@ -515,7 +515,7 @@ function updateMovieDetail(movie) {
 
     if (titleLink) {
         titleLink.textContent = movie.title; // 영화 제목 설정
-        titleLink.href = '#'; // 링크가 클릭 가능한 상태로 설정
+        titleLink.href = `/movie/detail?title=` + movie.title; // 링크가 클릭 가능한 상태로 설정
     }
 }
 
@@ -616,7 +616,6 @@ function updateSubRegionList(subRegions) {
             	alert ('영화를 먼저 선택해주세요.')
             } else {
              console.log('Clicked sub-region:', subRegion.name);
-            // filterSubRegion(subRegion.id);
              const theaterElement = document.querySelector('.movie--detail--box .theater');
              if (theaterElement) {
                  theaterElement.textContent = subRegion.name; // subRegion.name을 theater에 표시
@@ -660,6 +659,7 @@ function checkMovie(theaterName, subregionId){
 function updateTimeList(data) {
 const timeListContainer = document.querySelector('.time--list');
 let room = null;
+let checkTheater = 0;
     // 기존 시간 리스트 제거
     const existingUl = timeListContainer.querySelector('ul');
     if (existingUl) {
@@ -668,7 +668,8 @@ let room = null;
 
     // 데이터가 없으면 빈 리스트를 표시
     if (data.length === 0) {
-		alert('상영 일정이 없습니다');    	
+		alert('상영 일정이 없습니다!!');   
+		checkTheater = 1;
     }
 
  // 새로운 시간 리스트 생성
@@ -733,7 +734,7 @@ let room = null;
         li.appendChild(a);
         ul.appendChild(li);
     });
-
+	
     timeListContainer.appendChild(ul);
 }
 
@@ -787,7 +788,9 @@ function viewSeats(){
         	    }
         	} else if(selectedTicketCount == null || selectedTicketCount == 0){
         		alert("좌석을 선택해 주세요")
-        	}
+        	} else {
+        window.location.href = `/date/tickets?quantity=`+selectedTicketCount;
+         
          fetch(`http://localhost:8080/reservation/booking`,{
         	 method: 'POST',
         	 headers: {
@@ -811,6 +814,7 @@ function viewSeats(){
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
         });
+       }
      });
 	}
 }
