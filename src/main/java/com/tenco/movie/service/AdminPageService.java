@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tenco.movie.dto.CountProfileDTO;
 import com.tenco.movie.dto.EventWriterDTO;
 import com.tenco.movie.dto.NoticeWriterDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
@@ -278,5 +279,8 @@ public class AdminPageService {
 		return adminRepository.lifeStatusUpdate(user.getLifeStatus(), id);
 	}
 	
+	public List<CountProfileDTO>  CountProfile() {
+		return adminRepository.CountProfile();		
+	}
 	
 }

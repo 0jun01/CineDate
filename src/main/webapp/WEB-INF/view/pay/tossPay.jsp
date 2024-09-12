@@ -28,7 +28,7 @@
       orderName: orderName, // 주문명
       customerName: customerName, // 구매자 이름
       successUrl: 'http://localhost:8080/toss/success', // 결제 성공 시 이동할 페이지
-      failUrl: 'http://localhost:8080/toss/fail', // 결제 실패 시 이동할 페이지
+      failUrl: 'http://localhost:8080/home', // 결제 실패 시 이동할 페이지
     })
     .catch(function (error) {
       if (error.code === 'USER_CANCEL') {

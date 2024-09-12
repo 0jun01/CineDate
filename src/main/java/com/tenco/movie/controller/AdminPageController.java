@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.tenco.movie.dto.CountProfileDTO;
 import com.tenco.movie.dto.EventWriterDTO;
 import com.tenco.movie.dto.NoticeWriterDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
@@ -31,7 +33,6 @@ import com.tenco.movie.utils.Define;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller
@@ -56,6 +57,21 @@ public class AdminPageController {
 	public String logoutAdmin() {
 		session.invalidate();
 		return "redirect:/user/signIn";
+	}
+	
+	
+	@GetMapping("/adminTest")
+	public String AdminTest(@SessionAttribute(Define.PRINCIPAL) User principal, Model model) {
+		
+		String name = principal.getLoginId();
+		
+		User user = userService.getUserById(name);
+		
+		model.addAttribute("user", user);
+		
+		
+		
+		return "/adminTest";
 	}
 	
 	
@@ -477,6 +493,11 @@ public class AdminPageController {
 		}
 		
 		
+		@GetMapping("/CountProfile")
+		@ResponseBody
+		public List<CountProfileDTO> getMethodName() {
+			return adminPageService.CountProfile();
+		}
 		
 		
 		

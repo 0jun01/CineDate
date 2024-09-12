@@ -25,16 +25,19 @@
 	</delete>
 
 	<select id="findAdminById">
-		select * from notice_tb where id = #{id} order by id desc
+		select * from notice_tb where id = #{id} order by id
+		desc
 	</select>
 
 	<select id="findAdminByName">
-		select * from notice_tb where title like CONCAT('%', #{search}, '%') order
+		select * from notice_tb where title like CONCAT('%',
+		#{search}, '%') order
 		by id desc limit #{limit} offset #{offset}
 	</select>
 
 	<select id="pageCountAdmin">
-		select * from notice_tb order by id desc limit #{limit} offset #{offset}
+		select * from notice_tb order by id desc limit
+		#{limit} offset #{offset}
 	</select>
 
 
@@ -52,11 +55,13 @@
 
 	<!-- ========================================================================================== -->
 	<select id="findEventAll">
-		select * from event_tb order by id desc limit #{limit} offset #{offset}
+		select * from event_tb order by id desc limit
+		#{limit} offset #{offset}
 	</select>
 
 	<select id="findEventById">
-		select * from event_tb where id = #{id} order by id desc
+		select * from event_tb where id = #{id} order by id
+		desc
 	</select>
 
 	<delete id="deleteByEventById">
@@ -64,7 +69,8 @@
 	</delete>
 
 	<select id="findAdminEventByName">
-		select * from event_tb where title like CONCAT('%', #{search}, '%') order by
+		select * from event_tb where title like CONCAT('%',
+		#{search}, '%') order by
 		id desc limit #{limit} offset #{offset}
 	</select>
 
@@ -83,11 +89,13 @@
 
 
 	<select id="findAdminMemberExceptPW">
-		select * from user_tb order by id desc limit #{limit} offset #{offset}
+		select * from user_tb order by id desc limit #{limit}
+		offset #{offset}
 	</select>
 
 	<select id="findAdminMemberByName">
-		select * from user_tb where login_id like CONCAT('%', #{search}, '%') order
+		select * from user_tb where login_id like CONCAT('%',
+		#{search}, '%') order
 		by id desc limit #{limit} offset #{offset}
 	</select>
 
@@ -116,23 +124,56 @@
 
 
 	<!-- =========================== Profile =============================== -->
-	<select id="readProfileList" resultType="com.tenco.movie.repository.model.DateProfile">
+	<select id="readProfileList"
+		resultType="com.tenco.movie.repository.model.DateProfile">
 		select * from profile_tb where nick_name like
-		CONCAT('%', #{search}, '%')
+		CONCAT('%',
+		#{search}, '%')
 		limit #{limit} offset #{offset}
 	</select>
 
 	<select id="countAdminProfileList" resultType="int">
-		select count(*) from profile_tb where nick_name like CONCAT('%', #{search}, '%')
+		select count(*)
+		from profile_tb where nick_name like CONCAT('%', #{search}, '%')
 	</select>
 
-	<select id="searchProfileById" resultType="com.tenco.movie.repository.model.DateProfile">
+	<select id="searchProfileById"
+		resultType="com.tenco.movie.repository.model.DateProfile">
 		select * from profile_tb where id = #{id}
 	</select>
-	
+
 	<update id="lifeStatusUpdate">
-		UPDATE profile_tb SET life_status = ${status} WHERE id = #{id}
+		UPDATE profile_tb SET life_status = ${status} WHERE
+		id = #{id}
 	</update>
+
+	<select id="CountProfile"
+		resultType="com.tenco.movie.dto.CountProfileDTO">
+		SELECT
+		YEAR(CURDATE()) AS year,
+		COUNT(*) AS count
+		FROM profile_tb
+		WHERE YEAR(created_at) = YEAR(CURDATE())
+		UNION ALL
+		SELECT
+		YEAR(CURDATE()) - 1 AS year,
+		COUNT(*) AS count
+		FROM profile_tb
+		WHERE YEAR(created_at) = YEAR(CURDATE()) - 1
+		UNION ALL
+		SELECT
+		YEAR(CURDATE()) - 2 AS year,
+		COUNT(*) AS count
+		FROM profile_tb
+		WHERE YEAR(created_at) = YEAR(CURDATE()) - 2
+		UNION ALL
+		SELECT
+		YEAR(CURDATE()) - 3 AS year,
+		COUNT(*) AS count
+		FROM profile_tb
+		WHERE YEAR(created_at) = YEAR(CURDATE()) - 3
+		ORDER BY year ASC
+	</select>
 
 
 </mapper>

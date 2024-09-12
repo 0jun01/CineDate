@@ -60,22 +60,7 @@
 					<!--end::Navbar Search-->
 					<!--begin::Messages Dropdown Menu-->
 
-					<li class="nav-item dropdown"><a class="nav-link" data-bs-toggle="dropdown" href="#"> <i class="bi bi-bell-fill"></i> <span class="navbar-badge badge text-bg-warning">15</span>
-					</a>
-						<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-							<span class="dropdown-item dropdown-header">15 알림</span>
-							<div class="dropdown-divider"></div>
-							<a href="#" class="dropdown-item"> <i class="bi bi-envelope me-2"></i> 4 개의 새로운 메세지 <span class="float-end text-secondary fs-7">3 분전</span>
-							</a>
-							<div class="dropdown-divider"></div>
-							<a href="#" class="dropdown-item"> <i class="bi bi-people-fill me-2"></i> 8 명의 친구요청 <span class="float-end text-secondary fs-7">12 시간전</span>
-							</a>
-							<div class="dropdown-divider"></div>
-							<a href="#" class="dropdown-item"> <i class="bi bi-file-earmark-fill me-2"></i> 3 개의 새로운 요청 <span class="float-end text-secondary fs-7">2 일전</span>
-							</a>
-							<div class="dropdown-divider"></div>
-							<a href="#" class="dropdown-item dropdown-footer"> 모든 공지 보기 </a>
-						</div></li>
+					
 					<!--end::Notifications Dropdown Menu-->
 					<!--begin::Fullscreen Toggle-->
 					<li class="nav-item"><a class="nav-link" href="#" data-lte-toggle="fullscreen"> <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i> <i
@@ -90,27 +75,14 @@
 							<!--begin::User Image-->
 							<li class="user-header text-bg-primary"><img src="/img/user2-160x160.jpg" class="rounded-circle shadow" alt="User Image">
 								<p>
-									${user.loginId} <small>2024년 8월 가입</small>
+									${user.loginId} <small>2024년 9월 가입</small>
 								</p></li>
 							<!--end::User Image-->
 							<!--begin::Menu Body-->
-							<li class="user-body">
-								<!--begin::Row-->
-								<div class="row">
-									<div class="col-4 text-center">
-										<a href="#">Followers</a>
-									</div>
-									<div class="col-4 text-center">
-										<a href="#">Sales</a>
-									</div>
-									<div class="col-4 text-center">
-										<a href="#">Friends</a>
-									</div>
-								</div> <!--end::Row-->
-							</li>
+							
 							<!--end::Menu Body-->
 							<!--begin::Menu Footer-->
-							<li class="user-footer"><a href="#" class="btn btn-default btn-flat">프로필</a> <a href="/logout" class="btn btn-default btn-flat float-end">로그아웃</a></li>
+							<li class="user-footer"><a href="/logout" class="btn btn-default btn-flat float-end">로그아웃</a></li>
 							<!--end::Menu Footer-->
 						</ul></li>
 					<!--end::User Menu Dropdown-->
