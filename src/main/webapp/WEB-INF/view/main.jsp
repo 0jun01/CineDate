@@ -45,7 +45,7 @@
 			});
 		</script>
 	</main>
-
+	
 	<div id="in--wrap">
 		<div class="flex--between--wrap">
 			<div class="top--title">
@@ -54,6 +54,7 @@
 			<div class="top--title">
 				<a id="btn--all--view" class='btn--all--view'>전체보기</a>
 			</div>
+			<div>
 			<div class="movie--list--box">
 				<c:forEach var="movieList" items="${movieList}">
 					<div class="movie--text--box">

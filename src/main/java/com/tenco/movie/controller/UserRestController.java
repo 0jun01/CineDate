@@ -17,6 +17,12 @@ public class UserRestController {
 	
 	private final UserService userService;
 
+	/**
+	 * 아이디 중복 검사
+	 * @param loginId
+	 * @return
+	 * @author 형정
+	 */
 	@GetMapping("/check-loginId")
 	public boolean getMethodName(@RequestParam(name = "loginId") String loginId) {
 		System.out.println(loginId);
@@ -25,6 +31,12 @@ public class UserRestController {
 		return isUse;
 	}
 	
+	/**
+	 * 이메일 중복 검사
+	 * @param email
+	 * @return
+	 * @author 형정
+	 */
 	@GetMapping("/check-email")
 	public boolean getMethodEmail(@RequestParam(name = "email") String email) {
 		System.out.println(email);

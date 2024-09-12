@@ -48,6 +48,8 @@ public class Define {
 	public static final String NOT_VALIDATE_PHONE_NUM = "유효하지 않은 휴대폰 번호입니다.";
 	public static final String ENTER_YOUR_BIRTH = "생년월일을 입력해 주세요.";
 	public static final String ENTER_YOUR_GENDER ="성별을 선택해 주세요.";
+	public static final String NO_DATA_FOUND = "등록된 정보가 없습니다. 다시 확인해주세요.";
+	
 	
 	// etc 
 	public static final String FAIL_TO_CREATE_USER = "회원가입 실패.";
@@ -57,5 +59,12 @@ public class Define {
 	public static final String UNKNOWN_ERROR = "알 수 없는 오류입니다";
 	public static final String FAILED_PROCESSING = "정상 처리 되지 않았습니다.";
 	public static final String ERROR_SIGNUP_REQUIRED = "회원 가입 후 이용 가능합니다";
+	
+	// review
+	public static final String DUPLICATION_REVIEW = "이미 리뷰를 작성한 영화입니다.";
 
+	// upload
+	public static final String FILE_SIZE_EXCEEDED = "파일 크기는 20MB 이상 클 수 없습니다.";
+	 public static final String UPLOAD_DIR_CREATION_FAILED = "업로드 디렉토리를 생성할 수 없습니다.";
+	    public static final String FILE_UPLOAD_ERROR = "파일 업로드 중에 오류가 발생 했습니다.";
 }	
