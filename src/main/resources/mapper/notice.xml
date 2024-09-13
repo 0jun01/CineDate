@@ -28,6 +28,8 @@
 		select count(*) from notice_tb;
 	</select>
 	
-	
+	<update id="incrementViewCount">
+    update notice_tb set view_count = view_count + 1 where id = #{id}
+	</update>
 </mapper>
 
