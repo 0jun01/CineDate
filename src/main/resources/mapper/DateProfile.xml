@@ -36,6 +36,12 @@
 		)
 	</insert>
 
+	<insert id="createdProfileDetail">
+		INSERT INTO profile_detail_tb (user_id, ideal_type, blood_type, best_movie, drinking, smoking, my_jop ) 
+		VALUES (#{userId}, #{idealType}, #{bloodtype}, #{bestMovie},#{drinking}, #{smoking}, #{myJop})
+	</insert>
+
+
 	<select id="searchNickName"
 		resultType="com.tenco.movie.repository.model.DateProfile">
 		SELECT * FROM profile_tb WHERE nick_name = #{nickname}
@@ -152,5 +158,10 @@
 		WHERE p.user_id =
 		#{id}
 	</select>
+		
+	<select id="detailPartnerDetail" resultType="com.tenco.movie.dto.profileDetailDTO">
+		select * from profile_detail_tb WHERE user_id = #{userid};
+	</select>
+	
 
 </mapper>

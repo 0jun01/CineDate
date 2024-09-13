@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tenco.movie.dto.DateProfileDTO;
 import com.tenco.movie.dto.MessageDTO;
+import com.tenco.movie.dto.profileDetailDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.User;
@@ -40,6 +41,7 @@ public class DateController {
 
 	@Autowired
 	private final DateManagerService dateManagerService;
+
 	/**
 	 * 데이트 페이지 요청
 	 * 
@@ -48,7 +50,8 @@ public class DateController {
 	 * @author 유형정 슈퍼 리스트 추가
 	 */
 	@GetMapping("/date")
-	public String getDatePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model, RedirectAttributes redirectAttributes) {
+	public String getDatePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model,
+			RedirectAttributes redirectAttributes) {
 		/**
 		 * 데이트 페이지 들어갈때 로그인 안되있으면 로그인 하라고 방어코드 추가함
 		 * 
@@ -62,13 +65,13 @@ public class DateController {
 		DateProfile proifile = dateService.searchProfile(principal.getId());
 		if (proifile == null) {
 			return "date/DateSignUp";
-		} else if(proifile.getLifeStatus() == 1) {
+		} else if (proifile.getLifeStatus() == 1) {
 			throw new DataDeliveryException(Define.PROFILE_SUSPENDING, HttpStatus.BAD_REQUEST);
 		}
-		
+
 		List<DateProfile> list = dateService.searchPartner(principal.getId(), principal.getGender());
 		System.out.println(list);
-		
+
 		List<DateProfile> superList = dateService.superPartner(principal.getId(), principal.getGender());
 		System.out.println("superList : " + superList);
 
@@ -120,15 +123,17 @@ public class DateController {
 			@RequestParam(name = "profile_upload_file5") MultipartFile file5,
 			@SessionAttribute(Define.PRINCIPAL) User principal) throws IOException {
 
-//	    if (principal.getId() != userId) {
-//	        return ""; // 적절한 에러 페이지 URL로 수정
-//	    }
 		DateProfileDTO update = DateProfileDTO.builder().nickName(nickName).introduce(introduce).mFileOne(file1)
 				.mFileTwo(file2).mFile3(file3).mFile4(file4).mFile5(file5).build();
 
 		dateService.updateProfile(update, principal.getId());
 
 		return "redirect:/date/date";
+	}
+
+	@GetMapping("/signUp")
+	public String getSignUp() {
+		return "date/DateSignUp";
 	}
 
 	/**
@@ -146,16 +151,41 @@ public class DateController {
 			@RequestParam(name = "mFileTwo") MultipartFile mFileTwo,
 			@RequestParam(name = "mFile3") MultipartFile mFile3, @RequestParam(name = "mFile4") MultipartFile mFile4,
 			@RequestParam(name = "mFile5") MultipartFile mFile5, @RequestParam(name = "nickName") String nickName,
-			@RequestParam(name = "introduce") String introduce) {
+			@RequestParam(name = "introduce") String introduce, @RequestParam(name = "idealType") String idealType,
+			@RequestParam(name = "bloodtype") String bloodtype, @RequestParam(name = "myJop") String myJop,
+			@RequestParam(name = "bestMovie") String bestMovie, @RequestParam(name = "drinking") String drinking,
+			@RequestParam(name = "smoking") String smoking) {
 
 		if (nickName == null || nickName.isEmpty()) {
 			throw new DataDeliveryException("닉네임을 입력하세요", HttpStatus.BAD_REQUEST);
+		}
+		if (idealType == null || idealType.trim().isEmpty() || idealType.equalsIgnoreCase("")) {
+			throw new DataDeliveryException("이상형을 입력하세요", HttpStatus.BAD_REQUEST);
+		}
+		if (bloodtype == null || bloodtype.trim().isEmpty() || bloodtype.equalsIgnoreCase("")) {
+			throw new DataDeliveryException("형액형을 선택하세요", HttpStatus.BAD_REQUEST);
+		}
+		if (myJop == null || myJop.trim().isEmpty() || myJop.equalsIgnoreCase("")) {
+			throw new DataDeliveryException("이상형을 입력하세요", HttpStatus.BAD_REQUEST);
+		}
+		if (bestMovie == null || bestMovie.trim().isEmpty() || bestMovie.equalsIgnoreCase("")) {
+			throw new DataDeliveryException("좋아하는 영화를 입력하세요", HttpStatus.BAD_REQUEST);
+		}
+		if (drinking == null || drinking.trim().isEmpty() || drinking.equalsIgnoreCase("")) {
+			throw new DataDeliveryException("음주여부을 선택하세요", HttpStatus.BAD_REQUEST);
+		}
+		if (smoking == null || smoking.trim().isEmpty() || smoking.equalsIgnoreCase("")) {
+			throw new DataDeliveryException("흡연여부을 선택하세요", HttpStatus.BAD_REQUEST);
 		}
 
 		DateProfileDTO dto = DateProfileDTO.builder().nickName(nickName).introduce(introduce).mFileOne(mFileOne)
 				.mFileTwo(mFileTwo).mFile3(mFile3).mFile4(mFile4).mFile5(mFile5).build();
 
+		profileDetailDTO detailDTO = profileDetailDTO.builder().userId(principal.getId()).idealType(idealType)
+				.bloodtype(bloodtype).myJop(myJop).bestMovie(bestMovie).drinking(drinking).smoking(smoking).build();
+
 		dateService.createdProfile(principal, dto);
+		dateService.createdProfileDetail(detailDTO);
 
 		return "redirect:/date/date";
 	}
@@ -199,9 +229,12 @@ public class DateController {
 			Model model) {
 
 		DateProfile detail = dateService.detailPartner(userId, id);
-
+		profileDetailDTO dto = dateService.detailPartnerDetail(id);
+		
+		
 		model.addAttribute("userId", userId);
 		model.addAttribute("detail", detail);
+		model.addAttribute("dto", dto);
 
 		return "date/detailPartner";
 	}
@@ -215,19 +248,17 @@ public class DateController {
 
 		return "date/matchingList";
 	}
-	
-	
+
 	// ======= 메시지 채팅 ========
-	
+
 	@GetMapping("/message")
-	public String getMessage(@RequestParam(name = "id")int partnerId, @RequestParam(name = "userId") int principalId,Model model) {
+	public String getMessage(@RequestParam(name = "id") int partnerId, @RequestParam(name = "userId") int principalId,
+			Model model) {
 		List<MessageDTO> chatHistory = dateManagerService.chatHistory(principalId, partnerId);
 		model.addAttribute("partnerId", partnerId);
 		model.addAttribute("principalId", principalId);
-		model.addAttribute("chatHistory",chatHistory);
+		model.addAttribute("chatHistory", chatHistory);
 		return "date/message";
 	}
-	
-	
-	
+
 }
