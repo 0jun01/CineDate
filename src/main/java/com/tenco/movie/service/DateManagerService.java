@@ -2,6 +2,7 @@ package com.tenco.movie.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,36 +16,51 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DateManagerService {
 
-    private final DateManagerRepocitory dateManagerRepocitory;
+	@Autowired
+	private final DateManagerRepocitory dateManagerRepocitory;
 
-    @Transactional
-    public int movieSuggest(int userId, int partNerId) {
-        return dateManagerRepocitory.movieSuggest(userId, partNerId);
-    }
+	@Transactional
+	public int movieSuggest(int userId, int partNerId) {
+		int result = 0;
 
-    public List<DateProfile> matchingList(int principalId) {
-        return dateManagerRepocitory.matchingList(principalId);
-    }
+		result = dateManagerRepocitory.movieSuggest(userId, partNerId);
 
-    public List<MessageDTO> chatHistory(int principalId, int partnerId) {
-        List<MessageDTO> list = dateManagerRepocitory.chatHistory(principalId, partnerId);
+		return result;
+	}
 
-        for (MessageDTO messageDTO : list) {
-            if (messageDTO.getSenderId().equals(principalId)) {
-                messageDTO.setPosition("나");
-            } else {
-                messageDTO.setPosition("상대");
-            }
-        }
-        return list;
-    }
-    
-    public int chatHitory(String message, Integer senderId, Integer recipientId) {
-        MessageDTO dto = MessageDTO.builder()
-                .message(message)
-                .senderId(senderId)
-                .recipientId(recipientId)
-                .build();
-        return dateManagerRepocitory.insrtChat(dto);
-    }
+	public List<DateProfile> matchingList(int principalId) {
+
+		List<DateProfile> list = dateManagerRepocitory.matchingList(principalId);
+
+		return list;
+	}
+
+	public List<MessageDTO> chatHistory(int principalId, int partnerId) {
+
+		List<MessageDTO> list = dateManagerRepocitory.chatHistory(principalId, partnerId);
+
+		for (MessageDTO messageDTO : list) {
+			if (messageDTO.getSenderId() == principalId) {
+				messageDTO.setPosition("나");
+			} else {
+				messageDTO.setPosition("상대");
+			}
+
+		}
+		return list;
+	}
+	
+	public int chatHitory(String message, Integer senderId, Integer recipientId) {
+		int insert = 0;
+		
+		MessageDTO dto = MessageDTO.builder()
+				.message(message)
+				.senderId(senderId)
+				.recipientId(recipientId)
+				.build();
+		insert = dateManagerRepocitory.insrtChat(dto);
+		
+		return insert;
+	}
+
 }

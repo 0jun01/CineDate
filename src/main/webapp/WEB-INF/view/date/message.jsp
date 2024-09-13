@@ -66,6 +66,15 @@
         var chatBox = document.getElementById("chatBox");
         chatBox.scrollTop = chatBox.scrollHeight;
     };
+    
+	 // Enter 키를 눌렀을 때 메시지를 전송하도록 설정
+    document.getElementById("messageInput").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // 기본 Enter 키 동작(줄바꿈) 방지
+            sendMessage();
+        }
+    });
+    
     </script>
 
 </body>
