@@ -21,3 +21,4 @@ public interface ProfileRepository {
 	public DateProfile detailPartner(@Param("userId")int userId, @Param("id")int id);
 	
 }
+	

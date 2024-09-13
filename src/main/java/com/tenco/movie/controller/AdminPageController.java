@@ -89,12 +89,20 @@ public class AdminPageController {
 		int reviewCount = adminPageService.countReview();
 		int sellCount = adminPageService.countSell();
 		int memberCount = adminPageService.countMember();
+		
+		int profileCount = adminPageService.countProfileAll();
+		
+		List<DateProfile> profileList = adminPageService.readMainProfile();
+		List<History> historyList = adminPageService.readMainHistory();
 
 		model.addAttribute("sellCount", sellCount);
 		model.addAttribute("reviewCount", reviewCount);
 		model.addAttribute("memberCount", memberCount);
+		model.addAttribute("profileCount", profileCount);
 		model.addAttribute("user", user);
 		model.addAttribute("profile",userProfile);
+		model.addAttribute("profileList", profileList);
+		model.addAttribute("historyList", historyList);
 
 		return "/adminMain";
 	}
@@ -117,6 +125,8 @@ public class AdminPageController {
 		User user = userService.getUserById(name);
 
 		List<Notice> noticeList = adminPageService.readNoticePage(page, size);
+		
+		
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", totalPages);

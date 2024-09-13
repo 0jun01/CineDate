@@ -104,14 +104,7 @@
 										<div class="invalid-feedback">생일이 공백이면 안됩니다</div>
 									</div>
 
-									<div class="col-md-6">
-										<label for="gender" class="form-label">성</label> <select class="form-select" id="gender" required >
-											<c:choose>
-											<c:when test=""
-											<option>...</option>
-										</select>
-										<div class="invalid-feedback">Please select a valid state.</div>
-									</div>
+						
 									<!--end::Col-->
 									<!--begin::Col-->
 									<div class="col-12">

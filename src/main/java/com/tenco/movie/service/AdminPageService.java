@@ -66,6 +66,28 @@ public class AdminPageService {
 	public int countMember() {
 		return adminRepository.countAdminMemberAll();
 	}
+	
+	public int countProfileAll() {
+		return adminRepository.countAdminMemberAll();
+	}
+	
+	@Transactional
+	public List<DateProfile> readMainProfile(){
+		List<DateProfile> list = new ArrayList<>();
+		
+		list = adminRepository.readAdminProfile();
+		
+		return list;
+	}
+	
+	@Transactional
+	public List<History> readMainHistory(){
+		List<History> list = new ArrayList<>();
+		
+		list = adminRepository.readAdminHistory();
+		
+		return list;
+	}
 
 	// 메인 끝
 	// ------------------------------------------------
@@ -399,6 +421,7 @@ public class AdminPageService {
 	public List<History> readAllHistory() {
 		return adminRepository.findHistoryAll();
 	}
+
 
 //=========================== profile ===============================
 	public List<DateProfile> readProfileList(String search, int page, int size) {

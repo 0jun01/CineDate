@@ -57,7 +57,7 @@
 										결제한 아이디 : ${history.userId} <br>
 										주문 번호 : ${history.orderId} <br>
 										주문 내역 : ${history.orderName} <br>
-										주문 갯수 : ${history.amount} <br>
+										금액 : ${history.amount} 원<br>
 										결제 방법 : ${history.method} <br>
 										요청 시간 : ${history.requestedAt} <br>
 										승인 시간 : ${history.approvedAt}

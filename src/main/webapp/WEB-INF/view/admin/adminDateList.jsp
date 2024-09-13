@@ -25,7 +25,7 @@
 			<!--end::Container-->
 		</div>
 		<!--end::App Content Header-->
-		<div class="app-content">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+		<div class="app-content">
 			<!--begin::Container-->
 			<div class="container-fluid">
 				<!--begin::Row-->
@@ -40,7 +40,7 @@
 										<c:choose>
 
 											<c:when test="${search != null}">
-												<input type="text" class="form-control-sm" id="search" name="search" value = "${search}">&nbsp;&nbsp;&nbsp;
+												<input type="text" class="form-control-sm" id="search" name="search" value="${search}">&nbsp;&nbsp;&nbsp;
 												<h3>
 													<li class="nav-item">
 														<button type="submit" class="nav-link" data-widget="navbar-search">
@@ -50,7 +50,7 @@
 												</h3>
 											</c:when>
 											<c:otherwise>
-												<input type="text" class="form-control-sm" id="search" name="search" placeholder="검색할 회원ID를 입력하세요">&nbsp;&nbsp;&nbsp;
+												<input type="text" class="form-control-sm" id="search" name="search" placeholder="검색할 어필글을 입력하세요">&nbsp;&nbsp;&nbsp;
 												<h3>
 													<li class="nav-item">
 														<button type="submit" class="nav-link" data-widget="navbar-search">
@@ -89,7 +89,7 @@
 															<td><c:choose>
 																	<c:when test="${fn:length(user.loginId) gt 15}">
 																		<c:out value="${fn:substring(user.loginId, 0, 14)}...">
-       																	 </c:out>
+																		</c:out>
 																	</c:when>
 																	<c:otherwise>
 																		<c:out value="${user.loginId}">
@@ -125,41 +125,42 @@
 											</div>
 										</c:otherwise>
 									</c:choose>
-									</div>
-									<!-- /.card-body -->
+								</table>
+							</div>
+							<!-- /.card-body -->
 
 
 
-									<div class="card-footer clearfix">
+							<div class="card-footer clearfix">
 
-										<nav aria-label="...">
-											<ul class="pagination" style="justify-content: center">
+								<nav aria-label="...">
+									<ul class="pagination" style="justify-content: center">
 
-												<li class="page-item <c:if test='${currentPage == 1}'>disabled</c:if>"><a class="page-link" href="?page=${currentPage - 1}&size=${size}">이전</a></li>
-												<c:forEach begin="1" end="${totalPages}" var="page">
-													<li class="page-item <c:if test='${page == currentPage}'>active </c:if>" aria-current="page"><a class="page-link" href="?page=${page}&size=${size}">${page}</a></li>
-												</c:forEach>
-												<li class="page-item <c:if test='${currentPage == totalPages}'>disabled</c:if>"><a class="page-link" href="?page=${currentPage + 1}&size=${size}">다음</a></li>
-											</ul>
-										</nav>
-									</div>
-									</div>
-									<!-- /.card -->
-									</div>
-									<!-- /.col -->
-									</div>
-									<!--end::Row-->
-									</div>
-									<!--end::Container-->
-									</div>
+										<li class="page-item <c:if test='${currentPage == 1}'>disabled</c:if>"><a class="page-link" href="?page=${currentPage - 1}&size=${size}">이전</a></li>
+										<c:forEach begin="1" end="${totalPages}" var="page">
+											<li class="page-item <c:if test='${page == currentPage}'>active </c:if>" aria-current="page"><a class="page-link" href="?page=${page}&size=${size}">${page}</a></li>
+										</c:forEach>
+										<li class="page-item <c:if test='${currentPage == totalPages}'>disabled</c:if>"><a class="page-link" href="?page=${currentPage + 1}&size=${size}">다음</a></li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+						<!-- /.card -->
+					</div>
+					<!-- /.col -->
+				</div>
+				<!--end::Row-->
+			</div>
+			<!--end::Container-->
+		</div>
 
-									<!--end::App Content-->
-									</main>
-									<!--end::App Main-->
-									<!--begin::Footer-->
+		<!--end::App Content-->
+	</main>
+	<!--end::App Main-->
+	<!--begin::Footer-->
 
-									</div>
-									</div>
-									</div>
-									<!-- end of content.jsp(xxx.jsp) -->
+</div>
+</div>
+</div>
+<!-- end of content.jsp(xxx.jsp) -->
 <%@ include file="/WEB-INF/view/layout/adminFooter.jsp"%>

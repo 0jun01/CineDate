@@ -35,6 +35,7 @@ public interface AdminRepository {
 	
 	
 	
+	
 	public int countAdminNoticeAll();
 	public int countAdminNotice(String search);
 	
@@ -56,7 +57,6 @@ public interface AdminRepository {
 	public List<User> findAdminMemberExceptPW(@Param("limit") int limit, @Param("offset") int offset); // 비번제외 회원띄우기
 	
 	public List<User> findAdminMemberByName(@Param("search")String search, @Param("limit") int limit, @Param("offset") int offset);
-	
 	public User findAdminMemberById(int id);
 	public int updateMemberById(UserWrite user);
 	
@@ -68,12 +68,15 @@ public interface AdminRepository {
 	public List<HistoryTimeLine> countAdminHistory();
 	public List<History> findHistoryAll();
 
-
-	
+	public List<History> readAdminHistory();
 	
 	// ------------------------------------------- profile -------------
 	public List<DateProfile> readProfileList(@Param("search")String search, @Param("limit") int limit, @Param("offset") int offset);
 	public int countAdminProfileList(@Param("search")String search);
+	
+	public int countAdminProfileAll();
+	public List<DateProfile> readAdminProfile();
+	
 	public DateProfile searchProfileById(int id);
 	public int lifeStatusUpdate(@Param("status")int status,@Param("id")int id);
 	

@@ -153,6 +153,9 @@
 		select * from toss_hitory_tb order by id desc
 	</select>
 
+<select id="readAdminHistory" resultType="com.tenco.movie.repository.model.History">
+		select * from toss_hitory_tb order by id desc limit 6 offset 0
+	</select>
 
 	<!-- =========================== Profile =============================== -->
 	<select id="readProfileList"
@@ -167,6 +170,15 @@
 		select count(*)
 		from profile_tb where nick_name like CONCAT('%', #{search}, '%')
 	</select>
+
+	<select id="countAdminProfileAll" resultType="int">
+		select count(*) from profile_tb
+	</select>
+	
+	<select id="readAdminProfile" resultType="com.tenco.movie.repository.model.DateProfile">
+		select * from profile_tb order by id desc limit 8 offset 0
+	</select>
+
 
 	<select id="searchProfileById"
 		resultType="com.tenco.movie.repository.model.DateProfile">

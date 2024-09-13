@@ -73,12 +73,12 @@
 												<thead>
 													<tr class="align-middle text-center">
 														<th style="width: 10px">id</th>
-														<th style="width: 170px">회원ID</th>
-														<th>닉네임</th>
+														<th style="width: 30px">회원ID</th>
+														<th style="width: 150px">닉네임</th>
 														<th>자기소개</th>
 														<th>con 보유</th>
-														<th style="width: 150px">계정상태</th>
-														<th style="width: 150px">활성화</th>
+														<th style="width: 60px">계정상태</th>
+														<th style="width: 60px">활성화</th>
 														<th style="width: 80px" class="text-center"></th>
 													</tr>
 												</thead>
