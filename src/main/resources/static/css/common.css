@@ -384,6 +384,7 @@ label {
 }
 
 
+<<<<<<< HEAD
 .review-item {
     display: flex; 
     flex-direction: row; 
@@ -406,6 +407,8 @@ label {
     padding: 10px; 
     border-radius: 5px; 
 }
+=======
+>>>>>>> acf591a7bb659b82035b5f5a319ef0724c265ad1
 
 .star-rating {
 	font-size: 0;
@@ -509,11 +512,14 @@ label {
 .star-empty {
 	color: #d3d3d3; /* 빈 별 색상: 회색 */
 }
+<<<<<<< HEAD
 /*공지*/
 .page--btn--a{
 	display: flex;
 	justify-content: center;
 	gap: 40px; 
+=======
+>>>>>>> acf591a7bb659b82035b5f5a319ef0724c265ad1
 
 /**
 *메세지
@@ -570,6 +576,7 @@ label {
 .edit-button, .delete-button {
 	color: #dc3545; /* 삭제 버튼 색상 설정 */
 }
+<<<<<<< HEAD
 
 .page--item.disabled .page-link {
     color: #c0c0c0;
@@ -577,3 +584,7 @@ label {
     cursor: not-allowed;
 }
 
+=======
+
+
+>>>>>>> acf591a7bb659b82035b5f5a319ef0724c265ad1
