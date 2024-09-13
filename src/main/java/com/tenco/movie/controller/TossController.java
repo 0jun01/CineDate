@@ -43,7 +43,7 @@ public class TossController {
 	 * @return
 	 */
 	@GetMapping("/success")
-	public String seccese(@RequestParam(name = "orderId")String orderId,
+	public String succese(@RequestParam(name = "orderId")String orderId,
 	                      @RequestParam(name = "paymentKey")String paymentKey, 
 	                      @RequestParam(name = "amount")String amount,
 	                      @SessionAttribute(name = "principal")User principal)

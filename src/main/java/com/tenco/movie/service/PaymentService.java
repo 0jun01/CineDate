@@ -27,34 +27,30 @@ public class PaymentService {
 
 	@Autowired
 	private final PaymentHistoryRepository historyRepository;
-	
-	
+
 	@Transactional
 	public String cancelPaymentHistory(int id) throws IOException, InterruptedException {
-		
-		TossHistoryDTO tossHistoryDTO =historyRepository.searchPaymentHistory(id);
-		
-		
+
+		TossHistoryDTO tossHistoryDTO = historyRepository.searchPaymentHistory(id);
+
 		String uri = "https://api.tosspayments.com/v1/payments/" + tossHistoryDTO.getPaymentKey() + "/cancel";
-		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create(uri)) //paymentKey
+		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(uri)) // paymentKey
 				// 시크릿 키를 Basic Authorization 방식으로 base64를 이용하여 인코딩하여 꼭 보내야함
 				.header("Authorization", "Basic dGVzdF9za19lcVJHZ1lPMXI1UDdFZ0RLd05KYlZRbk4yRXlhOg==")
 				.header("Content-Type", "application/json")
-				.method("POST", HttpRequest.BodyPublishers.ofString("{\"cancelReason\":\"고객이 취소를 원함\"}")).build(); 
+				.method("POST", HttpRequest.BodyPublishers.ofString("{\"cancelReason\":\"고객이 취소를 원함\"}")).build();
 		HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-		
+
 		historyRepository.insertCancelTossPaymenHistory(tossHistoryDTO);
-		
+
 		historyRepository.cancelTossPayment(tossHistoryDTO.getPaymentKey(), tossHistoryDTO.getOderId());
-		
-		
+
 		return response.body();
 	}
-	
-	
+
 	/**
 	 * 토스 주문 OrderID 생성
+	 * 
 	 * @return
 	 */
 	public String getOderId() {
@@ -64,7 +60,7 @@ public class PaymentService {
 		int d = cal.get(Calendar.DATE);
 		Random rd1 = new Random();
 		Random rd2 = new Random();
-		int rd11 = rd1.nextInt(100); 
+		int rd11 = rd1.nextInt(100);
 		int rd22 = rd2.nextInt(100);
 
 		String yStr = Integer.toString(y);
@@ -87,8 +83,8 @@ public class PaymentService {
 				.approvedAt(response.getApprovedAt()).build();
 
 		result = historyRepository.insertTossHistory(dto);
-		if(result == 1) {
-			throw new DataDeliveryException(Define.ERROR_PAYMENT_FAILED, HttpStatus.BAD_REQUEST); 
+		if (result != 1) {
+			throw new DataDeliveryException(Define.ERROR_PAYMENT_FAILED, HttpStatus.BAD_REQUEST);
 		}
 
 		return result;

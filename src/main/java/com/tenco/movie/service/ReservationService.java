@@ -171,6 +171,7 @@ public class ReservationService {
 	@Transactional
 	public int insertBooking(int userId, int showTimeId, int quantity, List<Integer> selectedSeatsId) {
 		int bookingId = 0;
+		List<Integer> seats = null;
 		Bookings booking = Bookings.builder().userId(userId).showtimeId(showTimeId).quantity(quantity).build();
 		if (userId == 0) {
 			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.BAD_REQUEST);
@@ -181,15 +182,24 @@ public class ReservationService {
 		}
 
 		try {
-			reservationRepository.insertBooking(userId, showTimeId, quantity);
+			seats = reservationRepository.checkOccupied(showTimeId);
+			// 중복된 좌석이 있는지 확인
+			for (Integer seatId : selectedSeatsId) {
+				if (seats.contains(seatId)) {
+					throw new DataDeliveryException("이미 예약된 좌석입니다.", HttpStatus.CONFLICT);
+				} else {
+					reservationRepository.insertBooking(userId, showTimeId, quantity);
 
-			booking = reservationRepository.viewBookingByUserIdAndShowTimeId(userId, showTimeId);
-			if (booking != null) {
-				bookingId = booking.getId();
-				reservationRepository.insertBookingSeats(bookingId, selectedSeatsId);
+					booking = reservationRepository.viewBookingByUserIdAndShowTimeId(userId, showTimeId);
+					if (booking != null) {
+						bookingId = booking.getId();
+						reservationRepository.insertBookingSeats(bookingId, selectedSeatsId);
+					}
+				}
 			}
+
 		} catch (Exception e) {
-			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.BAD_REQUEST);
+			throw new DataDeliveryException("이미 예약된 좌석입니다.", HttpStatus.BAD_REQUEST);
 		}
 		return bookingId;
 	}

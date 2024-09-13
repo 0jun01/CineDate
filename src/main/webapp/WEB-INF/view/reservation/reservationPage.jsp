@@ -268,13 +268,14 @@
 </div>
 <div class="choice--movie--box">
 	<div class="img--title--box">
-		<span class="movie--poster"> <img alt="#" src="">
-		</span> <span class="movie--title"> <a></a>
+		<span class="movie--poster"> <img alt="" src="">
+		</span> <span class="movie--title"> <a href=""></a>
 		</span>
 	</div>
 	<div class="movie--detail--box">
 		<div>
-			<span>극장</span> <span class="theater"></span>
+			<span>극장</span> <span class="theater"> <a href=""></a>
+			</span>
 		</div>
 		<div>
 			<span>일시</span> <span class="choosen--date"></span>
@@ -429,7 +430,6 @@ function handleAvailableMovieClick(element) {
 const movieId = element.getAttribute('data-movie-id');
 selectedMovieId = movieId;
     console.log(movieId)
-    alert(`선택한 영화의 ID:` + movieId);
     fetchMovieDetails(movieId);
 }
 
@@ -515,7 +515,7 @@ function updateMovieDetail(movie) {
 
     if (titleLink) {
         titleLink.textContent = movie.title; // 영화 제목 설정
-        titleLink.href = '#'; // 링크가 클릭 가능한 상태로 설정
+        titleLink.href = `/movie/detail?title=` + movie.title; // 링크가 클릭 가능한 상태로 설정
     }
 }
 
@@ -616,7 +616,6 @@ function updateSubRegionList(subRegions) {
             	alert ('영화를 먼저 선택해주세요.')
             } else {
              console.log('Clicked sub-region:', subRegion.name);
-            // filterSubRegion(subRegion.id);
              const theaterElement = document.querySelector('.movie--detail--box .theater');
              if (theaterElement) {
                  theaterElement.textContent = subRegion.name; // subRegion.name을 theater에 표시
@@ -660,6 +659,7 @@ function checkMovie(theaterName, subregionId){
 function updateTimeList(data) {
 const timeListContainer = document.querySelector('.time--list');
 let room = null;
+let checkTheater = 0;
     // 기존 시간 리스트 제거
     const existingUl = timeListContainer.querySelector('ul');
     if (existingUl) {
@@ -668,7 +668,8 @@ let room = null;
 
     // 데이터가 없으면 빈 리스트를 표시
     if (data.length === 0) {
-		alert('상영 일정이 없습니다');    	
+		alert('상영 일정이 없습니다!!');   
+		checkTheater = 1;
     }
 
  // 새로운 시간 리스트 생성
@@ -733,7 +734,7 @@ let room = null;
         li.appendChild(a);
         ul.appendChild(li);
     });
-
+	
     timeListContainer.appendChild(ul);
 }
 
@@ -779,11 +780,17 @@ function viewSeats(){
          console.log(selectedTicketCount);
          
          if (!principal || principal === "null") {
-        	    alert("로그인 후 사용해 주세요.");
-        	    window.location.href = "/user/signIn";
+        	 if (confirm("로그인이 필요한 서비스입니다. \n로그인 페이지로 이동하시겠습니까?")) {
+        	        window.location.href = "/user/signIn"; // 로그인 페이지로 이동
+        	    } else {
+        	        // 사용자가 취소(No)를 선택한 경우 처리
+        	        console.log("사용자가 로그인 페이지 이동을 취소했습니다.");
+        	    }
         	} else if(selectedTicketCount == null || selectedTicketCount == 0){
         		alert("좌석을 선택해 주세요")
-        	}
+        	} else {
+       
+         
          fetch(`http://localhost:8080/reservation/booking`,{
         	 method: 'POST',
         	 headers: {
@@ -797,18 +804,34 @@ function viewSeats(){
         	 })
          })
          .then(response => {
-            if (!response.ok){
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        }) .then(data => {
-        	alert("예매 완료!")
-        })
-        .catch(error => {
-            console.error('There has been a problem with your fetch operation:', error);
+    if (response.ok) {
+        return response.json(); // 성공 시 JSON 데이터 반환
+    } else if (response.status === 409) {
+        // 중복 좌석일 경우
+        return response.json().then(data => {
+            alert(data.message); // 서버에서 전달된 메시지 출력
+            throw new Error('Seat conflict');
         });
-     });
-	}
+    } else if (response.status === 400) {
+        // 예매 실패 시
+        return response.json().then(data => {
+            alert(data.message); // 실패 메시지 출력
+            throw new Error('Booking failed');
+        });
+    } else {
+        throw new Error('Network response was not ok');
+    }
+			})
+			.then(data => {
+				alert(data.message); // "예매 성공" 메시지
+				window.location.href = `/date/tickets?quantity=` + selectedTicketCount;
+			})
+			.catch(error => {
+				console.error('There has been a problem with your fetch operation:', error);
+			});
+		}
+	});
+}
 }
 
 function updateSeatClasses(occupiedSeats) {
