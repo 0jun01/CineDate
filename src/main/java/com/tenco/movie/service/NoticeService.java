@@ -52,22 +52,25 @@ public class NoticeService {
 	 * @return
 	 */
 	@Transactional
-    public Notice readNoticeDetail(int id) {
-        Notice notice = null;
-        
-        try {
-            notice = noticeRepository.findById(id);
-            if (notice != null) {
-                noticeRepository.incrementViewCount(id); // 조회수 증가
-            }
-        } catch (DataAccessException e) {
-            throw new DataDeliveryException(Define.INVALID_INPUT, HttpStatus.INTERNAL_SERVER_ERROR);
-        } catch (Exception e) {
-            throw new RedirectException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
-        }
-        
-        return notice;
-    }
+	public Notice readNoticeDetail(int id) {
+	    Notice notice = null;
+	    
+	    try {
+	        notice = noticeRepository.findById(id);
+	        if (notice != null) {
+	            noticeRepository.incrementViewCount(id); // 조회수 증가
+	            // 업데이트된 조회수를 반영하기 위해 다시 가져오기
+	            notice = noticeRepository.findById(id);
+	        }
+	    } catch (DataAccessException e) {
+	        throw new DataDeliveryException(Define.INVALID_INPUT, HttpStatus.INTERNAL_SERVER_ERROR);
+	    } catch (Exception e) {
+	        throw new RedirectException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
+	    }
+	    
+	    return notice;
+	}
+
 
     public int countNotice() {
         int totals = 0;
