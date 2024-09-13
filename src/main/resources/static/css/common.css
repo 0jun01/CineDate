@@ -22,7 +22,7 @@ body, input {
 	color: #333;
 }
 
-h1{
+h1 {
 	font-family: 'NanumSquareNeoExtraBold';
 }
 
@@ -54,7 +54,8 @@ input:-internal-autofill-selected {
 	background-color: #efefef !important;
 	color: #999 !important;
 }
-h1.eng{
+
+h1.eng {
 	font-size: 48px;
 }
 
@@ -119,7 +120,7 @@ h1.eng{
 	padding: 10px;
 }
 
-.float--right{
+.float--right {
 	float: right;
 }
 
@@ -145,7 +146,11 @@ h1.eng{
 }
 
 .login--items {
-	margin: 50px 0 100px;
+	margin: 50px 0 0;
+}
+
+.login--tem{
+	margin-bottom: 100px;
 }
 
 .social--login {
@@ -407,7 +412,6 @@ label {
 	color: #d3d3d3; /* 빈 별 색상: 회색 */
 }
 
-
 /**
 *메세지
 */
@@ -434,7 +438,7 @@ label {
 }
 
 .page--item.disabled .page-link {
-    color: #c0c0c0;
-    pointer-events: none; 
-    cursor: not-allowed;
+	color: #c0c0c0;
+	pointer-events: none;
+	cursor: not-allowed;
 }

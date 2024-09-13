@@ -106,7 +106,6 @@
 							<button type="submit" class="delete-button">삭제</button>
 						</form>
 					</c:if>
-					
 				</c:forEach>
 				
 				<c:if test="${empty reviews}">
@@ -182,6 +181,7 @@
 	    const reviewFormContainer = document.getElementById('reviewFormContainer');
 	    const formTitle = document.getElementById('formTitle');
 	    const submitButton = document.querySelector('.submit-button');
+	    const reviewTextArea = document.getElementById('reviewText');
 
 	    stars.forEach(star => {
 	        star.addEventListener('click', function() {
@@ -246,6 +246,8 @@
 
 	            reviewFormContainer.style.display = 'block'; // 폼 보이기
 	            submitButton.textContent = '리뷰 수정하기'; // 제출 버튼 텍스트 변경
+	            
+	            reviewTextArea.focus();
 	        });
 	    });
 

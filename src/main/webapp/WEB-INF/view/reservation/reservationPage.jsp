@@ -11,13 +11,13 @@
 				<div class="date--title--inner">
 					<h3>날짜</h3>
 				</div>
+				<div class="scroll--date">
+					<span class="year">${currentYear}</span>
+					<span class="">${currentMonth}월</span>
+				</div>
 				<div class="scroll--list">
 					<ul id="date--list">
-						<li>
-							<div>
-								<span class="year">${currentYear}</span> <br> <span class="">${currentMonth}월</span>
-							</div>
-						</li>
+
 						<c:forEach var="entry" items="${date}">
 
 							<c:set var="formattedMonth">
@@ -30,7 +30,8 @@
 							<c:if test="${entry.day == 1}">
 								<li>
 									<div>
-										<span class="year">${entry.year}</span> <br> <span class="month">${entry.month}월</span>
+										<span class="year">${entry.year}</span>
+										<span class="month">${entry.month}월</span>
 									</div>
 								</li>
 							</c:if>
@@ -54,7 +55,6 @@
 										</c:otherwise>
 									</c:choose>
 							</a></li>
-							<br>
 
 						</c:forEach>
 					</ul>
@@ -71,27 +71,31 @@
 				<div class="scroll--list">
 					<ul id="movie-list">
 						<c:forEach var="movie" items="${movieList}">
-							<li><a href="javascript:void(0)" data-movie-id="${movie.movieId}" onclick="handleAvailableMovieClick(this)"><c:choose>
+							<li>
+								<a href="javascript:void(0)" data-movie-id="${movie.movieId}" onclick="handleAvailableMovieClick(this)">
+									<c:choose>
 										<c:when test="${movie.watchGradeNm eq '전체관람가'}">
-											<span class="grade-all">ALL</span>
+											<span class="grade-all movie--grade eng">ALL</span>
 											<span data-id="${movie.movieId}">${movie.title}</span>
 										</c:when>
 										<c:when test="${movie.watchGradeNm eq '12세이상관람가'}">
-											<span class="grade-12">12</span>
+											<span class="grade-12 movie--grade eng">12</span>
 											<span data-id="${movie.movieId}">${movie.title}</span>
 										</c:when>
 										<c:when test="${movie.watchGradeNm eq '15세이상관람가'}">
-											<span class="grade-15">15 </span>
+											<span class="grade-15 movie--grade eng">15 </span>
 											<span data-id="${movie.movieId}">${movie.title}</span>
 										</c:when>
 										<c:when test="${movie.watchGradeNm eq '19세이상관람가'}">
-											<span class="grade-19">19</span>
+											<span class="grade-19 movie--grade eng">19</span>
 											<span data-id="${movie.movieId}">${movie.title}</span>
 										</c:when>
 										<c:otherwise>
-											<span class="grade-default" data-id="${movie.movieId}">${movie.title}</span>
+											<span class="grade-default movie--grade eng" data-id="${movie.movieId}">${movie.title}</span>
 										</c:otherwise>
-									</c:choose></a></li>
+									</c:choose>
+								</a>
+							</li>
 						</c:forEach>
 					</ul>
 				</div>
@@ -264,37 +268,49 @@
 				선택한 좌석 수 <span id="count">0</span> <span id="total">0</span>원
 			</p>
 		</div>
-	</div>
-</div>
-<div class="choice--movie--box">
-	<div class="img--title--box">
-		<span class="movie--poster"> <img alt="" src="">
-		</span> <span class="movie--title"> <a href=""></a>
-		</span>
-	</div>
-	<div class="movie--detail--box">
-		<div>
-			<span>극장</span> <span class="theater"> <a href=""></a>
-			</span>
-		</div>
-		<div>
-			<span>일시</span> <span class="choosen--date"></span>
-		</div>
-		<div>
-			<span>상영관</span> <span class="room"></span>
-		</div>
-		<span>인원</span> <a href="javascript:void(0)" onclick="viewSeats()" id="seat--selection--btn" class="btn--right">좌석선택!!!!!!!!!!!!!!!!!</a>
+
 	</div>
 
-	<div class="movie--seat--box">
-		<div>
-			<span>좌석명</span> <span class="seat--type"></span>
+
+
+	<div class="choice--movie--box">
+		<div id="in--wrap">
+			<div class="img--title--box">
+				<div class="movie--poster">
+					<img alt="" src="">
+				</div>
+				<div class="movie--titles">
+					<a href=""></a>
+				</div>
+
+				<div class="movie--detail--box">
+					<div>
+						<span>극장</span> <span class="theater"> <a href=""></a>
+						</span>
+					</div>
+					<div>
+						<span>일시</span> <span class="choosen--date"></span>
+					</div>
+					<div>
+						<span>상영관</span> <span class="room"></span>
+					</div>
+					<span>인원</span> <a href="javascript:void(0)" onclick="viewSeats()" id="seat--selection--btn" class="btn--right">좌석선택!!!!!!!!!!!!!!!!!</a>
+				</div>
+
+				<div class="movie--seat--box">
+					<div>
+						<span>좌석명</span> <span class="seat--type"></span>
+					</div>
+					<div>
+						<span>좌석번호</span> <span class="seat--num"></span>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div>
-			<span>좌석번호</span> <span class="seat--num"></span>
-		</div>
+
 	</div>
 </div>
+
 <script src="/js/seat.js"></script>
 <script>
 	
@@ -347,19 +363,19 @@ function updateMovieList(movies) {
 
         switch (movie.watchGradeNm) {
             case '전체관람가':
-                gradeClass = 'grade-all';
+                gradeClass = 'grade-all movie--grade eng';
                 gradeText = 'ALL';
                 break;
             case '12세이상관람가':
-                gradeClass = 'grade-12';
+                gradeClass = 'grade-12 movie--grade eng';
                 gradeText = '12';
                 break;
             case '15세이상관람가':
-                gradeClass = 'grade-15';
+                gradeClass = 'grade-15 movie--grade eng';
                 gradeText = '15';
                 break;
             case '19세이상관람가':
-                gradeClass = 'grade-19';
+                gradeClass = 'grade-19 movie--grade eng';
                 gradeText = '19';
                 break;
             default:
@@ -505,7 +521,7 @@ function fetchSelectedDateAndMovie(){
 function updateMovieDetail(movie) {
     // 영화 포스터와 제목 요소를 선택
     const posterImg = document.querySelector('.movie--poster img');
-    const titleLink = document.querySelector('.movie--title a');
+    const titleLink = document.querySelector('.movie--titles a');
     
     // 가져온 데이터로 요소 업데이트
     if (posterImg) {
@@ -855,5 +871,3 @@ function updateSeatClasses(occupiedSeats) {
 </script>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
-</body>
-</html>
