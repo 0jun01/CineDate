@@ -21,7 +21,7 @@ document.querySelectorAll('.purchase--btn').forEach(function(btn) {
 			.then(data => {
 				if (price > data) {
 					if (confirm("콘이 부족합니다.\n콘을 충전 하시겠습니까?")) {
-
+						window.open('/date/popcornCharge', '_blank');
 					} else {
 						console.log("사용자가 결제를 취소하였습니다.");
 					}

@@ -340,4 +340,9 @@ public class DateController {
 		}
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 	}
+
+	@GetMapping("/popcornCharge")
+	public String popcornChargePage() {
+		return "pay/popcornCharge";
+	}
 }
