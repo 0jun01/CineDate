@@ -10,9 +10,11 @@
 		<h1 class="section--title">이벤트</h1>
 		<ul class="evt--area--menu">
 			<div class="evt--prize">
-				<a href="/event/event" class="evt--prize--win">현재 진행중인 이벤트&nbsp;&nbsp;|&nbsp;&nbsp;</a>
-				<a href="/event/allevent" class="evt--prize--win">이벤트 전체보기&nbsp;&nbsp;|&nbsp;&nbsp;</a>
-				<a href="/event/endevent" class="evt--prize--win">종료된 이벤트</a>
+				<a href="/event/event" class="evt--prize--win">현재 진행중인 이벤트</a>
+				<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+				<a href="/event/allevent" class="evt--prize--win">이벤트 전체보기</a>
+				<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+				<a href="/event/endevent" class="evt--prize--win" style="color: #ff2588;">종료된 이벤트</a>
 			</div>
 		</ul>
 		

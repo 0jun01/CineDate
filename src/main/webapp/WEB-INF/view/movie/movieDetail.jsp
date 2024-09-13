@@ -2,69 +2,65 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.tenco.movie.utils.MaskingUtil"%>
-<!-- header.jsp -->
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 
-<div id="wrap">
+<div id="wrap" class="movie">
 
 	<!-- 메시지 표시 -->
-        <c:if test="${not empty message}">
-            <div class="alert alert-info">
-                ${message}
-            </div>
-        </c:if>
+	<c:if test="${not empty message}">
+		<div class="alert alert-info">${message}</div>
+	</c:if>
 
 	<div id="in--wrap">
 		<div class="movie--wrap">
-			<img src="https://image.tmdb.org/t/p/w342/${movie.movieImg}" alt="${movie.title}" >
+			<img src="https://image.tmdb.org/t/p/w342/${movie.movieImg}" alt="${movie.title}">
 			<div class="movie--detail">
 				<div class="movie--title--wrap">
 					<h1>${movie.title}</h1>
 					<span class="movie--prdStatNm">${movieDetail.prdStatNm}</span>
 				</div>
 				<h3>${movieDetail.titleEn}</h3>
-				<span>개봉일 : ${movieDetail.releaseDate}</span>
-				<span>상영시간 : ${movieDetail.showTm}분</span>
-				<span>${movieDetail.watchGradeNm}</span>
-				<span>장르 : ${movieDetail.genre}</span>
-				
-				<div class="movie--btn btn"><a href="/reservation/reservation">예매하기</a></div>
+				<span>개봉일 : ${movieDetail.releaseDate}</span> <span>상영시간 : ${movieDetail.showTm}분</span> <span>${movieDetail.watchGradeNm}</span> <span>장르 : ${movieDetail.genre}</span>
+
+				<div class="movie--btn btn">
+					<a href="/reservation/reservation">예매하기</a>
+				</div>
 			</div>
 		</div>
-		
+
 		<div class="movie--info">
 			<h3>감독/출현</h3>
-		
+
 			<div class="swiper mySwiper">
-			    <div class="swiper-wrapper">
-			    	<div class="swiper-slide">
-			      		<img alt="${movieDetail.directorFaceFile}" src="https://image.tmdb.org/t/p/w342${movieDetail.directorFaceFile}">
-						${movieDetail.director}<br><br>감독
-				  	</div>
-				    <c:forEach var="actors" items="${actors}" varStatus="status">
-					     <div class="swiper-slide">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<img alt="${movieDetail.directorFaceFile}" src="https://image.tmdb.org/t/p/w342${movieDetail.directorFaceFile}"> ${movieDetail.director}<br> <br>감독
+					</div>
+					<c:forEach var="actors" items="${actors}" varStatus="status">
+						<div class="swiper-slide">
 							<c:if test="${status.index < 5}">
 								<img alt="${actors.actorFaceFile}" src="https://image.tmdb.org/t/p/w342${actors.actorFaceFile}">
-								${actors.name}<br><br>배우
+								${actors.name}<br>
+								<br>배우
 							</c:if>
 						</div>
 					</c:forEach>
-			    </div>
-			  </div>
-			  <div class="swiper-button-next"></div>
-			  <div class="swiper-button-prev"></div>
+				</div>
+			</div>
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
 		</div>
 
 		<div class="movie--content">${movieDetail.movieDesc}</div>
-		
+
 
 		<div class="rating-container">
 			<div class="rating--star">
 				<h3>관람평</h3>
 				<div class="rating--avg">
-					<h3>관람객 평점 : </h3>				
-					<!-- 별점 표시 --> 
-					<span class="star filled">&#9733;</span> 
+					<h3>관람객 평점 :</h3>
+					<!-- 별점 표시 -->
+					<span class="star filled">&#9733;</span>
 					<!-- 평균 평점 숫자 표시 -->
 					<fmt:formatNumber value="${averageRating}" type="number" maxFractionDigits="2" />
 				</div>
@@ -76,42 +72,43 @@
 		<div id="review-section">
 			<div class="review-list">
 				<c:forEach var="review" items="${reviews}">
+
 					<div class="review-item">
-						<p>
-							ID : ${MaskingUtil.maskUserId(review.userLoginId)}
-						</p>
-						<p>
-							관람평 : ${review.reviewText}
-						</p>
-						<p>
-							평점 :
-							<c:forEach var="i" begin="1" end="5">
-								<c:choose>
-									<c:when test="${review.rating >= i * 2}">
-										<span class="star filled">&#9733;</span>
-									</c:when>
-									<c:when test="${review.rating >= (i * 2) - 1}">
-										<span class="star star-half">&#9733;</span>
-									</c:when>
-									<c:otherwise>
-										<span class="star">&#9734;</span>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						</p>
-						<p>
-							작성일: ${review.timestampToString()}
-						</p>
-						<c:if test="${review.userId == principal.id}">
-							<!-- 리뷰 작성자일 경우만 수정 및 삭제 버튼 표시 -->
-							<button type="button" class="edit-button" data-review-id="${review.id}" data-review-text="${review.reviewText}" data-review-rating="${review.rating}">수정</button>
-							<form action="/movie/review/delete" method="post" style="display: inline;">
-								<input type="hidden" name="id" value="${review.id}" />
-								<button type="submit" class="delete-button">삭제</button>
-							</form>
-						</c:if>
+						<div class="review--writer">
+							<p>ID : ${MaskingUtil.maskUserId(review.userLoginId)}</p>
+							<p>평점 :
+								<c:forEach var="i" begin="1" end="5">
+									<c:choose>
+										<c:when test="${review.rating >= i * 2}">
+											<span class="star filled">&#9733;</span>
+										</c:when>
+										<c:when test="${review.rating >= (i * 2) - 1}">
+											<span class="star star-half">&#9733;</span>
+										</c:when>
+										<c:otherwise>
+											<span class="star">&#9734;</span>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</p>
+						</div>
+						<div class="review--textarea">
+							<p class="review--text">${review.reviewText}</p>
+							<p class="review--date">${review.timestampToString()}</p>
+						</div>
 					</div>
+					
+					<c:if test="${review.userId == principal.id}">
+						<!-- 리뷰 작성자일 경우만 수정 및 삭제 버튼 표시 -->
+						<form action="/movie/review/delete" method="post" class="button--wrap">
+							<input type="hidden" name="id" value="${review.id}" />
+							<button type="button" class="edit-button" data-review-id="${review.id}" data-review-text="${review.reviewText}" data-review-rating="${review.rating}">수정</button>
+							<button type="submit" class="delete-button">삭제</button>
+						</form>
+					</c:if>
+					
 				</c:forEach>
+				
 				<c:if test="${empty reviews}">
 					<p>현재 작성된 관람평이 없습니다.</p>
 				</c:if>
@@ -121,8 +118,7 @@
 			<div class="page--btn--a">
 				<ul class="pagination" style="display: flex;">
 					<!-- Previous Page Link -->
-					<li class="page--item <c:if test='${currentPage == 1}'>disabled</c:if>"><a class="page-link" href="?title=${param.title}&page=${currentPage - 1}&size=${size}"><</a>
-					</li>
+					<li class="page--item <c:if test='${currentPage == 1}'>disabled</c:if>"><a class="page-link" href="?title=${param.title}&page=${currentPage - 1}&size=${size}"><</a></li>
 
 					<!-- Page Numbers -->
 					<c:forEach var="page" begin="1" end="${totalPages}">
@@ -145,26 +141,20 @@
 
 						<form id="reviewForm" action="/movie/review" method="post">
 							<input type="hidden" id="reviewId" name="id" /> <input type="hidden" name="movieId" value="${movie.id}" />
-
-							<div class="form-group">
-								<label for="reviewText">관람평:</label>
-								<textarea id="reviewText" name="reviewText" rows="4" cols="50" required></textarea>
-							</div>
-
-							<div class="form-group">
-								<label for="rating">평점:</label> <input type="hidden" id="ratingValue" name="rating" />
+							<div class="form-group float--right">
+								<label for="rating">평점 : &nbsp;&nbsp;</label> <input type="hidden" id="ratingValue" name="rating" />
 								<div id="starRating" class="star-rating">
-									<span class="star" data-value="2">&#9733;</span>
-									<span class="star" data-value="4">&#9733;</span>
-									<span class="star" data-value="6">&#9733;</span> 
-									<span class="star" data-value="8">&#9733;</span>
-									<span class="star" data-value="10">&#9733;</span>
+									<span class="star" data-value="2">&#9733;</span> <span class="star" data-value="4">&#9733;</span> <span class="star" data-value="6">&#9733;</span> <span class="star"
+										data-value="8">&#9733;</span> <span class="star" data-value="10">&#9733;</span>
 								</div>
 							</div>
-							<br>
 
 							<div class="form-group">
-								<button type="submit" class="submit-button">제출</button>
+								<textarea id="reviewText" name="reviewText" rows="4" cols="50" placeholder="관람평을 입력해주세요." required></textarea>
+							</div>
+
+							<div class="form-group">
+								<button type="submit" class="submit-button btn">리뷰 작성하기</button>
 							</div>
 						</form>
 					</div>
@@ -172,7 +162,7 @@
 				</c:when>
 				<c:otherwise>
 					<!-- 로그인 안 된 경우 표시 -->
-					<div>
+					<div class="movie--review--info">
 						<p>로그인 후 리뷰를 작성할 수 있습니다.</p>
 					</div>
 				</c:otherwise>
@@ -191,6 +181,7 @@
 	    const reviewForm = document.getElementById('reviewForm');
 	    const reviewFormContainer = document.getElementById('reviewFormContainer');
 	    const formTitle = document.getElementById('formTitle');
+	    const submitButton = document.querySelector('.submit-button');
 
 	    stars.forEach(star => {
 	        star.addEventListener('click', function() {
@@ -254,6 +245,7 @@
 	            setInitialRating(reviewRating);
 
 	            reviewFormContainer.style.display = 'block'; // 폼 보이기
+	            submitButton.textContent = '리뷰 수정하기'; // 제출 버튼 텍스트 변경
 	        });
 	    });
 
@@ -299,11 +291,11 @@
 
 </script>
 
- <!-- Swiper JS -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+	<!-- Swiper JS -->
+	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-  <!-- Initialize Swiper -->
-  <script>
+	<!-- Initialize Swiper -->
+	<script>
     var swiper = new Swiper(".mySwiper", {
         slidesPerView: 5,
         spaceBetween: 20,
@@ -321,5 +313,5 @@
 </div>
 
 
-	<!-- footer.jsp  -->
-	<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
+<!-- footer.jsp  -->
+<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
