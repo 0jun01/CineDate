@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tenco.movie.dto.CountProfileDTO;
 import com.tenco.movie.dto.EventWriterDTO;
 import com.tenco.movie.dto.NoticeWriterDTO;
+import com.tenco.movie.dto.OnlyCountDTO;
+import com.tenco.movie.dto.genresBookingsDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.AdminRepository;
@@ -279,8 +281,23 @@ public class AdminPageService {
 		return adminRepository.lifeStatusUpdate(user.getLifeStatus(), id);
 	}
 	
+	
+	
+	// ===================비동기 영역 ===============
 	public List<CountProfileDTO>  CountProfile() {
 		return adminRepository.CountProfile();		
+	}
+	
+	public OnlyCountDTO totalProfileCount() {
+		return adminRepository.totalProfileCount();
+	}
+
+	public OnlyCountDTO totalMatchings() {
+		return adminRepository.totalMatchings();
+	}
+
+	public List<genresBookingsDTO> genresBookings() {
+		return adminRepository.genresBookings();
 	}
 	
 }

@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.tenco.movie.dto.CountProfileDTO;
+import com.tenco.movie.dto.OnlyCountDTO;
+import com.tenco.movie.dto.genresBookingsDTO;
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.Event;
 import com.tenco.movie.repository.model.History;
@@ -64,6 +66,9 @@ public interface AdminRepository {
 	public DateProfile searchProfileById(int id);
 	public int lifeStatusUpdate(@Param("status")int status,@Param("id")int id);
 	public List<CountProfileDTO> CountProfile();
+	public OnlyCountDTO totalProfileCount();
+	public OnlyCountDTO totalMatchings();
+	public List<genresBookingsDTO> genresBookings();
 	
 }
 

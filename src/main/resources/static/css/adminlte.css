@@ -15447,5 +15447,8 @@ html.maximized-card {
 .img-size-32 {
   width: 32px;
 }
+#myChart{
+	height: 450px !important;
+}
 
 /*# sourceMappingURL=adminlte.css.map */

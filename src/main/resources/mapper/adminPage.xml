@@ -146,34 +146,69 @@
 		UPDATE profile_tb SET life_status = ${status} WHERE
 		id = #{id}
 	</update>
-
+	<!-- ==========================비동기 통신 영역 =================================== -->
 	<select id="CountProfile"
 		resultType="com.tenco.movie.dto.CountProfileDTO">
 		SELECT
 		YEAR(CURDATE()) AS year,
 		COUNT(*) AS count
-		FROM profile_tb
+		FROM
+		profile_tb
 		WHERE YEAR(created_at) = YEAR(CURDATE())
 		UNION ALL
 		SELECT
 		YEAR(CURDATE()) - 1 AS year,
 		COUNT(*) AS count
 		FROM profile_tb
-		WHERE YEAR(created_at) = YEAR(CURDATE()) - 1
+		WHERE
+		YEAR(created_at) = YEAR(CURDATE()) - 1
 		UNION ALL
 		SELECT
-		YEAR(CURDATE()) - 2 AS year,
+		YEAR(CURDATE()) -
+		2 AS year,
 		COUNT(*) AS count
 		FROM profile_tb
-		WHERE YEAR(created_at) = YEAR(CURDATE()) - 2
+		WHERE YEAR(created_at) =
+		YEAR(CURDATE()) - 2
 		UNION ALL
 		SELECT
 		YEAR(CURDATE()) - 3 AS year,
 		COUNT(*) AS count
 		FROM profile_tb
-		WHERE YEAR(created_at) = YEAR(CURDATE()) - 3
+		WHERE YEAR(created_at) =
+		YEAR(CURDATE()) - 3
 		ORDER BY year ASC
 	</select>
 
+	<select id="totalProfileCount"
+		resultType="com.tenco.movie.dto.OnlyCountDTO">
+		SELECT count(*) as count FROM profile_tb
+	</select>
+
+	<select id="totalMatchings"
+		resultType="com.tenco.movie.dto.OnlyCountDTO">
+		SELECT count(*) as count FROM matching_tb WHERE status = 1
+	</select>
+
+	<select id="genresBookings"
+		resultType="com.tenco.movie.dto.genresBookingsDTO">
+		SELECT
+		g.genre_name AS genre,
+		COUNT(b.id) AS total_bookings
+		FROM
+		genres_tb g
+		JOIN
+		movie_genre_tb mg ON g.id = mg.genre_id
+		JOIN
+		movies_tb m ON mg.movie_id = m.id
+		JOIN
+		showtimes s ON m.id = s.movie_id
+		JOIN
+		bookings b ON s.id = b.showtime_id
+		GROUP BY
+		g.genre_name
+		ORDER BY
+		total_bookings DESC
+	</select>
 
 </mapper>

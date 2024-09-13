@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.tenco.movie.dto.CountProfileDTO;
 import com.tenco.movie.dto.EventWriterDTO;
 import com.tenco.movie.dto.NoticeWriterDTO;
+import com.tenco.movie.dto.OnlyCountDTO;
+import com.tenco.movie.dto.genresBookingsDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.Event;
@@ -492,12 +494,32 @@ public class AdminPageController {
 			return "redirect:/adminProfileList";
 		}
 		
-		
+		//====================================== 비동기 통신 영역 =============================//
 		@GetMapping("/CountProfile")
 		@ResponseBody
 		public List<CountProfileDTO> getMethodName() {
 			return adminPageService.CountProfile();
 		}
+		
+		@GetMapping("/totalProfiles")
+		@ResponseBody
+		public OnlyCountDTO getTotalProfiles() {
+			return adminPageService.totalProfileCount();
+		}
+		
+		@GetMapping("/totalMatching")
+		@ResponseBody
+		public OnlyCountDTO getTotalMatchings() {
+			return adminPageService.totalMatchings();
+		}
+		
+		@GetMapping("/genresBookings")
+		@ResponseBody
+		public List<genresBookingsDTO> getGenresBookings() {
+			return adminPageService.genresBookings();
+		}
+		
+		
 		
 		
 		
