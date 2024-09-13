@@ -789,7 +789,7 @@ function viewSeats(){
         	} else if(selectedTicketCount == null || selectedTicketCount == 0){
         		alert("좌석을 선택해 주세요")
         	} else {
-        window.location.href = `/date/tickets?quantity=`+selectedTicketCount;
+       
          
          fetch(`http://localhost:8080/reservation/booking`,{
         	 method: 'POST',
@@ -804,19 +804,34 @@ function viewSeats(){
         	 })
          })
          .then(response => {
-            if (!response.ok){
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        }) .then(data => {
-        	alert("예매 완료!")
-        })
-        .catch(error => {
-            console.error('There has been a problem with your fetch operation:', error);
+    if (response.ok) {
+        return response.json(); // 성공 시 JSON 데이터 반환
+    } else if (response.status === 409) {
+        // 중복 좌석일 경우
+        return response.json().then(data => {
+            alert(data.message); // 서버에서 전달된 메시지 출력
+            throw new Error('Seat conflict');
         });
-       }
-     });
-	}
+    } else if (response.status === 400) {
+        // 예매 실패 시
+        return response.json().then(data => {
+            alert(data.message); // 실패 메시지 출력
+            throw new Error('Booking failed');
+        });
+    } else {
+        throw new Error('Network response was not ok');
+    }
+			})
+			.then(data => {
+				alert(data.message); // "예매 성공" 메시지
+				window.location.href = `/date/tickets?quantity=` + selectedTicketCount;
+			})
+			.catch(error => {
+				console.error('There has been a problem with your fetch operation:', error);
+			});
+		}
+	});
+}
 }
 
 function updateSeatClasses(occupiedSeats) {
