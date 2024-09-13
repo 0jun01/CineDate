@@ -24,8 +24,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tenco.movie.dto.BookingRequest;
 import com.tenco.movie.dto.DateProfileDTO;
+import com.tenco.movie.dto.ItemRequest;
 import com.tenco.movie.dto.MessageDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
+import com.tenco.movie.repository.model.ConItems;
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.Message;
 import com.tenco.movie.repository.model.User;
@@ -174,9 +176,16 @@ public class DateController {
 		return "redirect:/date/date";
 	}
 
+	/**
+	 * 
+	 * @return date/popcornStore
+	 * @author 변영준
+	 */
 	@GetMapping("/popcornStore")
-	public String postPopcornStore() {
+	public String postPopcornStore(Model model) {
+		List<ConItems> itemList = dateService.viewStoreList();
 
+		model.addAttribute("item", itemList);
 		return "date/popcornStore";
 	}
 
@@ -284,4 +293,51 @@ public class DateController {
 		return response;
 	}
 
+	/**
+	 * 현재 보유중인 con 확인하는 메서드
+	 * 
+	 * @param principal
+	 * @return con갯수
+	 * @author 변영준
+	 */
+	@GetMapping("/currentMoney")
+	@ResponseBody
+	public int fetchCurrentMoney(@SessionAttribute(Define.PRINCIPAL) User principal) {
+		int con = dateService.getCurrentCon(principal.getId());
+		return con;
+	}
+
+	/**
+	 * 아이템 구매 내역 갱신
+	 * 
+	 * @param request
+	 * @return
+	 * @author 변영준
+	 */
+	@PostMapping("/payItem")
+	public ResponseEntity<Map<String, String>> buyItem(@RequestBody ItemRequest request,
+			@SessionAttribute(Define.PRINCIPAL) User principal) {
+		Map<String, String> response = new HashMap<>();
+		int userId = principal.getId();
+		int currentCon = dateService.getCurrentCon(principal.getId());
+		int price = request.getPrice();
+		int amount = currentCon - request.getPrice();
+		int itemId = request.getItemId();
+
+		try {
+			int result = dateService.insertConHistory(userId, price, amount, itemId);
+
+			if (result > 0) {
+				response.put("message", "구입 성공");
+				return ResponseEntity.ok(response);
+			} else {
+				// 예매 실패: bookingId가 0인 경우
+				response.put("message", "구입 실패");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+	}
 }
