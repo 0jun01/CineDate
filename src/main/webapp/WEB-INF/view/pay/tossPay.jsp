@@ -10,7 +10,7 @@
 <script src="https://js.tosspayments.com/v1/payment"></script>
 </head>
 <body>
-  <script>
+	<script>
     // ------ 클라이언트 키로 객체 초기화 ------
     var clientKey = 'test_ck_AQ92ymxN34g2qm2pkpxK8ajRKXvd';
     var tossPayments = TossPayments(clientKey);
