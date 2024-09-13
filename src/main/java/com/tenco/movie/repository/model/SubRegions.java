@@ -13,13 +13,7 @@ public class SubRegions {
 
 	private int id; // subregions_tb의 id
 	private int regionId; // regions_tb의 id
-<<<<<<< HEAD
-	private String name; // subregion의 지역 이름 / 예 동래, 서면 
-	private String regionImage; 
-}
-=======
 	private String name; // subregion의 지역 이름 / 예 동래, 서면
 	private String regionImage;
 	
 }
->>>>>>> acf591a7bb659b82035b5f5a319ef0724c265ad1

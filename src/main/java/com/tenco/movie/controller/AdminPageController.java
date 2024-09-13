@@ -35,10 +35,6 @@ import com.tenco.movie.utils.Define;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-<<<<<<< HEAD
-
-=======
->>>>>>> acf591a7bb659b82035b5f5a319ef0724c265ad1
 
 @Controller
 @RequestMapping("/")
@@ -63,7 +59,6 @@ public class AdminPageController {
 		session.invalidate();
 		return "redirect:/user/signIn";
 	}
-<<<<<<< HEAD
 	
 	
 	@GetMapping("/adminTest")
@@ -81,9 +76,6 @@ public class AdminPageController {
 	}
 	
 	
-=======
-
->>>>>>> acf591a7bb659b82035b5f5a319ef0724c265ad1
 	// 메인보드 끝
 	// ----------------------------------------------------------------------
 	// 공지사항 시작
@@ -399,7 +391,6 @@ public class AdminPageController {
 //회원정보 끝
 //-------------------------------------------------------------
 //결제 테이블 시작
-<<<<<<< HEAD
 		
 		@GetMapping("/adminHistory")
 		public String adminHistoryPage(@SessionAttribute(Define.PRINCIPAL) User principal, Model model) {
@@ -514,94 +505,6 @@ public class AdminPageController {
 		public List<genresBookingsDTO> getGenresBookings() {
 			return adminPageService.genresBookings();
 		}
-		
-		
-		
-		
-		
-		
-=======
 
-	@GetMapping("/adminHistory")
-	public String adminHistoryPage(@SessionAttribute(Define.PRINCIPAL) User principal, Model model) {
 
-		String name = principal.getLoginId();
-
-		User user = userService.getUserById(name);
-
-		List<HistoryTimeLine> historyTimeLine = adminPageService.countHistory();
-		List<History> historyList = adminPageService.readAllHistory();
-
-		model.addAttribute("user", user);
-		model.addAttribute("historyTimeLine", historyTimeLine);
-		model.addAttribute("historyList", historyList);
-
-		return "/admin/adminHistory";
-	}
-
-	/**
-	 * 결제 취소
-	 * 
-	 * @param id
-	 * @return
-	 * @throws IOException
-	 * @throws InterruptedException
-	 */
-	@PostMapping("/cancel")
-	public String adminPaymentCancel(@RequestParam(name = "payId") int id) throws IOException, InterruptedException {
-
-		String cancel = paymentService.cancelPaymentHistory(id);
-
-		return "redirect:/adminHistory";
-	}
-
-	/**
-	 * 결제 취소 리스트
-	 * 
-	 * @param param
-	 * @return
-	 */
-	@GetMapping("/adminCancelHistory")
-	public String getCancelHistory(@RequestParam String param,
-			@RequestParam(name = "page", defaultValue = "1") int page,
-			@RequestParam(name = "size", defaultValue = "10") int size, Model model) {
-
-		return new String(); // <-- 나중에 리스트 뽑기 cancel_toss_History_tb
-	}
-
-	// ==================== profile ====================
-
-	/**
-	 * 데이팅 프로필 리스트
-	 * 
-	 * @param page
-	 * @param size
-	 * @param search
-	 * @param model
-	 * @return
-	 */
-	@GetMapping("/adminProfileList")
-	public String getMethodName(@RequestParam(name = "page", defaultValue = "1") int page,
-			@RequestParam(name = "size", defaultValue = "10") int size,
-			@RequestParam(name = "search", defaultValue = "") String search, Model model) {
-
-		int totalCount = adminPageService.countAdminProfileList(search);
-		int totalPages = (int) Math.ceil((double) totalCount / size);
-
-		List<DateProfile> list = adminPageService.readProfileList(search, page, size);
-		model.addAttribute("totalPages", totalPages);
-		model.addAttribute("list", list);
-		model.addAttribute("currentPage", page);
-		model.addAttribute("size", size);
-
-		return "admin/adminProfileList";
-	}
-
-	@PostMapping("/lifeStatus")
-	public String postMethodName(@RequestParam(name = "id") int id) {
-		adminPageService.lifeStatusUpdate(id);
-		return "redirect:/adminProfileList";
-	}
-
->>>>>>> acf591a7bb659b82035b5f5a319ef0724c265ad1
 }
