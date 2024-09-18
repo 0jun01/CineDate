@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mysql.cj.Session;
+import com.tenco.movie.dto.ChoicedMovie;
+import com.tenco.movie.dto.RegionCountDTO;
+import com.tenco.movie.dto.SubRegionDTO;
 import com.tenco.movie.dto.TheaterCountDTO;
 import com.tenco.movie.dto.TimeDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
@@ -212,5 +215,35 @@ public class ReservationService {
 			e.printStackTrace();
 		}
 		return shId;
+	}
+
+	public List<ChoicedMovie> fetchDateAndTheater(int movieId) {
+		List<ChoicedMovie> entity = null;
+		try {
+			entity = reservationRepository.findDateAndTheatersByMovieId(movieId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+
+	public List<RegionCountDTO> fetchRegionCount(int movieId) {
+		List<RegionCountDTO> entity = null;
+		try {
+			entity = reservationRepository.countRegion(movieId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+
+	public List<SubRegionDTO> fetchSubRegionByMovie(int movieId) {
+		List<SubRegionDTO> entity = null;
+		try {
+			entity = reservationRepository.findSubRegionByMovie(movieId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
 	}
 }
