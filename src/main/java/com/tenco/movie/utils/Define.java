@@ -51,7 +51,7 @@ public class Define {
 	public static final String ENTER_YOUR_BIRTH = "생년월일을 입력해 주세요.";
 	public static final String ENTER_YOUR_GENDER = "성별을 선택해 주세요.";
 	public static final String NO_DATA_FOUND = "등록된 정보가 없습니다. 다시 확인해주세요.";
-	public static final String ZERO_DETAIL_COUNT = "상세보기 횟수를 모두 소진 하였씁니다.";
+	public static final String ZERO_DETAIL_COUNT = "상세보기 횟수를 모두 소진 하였습니다.";
 
 	// etc
 	public static final String FAIL_TO_CREATE_USER = "회원가입 실패.";

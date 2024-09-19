@@ -1,11 +1,9 @@
 package com.tenco.movie.controller;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +23,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.tenco.movie.dto.CountProfileDTO;
 import com.tenco.movie.dto.EventWriterDTO;
 import com.tenco.movie.dto.NoticeWriterDTO;
-import com.tenco.movie.dto.UserWriterDTO;
 import com.tenco.movie.dto.OnlyCountDTO;
+import com.tenco.movie.dto.UserWriterDTO;
 import com.tenco.movie.dto.genresBookingsDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
+import com.tenco.movie.handler.exception.UnAuthorizedException;
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.Event;
 import com.tenco.movie.repository.model.History;
@@ -42,7 +41,6 @@ import com.tenco.movie.service.UserService;
 import com.tenco.movie.utils.Define;
 
 import jakarta.servlet.http.HttpSession;
-import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequestMapping("/")
@@ -72,6 +70,9 @@ public class AdminPageController {
 
 	@GetMapping("/adminTest")
 	public String AdminTest(@SessionAttribute(Define.PRINCIPAL) User principal, Model model) {
+		if (principal == null) {
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
+		}
 
 		String name = principal.getLoginId();
 
@@ -88,13 +89,11 @@ public class AdminPageController {
 
 	// 어드민관리 페이지 연결
 	@GetMapping("/adminMain")
-
 	public String AdminMain(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model,
 			RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
 		String name = principal.getLoginId();
@@ -126,14 +125,13 @@ public class AdminPageController {
 
 	// 어드민 공지사항 페이지 요청
 	@GetMapping("/adminNotice")
-
 	public String getAdminNoticePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
 			@RequestParam(name = "page", defaultValue = "1") int page,
 			@RequestParam(name = "size", defaultValue = "10") int size, Model model,
 			RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
 
@@ -162,8 +160,7 @@ public class AdminPageController {
 			Model model, RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
 		int totalRecords = adminPageService.countNotice(search);
@@ -190,8 +187,7 @@ public class AdminPageController {
 			Model model, RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
 		String name = principal.getLoginId();
@@ -208,7 +204,7 @@ public class AdminPageController {
 			RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
 		adminPageService.createNotice(dto);
@@ -228,8 +224,7 @@ public class AdminPageController {
 			@PathVariable(name = "id") Integer id, Model model, RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
 		notice = adminPageService.findById(id);
@@ -250,8 +245,7 @@ public class AdminPageController {
 			RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 		if (dto.getTitle() == null || dto.getTitle().isEmpty()) {
 			throw new DataDeliveryException("제목을 입력하세요!", HttpStatus.BAD_REQUEST);
@@ -274,7 +268,6 @@ public class AdminPageController {
 	@GetMapping("/adminNoticeDelete/{id}")
 	public String adminNoticeDelete(@PathVariable(name = "id") Integer id) {
 
-		System.out.println(id);
 
 		notice = adminPageService.findById(id);
 
@@ -284,13 +277,11 @@ public class AdminPageController {
 	}
 
 	@GetMapping("/adminNoticeDetail/{id}")
-
 	public String adminNoticeDetail(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
-			@PathVariable(name = "id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+			@PathVariable(name = "id") Integer id, Model model) {
 
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
 		notice = adminPageService.findById(id);
@@ -311,12 +302,10 @@ public class AdminPageController {
 	@GetMapping("/adminEvent")
 	public String adminEventPage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
 			@RequestParam(name = "page", defaultValue = "1") int page,
-			@RequestParam(name = "size", defaultValue = "10") int size, Model model,
-			RedirectAttributes redirectAttributes) {
+			@RequestParam(name = "size", defaultValue = "10") int size, Model model) {
 
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
 		int totalRecords = adminPageService.countEventAll();
@@ -339,12 +328,10 @@ public class AdminPageController {
 
 	public String adminEventProc(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
 			@RequestParam(name = "search") String search, @RequestParam(name = "page", defaultValue = "1") int page,
-			@RequestParam(name = "size", defaultValue = "10") int size, Model model,
-			RedirectAttributes redirectAttributes) {
+			@RequestParam(name = "size", defaultValue = "10") int size, Model model) {
 
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
 		int totalRecords = adminPageService.countEvent(search);
@@ -367,11 +354,10 @@ public class AdminPageController {
 
 	@GetMapping("/adminEventDetail/{id}")
 	public String adminEventDetail(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
-			@PathVariable(name = "id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+			@PathVariable(name = "id") Integer id, Model model) {
 
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
 		event = adminPageService.findEventById(id);
@@ -389,11 +375,10 @@ public class AdminPageController {
 	@GetMapping("/adminEventWrite")
 
 	public String adminEventWritePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
-			Model model, RedirectAttributes redirectAttributes) {
+			Model model) {
 
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
 		String name = principal.getLoginId();
@@ -409,11 +394,10 @@ public class AdminPageController {
 	public String adminEventWriteProc(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
 			@RequestParam(name = "mFileOne") MultipartFile mFileOne, @RequestParam(name = "title") String title,
 			@RequestParam(name = "releaseDate") Date releaseDate, @RequestParam(name = "endDate") Date endDate,
-			Model model, RedirectAttributes redirectAttributes) {
+			Model model) {
 
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
 		if (title == null || title.isEmpty()) {
@@ -444,11 +428,10 @@ public class AdminPageController {
 
 	@GetMapping("/adminEventReWrite/{id}")
 	public String adminEventReWritePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
-			@PathVariable(name = "id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+			@PathVariable(name = "id") Integer id, Model model) {
 
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 		event = adminPageService.findEventById(id);
 
@@ -468,11 +451,10 @@ public class AdminPageController {
 			EventWriterDTO dto, @PathVariable(name = "id") int id,
 			@RequestParam(name = "mFileOne") MultipartFile mFileOne,
 			@RequestParam(name = "releaseDate") Date releaseDate, @RequestParam(name = "endDate") Date endDate,
-			@RequestParam(name = "title") String title, Model model, RedirectAttributes redirectAttributes) {
+			@RequestParam(name = "title") String title, Model model) {
 
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
 		if (dto.getTitle() == null || dto.getTitle().isEmpty()) {
@@ -508,6 +490,9 @@ public class AdminPageController {
 	@GetMapping("/adminEventDelete/{id}")
 	public String adminEventDelete(@SessionAttribute(Define.PRINCIPAL) User principal,
 			@PathVariable(name = "id") Integer id) {
+		if (principal == null) {
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
+		}
 
 		System.out.println(id);
 
@@ -526,12 +511,10 @@ public class AdminPageController {
 	@GetMapping("/adminMemberList")
 	public String adminMemberList(@SessionAttribute(Define.PRINCIPAL) User principal,
 			@RequestParam(name = "page", defaultValue = "1") int page,
-			@RequestParam(name = "size", defaultValue = "10") int size, Model model,
-			RedirectAttributes redirectAttributes) {
+			@RequestParam(name = "size", defaultValue = "10") int size, Model model) {
 
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
 		int totalRecords = adminPageService.countMemberAll();
@@ -552,12 +535,10 @@ public class AdminPageController {
 	@PostMapping("/adminMemberList")
 	public String adminMemberListProc(@SessionAttribute(Define.PRINCIPAL) User principal,
 			@RequestParam(name = "search") String search, @RequestParam(name = "page", defaultValue = "1") int page,
-			@RequestParam(name = "size", defaultValue = "10") int size, Model model,
-			RedirectAttributes redirectAttributes) {
+			@RequestParam(name = "size", defaultValue = "10") int size, Model model) {
 
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
 		int totalRecords = adminPageService.countMember(search);
@@ -581,11 +562,10 @@ public class AdminPageController {
 
 	@GetMapping("/adminMemberDetail/{id}")
 	public String adminMemberDetailPage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
-			@PathVariable(name = "id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+			@PathVariable(name = "id") Integer id, Model model) {
 
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
 		member = adminPageService.readMemberById(id);
@@ -603,12 +583,10 @@ public class AdminPageController {
 
 	@PostMapping("/adminMemberDetail/{id}")
 	public String adminMemberDetailProc(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
-			@PathVariable(name = "id") Integer id, UserWriterDTO dto, Model model,
-			RedirectAttributes redirectAttributes) {
+			@PathVariable(name = "id") Integer id, UserWriterDTO dto, Model model) {
 
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
 		String name = principal.getLoginId();
@@ -637,11 +615,10 @@ public class AdminPageController {
 
 	@GetMapping("/adminHistory")
 	public String adminHistoryPage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
-			Model model, RedirectAttributes redirectAttributes) {
+			Model model) {
 
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
-			return "redirect:/home";
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
 		String name = principal.getLoginId();

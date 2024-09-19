@@ -27,6 +27,7 @@ import com.tenco.movie.dto.NaverProfile;
 import com.tenco.movie.dto.SignInDTO;
 import com.tenco.movie.dto.SignUpDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
+import com.tenco.movie.handler.exception.UnAuthorizedException;
 import com.tenco.movie.repository.model.User;
 import com.tenco.movie.service.UserService;
 import com.tenco.movie.utils.Define;
@@ -74,19 +75,16 @@ public class UserController {
 		if (dto.getLoginId() == null || dto.getLoginId().trim().isEmpty()) {
 			throw new DataDeliveryException(Define.ENTER_YOUR_ID, HttpStatus.BAD_REQUEST);
 		}
-		System.out.println("여기냐11111");
 
 		// 비밀번호 유효성 검사
 		// 비밀번호가 없거나 비어 있을 때
 		if (dto.getPassword() == null || dto.getPassword().trim().isEmpty()) {
 			throw new DataDeliveryException(Define.ENTER_YOUR_PASSWORD, HttpStatus.BAD_REQUEST);
 		}
-		System.out.println("여기냐22222");
 
 		// user principal 생성
 		User principal = userService.readUser(dto);
 
-		System.out.println("여기냐4444433");
 		
 		// user principal 세션 생성
 		session.setAttribute(Define.PRINCIPAL, principal);
@@ -171,11 +169,9 @@ public class UserController {
 			throw new DataDeliveryException(Define.ENTER_YOUR_GENDER, HttpStatus.BAD_REQUEST);
 		}
 
-		System.out.println("여기까지는 왔나?");
 
 		userService.createUser(dto);
 
-		System.out.println("회원가입 성공");
 		
 		return "redirect:/user/signIn";
 
@@ -187,6 +183,9 @@ public class UserController {
 	 */
 	@GetMapping("/myPage")
 	public String myPage(@SessionAttribute(Define.PRINCIPAL) User principal, Model model) {
+		if (principal == null) {
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
+		}
 
         String name = principal.getLoginId();
 
@@ -201,13 +200,12 @@ public class UserController {
 	*/
 	@PostMapping("/updateUser")
 	public String updateUser(@RequestParam("password") String password, @RequestParam("email") String email,@RequestParam("phoneNum") String phoneNum, @RequestParam("userId") String loginId,@SessionAttribute("principal") User principal) {
-
-	        if (!principal.getLoginId().equals(loginId)) {
-	            return "";
-	        }
+		if (principal == null) {
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
+		}
 	        // 사용자 정보 업데이트
 	        userService.updateUser(loginId, password, email, phoneNum);
-	        return "redirect:/home";
+	        return "redirect:/user/myPage";
 	    }
 	
 	/**
@@ -410,9 +408,6 @@ public class UserController {
 	@GetMapping("/google")
 	public String google(@RequestParam(name = "code") String code) {
 		
-		System.out.println("구글 들어옴요");
-		
-		System.out.println("code : " + code);
 		RestTemplate rt1 = new RestTemplate();
 
 		HttpHeaders header1 = new HttpHeaders();
@@ -431,7 +426,6 @@ public class UserController {
 
 		ResponseEntity<GoogleOAuthToken> response1 = rt1.exchange("https://oauth2.googleapis.com/token", HttpMethod.POST,reqGoogleMessage, GoogleOAuthToken.class);
 
-		System.out.println("GoogleAuthToken : " + response1.getBody().toString());
 
 		RestTemplate rt2 = new RestTemplate();
 
@@ -444,14 +438,9 @@ public class UserController {
 
 		ResponseEntity<GoogleProfile> response2 = rt2.exchange("https://www.googleapis.com/userinfo/v2/me", HttpMethod.GET, reqGoogleInfoMessage, GoogleProfile.class);
 
-		System.out.println("googleProfile : " + response2.getBody().toString());
 		
 		GoogleProfile profile = response2.getBody(); 
 		
-		System.out.println("profile :::: "+ profile);
-		System.out.println("==========================================================================");
-		System.out.println(profile.getId() + "=====" + profile.getEmail() + "=====" + profile.getName());
-		System.out.println("==========================================================================");
 		
 		User oldUser = userService.searchLoginId(profile.getId());
 		

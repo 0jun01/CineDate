@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.ManagerException;
+import com.tenco.movie.handler.exception.UnAuthorizedException;
 
 @ControllerAdvice
 public class GlobalControllerAdvice {
@@ -23,6 +24,18 @@ public class GlobalControllerAdvice {
 	}
 	
 	@ResponseBody
+	@ExceptionHandler(UnAuthorizedException.class)
+	public String unAuthorizedException(UnAuthorizedException e) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(" <script>");
+		sb.append(" alert('" + e.getMessage() + "');");
+		sb.append(" location.href='/user/signIn';");
+		sb.append(" </script>");
+
+		return sb.toString();
+	}
+	
+	@ResponseBody
 	@ExceptionHandler(ManagerException.class)
 	public String dataDelieryException(ManagerException e) {
 		StringBuffer sb = new StringBuffer();
@@ -32,6 +45,8 @@ public class GlobalControllerAdvice {
 		sb.append(" </script>");
 		return sb.toString();
 	}
+	
+	
 	
 	
 }

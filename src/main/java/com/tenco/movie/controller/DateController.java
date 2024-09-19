@@ -25,6 +25,7 @@ import com.tenco.movie.dto.ItemRequest;
 import com.tenco.movie.dto.MessageDTO;
 import com.tenco.movie.dto.profileDetailDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
+import com.tenco.movie.handler.exception.UnAuthorizedException;
 import com.tenco.movie.repository.model.ConItems;
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.User;
@@ -61,16 +62,14 @@ public class DateController {
 	 * @author 유형정 슈퍼 리스트 추가
 	 */
 	@GetMapping("/date")
-	public String getDatePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model,
-			RedirectAttributes redirectAttributes) {
+	public String getDatePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model) {
 		/**
 		 * 데이트 페이지 들어갈때 로그인 안되있으면 로그인 하라고 방어코드 추가함
 		 * 
 		 * @author 성후
 		 */
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute(Define.ENTER_YOUR_LOGIN, HttpStatus.BAD_REQUEST);
-			return "redirect:/user/signIn"; // 로그인으로 리다이렉트
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
 		DateProfile proifile = dateService.searchProfile(principal.getId());
@@ -98,11 +97,10 @@ public class DateController {
 	 * @author 성후
 	 */
 	@GetMapping("/profilePage")
-	public String getProfilePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model, RedirectAttributes redirectAttributes) {
+	public String getProfilePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model) {
 
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute(Define.ENTER_YOUR_LOGIN, HttpStatus.BAD_REQUEST);
-			return "redirect:/user/signIn"; // 로그인으로 리다이렉트
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 		
 		DateProfile profile = dateService.searchProfile(principal.getId());
@@ -140,6 +138,10 @@ public class DateController {
 			@RequestParam(name = "profile_upload_file4") MultipartFile file4,
 			@RequestParam(name = "profile_upload_file5") MultipartFile file5,
 			@SessionAttribute(Define.PRINCIPAL) User principal) throws IOException {
+		
+		if (principal == null) {
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
+		}
 
 		DateProfileDTO update = DateProfileDTO.builder().nickName(nickName).introduce(introduce).mFileOne(file1)
 				.mFileTwo(file2).mFile3(file3).mFile4(file4).mFile5(file5).build();
@@ -173,7 +175,11 @@ public class DateController {
 			@RequestParam(name = "bloodtype") String bloodtype, @RequestParam(name = "myJop") String myJop,
 			@RequestParam(name = "bestMovie") String bestMovie, @RequestParam(name = "drinking") String drinking,
 			@RequestParam(name = "smoking") String smoking) {
-
+		
+		if (principal == null) {
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
+		}
+		
 		if (nickName == null || nickName.isEmpty()) {
 			throw new DataDeliveryException("닉네임을 입력하세요", HttpStatus.BAD_REQUEST);
 		}
@@ -215,6 +221,7 @@ public class DateController {
 	 */
 	@GetMapping("/popcornStore")
 	public String postPopcornStore(Model model) {
+
 		List<ConItems> itemList = dateService.viewStoreList();
 
 		model.addAttribute("item", itemList);
@@ -231,6 +238,11 @@ public class DateController {
 	@PostMapping("/popcornStore")
 	public String postPopcornStore(@RequestParam(value = "popcorn", required = false) String popcorn, Model model,
 			@SessionAttribute(Define.PRINCIPAL) User principal) {
+		
+		if (principal == null) {
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
+		}
+		
 		// 개수에 따라 가격 변동
 		int conCount = Integer.parseInt(popcorn);
 
@@ -251,9 +263,9 @@ public class DateController {
 	@GetMapping("/tickets")
 	public String postTicketProc(@RequestParam("quantity") int quantity, Model model,
 			@SessionAttribute(Define.PRINCIPAL) User principal) {
-		System.out.println(quantity);
-		System.out.println(quantity);
-		System.out.println(quantity);
+		if (principal == null) {
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
+		}
 		int amount = 1 * quantity;
 		String orderId = payservice.getOderId();
 		String orderName = "ticket";
@@ -291,10 +303,9 @@ public class DateController {
  * @return
  */
 	@GetMapping("/machingList")
-	public String getMethodName(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model, RedirectAttributes redirectAttributes) {
+	public String getMethodName(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model) {
 		if (principal == null) {
-			redirectAttributes.addFlashAttribute(Define.ENTER_YOUR_LOGIN, HttpStatus.BAD_REQUEST);
-			return "redirect:/user/signIn"; // 로그인으로 리다이렉트
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 		List<DateProfile> list = dateManagerService.matchingList(principal.getId());
 
@@ -339,6 +350,12 @@ public class DateController {
 	@PostMapping("/payItem")
 	public ResponseEntity<Map<String, String>> buyItem(@RequestBody ItemRequest request,
 			@SessionAttribute(Define.PRINCIPAL) User principal) {
+		if (principal == null) {
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
+		}
+		
+		
+		
 		Map<String, String> response = new HashMap<>();
 		int userId = principal.getId();
 		int currentCon = dateService.getCurrentCon(principal.getId());
