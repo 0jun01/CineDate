@@ -344,8 +344,66 @@ button#send--chat {
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 5px;
+    box-sizing: border-box;
 }
 
+.personal--info--wrap span{
+	display: block;
+	margin-bottom: 15px;
+}
+
+p.profile--info{
+    font-family: 'NanumSquareNeo';
+	font-size: 14px;
+	color: #999;
+	margin: 5px;
+	line-height: 1.3;
+}
+
+.marginT10{
+	margin-top: 10px;
+}
+
+.personal .personal--title{
+	background-color: #888;
+    color: #fff;
+    padding: 5px 0;
+}
+
+.personal{
+	width: 33.33%;
+	text-align: center;
+	border-bottom: 1px solid #888;
+	border-right: 1px solid #888;
+}
+
+.personal.per{
+	border-left: 1px solid #888;
+}
+
+.personal p{
+	padding: 10px 0;
+	color: #999;
+	font-size: 14px;
+}
+
+.personal--info--container{
+	width: 100%;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.margintop20{
+	display: block;
+	margin-top: 20px;
+}
+
+.label--wrap{
+    display: flex;
+    margin: 10px 0;
+    gap: 10px;
+}
 
 /* 마이 페이지 */
 #mypage--form{

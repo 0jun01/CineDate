@@ -109,7 +109,7 @@ function openChat(id){
 function openPopup(id) {
         window.open('http://localhost:8080/date/detailPartner?userId=' + encodeURIComponent(${principal.id}) +'&id=' +  encodeURIComponent(id),
         '상세보기',
-        'width=700,height=600,left=100,top=100,resizable=yes,scrollbars=no');
+        'width=600,height=890,left=100,top=100,resizable=yes,scrollbars=no');
     }
 
   

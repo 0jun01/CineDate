@@ -40,7 +40,7 @@
 							<a href="/user/myPage">마이페이지</a>
 						</li>
 						<li>
-							<a href="/home/CS">고객센터</a>
+							<a href="/home/CS">주문 내역</a>
 						</li>
 					</c:when>
 
@@ -50,9 +50,6 @@
 						</li>
 						<li>
 							<a href="/user/signUp">회원가입</a>
-						</li>
-						<li>
-							<a href="/home/CS">고객센터</a>
 						</li>
 					</c:otherwise>
 				</c:choose>
