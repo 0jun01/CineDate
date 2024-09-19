@@ -250,7 +250,7 @@
 
 	<select id="myreservation"
 		resultType="com.tenco.movie.dto.MyReservationDTO">
-		SELECT
+		SELECT DISTINCT
 		b.id AS booking_id,
 		b.booking_time,
 		b.quantity,

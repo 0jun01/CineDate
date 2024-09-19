@@ -29,7 +29,7 @@
 										<h5>응답대기중</h5>
 									</c:if>
 									<c:if test="${list.status == 1}">
-										<button>메세지보내기</button>
+										<button onclick="openChat('${list.userId}')" id="${list.userId}">메세지보내기</button>
 									</c:if>
 									<c:if test="${list.status == 2}">
 										<h5>거절 ㅠㅠ</h5>
@@ -51,5 +51,13 @@
 		</div>
 	</div>
 </div>
+
+<script>
+function openChat(id){
+	  window.open('http://localhost:8080/date/message?userId=' + encodeURIComponent(${principal.id}) +'&id=' +  encodeURIComponent(id),
+		'메세지',
+		'width=700,height=600,left=100,top=100,resizable=yes,scrollbars=no');
+}
+</script>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
