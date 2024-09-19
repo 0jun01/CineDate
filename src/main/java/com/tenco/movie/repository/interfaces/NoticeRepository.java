@@ -21,6 +21,7 @@ public interface NoticeRepository {
 	public int updateById(Notice notice); // 공지사항 수정
 	public int deleteById(int id); // 공지사항 삭제
 	
-	
+	// 조회수 증가
+    public int incrementViewCount(int id);
 }
 

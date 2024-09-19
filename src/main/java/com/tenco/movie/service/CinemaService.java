@@ -28,6 +28,5 @@ public class CinemaService {
     public List<Theater> getTheatersBySubregionId(int subregionId) {
         return cinemaRepository.findTheatersBySubregionId(subregionId);
     }
+    
 }
-
-
