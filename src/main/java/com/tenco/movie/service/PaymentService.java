@@ -83,13 +83,9 @@ public class PaymentService {
 				.approvedAt(response.getApprovedAt()).build();
 
 		result = historyRepository.insertTossHistory(dto);
-<<<<<<< HEAD
+
 		if(result != 1) {
 			throw new DataDeliveryException(Define.ERROR_PAYMENT_FAILED, HttpStatus.BAD_REQUEST); 
-=======
-		if (result != 1) {
-			throw new DataDeliveryException(Define.ERROR_PAYMENT_FAILED, HttpStatus.BAD_REQUEST);
->>>>>>> 2d44f600c135731dcfdfe87ac816cd9d3c5133b0
 		}
 
 		return result;

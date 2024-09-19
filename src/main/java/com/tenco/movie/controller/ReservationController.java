@@ -259,9 +259,6 @@ public class ReservationController {
 		List<Integer> shId = reservationService.viewOccupiedSeats(showTimeId);
 		return shId;
 	}
-<<<<<<< HEAD
-}
-=======
 
 	/**
 	 * 영화만 클릭 했을 시 날짜와 극장 업데이트
@@ -302,4 +299,3 @@ public class ReservationController {
 		return entity;
 	}
 }
->>>>>>> 2d44f600c135731dcfdfe87ac816cd9d3c5133b0

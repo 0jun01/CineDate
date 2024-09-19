@@ -14,7 +14,7 @@
 		toss_hitory_tb
 	</select>
 
-	<!-- ================================================================= -->
+	<!-- ========================================================== -->
 
 	<select id="findAll"
 		resultType="com.tenco.movie.repository.model.Notice">
@@ -76,20 +76,6 @@
 		desc
 	</select>
 
-	<insert id="insertEvent">
-		insert into event_tb(title, release_date, end_date,
-		origin_file_name, upload_file_name) values(#{title}, #{releaseDate},
-		#{endDate}, #{originFileName}, #{uploadFileName})
-	</insert>
-
-	<update id="updateEventById">
-		update event_tb set title = #{title}, release_date =
-		#{releaseDate}, end_date = #{endDate}, origin_file_name =
-		#{originFileName}, upload_file_name = #{uploadFileName} where id =
-		#{id}
-	</update>
-
-
 	<delete id="deleteByEventById">
 		delete from event_tb where id = #{id}
 	</delete>
@@ -125,17 +111,6 @@
 		by id desc limit #{limit} offset #{offset}
 	</select>
 
-	<select id="findAdminMemberById">
-		select * from user_tb where id = #{id}
-	</select>
-
-	<update id="updateMemberById">
-		update user_tb set name = #{name}, email =
-		#{email},
-		phone_num = #{phoneNum}, birth_day = #{birthDay}, gender = #{gender}
-		where id = #{id}
-
-	</update>
 
 	<select id="countAdminMemberAll" resultType="int">
 		select count(*) from
@@ -190,15 +165,11 @@
 	</select>
 
 
+
 	<select id="searchProfileById"
 		resultType="com.tenco.movie.repository.model.DateProfile">
 		select * from profile_tb where id = #{id}
 	</select>
-
-	<update id="lifeStatusUpdate">
-		UPDATE profile_tb SET life_status = ${status} WHERE
-		id = #{id}
-	</update>
 
 	<update id="lifeStatusUpdate">
 		UPDATE profile_tb SET life_status = ${status} WHERE

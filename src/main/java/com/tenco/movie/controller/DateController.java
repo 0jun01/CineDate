@@ -1,5 +1,6 @@
 package com.tenco.movie.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -25,7 +26,6 @@ import com.tenco.movie.dto.BookingRequest;
 import com.tenco.movie.dto.DateProfileDTO;
 import com.tenco.movie.dto.ItemRequest;
 import com.tenco.movie.dto.MessageDTO;
-import com.tenco.movie.dto.profileDetailDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.ConItems;
 import com.tenco.movie.repository.model.DateProfile;
@@ -33,6 +33,7 @@ import com.tenco.movie.repository.model.Message;
 import com.tenco.movie.repository.model.User;
 import com.tenco.movie.service.DateManagerService;
 import com.tenco.movie.service.DateProfileService;
+import com.tenco.movie.service.MessageService;
 import com.tenco.movie.service.PaymentService;
 import com.tenco.movie.utils.Define;
 
@@ -51,6 +52,8 @@ public class DateController {
 
 	@Autowired
 	private final DateManagerService dateManagerService;
+	@Autowired
+	private final MessageService messageService;
 
 	/**
 	 * 데이트 페이지 요청
@@ -133,17 +136,15 @@ public class DateController {
 			@RequestParam(name = "profile_upload_file5") MultipartFile file5,
 			@SessionAttribute(Define.PRINCIPAL) User principal) throws IOException {
 
+//	    if (principal.getId() != userId) {
+//	        return ""; // 적절한 에러 페이지 URL로 수정
+//	    }
 		DateProfileDTO update = DateProfileDTO.builder().nickName(nickName).introduce(introduce).mFileOne(file1)
 				.mFileTwo(file2).mFile3(file3).mFile4(file4).mFile5(file5).build();
 
 		dateService.updateProfile(update, principal.getId());
 
 		return "redirect:/date/date";
-	}
-
-	@GetMapping("/signUp")
-	public String getSignUp() {
-		return "date/DateSignUp";
 	}
 
 	/**
@@ -161,41 +162,16 @@ public class DateController {
 			@RequestParam(name = "mFileTwo") MultipartFile mFileTwo,
 			@RequestParam(name = "mFile3") MultipartFile mFile3, @RequestParam(name = "mFile4") MultipartFile mFile4,
 			@RequestParam(name = "mFile5") MultipartFile mFile5, @RequestParam(name = "nickName") String nickName,
-			@RequestParam(name = "introduce") String introduce, @RequestParam(name = "idealType") String idealType,
-			@RequestParam(name = "bloodtype") String bloodtype, @RequestParam(name = "myJop") String myJop,
-			@RequestParam(name = "bestMovie") String bestMovie, @RequestParam(name = "drinking") String drinking,
-			@RequestParam(name = "smoking") String smoking) {
+			@RequestParam(name = "introduce") String introduce) {
 
 		if (nickName == null || nickName.isEmpty()) {
 			throw new DataDeliveryException("닉네임을 입력하세요", HttpStatus.BAD_REQUEST);
-		}
-		if (idealType == null || idealType.trim().isEmpty() || idealType.equalsIgnoreCase("")) {
-			throw new DataDeliveryException("이상형을 입력하세요", HttpStatus.BAD_REQUEST);
-		}
-		if (bloodtype == null || bloodtype.trim().isEmpty() || bloodtype.equalsIgnoreCase("")) {
-			throw new DataDeliveryException("형액형을 선택하세요", HttpStatus.BAD_REQUEST);
-		}
-		if (myJop == null || myJop.trim().isEmpty() || myJop.equalsIgnoreCase("")) {
-			throw new DataDeliveryException("이상형을 입력하세요", HttpStatus.BAD_REQUEST);
-		}
-		if (bestMovie == null || bestMovie.trim().isEmpty() || bestMovie.equalsIgnoreCase("")) {
-			throw new DataDeliveryException("좋아하는 영화를 입력하세요", HttpStatus.BAD_REQUEST);
-		}
-		if (drinking == null || drinking.trim().isEmpty() || drinking.equalsIgnoreCase("")) {
-			throw new DataDeliveryException("음주여부을 선택하세요", HttpStatus.BAD_REQUEST);
-		}
-		if (smoking == null || smoking.trim().isEmpty() || smoking.equalsIgnoreCase("")) {
-			throw new DataDeliveryException("흡연여부을 선택하세요", HttpStatus.BAD_REQUEST);
 		}
 
 		DateProfileDTO dto = DateProfileDTO.builder().nickName(nickName).introduce(introduce).mFileOne(mFileOne)
 				.mFileTwo(mFileTwo).mFile3(mFile3).mFile4(mFile4).mFile5(mFile5).build();
 
-		profileDetailDTO detailDTO = profileDetailDTO.builder().userId(principal.getId()).idealType(idealType)
-				.bloodtype(bloodtype).myJop(myJop).bestMovie(bestMovie).drinking(drinking).smoking(smoking).build();
-
 		dateService.createdProfile(principal, dto);
-		dateService.createdProfileDetail(detailDTO);
 
 		return "redirect:/date/date";
 	}
@@ -267,12 +243,9 @@ public class DateController {
 			Model model) {
 
 		DateProfile detail = dateService.detailPartner(userId, id);
-		profileDetailDTO dto = dateService.detailPartnerDetail(id);
-		
-		
+
 		model.addAttribute("userId", userId);
 		model.addAttribute("detail", detail);
-		model.addAttribute("dto", dto);
 
 		return "date/detailPartner";
 	}
@@ -287,18 +260,6 @@ public class DateController {
 		return "date/matchingList";
 	}
 
-	// ======= 메시지 채팅 ========
-
-	@GetMapping("/message")
-	public String getMessage(@RequestParam(name = "id") int partnerId, @RequestParam(name = "userId") int principalId,
-			Model model) {
-		List<MessageDTO> chatHistory = dateManagerService.chatHistory(principalId, partnerId);
-		model.addAttribute("partnerId", partnerId);
-		model.addAttribute("principalId", principalId);
-		model.addAttribute("chatHistory", chatHistory);
-		return "date/message";
-	}
-
 	/**
 	 * 메세지기능
 	 * 
@@ -307,7 +268,7 @@ public class DateController {
 	 * @return
 	 */
 	@PostMapping("/sendMessage")
-	public Map<String, Object> sendMessage(@RequestBody MessageDTO messageDTO,
+	public @ResponseBody Map<String, Object> sendMessage(@RequestBody MessageDTO messageDTO,
 			@SessionAttribute(Define.PRINCIPAL) User principal) {
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -378,10 +339,5 @@ public class DateController {
 			e.printStackTrace();
 		}
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-	}
-
-	@GetMapping("/popcornCharge")
-	public String popcornChargePage() {
-		return "pay/popcornCharge";
 	}
 }

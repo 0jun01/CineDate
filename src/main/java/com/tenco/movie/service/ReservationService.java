@@ -8,13 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-<<<<<<< HEAD
-=======
-import com.mysql.cj.Session;
 import com.tenco.movie.dto.ChoicedMovie;
 import com.tenco.movie.dto.RegionCountDTO;
 import com.tenco.movie.dto.SubRegionDTO;
->>>>>>> 2d44f600c135731dcfdfe87ac816cd9d3c5133b0
 import com.tenco.movie.dto.TheaterCountDTO;
 import com.tenco.movie.dto.TimeDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
@@ -218,9 +214,6 @@ public class ReservationService {
 		}
 		return shId;
 	}
-<<<<<<< HEAD
-}
-=======
 
 	public List<ChoicedMovie> fetchDateAndTheater(int movieId) {
 		List<ChoicedMovie> entity = null;
@@ -252,4 +245,3 @@ public class ReservationService {
 		return entity;
 	}
 }
->>>>>>> 2d44f600c135731dcfdfe87ac816cd9d3c5133b0

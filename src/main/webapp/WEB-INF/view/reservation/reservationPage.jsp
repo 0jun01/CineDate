@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- header.jsp -->
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <link href="/css/reservation.css" rel="stylesheet">
@@ -13,21 +12,17 @@
 					<h3>날짜</h3>
 				</div>
 				<div class="scroll--date">
-					<span class="year">${currentYear}</span>
-					<span class="">${currentMonth}월</span>
+					<span class="year">${currentYear}</span> <span class="">${currentMonth}월</span>
 				</div>
 				<div class="scroll--list">
 					<ul id="date--list">
-<<<<<<< HEAD
+
 						<li>
 							<div>
-								<span class="year">${currentYear}</span> <br> <span
-									class="">${currentMonth}월</span>
+								<span class="year">${currentYear}</span> <br> <span class="">${currentMonth}월</span>
 							</div>
 						</li>
-=======
 
->>>>>>> 841cd954bbaf41e3af36dcc2d2eadc842ff592cc
 						<c:forEach var="entry" items="${date}">
 
 							<c:set var="formattedMonth">
@@ -36,39 +31,29 @@
 							<c:set var="formattedDay">
 								<fmt:formatNumber value="${entry.day}" pattern="00" />
 							</c:set>
-							<c:set var="formattedDate"
-								value="${entry.year}-${formattedMonth}-${formattedDay}" />
+							<c:set var="formattedDate" value="${entry.year}-${formattedMonth}-${formattedDay}" />
 							<c:if test="${entry.day == 1}">
 								<li>
 									<div>
-<<<<<<< HEAD
-										<span class="year">${entry.year}</span> <br> <span
-											class="month">${entry.month}월</span>
-=======
-										<span class="year">${entry.year}</span>
-										<span class="month">${entry.month}월</span>
->>>>>>> 841cd954bbaf41e3af36dcc2d2eadc842ff592cc
+
+										<span class="year">${entry.year}</span> <br> <span class="month">${entry.month}월</span>
+
 									</div>
 								</li>
 							</c:if>
 
-							<li id="date-${formattedDate}" class="selectable-date"><a
-								href="javascript:void(0)"
-								onclick="onDateSelect('${formattedDate}', this)"> <c:choose>
+							<li id="date-${formattedDate}" class="selectable-date"><a href="javascript:void(0)" onclick="onDateSelect('${formattedDate}', this)"> <c:choose>
 										<c:when test="${holidays.contains(formattedDate)}">
 											<span class="holiday" data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
-											<span class="holiday" data-date-value="${formattedDate}">${entry.day}
-											</span>
+											<span class="holiday" data-date-value="${formattedDate}">${entry.day} </span>
 										</c:when>
 										<c:when test="${entry.dayOfWeek == '일'}">
 											<span class="holiday" data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
-											<span class="holiday" data-date-value="${formattedDate}">${entry.day}
-											</span>
+											<span class="holiday" data-date-value="${formattedDate}">${entry.day} </span>
 										</c:when>
 										<c:when test="${entry.dayOfWeek == '토'}">
 											<span class="satur" data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
-											<span class="satur" data-date-value="${formattedDate}">${entry.day}
-											</span>
+											<span class="satur" data-date-value="${formattedDate}">${entry.day} </span>
 										</c:when>
 										<c:otherwise>
 											<span data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
@@ -86,22 +71,15 @@
 					<h3>영화</h3>
 				</div>
 				<div class="filter--box">
-					<button type="button" id="sortByKorean" value="korean"
-						name="filter--btn">가나다순</button>
+					<button type="button" id="sortByKorean" value="korean" name="filter--btn">가나다순</button>
 					<button type="button" id="sortByAge" value="age" name="filter--btn">시청등급순</button>
 				</div>
 				<div class="scroll--list">
 					<ul id="movie-list">
 						<c:forEach var="movie" items="${movieList}">
-<<<<<<< HEAD
-							<li><a href="javascript:void(0)"
-								data-movie-id="${movie.movieId}"
-								onclick="onMovieSelect(${movie.movieId})"><c:choose>
-=======
-							<li>
-								<a href="javascript:void(0)" data-movie-id="${movie.movieId}" onclick="handleAvailableMovieClick(this)">
-									<c:choose>
->>>>>>> 841cd954bbaf41e3af36dcc2d2eadc842ff592cc
+
+							<li><a href="javascript:void(0)" data-movie-id="${movie.movieId}" onclick="onMovieSelect(${movie.movieId})">
+							<c:choose>
 										<c:when test="${movie.watchGradeNm eq '전체관람가'}">
 											<span class="grade-all movie--grade eng">ALL</span>
 											<span data-id="${movie.movieId}">${movie.title}</span>
@@ -121,9 +99,7 @@
 										<c:otherwise>
 											<span class="grade-default movie--grade eng" data-id="${movie.movieId}">${movie.title}</span>
 										</c:otherwise>
-									</c:choose>
-								</a>
-							</li>
+									</c:choose> </a></li>
 						</c:forEach>
 					</ul>
 				</div>
@@ -136,18 +112,14 @@
 					<div class="region--list">
 						<ul id="region-list">
 							<c:forEach var="region" items="${regionList}">
-								<li class="region--name--box"><a href="javascript:void(0)"
-									onclick="applyRegionFilter('${region.id}')">${region.name}</a></li>
+								<li class="region--name--box"><a href="javascript:void(0)" onclick="applyRegionFilter('${region.id}')">${region.name}</a></li>
 							</c:forEach>
 						</ul>
 					</div>
 					<div class="scroll--list">
 						<ul id="sub--region--list">
 							<c:forEach var="subRegion" items="${subRegionList}">
-								<li id="subregion-${subRegion.id}"><a
-									href="javascript:void(0)"
-									onclick="onTheaterSelect('${subRegion.name}', '${subRegion.id}')">
-										${subRegion.name} </a></li>
+								<li id="subregion-${subRegion.id}"><a href="javascript:void(0)" onclick="onTheaterSelect('${subRegion.name}', '${subRegion.id}')"> ${subRegion.name} </a></li>
 							</c:forEach>
 						</ul>
 					</div>
@@ -158,8 +130,7 @@
 					<h3>시간</h3>
 				</div>
 				<div class="time--list">
-					<span class="title"> <span class="floor"></span> <span
-						class="seatcount"></span>
+					<span class="title"> <span class="floor"></span> <span class="seatcount"></span>
 					</span>
 					<ul>
 						<li><a> <span class=time> <span></span>
@@ -301,7 +272,7 @@
 				선택한 좌석 수 <span id="count">0</span> <span id="total">0</span>원
 			</p>
 		</div>
-<<<<<<< HEAD
+		<<<<<<< HEAD
 	</div>
 </div>
 <div class="choice--movie--box">
@@ -321,11 +292,8 @@
 		<div>
 			<span>상영관</span> <span class="room"></span>
 		</div>
-		<span>인원</span> <a href="javascript:void(0)" onclick="viewSeats()"
-			id="seat--selection--btn" class="btn--right">좌석선택!!!!!!!!!!!!!!!!!</a>
-=======
-
->>>>>>> 841cd954bbaf41e3af36dcc2d2eadc842ff592cc
+		<span>인원</span> <a href="javascript:void(0)" onclick="viewSeats()" id="seat--selection--btn" class="btn--right">좌석선택!!!!!!!!!!!!!!!!!</a> ======= >>>>>>>
+		841cd954bbaf41e3af36dcc2d2eadc842ff592cc
 	</div>
 
 
