@@ -89,13 +89,13 @@
 															<td style="width: 120px;"><fmt:parseDate value="${event.createdAt}" var="createdAt" pattern="yyyy-MM-dd HH:mm:ss.S" /> <fmt:formatDate pattern="yyyy-MM-dd"
 																	value="${createdAt}" /></td>
 															<td style="width: 90px;" class="text-center">
-																<form action="/adminNoticeReWrite/${notice.id}" method="get">
+																<form action="/adminEventReWrite/${event.id}" method="get">
 																	<button class="btn btn-warning">수정</button>
 																</form>
 															</td>
 
 															<td style="width: 90px;" class="text-center">
-																<form action="/adminNoticeDelete/${event.id}" method="get">
+																<form action="/adminEventDelete/${event.id}" method="get">
 																	<button type="submit" class="btn btn-danger">삭제</button>
 																</form>
 															</td>

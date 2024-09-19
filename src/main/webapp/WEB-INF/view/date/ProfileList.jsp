@@ -93,9 +93,8 @@
 					</table>
 				</c:when>
 				<c:otherwise>
-					<div class="jumbotron display-4">
-						<h5>아무도 없어요 흑흑흑</h5>
-					</div>
+					<h1>📽</h1>
+					<h5>아무도 없어요 💦</h5>
 				</c:otherwise>
 			</c:choose>
 		</div>

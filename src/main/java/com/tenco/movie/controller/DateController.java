@@ -1,25 +1,31 @@
 package com.tenco.movie.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tenco.movie.dto.DateProfileDTO;
+import com.tenco.movie.dto.ItemRequest;
 import com.tenco.movie.dto.MessageDTO;
-import com.tenco.movie.dto.detailCountDTO;
 import com.tenco.movie.dto.profileDetailDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
+import com.tenco.movie.repository.model.ConItems;
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.User;
 import com.tenco.movie.service.DateManagerService;
@@ -88,11 +94,18 @@ public class DateController {
 	 * @author 성후
 	 */
 	@GetMapping("/profilePage")
-	public String getProfilePage(@SessionAttribute(Define.PRINCIPAL) User principal, Model model) {
+	public String getProfilePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model, RedirectAttributes redirectAttributes) {
+
+		if (principal == null) {
+			redirectAttributes.addFlashAttribute(Define.ENTER_YOUR_LOGIN, HttpStatus.BAD_REQUEST);
+			return "redirect:/user/signIn"; // 로그인으로 리다이렉트
+		}
+		
 		DateProfile profile = dateService.searchProfile(principal.getId());
 		if (profile == null) {
 			return "date/DateSignUp";
 		}
+		
 		String imageUrl = "/DateProfileIMAGE/" + profile.getFirstUploadFileName();
 		model.addAttribute("profile", profile);
 		model.addAttribute("imageUrl", imageUrl);
@@ -191,12 +204,18 @@ public class DateController {
 		return "redirect:/date/date";
 	}
 
+	/**
+	 * 
+	 * @return date/popcornStore
+	 * @author 변영준
+	 */
 	@GetMapping("/popcornStore")
-	public String postPopcornStore() {
+	public String postPopcornStore(Model model) {
+		List<ConItems> itemList = dateService.viewStoreList();
 
+		model.addAttribute("item", itemList);
 		return "date/popcornStore";
 	}
-
 	/**
 	 * 팝콘 -> 토스로 충전
 	 * 
@@ -225,6 +244,27 @@ public class DateController {
 		return "pay/tossPay";
 	}
 
+	@GetMapping("/tickets")
+	public String postTicketProc(@RequestParam("quantity") int quantity, Model model,
+			@SessionAttribute(Define.PRINCIPAL) User principal) {
+		System.out.println(quantity);
+		System.out.println(quantity);
+		System.out.println(quantity);
+		int amount = 1 * quantity;
+		String orderId = payservice.getOderId();
+		String orderName = "ticket";
+		String customerName = principal.getName();
+
+		// 모델에 데이터 추가
+		model.addAttribute("amount", amount);
+		model.addAttribute("orderId", orderId);
+		model.addAttribute("orderName", orderName);
+		model.addAttribute("customerName", customerName);
+
+		return "pay/tossPay";
+
+	}
+	
 	@GetMapping("/detailPartner")
 	public String getMethodName(@RequestParam(name = "id") int id, @RequestParam(name = "userId") int userId,
 			Model model) {
@@ -240,10 +280,19 @@ public class DateController {
 
 		return "date/detailPartner";
 	}
-
+/**
+ *  매칭 리스트로 이동 ( 성후 예외처리 완료)
+ * @param principal
+ * @param model
+ * @param redirectAttributes
+ * @return
+ */
 	@GetMapping("/machingList")
-	public String getMethodName(@SessionAttribute(name = Define.PRINCIPAL) User principal, Model model) {
-
+	public String getMethodName(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model, RedirectAttributes redirectAttributes) {
+		if (principal == null) {
+			redirectAttributes.addFlashAttribute(Define.ENTER_YOUR_LOGIN, HttpStatus.BAD_REQUEST);
+			return "redirect:/user/signIn"; // 로그인으로 리다이렉트
+		}
 		List<DateProfile> list = dateManagerService.matchingList(principal.getId());
 
 		model.addAttribute("list", list);
@@ -263,4 +312,56 @@ public class DateController {
 		return "date/message";
 	}
 
+	/**
+	 * 현재 보유중인 con 확인하는 메서드
+	 * 
+	 * @param principal
+	 * @return con갯수
+	 * @author 변영준
+	 */
+	@GetMapping("/currentMoney")
+	@ResponseBody
+	public int fetchCurrentMoney(@SessionAttribute(Define.PRINCIPAL) User principal) {
+		int con = dateService.getCurrentCon(principal.getId());
+		return con;
+	}
+
+	/**
+	 * 아이템 구매 내역 갱신
+	 * 
+	 * @param request
+	 * @return
+	 * @author 변영준
+	 */
+	@PostMapping("/payItem")
+	public ResponseEntity<Map<String, String>> buyItem(@RequestBody ItemRequest request,
+			@SessionAttribute(Define.PRINCIPAL) User principal) {
+		Map<String, String> response = new HashMap<>();
+		int userId = principal.getId();
+		int currentCon = dateService.getCurrentCon(principal.getId());
+		int price = request.getPrice();
+		int amount = currentCon - request.getPrice();
+		int itemId = request.getItemId();
+
+		try {
+			int result = dateService.insertConHistory(userId, price, amount, itemId);
+
+			if (result > 0) {
+				response.put("message", "구입 성공");
+				return ResponseEntity.ok(response);
+			} else {
+				// 예매 실패: bookingId가 0인 경우
+				response.put("message", "구입 실패");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+	}
+
+	@GetMapping("/popcornCharge")
+	public String popcornChargePage() {
+		return "pay/popcornCharge";
+	}
 }

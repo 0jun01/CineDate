@@ -4,6 +4,18 @@
 <mapper
 	namespace="com.tenco.movie.repository.interfaces.AdminRepository">
 
+	<select id="reviewAdminCount" resultType="int">
+		select count(*) from
+		review_tb
+	</select>
+
+	<select id="sellAdminCount" resultType="int">
+		select count(*) from
+		toss_hitory_tb
+	</select>
+
+	<!-- ========================================================== -->
+
 	<select id="findAll"
 		resultType="com.tenco.movie.repository.model.Notice">
 		select * from notice_tb order by id desc;
@@ -122,6 +134,11 @@
 		select * from toss_hitory_tb order by id desc
 	</select>
 
+	<select id="readAdminHistory"
+		resultType="com.tenco.movie.repository.model.History">
+		select * from toss_hitory_tb order by id desc limit 6
+		offset 0
+	</select>
 
 	<!-- =========================== Profile =============================== -->
 	<select id="readProfileList"
@@ -136,6 +153,18 @@
 		select count(*)
 		from profile_tb where nick_name like CONCAT('%', #{search}, '%')
 	</select>
+
+	<select id="countAdminProfileAll" resultType="int">
+		select count(*)
+		from profile_tb
+	</select>
+
+	<select id="readAdminProfile"
+		resultType="com.tenco.movie.repository.model.DateProfile">
+		select * from profile_tb order by id desc limit 8 offset 0
+	</select>
+
+
 
 	<select id="searchProfileById"
 		resultType="com.tenco.movie.repository.model.DateProfile">

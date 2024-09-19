@@ -20,19 +20,18 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/cinema")
 public class CinemaController {
 
-    private final CinemaService cinemaService;
+	private final CinemaService cinemaService;
 
-    @GetMapping("/cinema")
-    public String showCinemaPage(@RequestParam(value = "id", required = false) Integer regionId, 
-                                 @RequestParam(value = "subregionId", required = false) Integer subregionId,
-                                 Model model) {
-        List<Regions> regions = cinemaService.getAllRegions();
-        model.addAttribute("regions", regions);
+	@GetMapping("/cinema")
+	public String showCinemaPage(@RequestParam(value = "id", required = false) Integer regionId,
+			@RequestParam(value = "subregionId", required = false) Integer subregionId, Model model) {
+		List<Regions> regions = cinemaService.getAllRegions();
+		model.addAttribute("regions", regions);
 
-        // 기본값 설정
-        if (regionId == null) {
-            regionId = 1;
-        }
+		// 기본값 설정
+		if (regionId == null) {
+			regionId = 1;
+		}
 
         if (subregionId == null) {
             // 기본 상위 지역의 첫 하위 지역 ID를 설정
@@ -46,13 +45,24 @@ public class CinemaController {
         model.addAttribute("subregions", subregions);
         model.addAttribute("selectedRegionId", regionId);
         model.addAttribute("selectedSubregionId", subregionId);
+		if (subregionId == null) {
+			// 기본 상위 지역의 첫 하위 지역 ID를 설정
+			List<SubRegions> subRegions = cinemaService.getSubregionsByRegionId(regionId);
+			if (!subregions.isEmpty()) {
+				subregionId = subregions.get(0).getId();
+			}
+		}
 
-        // 영화관 정보 추가
-        List<Theater> theaters = cinemaService.getTheatersBySubregionId(subregionId);
-        model.addAttribute("theaters", theaters);
+		List<SubRegions> subRegions = cinemaService.getSubregionsByRegionId(regionId);
+		model.addAttribute("subregions", subregions);
+		model.addAttribute("selectedRegionId", regionId);
+		model.addAttribute("selectedSubregionId", subregionId);
 
-        return "/cinema/cinemaPage"; 
-    }
-    
-    
+		// 영화관 정보 추가
+		List<Theater> theaters = cinemaService.getTheatersBySubregionId(subregionId);
+		model.addAttribute("theaters", theaters);
+
+		return "/cinema/cinemaPage";
+	}
+
 }

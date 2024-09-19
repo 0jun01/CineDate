@@ -1,6 +1,5 @@
 package com.tenco.movie.dto;
 
-import java.sql.Date;
 import java.time.LocalTime;
 
 import lombok.AllArgsConstructor;

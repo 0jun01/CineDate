@@ -17,9 +17,9 @@ public class Search {
 	private String movieImg;
 	private String movieDesc;
 	private String releaseDate;
-	
+
 	// 영화 디테일 테이블 추가
 	private String prdStatNm;
 	private String watchGradeNm;
-	
+
 }

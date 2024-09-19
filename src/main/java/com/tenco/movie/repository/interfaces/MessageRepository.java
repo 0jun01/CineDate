@@ -12,7 +12,7 @@ import com.tenco.movie.repository.model.Message;
 @Mapper
 public interface MessageRepository {
 	
-	 	public void save(MessageDTO messagedto);
+	 	public void save(Message message);
 	 	
 	 	 List<MessageDTO> findConversation(@Param("senderId") String senderId, @Param("recipientId") String recipientId);
 

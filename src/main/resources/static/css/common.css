@@ -17,8 +17,13 @@ a {
 	color: inherit;
 }
 
-body {
+body, input {
 	font-family: 'NanumSquareNeoBold';
+	color: #333;
+}
+
+h1 {
+	font-family: 'NanumSquareNeoExtraBold';
 }
 
 .btn, select {
@@ -48,6 +53,10 @@ input:-internal-autofill-selected {
 	background-image: none !important;
 	background-color: #efefef !important;
 	color: #999 !important;
+}
+
+h1.eng {
+	font-size: 48px;
 }
 
 .eng {
@@ -111,6 +120,10 @@ input:-internal-autofill-selected {
 	padding: 10px;
 }
 
+.float--right {
+	float: right;
+}
+
 #login--btn {
 	width: 400px;
 	height: 50px;
@@ -133,9 +146,13 @@ input:-internal-autofill-selected {
 }
 
 .login--items {
-	margin: 50px 0 100px;
+	margin: 50px 0 0;
 }
 
+.login--tem{
+	margin-bottom: 100px;
+}
+ 
 .social--login {
 	display: flex;
 	flex-direction: column;
@@ -291,124 +308,6 @@ label {
 	height: auto; /* 비율 유지 */
 	object-fit: cover; /* 이미지가 박스를 완전히 채우도록 */
 }
-/*이벤트 페이지*/
-.evt--title {
-	height: 60px;
-	padding-top: 30px;
-	border-bottom: 3px solid black;
-	font-size: 100%;
-	margin-top: 20px;
-	margin: 0;
-	padding: 0;
-	border: 1;
-	vertical-align: baseline;
-	word-break: break-all;
-}
-
-.evt--area {
-	font-size: 100%;
-	margin: 0;
-	padding: 0;
-	border: 1;
-	vertical-align: baseline;
-	word-break: break-all;
-}
-
-.evt--area--menu {
-	margin-top: 10px;
-	display: flex;
-	justify-content: end;
-	font-size: large;
-	margin-bottom: 30px;
-	margin-right: 5%;
-}
-
-.evt--prize {
-	color: red;
-}
-
-.evt--item-container {
-	display: flex;
-	margin: 40px;
-	padding: 40px;
-	margin-inline: 215px;
-	flex-wrap: wrap;
-}
-
-.evt--item {
-	display: flex;
-	margin: 10px;
-	padding: 10px;
-}
-
-.evt--item--a {
-	margin: 25px;
-}
-
-.evt--prize--win {
-	border: 2px solid #fb4357;
-	background-color: #fb4357;
-	color: #ffffff;
-}
-
-.event--images {
-	border: 1px solid #000;
-}
-
-.evt--item--detail {
-	display: block;
-	margin-inline: 15%;
-	padding: 10px;
-}
-
-.evt--prize {
-	color: red;
-}
-
-.evt--item {
-	display: flex;
-	border: 1 solid black;
-	margin: 25px;
-	padding: 25px;
-	padding-top: 45px;
-	justify-content: space-around;
-	flex-wrap: wrap;
-}
-
-.evt--item--a {
-	margin: 25px;
-}
-
-.evt--prize--win .evt--prize--end {
-	border: 1 solid black;
-}
-
-
-<<<<<<< HEAD
-.review-item {
-    display: flex; 
-    flex-direction: row; 
-    gap: 40px; 
-    border: 1px solid #ddd; 
-    padding: 15px; 
-    border-radius: 5px; 
-}
-/*공지*/
-.page--btn--a{
-	display: flex;
-	justify-content: center;
-	gap: 40px; 
-}
-.page--item{
-	display: flex; 
-    flex-direction: row; 
-    gap: 40px; 
-    border: 1px solid #ddd; 
-    padding: 10px; 
-    border-radius: 5px; 
-}
-=======
->>>>>>> acf591a7bb659b82035b5f5a319ef0724c265ad1
 
 .star-rating {
 	font-size: 0;
@@ -512,14 +411,6 @@ label {
 .star-empty {
 	color: #d3d3d3; /* 빈 별 색상: 회색 */
 }
-<<<<<<< HEAD
-/*공지*/
-.page--btn--a{
-	display: flex;
-	justify-content: center;
-	gap: 40px; 
-=======
->>>>>>> acf591a7bb659b82035b5f5a319ef0724c265ad1
 
 /**
 *메세지
@@ -546,45 +437,8 @@ label {
 	text-align: left;
 }
 
-/* 취소 버튼과 제출 버튼 공통 스타일 */
-.submit-button, .cancel-button, .edit-button, .delete-button {
-	border: none; /* 테두리 제거 */
-	background: none; /* 배경 제거 */
-	cursor: pointer; /* 클릭 가능한 아이콘 표시 */
-	padding: 0; /* 기본 패딩 제거 */
-	font: inherit; /* 폰트 스타일 상속 */
-	color: #007bff; /* 텍스트 색상 설정 */
-	display: inline; /* 버튼을 인라인 요소로 설정 */
-}
-
-/* 취소 버튼 hover 상태 */
-.cancel-button:hover {
-	color: #0056b3; /* 호버 시 색상 변경 */
-}
-
-/* 수정 버튼 hover 상태 */
-.edit-button:hover {
-	color: #0056b3; /* 호버 시 색상 변경 */
-}
-
-/* 삭제 버튼 hover 상태 */
-.delete-button:hover {
-	color: #0056b3; /* 호버 시 색상 변경 */
-}
-
-/* 수정, 삭제 버튼 스타일 추가 */
-.edit-button, .delete-button {
-	color: #dc3545; /* 삭제 버튼 색상 설정 */
-}
-<<<<<<< HEAD
-
 .page--item.disabled .page-link {
-    color: #c0c0c0;
-    pointer-events: none; 
-    cursor: not-allowed;
+	color: #c0c0c0;
+	pointer-events: none;
+	cursor: not-allowed;
 }
-
-=======
-
-
->>>>>>> acf591a7bb659b82035b5f5a319ef0724c265ad1
