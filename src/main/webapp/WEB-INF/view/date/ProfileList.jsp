@@ -26,14 +26,16 @@
 									src="/DateProfileIMAGE/${superList.firstUploadFileName}"></td>
 								<td>${superList.nickName}</td>
 								<td>${superList.introduce}</td>
-								<td><c:choose>
+								<td>
+									<c:choose>
 										<c:when test="${superList.status == 2}">
 											<button onclick="openChat('${superList.userId}')">매칭완료(대화창열기)</button>
 										</c:when>
 										<c:otherwise>
 											<button onclick="openPopup('${superList.userId}')">상세보기</button>
 										</c:otherwise>
-									</c:choose></td>
+									</c:choose>
+								</td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -73,15 +75,16 @@
 									src="/DateProfileIMAGE/${list.firstUploadFileName}"></td>
 								<td>${list.nickName}</td>
 								<td>${list.introduce}</td>
-								<td><c:choose>
+								<td>
+									<c:choose>
 										<c:when test="${list.status == 2}">
-											<button onclick="openChat('${list.userId}')"
-												id="${list.userId}">매칭완료(대화창열기)</button>
+											<button onclick="openChat('${list.userId}')" id="${list.userId}">매칭완료(대화창열기)</button>
 										</c:when>
 										<c:otherwise>
 											<button onclick="openPopup('${list.userId}')">상세 보기</button>
 										</c:otherwise>
-									</c:choose></td>
+									</c:choose>
+								</td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -92,7 +95,7 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
-
+	</div>
 
 
 		
