@@ -44,7 +44,6 @@ spring:
       - classpath:db/table.sql
       data-locations:
       - classpath:db/data.sql 
-
   security:
     oauth2:
       client:

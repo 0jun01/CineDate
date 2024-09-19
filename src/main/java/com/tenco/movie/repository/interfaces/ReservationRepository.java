@@ -6,6 +6,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.tenco.movie.dto.ChoicedMovie;
+import com.tenco.movie.dto.ChoicedMovieAndTheater;
+import com.tenco.movie.dto.RegionCountDTO;
+import com.tenco.movie.dto.SubRegionDTO;
 import com.tenco.movie.dto.TheaterCountDTO;
 import com.tenco.movie.dto.TimeDTO;
 import com.tenco.movie.repository.model.Bookings;
@@ -52,4 +56,19 @@ public interface ReservationRepository {
 	Bookings viewBookingByUserIdAndShowTimeId(@Param("userId") int userId, @Param("showTimeId") int showTimeId);
 
 	List<Integer> checkOccupied(int showtimeId);
+
+	//////////////////////////////////////// 예매 리팩토링 ///////////////////////////////
+
+	// 영화랑, 극장 선택했을 경우
+	List<ChoicedMovieAndTheater> findDateByMovieIdAndTheaterId(@Param("movieId") int movieId,
+			@Param("theaterId") int theaterId);
+
+	// 영화만 선택 했을 경우 날짜와 극장 업데이트
+	List<ChoicedMovie> findDateAndTheatersByMovieId(int movieId);
+
+	// 영화만 선택 했을 경우 대분류 지역 카운트
+	List<RegionCountDTO> countRegion(int movieId);
+
+	// 영화만 선택시 상영중인 영화 지역 서브 지역!
+	List<SubRegionDTO> findSubRegionByMovie(int movieId);
 }

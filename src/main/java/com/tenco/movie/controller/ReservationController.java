@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
 import com.tenco.movie.dto.BookingRequest;
+import com.tenco.movie.dto.ChoicedMovie;
+import com.tenco.movie.dto.RegionCountDTO;
+import com.tenco.movie.dto.SubRegionDTO;
 import com.tenco.movie.dto.TheaterCountDTO;
 import com.tenco.movie.dto.TimeDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
@@ -35,9 +37,6 @@ import com.tenco.movie.repository.model.SubRegions;
 import com.tenco.movie.service.CalendarService;
 import com.tenco.movie.service.ReservationService;
 import com.tenco.movie.utils.Define;
-
-import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
-import ch.qos.logback.core.status.Status;
 
 @Controller
 @RequestMapping("/reservation")
@@ -259,5 +258,45 @@ public class ReservationController {
 	public List<Integer> checkSeats(@RequestParam("showTimeId") int showTimeId) {
 		List<Integer> shId = reservationService.viewOccupiedSeats(showTimeId);
 		return shId;
+	}
+
+
+	/**
+	 * 영화만 클릭 했을 시 날짜와 극장 업데이트
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/firstMovie")
+	@ResponseBody
+	public List<ChoicedMovie> findMovieAndDate(@RequestParam("movieId") int movieId) {
+		List<ChoicedMovie> entity = reservationService.fetchDateAndTheater(movieId);
+		return entity;
+	}
+
+	/**
+	 * 영화만 클릭 했을 시 극장대분류 카운트 업데이트
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/regionCount")
+	@ResponseBody
+	public List<RegionCountDTO> countRegion(@RequestParam("movieId") int movieId) {
+		List<RegionCountDTO> entity = reservationService.fetchRegionCount(movieId);
+		return entity;
+	}
+
+	/**
+	 * 영화만 클릭 했을 시 극장대분류 카운트 업데이트
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/subRegionsByMovie")
+	@ResponseBody
+	public List<SubRegionDTO> findSubRegionByMovie(@RequestParam("movieId") int movieId) {
+		List<SubRegionDTO> entity = reservationService.fetchSubRegionByMovie(movieId);
+		return entity;
 	}
 }
