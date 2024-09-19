@@ -30,6 +30,9 @@
 										<c:when test="${superList.status == 2}">
 											<button onclick="openChat('${superList.userId}')">매칭완료(대화창열기)</button>
 										</c:when>
+										<c:when test="${superList.status == 1}">
+											<button> 매칭 요청 대기중 </button>
+										</c:when>
 										<c:otherwise>
 											<button onclick="openPopup('${superList.userId}')">상세보기</button>
 										</c:otherwise>
@@ -77,6 +80,9 @@
 										<c:when test="${list.status == 2}">
 											<button onclick="openChat('${list.userId}')"
 												id="${list.userId}">매칭완료(대화창열기)</button>
+										</c:when>
+										<c:when test="${list.status == 1}">
+											<button> 매칭 요청 대기중 </button>
 										</c:when>
 										<c:otherwise>
 											<button onclick="openPopup('${list.userId}')">상세 보기</button>

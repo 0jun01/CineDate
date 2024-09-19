@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tenco.movie.dto.DateProfileDTO;
 import com.tenco.movie.dto.MessageDTO;
+import com.tenco.movie.dto.detailCountDTO;
 import com.tenco.movie.dto.profileDetailDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.DateProfile;
@@ -231,6 +232,7 @@ public class DateController {
 		DateProfile detail = dateService.detailPartner(userId, id);
 		profileDetailDTO dto = dateService.detailPartnerDetail(id);
 		
+		dateManagerService.datailCount(userId);
 		
 		model.addAttribute("userId", userId);
 		model.addAttribute("detail", detail);

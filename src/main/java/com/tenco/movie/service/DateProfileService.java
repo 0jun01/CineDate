@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tenco.movie.dto.DateProfileDTO;
+import com.tenco.movie.dto.detailCountDTO;
 import com.tenco.movie.dto.profileDetailDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.interfaces.ProfileRepository;
@@ -243,6 +244,9 @@ public class DateProfileService {
 	public profileDetailDTO detailPartnerDetail(int id) {
 		return profileRepository.detailPartnerDetail(id);
 	}
+	
+	
+	
 	
 	
 }
