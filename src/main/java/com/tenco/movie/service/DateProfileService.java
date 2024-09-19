@@ -236,14 +236,7 @@ public class DateProfileService {
 		return superPartnerList;
 
 	}
-	@Transactional
-	public int createdProfileDetail(profileDetailDTO detailDTO) {
-		return profileRepository.createdProfileDetail(detailDTO);
-	}
 
-	public profileDetailDTO detailPartnerDetail(int id) {
-		return profileRepository.detailPartnerDetail(id);
-	}
 	public List<ConItems> viewStoreList() {
 		List<ConItems> itemList = null;
 		try {
@@ -281,4 +274,15 @@ public class DateProfileService {
 		return result;
 	}
 
+	
+	@Transactional
+	public int createdProfileDetail(profileDetailDTO detailDTO) {
+		return profileRepository.createdProfileDetail(detailDTO);
+	}
+	
+	public profileDetailDTO detailPartnerDetail(int id) {
+		return profileRepository.detailPartnerDetail(id);
+	}
+	
+	
 }
