@@ -217,7 +217,7 @@ public class UserController {
 	 */
 	@GetMapping("/findID")
 	public String findIdPage() {
-		return "user/findID";
+		return "user/findID";	
 	}
 
 	@PostMapping("/findID")

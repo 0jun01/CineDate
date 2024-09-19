@@ -1,39 +1,28 @@
 package com.tenco.movie.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.tenco.movie.dto.BookingRequest;
 import com.tenco.movie.dto.DateProfileDTO;
-import com.tenco.movie.dto.ItemRequest;
 import com.tenco.movie.dto.MessageDTO;
+import com.tenco.movie.dto.profileDetailDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
-import com.tenco.movie.repository.model.ConItems;
 import com.tenco.movie.repository.model.DateProfile;
-import com.tenco.movie.repository.model.Message;
 import com.tenco.movie.repository.model.User;
 import com.tenco.movie.service.DateManagerService;
 import com.tenco.movie.service.DateProfileService;
-import com.tenco.movie.service.MessageService;
 import com.tenco.movie.service.PaymentService;
 import com.tenco.movie.utils.Define;
 
@@ -52,8 +41,6 @@ public class DateController {
 
 	@Autowired
 	private final DateManagerService dateManagerService;
-	@Autowired
-	private final MessageService messageService;
 
 	/**
 	 * 데이트 페이지 요청
@@ -136,15 +123,17 @@ public class DateController {
 			@RequestParam(name = "profile_upload_file5") MultipartFile file5,
 			@SessionAttribute(Define.PRINCIPAL) User principal) throws IOException {
 
-//	    if (principal.getId() != userId) {
-//	        return ""; // 적절한 에러 페이지 URL로 수정
-//	    }
 		DateProfileDTO update = DateProfileDTO.builder().nickName(nickName).introduce(introduce).mFileOne(file1)
 				.mFileTwo(file2).mFile3(file3).mFile4(file4).mFile5(file5).build();
 
 		dateService.updateProfile(update, principal.getId());
 
 		return "redirect:/date/date";
+	}
+
+	@GetMapping("/signUp")
+	public String getSignUp() {
+		return "date/DateSignUp";
 	}
 
 	/**
@@ -162,30 +151,48 @@ public class DateController {
 			@RequestParam(name = "mFileTwo") MultipartFile mFileTwo,
 			@RequestParam(name = "mFile3") MultipartFile mFile3, @RequestParam(name = "mFile4") MultipartFile mFile4,
 			@RequestParam(name = "mFile5") MultipartFile mFile5, @RequestParam(name = "nickName") String nickName,
-			@RequestParam(name = "introduce") String introduce) {
+			@RequestParam(name = "introduce") String introduce, @RequestParam(name = "idealType") String idealType,
+			@RequestParam(name = "bloodtype") String bloodtype, @RequestParam(name = "myJop") String myJop,
+			@RequestParam(name = "bestMovie") String bestMovie, @RequestParam(name = "drinking") String drinking,
+			@RequestParam(name = "smoking") String smoking) {
 
 		if (nickName == null || nickName.isEmpty()) {
 			throw new DataDeliveryException("닉네임을 입력하세요", HttpStatus.BAD_REQUEST);
+		}
+		if (idealType == null || idealType.trim().isEmpty() || idealType.equalsIgnoreCase("")) {
+			throw new DataDeliveryException("이상형을 입력하세요", HttpStatus.BAD_REQUEST);
+		}
+		if (bloodtype == null || bloodtype.trim().isEmpty() || bloodtype.equalsIgnoreCase("")) {
+			throw new DataDeliveryException("형액형을 선택하세요", HttpStatus.BAD_REQUEST);
+		}
+		if (myJop == null || myJop.trim().isEmpty() || myJop.equalsIgnoreCase("")) {
+			throw new DataDeliveryException("이상형을 입력하세요", HttpStatus.BAD_REQUEST);
+		}
+		if (bestMovie == null || bestMovie.trim().isEmpty() || bestMovie.equalsIgnoreCase("")) {
+			throw new DataDeliveryException("좋아하는 영화를 입력하세요", HttpStatus.BAD_REQUEST);
+		}
+		if (drinking == null || drinking.trim().isEmpty() || drinking.equalsIgnoreCase("")) {
+			throw new DataDeliveryException("음주여부을 선택하세요", HttpStatus.BAD_REQUEST);
+		}
+		if (smoking == null || smoking.trim().isEmpty() || smoking.equalsIgnoreCase("")) {
+			throw new DataDeliveryException("흡연여부을 선택하세요", HttpStatus.BAD_REQUEST);
 		}
 
 		DateProfileDTO dto = DateProfileDTO.builder().nickName(nickName).introduce(introduce).mFileOne(mFileOne)
 				.mFileTwo(mFileTwo).mFile3(mFile3).mFile4(mFile4).mFile5(mFile5).build();
 
+		profileDetailDTO detailDTO = profileDetailDTO.builder().userId(principal.getId()).idealType(idealType)
+				.bloodtype(bloodtype).myJop(myJop).bestMovie(bestMovie).drinking(drinking).smoking(smoking).build();
+
 		dateService.createdProfile(principal, dto);
+		dateService.createdProfileDetail(detailDTO);
 
 		return "redirect:/date/date";
 	}
 
-	/**
-	 * 
-	 * @return date/popcornStore
-	 * @author 변영준
-	 */
 	@GetMapping("/popcornStore")
-	public String postPopcornStore(Model model) {
-		List<ConItems> itemList = dateService.viewStoreList();
+	public String postPopcornStore() {
 
-		model.addAttribute("item", itemList);
 		return "date/popcornStore";
 	}
 
@@ -217,35 +224,17 @@ public class DateController {
 		return "pay/tossPay";
 	}
 
-	@GetMapping("/tickets")
-	public String postTicketProc(@RequestParam("quantity") int quantity, Model model,
-			@SessionAttribute(Define.PRINCIPAL) User principal) {
-		System.out.println(quantity);
-		System.out.println(quantity);
-		System.out.println(quantity);
-		int amount = 1 * quantity;
-		String orderId = payservice.getOderId();
-		String orderName = "ticket";
-		String customerName = principal.getName();
-
-		// 모델에 데이터 추가
-		model.addAttribute("amount", amount);
-		model.addAttribute("orderId", orderId);
-		model.addAttribute("orderName", orderName);
-		model.addAttribute("customerName", customerName);
-
-		return "pay/tossPay";
-
-	}
-
 	@GetMapping("/detailPartner")
 	public String getMethodName(@RequestParam(name = "id") int id, @RequestParam(name = "userId") int userId,
 			Model model) {
 
 		DateProfile detail = dateService.detailPartner(userId, id);
-
+		profileDetailDTO dto = dateService.detailPartnerDetail(id);
+		
+		
 		model.addAttribute("userId", userId);
 		model.addAttribute("detail", detail);
+		model.addAttribute("dto", dto);
 
 		return "date/detailPartner";
 	}
@@ -260,84 +249,16 @@ public class DateController {
 		return "date/matchingList";
 	}
 
-	/**
-	 * 메세지기능
-	 * 
-	 * @author 성후
-	 * @param messageDTO
-	 * @return
-	 */
-	@PostMapping("/sendMessage")
-	public @ResponseBody Map<String, Object> sendMessage(@RequestBody MessageDTO messageDTO,
-			@SessionAttribute(Define.PRINCIPAL) User principal) {
-		Map<String, Object> response = new HashMap<>();
-		try {
+	// ======= 메시지 채팅 ========
 
-			System.out.println("messageDTO 오나: " + messageDTO); // 데이터 확인
-			System.out.println("Principal 오나: " + principal); // 세션에서의 사용자 정보 확인
-
-			Message message = new Message();
-			message.setSenderId(principal.getId()); // 발신자 ID
-			message.setRecipientId(messageDTO.getRecipientId()); // 수신자 ID
-			message.setMessage(messageDTO.getMessage()); // 메시지 내용
-			message.setTimestamp(LocalDateTime.now()); // 타임스탬프
-
-			System.out.println("여기는 컨트롤러 메세지 들어오나: " + message); // 로그 추가
-
-			messageService.save(message);
-			response.put("success", true);
-		} catch (Exception e) {
-			response.put("success", false);
-			response.put("error", e.getMessage());
-		}
-		return response;
+	@GetMapping("/message")
+	public String getMessage(@RequestParam(name = "id") int partnerId, @RequestParam(name = "userId") int principalId,
+			Model model) {
+		List<MessageDTO> chatHistory = dateManagerService.chatHistory(principalId, partnerId);
+		model.addAttribute("partnerId", partnerId);
+		model.addAttribute("principalId", principalId);
+		model.addAttribute("chatHistory", chatHistory);
+		return "date/message";
 	}
 
-	/**
-	 * 현재 보유중인 con 확인하는 메서드
-	 * 
-	 * @param principal
-	 * @return con갯수
-	 * @author 변영준
-	 */
-	@GetMapping("/currentMoney")
-	@ResponseBody
-	public int fetchCurrentMoney(@SessionAttribute(Define.PRINCIPAL) User principal) {
-		int con = dateService.getCurrentCon(principal.getId());
-		return con;
-	}
-
-	/**
-	 * 아이템 구매 내역 갱신
-	 * 
-	 * @param request
-	 * @return
-	 * @author 변영준
-	 */
-	@PostMapping("/payItem")
-	public ResponseEntity<Map<String, String>> buyItem(@RequestBody ItemRequest request,
-			@SessionAttribute(Define.PRINCIPAL) User principal) {
-		Map<String, String> response = new HashMap<>();
-		int userId = principal.getId();
-		int currentCon = dateService.getCurrentCon(principal.getId());
-		int price = request.getPrice();
-		int amount = currentCon - request.getPrice();
-		int itemId = request.getItemId();
-
-		try {
-			int result = dateService.insertConHistory(userId, price, amount, itemId);
-
-			if (result > 0) {
-				response.put("message", "구입 성공");
-				return ResponseEntity.ok(response);
-			} else {
-				// 예매 실패: bookingId가 0인 경우
-				response.put("message", "구입 실패");
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-	}
 }

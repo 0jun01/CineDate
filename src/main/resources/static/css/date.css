@@ -309,3 +309,13 @@ button#send--chat {
 .thumb--image img {
 	width: 100%;
 }
+
+#bloodtype,#drinking,#smoking{
+	height: 50px;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #fafafa;
+	color: #999;
+	margin-bottom: 15px;
+}

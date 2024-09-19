@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
 import com.tenco.movie.dto.BookingRequest;
 import com.tenco.movie.dto.TheaterCountDTO;
@@ -35,9 +34,6 @@ import com.tenco.movie.repository.model.SubRegions;
 import com.tenco.movie.service.CalendarService;
 import com.tenco.movie.service.ReservationService;
 import com.tenco.movie.utils.Define;
-
-import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
-import ch.qos.logback.core.status.Status;
 
 @Controller
 @RequestMapping("/reservation")

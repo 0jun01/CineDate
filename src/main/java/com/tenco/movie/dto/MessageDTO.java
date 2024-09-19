@@ -1,6 +1,7 @@
 package com.tenco.movie.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +15,20 @@ import lombok.ToString;
 @ToString
 @Builder
 public class MessageDTO {
-	private String recipientId;
+	private Long id;
+	private Integer recipientId;
     private String message;
+    private Integer senderId;
+    private Timestamp timestamp;
+    private String position;
+    
+    
+    public String timestampToString() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		return sdf.format(timestamp);
+	}
+	
+    
 }
+
+

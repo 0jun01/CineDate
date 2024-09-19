@@ -1,6 +1,4 @@
-package com.tenco.movie.repository.model;
-
-import java.sql.Date;
+package com.tenco.movie.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,15 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@NoArgsConstructor
 @ToString
-
-public class HistoryTimeLine {
-
-
-	Date approvedAt;
-	int count;
+@Builder
+public class OnlyCountDTO {
+	
+	private int count;
 	
 }
