@@ -7,6 +7,10 @@
 <meta charset="UTF-8">
 <title>파트너 디테일</title>
 <style type="text/css">
+*{
+	margin: 0;
+	padding: 0;
+}
 .profile-images {
 	display: flex;
 	gap: 10px;
@@ -65,10 +69,18 @@ button.disabled {
 	color: #666;
 	cursor: not-allowed;
 }
+
+#action-button {
+	width: 135px;
+	padding: 10px 0;
+	font-size: 16px;
+	border-radius: 6px;
+	border: 1px solid #ff2588;
+	background-color: #fff;
+}
 </style>
 </head>
 <body>
-	<h2>파트너 디테일</h2>
 	<c:if test="${detail != null}">
 		<div class="profile-images">
 			<img class="m--profile list--profile" alt="" src="/image/${detail.firstUploadFileName}" data-fullsize="/DateProfileIMAGE/${detail.firstUploadFileName}"> <img
@@ -83,111 +95,111 @@ button.disabled {
 				<img class="m--profile list--profile" alt="" src="/image/${detail.fifthOriginFileName}" data-fullsize="/DateProfileIMAGE/${detail.fifthOriginFileName}">
 			</c:if>
 		</div>
-		
-		<div>
-			<label>닉네임 : ${detail.nickName} </label>
-		</div>
-		
-		<div>
-			<label>자기소개 : ${detail.introduce} </label>
-		</div>
-		<div id="image-modal" class="modal hidden">
-			<span class="close">&times;</span> <img class="modal-content" id="modal-img">
-		</div>
+
+		<div class="detail--partner--info">
+			<div>
+				<label>닉네임 : ${detail.nickName} </label>
+			</div>
+
+			<div>
+				<label>자기소개 : ${detail.introduce} </label>
+			</div>
+			<div id="image-modal" class="modal hidden">
+				<span class="close">&times;</span> <img class="modal-content" id="modal-img">
+			</div>
 	</c:if>
-		
+
 	<c:if test="${dto != null}">
 		<div>
 			<label>이상형 : ${dto.idealType} </label>
 		</div>
-		
+
 		<div>
 			<label>혈액형 : ${dto.bloodtype} </label>
 		</div>
-		
+
 		<div>
 			<label>직업 : ${dto.myJop} </label>
 		</div>
-		
+
 		<div>
 			<label>좋아하는영화 : ${dto.bestMovie} </label>
 		</div>
-		
+
 		<div>
 			<label>음주여부 : ${dto.drinking} </label>
 		</div>
-		
+
 		<div>
 			<label>흡연여부 : ${dto.smoking} </label>
 		</div>
 	</c:if>
-		
-		
-		
-		
-		<c:choose>
-			<c:when test="${detail.status == 1}">
-				<button id="action-button" value="${detail.userId}">신청</button>
-			</c:when>
-			<c:when test="${detail.status == 2}">
-				<button id="action-button" class="disabled" disabled>매칭 요청 대기 중</button>
-			</c:when>
-			<c:when test="${detail.status == 4}">
-				<button id="action-button" value="${detail.userId}">재도전</button>
-			</c:when>
-		</c:choose>
+
+	<c:choose>
+		<c:when test="${detail.status == 1}">
+			<button id="action-button" value="${detail.userId}">신청</button>
+		</c:when>
+		<c:when test="${detail.status == 2}">
+			<button id="action-button" class="disabled" disabled>매칭 요청 대기 중</button>
+		</c:when>
+		<c:when test="${detail.status == 4}">
+			<button id="action-button" value="${detail.userId}">재도전</button>
+		</c:when>
+	</c:choose>
+	</div>
+
 	<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var images = document.querySelectorAll('.profile-images img');
-        var modal = document.getElementById('image-modal');
-        var modalImg = document.getElementById('modal-img');
-        var span = document.getElementsByClassName('close')[0];
-        var actionButton = document.getElementById('action-button');
-        var btn = document.querySelector("#action-button");
-        
-        btn.addEventListener('click', function() {
-        	const partNerId = btn.value;
-        	const url = "http://localhost:8080/duplication/movieSuggest?userId=" + ${userId} + "&partNerId="+ partNerId;
-        	fetch(url)
-        		.then(response => response.json())
-        		 .then(isDate => {
-                     if (isDate) {
-                         alert("신청 완료");
-                         window.location.reload();
-                     } else {
-                         alert("신청 실패");
-                     }
-                 })
-                 .catch(error => {
-                     console.log("error ", error);
-                 });
-         });
-        
-        images.forEach(function(img) {
-            img.addEventListener('click', function() {
-                var fullSizeSrc = img.getAttribute('data-fullsize');
-                modalImg.src = fullSizeSrc;
-                modal.classList.remove('hidden');
-            });
-        });
-
-        span.addEventListener('click', function() {
-            modal.classList.add('hidden');
-        });
-
-        modal.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                modal.classList.add('hidden');
-            }
-        });
-
-        if (actionButton && actionButton.classList.contains('disabled')) {
-            actionButton.addEventListener('click', function(event) {
-                event.preventDefault();
-                event.stopImmediatePropagation();
-            });
-        }
-    });
+	    document.addEventListener('DOMContentLoaded', function() {
+	        var images = document.querySelectorAll('.profile-images img');
+	        var modal = document.getElementById('image-modal');
+	        var modalImg = document.getElementById('modal-img');
+	        var span = document.getElementsByClassName('close')[0];
+	        var actionButton = document.getElementById('action-button');
+	        var btn = document.querySelector("#action-button");
+	        
+	        btn.addEventListener('click', function() {
+	        	const partNerId = btn.value;
+	        	const url = "http://localhost:8080/duplication/movieSuggest?userId=" + ${userId} + "&partNerId="+ partNerId;
+	        	fetch(url)
+	        		.then(response => response.json())
+	        		 .then(isDate => {
+	                     if (isDate) {
+	                         alert("신청 완료");
+	                         window.location.reload();
+	                     } else {
+	                         alert("신청 실패");
+	                     }
+	                 })
+	                 .catch(error => {
+	                     console.log("error ", error);
+	                 });
+	         });
+	        
+	        images.forEach(function(img) {
+	            img.addEventListener('click', function() {
+	                var fullSizeSrc = img.getAttribute('data-fullsize');
+	                modalImg.src = fullSizeSrc;
+	                modal.classList.remove('hidden');
+	            });
+	        });
+	
+	        span.addEventListener('click', function() {
+	            modal.classList.add('hidden');
+	        });
+	
+	        modal.addEventListener('click', function(event) {
+	            if (event.target === modal) {
+	                modal.classList.add('hidden');
+	            }
+	        });
+	
+	        if (actionButton && actionButton.classList.contains('disabled')) {
+	            actionButton.addEventListener('click', function(event) {
+	                event.preventDefault();
+	                event.stopImmediatePropagation();
+	            });
+	        }
+	    });
     </script>
 </body>
 </html>

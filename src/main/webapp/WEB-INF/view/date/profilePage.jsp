@@ -9,11 +9,15 @@
 			<div class="thumb--image">
 				<img src="/image/${profile.firstUploadFileName}" alt="${profile.firstUploadFileName}">
 			</div>
-			<span class="person-info">닉네임 : ${profile.nickName}</span>
-			<div style="display: flex;">
-				<h3>MY CORN</h3>
+			<div class="person--info--wrap">
+				<span class="person-info">아이디 : ${profile.userId}</span>
+				<span class="person-info">닉네임 : ${profile.nickName}</span>
+				
+			</div>
+			<div class="corn--wrap">
+				<span>MY CORN</span>
 				<img src="/img/corn.png" alt="콘 아이콘">
-				<h2>${profile.con}개</h2>
+				<span>${profile.con}개</span>
 			</div>
 		</div>
 
@@ -38,12 +42,11 @@
 		        </label><br />
 		        <button type="submit" value="제출">제출</button>
 		    </form>
-		</div>-->
+		</div-->
 
 		<!-- Update Profile Form -->
-		<form action="/date/updateProfile" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+		<form action="/date/updateProfile" method="post" enctype="multipart/form-data" onsubmit="return validateForm()" id="profile--wrap">
 			<table class="date--profile" summary="나의 프로필 정보">
-				<caption>나의 프로필 정보</caption>
 				<colgroup>
 					<col width="19%">
 					<col width="*">

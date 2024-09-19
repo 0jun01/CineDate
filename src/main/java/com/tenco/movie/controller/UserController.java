@@ -1,5 +1,7 @@
 package com.tenco.movie.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -22,6 +24,7 @@ import com.tenco.movie.dto.GoogleOAuthToken;
 import com.tenco.movie.dto.GoogleProfile;
 import com.tenco.movie.dto.KakaoOAuthToken;
 import com.tenco.movie.dto.KakaoProfile;
+import com.tenco.movie.dto.MyReservationDTO;
 import com.tenco.movie.dto.NaverOAuthToken;
 import com.tenco.movie.dto.NaverProfile;
 import com.tenco.movie.dto.SignInDTO;
@@ -29,6 +32,7 @@ import com.tenco.movie.dto.SignUpDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.UnAuthorizedException;
 import com.tenco.movie.repository.model.User;
+import com.tenco.movie.service.ReservationService;
 import com.tenco.movie.service.UserService;
 import com.tenco.movie.utils.Define;
 
@@ -40,6 +44,8 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ReservationService reservationService;
 
 	private final HttpSession session;
 	
@@ -188,9 +194,10 @@ public class UserController {
 		}
 
         String name = principal.getLoginId();
-
         User user = userService.getUserById(name);
         model.addAttribute("user", user);
+        
+
         return "user/myPage";
     }
 	
@@ -480,5 +487,12 @@ public class UserController {
 		return "user/privacyPolicy";
 	}
 
+	@GetMapping("/myReservation")
+	public String myReservation(@SessionAttribute(Define.PRINCIPAL) User principal, Model model) {
+        List<MyReservationDTO> reservations = reservationService.myreservation(principal.getId());
+        model.addAttribute("myreservations", reservations);
+        
+		return "user/myReservation";
+	}
 	
 }

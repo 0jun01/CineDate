@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tenco.movie.dto.DateProfileDTO;
 import com.tenco.movie.dto.ItemRequest;
@@ -104,10 +103,6 @@ public class DateController {
 		}
 		
 		DateProfile profile = dateService.searchProfile(principal.getId());
-		if (profile == null) {
-			return "date/DateSignUp";
-		}
-		
 		String imageUrl = "/DateProfileIMAGE/" + profile.getFirstUploadFileName();
 		model.addAttribute("profile", profile);
 		model.addAttribute("imageUrl", imageUrl);
@@ -280,7 +275,7 @@ public class DateController {
 		return "pay/tossPay";
 
 	}
-	
+
 	@GetMapping("/detailPartner")
 	public String getMethodName(@RequestParam(name = "id") int id, @RequestParam(name = "userId") int userId,
 			Model model) {
@@ -295,18 +290,13 @@ public class DateController {
 
 		return "date/detailPartner";
 	}
-/**
- *  매칭 리스트로 이동 ( 성후 예외처리 완료)
- * @param principal
- * @param model
- * @param redirectAttributes
- * @return
- */
+
 	@GetMapping("/machingList")
 	public String getMethodName(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model) {
 		if (principal == null) {
 			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
+
 		List<DateProfile> list = dateManagerService.matchingList(principal.getId());
 
 		model.addAttribute("list", list);
