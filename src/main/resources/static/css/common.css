@@ -24,10 +24,12 @@ body {
 .btn, select {
 	cursor: pointer;
 }
-button{
+
+button {
 	font-family: 'NanumSquareNeoBold';
 	cursor: pointer;
 }
+
 ::placeholder {
 	color: #bababa;
 }
@@ -37,12 +39,25 @@ button{
 	color: #fff;
 }
 
+:root {
+	--swiper-theme-color: #ff2588 !important;
+}
+
+input:-internal-autofill-selected {
+	appearance: menulist-button;
+	background-image: none !important;
+	background-color: #efefef !important;
+	color: #999 !important;
+}
+
 .eng {
 	font-family: 'Tium';
 }
-.pointFont{
+
+.pointFont {
 	font-family: 'Paperlogy-8ExtraBold';
 }
+
 .text-center {
 	text-align: center;
 }
@@ -58,6 +73,7 @@ button{
 #in--wrap {
 	width: 980px;
 	margin: auto;
+	position: relative;
 }
 
 .flex--wrap {
@@ -77,9 +93,11 @@ button{
 	display: flex;
 	flex-direction: column;
 }
-.flex--center{
+
+.flex--center {
 	align-items: center;
 }
+
 .login--wrap input {
 	margin-bottom: 15px;
 }
@@ -202,6 +220,10 @@ label {
 	padding: 10px;
 }
 
+.email--certification {
+	display: flex;
+}
+
 .birth option {
 	font-family: 'NanumSquareNeo';
 }
@@ -243,51 +265,12 @@ label {
 	left: 50%;
 	transform: translate(-50%, -74%) rotate(45deg);
 }
-.find--result{
-    font-size: 16px;
-    margin-bottom: 30px;
+
+.find--result {
+	font-size: 16px;
+	margin-bottom: 30px;
 }
 
-.find--result{
-    font-size: 16px;
-    margin-bottom: 30px;
-}
-
-
-table, th, td {
-	border: 1px solid black;
-	border-collapse: collapse;
-}
-
-.notice--list {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin: 20px;
-}
-
-.notice--list table {
-	width: 80%;
-	border-collapse: collapse;
-}
-
-.notice--list th, .notice--list td {
-	padding: 10px;
-	text-align: center;
-}
-
-.notice--list th {
-	background-color: #f4f4f4;
-}
-
-.notice--list td {
-	border: 1px solid #ddd;
-}
-
-.notice--title {
-	font-size: 36px;
-	margin-bottom: 20px;
-}
 /* 이미지 미리보기 박스 스타일 */
 .profile--img .thumb--image {
 	width: 100px; /* 고정된 너비 */
@@ -297,9 +280,11 @@ table, th, td {
 	align-items: center;
 	justify-content: center;
 }
-.box--contents{
+
+.box--contents {
 	display: flex;
 }
+
 .profile--img .thumb--image img {
 	display: flex;
 	width: 100%; /* 너비에 맞추어 크기 조정 */
@@ -330,26 +315,27 @@ table, th, td {
 }
 
 .evt--area--menu {
-    margin-top: 10px;
-    display: flex;
-    justify-content: end;
-    font-size: large;
-    margin-bottom: 30px;
-    margin-right: 5%;
+	margin-top: 10px;
+	display: flex;
+	justify-content: end;
+	font-size: large;
+	margin-bottom: 30px;
+	margin-right: 5%;
 }
 
 .evt--prize {
 	color: red;
 }
-.evt--item-container{
-    display: flex;
-    margin: 40px;
-    padding: 40px;
-    margin-inline: 215px;
-    flex-wrap: wrap;
+
+.evt--item-container {
+	display: flex;
+	margin: 40px;
+	padding: 40px;
+	margin-inline: 215px;
+	flex-wrap: wrap;
 }
 
-.evt--item{
+.evt--item {
 	display: flex;
 	margin: 10px;
 	padding: 10px;
@@ -365,19 +351,21 @@ table, th, td {
 	color: #ffffff;
 }
 
-.event--images{
+.event--images {
 	border: 1px solid #000;
 }
 
-.evt--item--detail{
+.evt--item--detail {
 	display: block;
-    margin-inline: 15%;
-    padding: 10px;
+	margin-inline: 15%;
+	padding: 10px;
 }
-.evt--prize{
+
+.evt--prize {
 	color: red;
 }
-.evt--item{
+
+.evt--item {
 	display: flex;
 	border: 1 solid black;
 	margin: 25px;
@@ -386,30 +374,17 @@ table, th, td {
 	justify-content: space-around;
 	flex-wrap: wrap;
 }
-.evt--item--a{
+
+.evt--item--a {
 	margin: 25px;
 }
-.evt--prize--win .evt--prize--end{
+
+.evt--prize--win .evt--prize--end {
 	border: 1 solid black;
 }
 
-/*
-*무비 페이지
-*/
-.movie-container{
-	display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    margin-top: 5%;
-    margin-inline: 15% auto;
-    padding-inline: 5%;
-}
-.review-list {
-    display: flex; 
-    flex-direction: column; 
-    gap: 15px;
-}
 
+<<<<<<< HEAD
 .review-item {
     display: flex; 
     flex-direction: row; 
@@ -432,106 +407,184 @@ table, th, td {
     padding: 10px; 
     border-radius: 5px; 
 }
+=======
+>>>>>>> acf591a7bb659b82035b5f5a319ef0724c265ad1
 
 .star-rating {
-    font-size: 0;
-    display: inline-block;
-    position: relative;
-    cursor: pointer;
+	font-size: 0;
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
 }
 
 .star-rating .star {
-    display: inline-block;
-    position: relative;
+	display: inline-block;
+	position: relative;
 }
 
 .star-rating .star.filled {
-    color: #ff0080; /* 채워진 별 색상 */
+	color: #ff0080; /* 채워진 별 색상 */
 }
 
 .star-rating .star.half {
-    position: relative;
+	position: relative;
 }
 
 .star-rating .star.half::before {
-    content: "\2605"; /* 별 모양 */
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: #ff0080; /* 채워진 별 색상 */
-    width: 50%; /* 반쪽 별 */
-    overflow: hidden;
+	content: "\2605"; /* 별 모양 */
+	position: absolute;
+	left: 0;
+	top: 0;
+	color: #ff0080; /* 채워진 별 색상 */
+	width: 50%; /* 반쪽 별 */
+	overflow: hidden;
 }
 
 .star-rating input[type="radio"] {
-    display: none;
+	display: none;
 }
 
 .star-rating label {
-    font-size: 2rem;
-    color: #d3d3d3;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-    display: inline-block;
+	font-size: 2rem;
+	color: #d3d3d3;
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
+	display: inline-block;
 }
 
 .star-rating label:before {
-    content: "★";
+	content: "★";
 }
 
 .star-rating input:checked ~ label {
-    color: #f39c12;
+	color: #f39c12;
 }
 
 .star-rating input:checked ~ label ~ label {
-    color: #d3d3d3;
+	color: #d3d3d3;
 }
 
 .star-rating label {
-    margin-right: 5px;
+	margin-right: 5px;
 }
 
 .star-rating input:checked ~ label:before {
-    content: "★";
+	content: "★";
 }
 
 .star-rating label.partial:before {
-    content: "★";
-    color: #f39c12;
-    position: absolute;
-    width: 50%;
-    overflow: hidden;
+	content: "★";
+	color: #f39c12;
+	position: absolute;
+	width: 50%;
+	overflow: hidden;
 }
 
 .star {
-    font-size: 2rem;
-    color: #d3d3d3; /* 빈 별 색상: 회색 */
+	font-size: 2rem;
+	color: #d3d3d3; /* 빈 별 색상: 회색 */
 }
 
 /* 채워진 별 색상 */
 .star.filled {
-    color: #ff0080;
+	color: #ff0080;
 }
 
 /* 반쪽 별 구현 */
 .star-half {
-    position: relative;
-    display: inline-block;
-    font-size: 2rem; /* 별의 크기 조정 */
-    color: #d3d3d3; /* 기본 색상: 회색 */
+	position: relative;
+	display: inline-block;
+	font-size: 2rem; /* 별의 크기 조정 */
+	color: #d3d3d3; /* 기본 색상: 회색 */
 }
 
 .star-half:before {
-    content: "\2605";
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: #ff0080;
-    width: 50%; /* 반쪽 별 */
-    overflow: hidden; /* 나머지 부분 숨김 */
+	content: "\2605";
+	position: absolute;
+	left: 0;
+	top: 0;
+	color: #ff0080;
+	width: 50%; /* 반쪽 별 */
+	overflow: hidden; /* 나머지 부분 숨김 */
 }
 
 .star-empty {
-    color: #d3d3d3; /* 빈 별 색상: 회색 */
+	color: #d3d3d3; /* 빈 별 색상: 회색 */
 }
+<<<<<<< HEAD
+/*공지*/
+.page--btn--a{
+	display: flex;
+	justify-content: center;
+	gap: 40px; 
+=======
+>>>>>>> acf591a7bb659b82035b5f5a319ef0724c265ad1
+
+/**
+*메세지
+*/
+.chat-message {
+	padding: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	max-width: 80%;
+	word-wrap: break-word;
+}
+
+.chat-message.sent {
+	padding: 5px;
+	margin: 5px 0;
+	background-color: #f0f0f0;
+	border-radius: 5px;
+	text-align: left;
+}
+
+.chat-message.received {
+	background-color: #f1f1f1;
+	align-self: flex-start;
+	text-align: left;
+}
+
+/* 취소 버튼과 제출 버튼 공통 스타일 */
+.submit-button, .cancel-button, .edit-button, .delete-button {
+	border: none; /* 테두리 제거 */
+	background: none; /* 배경 제거 */
+	cursor: pointer; /* 클릭 가능한 아이콘 표시 */
+	padding: 0; /* 기본 패딩 제거 */
+	font: inherit; /* 폰트 스타일 상속 */
+	color: #007bff; /* 텍스트 색상 설정 */
+	display: inline; /* 버튼을 인라인 요소로 설정 */
+}
+
+/* 취소 버튼 hover 상태 */
+.cancel-button:hover {
+	color: #0056b3; /* 호버 시 색상 변경 */
+}
+
+/* 수정 버튼 hover 상태 */
+.edit-button:hover {
+	color: #0056b3; /* 호버 시 색상 변경 */
+}
+
+/* 삭제 버튼 hover 상태 */
+.delete-button:hover {
+	color: #0056b3; /* 호버 시 색상 변경 */
+}
+
+/* 수정, 삭제 버튼 스타일 추가 */
+.edit-button, .delete-button {
+	color: #dc3545; /* 삭제 버튼 색상 설정 */
+}
+<<<<<<< HEAD
+
+.page--item.disabled .page-link {
+    color: #c0c0c0;
+    pointer-events: none; 
+    cursor: not-allowed;
+}
+
+=======
+
+
+>>>>>>> acf591a7bb659b82035b5f5a319ef0724c265ad1

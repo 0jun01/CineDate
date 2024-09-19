@@ -75,16 +75,20 @@
 		select * from event_tb where id = #{id} order by id
 		desc
 	</select>
-	
+
 	<insert id="insertEvent">
-		insert into event_tb(title, release_date, end_date, origin_file_name, upload_file_name) values(#{title}, #{releaseDate}, #{endDate}, #{originFileName}, #{uploadFileName})
+		insert into event_tb(title, release_date, end_date,
+		origin_file_name, upload_file_name) values(#{title}, #{releaseDate},
+		#{endDate}, #{originFileName}, #{uploadFileName})
 	</insert>
-	
+
 	<update id="updateEventById">
 		update event_tb set title = #{title}, release_date =
-		#{releaseDate}, end_date = #{endDate}, origin_file_name = #{originFileName}, upload_file_name = #{uploadFileName} where id = #{id}
+		#{releaseDate}, end_date = #{endDate}, origin_file_name =
+		#{originFileName}, upload_file_name = #{uploadFileName} where id =
+		#{id}
 	</update>
-	
+
 
 	<delete id="deleteByEventById">
 		delete from event_tb where id = #{id}
@@ -120,15 +124,17 @@
 		#{search}, '%') order
 		by id desc limit #{limit} offset #{offset}
 	</select>
-	
+
 	<select id="findAdminMemberById">
 		select * from user_tb where id = #{id}
 	</select>
-	
+
 	<update id="updateMemberById">
 		update user_tb set name = #{name}, email =
-		#{email}, phone_num = #{phoneNum}, birth_day = #{birthDay}, gender = #{gender} where id = #{id}
-	
+		#{email},
+		phone_num = #{phoneNum}, birth_day = #{birthDay}, gender = #{gender}
+		where id = #{id}
+
 	</update>
 
 	<select id="countAdminMemberAll" resultType="int">
@@ -153,8 +159,10 @@
 		select * from toss_hitory_tb order by id desc
 	</select>
 
-<select id="readAdminHistory" resultType="com.tenco.movie.repository.model.History">
-		select * from toss_hitory_tb order by id desc limit 6 offset 0
+	<select id="readAdminHistory"
+		resultType="com.tenco.movie.repository.model.History">
+		select * from toss_hitory_tb order by id desc limit 6
+		offset 0
 	</select>
 
 	<!-- =========================== Profile =============================== -->
@@ -172,10 +180,12 @@
 	</select>
 
 	<select id="countAdminProfileAll" resultType="int">
-		select count(*) from profile_tb
+		select count(*)
+		from profile_tb
 	</select>
-	
-	<select id="readAdminProfile" resultType="com.tenco.movie.repository.model.DateProfile">
+
+	<select id="readAdminProfile"
+		resultType="com.tenco.movie.repository.model.DateProfile">
 		select * from profile_tb order by id desc limit 8 offset 0
 	</select>
 
@@ -190,5 +200,73 @@
 		id = #{id}
 	</update>
 
+	<update id="lifeStatusUpdate">
+		UPDATE profile_tb SET life_status = ${status} WHERE
+		id = #{id}
+	</update>
+	<!-- ==========================비동기 통신 영역 =================================== -->
+	<select id="CountProfile"
+		resultType="com.tenco.movie.dto.CountProfileDTO">
+		SELECT
+		YEAR(CURDATE()) AS year,
+		COUNT(*) AS count
+		FROM
+		profile_tb
+		WHERE YEAR(created_at) = YEAR(CURDATE())
+		UNION ALL
+		SELECT
+		YEAR(CURDATE()) - 1 AS year,
+		COUNT(*) AS count
+		FROM profile_tb
+		WHERE
+		YEAR(created_at) = YEAR(CURDATE()) - 1
+		UNION ALL
+		SELECT
+		YEAR(CURDATE()) -
+		2 AS year,
+		COUNT(*) AS count
+		FROM profile_tb
+		WHERE YEAR(created_at) =
+		YEAR(CURDATE()) - 2
+		UNION ALL
+		SELECT
+		YEAR(CURDATE()) - 3 AS year,
+		COUNT(*) AS count
+		FROM profile_tb
+		WHERE YEAR(created_at) =
+		YEAR(CURDATE()) - 3
+		ORDER BY year ASC
+	</select>
+
+	<select id="totalProfileCount"
+		resultType="com.tenco.movie.dto.OnlyCountDTO">
+		SELECT count(*) as count FROM profile_tb
+	</select>
+
+	<select id="totalMatchings"
+		resultType="com.tenco.movie.dto.OnlyCountDTO">
+		SELECT count(*) as count FROM matching_tb WHERE status = 1
+	</select>
+
+	<select id="genresBookings"
+		resultType="com.tenco.movie.dto.genresBookingsDTO">
+		SELECT
+		g.genre_name AS genre,
+		COUNT(b.id) AS total_bookings
+		FROM
+		genres_tb g
+		JOIN
+		movie_genre_tb mg ON g.id = mg.genre_id
+		JOIN
+		movies_tb m ON mg.movie_id = m.id
+		JOIN
+		showtimes s ON m.id = s.movie_id
+		JOIN
+		bookings b ON s.id = b.showtime_id
+		GROUP BY
+		g.genre_name
+		ORDER BY
+		total_bookings DESC
+	</select>
 
 </mapper>

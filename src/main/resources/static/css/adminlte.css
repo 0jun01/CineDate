@@ -1227,7 +1227,7 @@ progress {
   }
   .col-md-3 {
     flex: 0 0 auto;
-    width: 25%;
+    width: 33.3%;
   }
   .col-md-4 {
     flex: 0 0 auto;
@@ -1239,7 +1239,7 @@ progress {
   }
   .col-md-6 {
     flex: 0 0 auto;
-    width: 50%;
+    width: 100%;
   }
   .col-md-7 {
     flex: 0 0 auto;
@@ -15446,6 +15446,9 @@ html.maximized-card {
 
 .img-size-32 {
   width: 32px;
+}
+#myChart{
+	height: 450px !important;
 }
 
 /*# sourceMappingURL=adminlte.css.map */

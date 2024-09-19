@@ -56,7 +56,6 @@
 	<!--end::OverlayScrollbars Configure-->
 	<!-- OPTIONAL SCRIPTS -->
 	<!-- apexcharts -->
-	<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js" integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8=" crossorigin="anonymous"></script>
 	<script>
         // NOTICE!! DO NOT USE ANY OF THIS JAVASCRIPT
         // IT'S ALL JUST JUNK FOR DEMO
@@ -117,11 +116,6 @@
             },
         };
 
-        const sales_chart = new ApexCharts(
-            document.querySelector("#sales-chart"),
-            sales_chart_options,
-        );
-        sales_chart.render();
 
         //---------------------------
         // - END MONTHLY SALES CHART -
@@ -164,8 +158,7 @@
                 },
             };
 
-            const chart = new ApexCharts(document.querySelector(selector), options);
-            chart.render();
+          
         }
 
         const table_sparkline_1_data = [
@@ -221,11 +214,7 @@
             ],
         };
 
-        const pie_chart = new ApexCharts(
-            document.querySelector("#pie-chart"),
-            pie_chart_options,
-        );
-        pie_chart.render();
+        
 
         //-----------------
         // - END PIE CHART -

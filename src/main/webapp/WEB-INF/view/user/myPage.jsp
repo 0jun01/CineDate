@@ -73,5 +73,3 @@
     }
 </script>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
-</body>
-</html>

@@ -1,6 +1,3 @@
-<%@ page import="java.util.Map"%>
-<%@ page import="java.util.List"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
@@ -28,8 +25,8 @@
                             </div>
                             
                             <div class="">
-                                <button type="button" class="movie--btn btn"><a href="/movie/detail?title=${movieList.title}">상세보기</a></button>
-                                <button type="button" class="movie--btn btn"><a href="/movie/detail?title=${movieList.title}">예매하기</a></button>
+                                <button type="button" class="movie--btn btn"><a href="/movie/detail?title=${search.title}">상세보기</a></button>
+                                <button type="button" class="movie--btn btn"><a href="/reservation/reservation">예매하기</a></button>
                             </div>
                         </div>
                     </div>

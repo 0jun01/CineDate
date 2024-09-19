@@ -42,38 +42,121 @@ public class ReviewController {
 	 * @return 영화 상세보기 페이지
 	 * @author 김가령
 	 */
-    @PostMapping("/review")
-    public String submitReview(
-            @RequestParam(name ="movieId")int movieId,
-            @RequestParam(name ="reviewText")String reviewText,
-            @RequestParam(name ="rating")int rating,
-            @SessionAttribute(name="principal")User principal,
-            Model model) throws UnsupportedEncodingException {
-    	
-    	int userId = principal.getId(); // principal에서 userId를 가져옴
-    		
-    	 // 이미 작성된 리뷰가 있는지 확인
-        boolean hasReviewed = reviewService.hasUserReviewed(movieId, userId);
-    	
-        if(hasReviewed) {
-        	throw new DataDeliveryException(Define.DUPLICATION_REVIEW, HttpStatus.BAD_REQUEST);
+	@PostMapping("/review")
+	public String submitReview(
+	        @RequestParam(name = "movieId") int movieId,
+	        @RequestParam(name = "reviewText") String reviewText,
+	        @RequestParam(name = "rating") int rating,
+	        @SessionAttribute(name = "principal") User principal,
+	        Model model) throws UnsupportedEncodingException {
+
+	    int userId = principal.getId(); // principal에서 userId를 가져옴
+
+	    // 별점 검증
+	    if (rating <= 0) {
+	        throw new DataDeliveryException(Define.INPUT_STAR_RATING, HttpStatus.BAD_REQUEST);
+	    }
+	    
+	    // 이미 작성된 리뷰가 있는지 확인
+	    boolean hasReviewed = reviewService.hasUserReviewed(movieId, userId);
+
+	    if (hasReviewed) {
+	        throw new DataDeliveryException(Define.DUPLICATION_REVIEW, HttpStatus.BAD_REQUEST);
+	    }
+
+	    MovieDetail selectedMovie = movieService.readMovieAllofData(movieId);
+	    String movieTitle = selectedMovie.getTitle();
+	    
+	    String encodedTitle = URLEncoder.encode(movieTitle, "UTF-8");
+
+	    Review review = Review.builder()
+	            .movieId(movieId)
+	            .userId(userId)
+	            .reviewText(reviewText)
+	            .rating(rating)
+	            .reviewDate(Timestamp.from(Instant.now()))
+	            .build();
+
+	    reviewService.saveReview(review);
+
+	    return "redirect:/movie/detail?title=" + encodedTitle;
+	}
+    
+    /**
+     * 관람평 삭제 기능
+     * @return 영화 디테일 페이지
+     * @author 김가령
+     */
+    @PostMapping("/review/delete")
+    public String deleteReview(
+            @RequestParam(name = "id") int id,
+            @SessionAttribute(name = "principal") User principal) {
+        
+        // ID가 0이거나 부적절한 경우 예외 처리
+        if (id <= 0) {
+            throw new DataDeliveryException(Define.INVALID_INPUT, HttpStatus.BAD_REQUEST);
         }
-    	
-    	MovieDetail selectedMovie = movieService.readMovieAllofData(movieId);
-    	String movieTitle = selectedMovie.getTitle();
-    	
-    	String encodedTitle = URLEncoder.encode(movieTitle, "UTF-8");
-    	
-        Review review = Review.builder()
-                .movieId(movieId)
-                .userId(userId) // String 타입으로 설정
-                .reviewText(reviewText)
-                .rating(rating)
-                .reviewDate(Timestamp.from(Instant.now()))
-                .build();
 
-        reviewService.saveReview(review);
+        // 리뷰를 찾기
+        Review review = reviewService.findReviewById(id);
+        if (review == null) {
+            // 로그 추가
+            System.out.println("Review not found for ID: " + id);
+            throw new DataDeliveryException(Define.INVALID_INPUT, HttpStatus.BAD_REQUEST);
+        }
 
+        // 리뷰 작성자 확인
+        if (review.getUserId() != principal.getId()) {
+            // 로그 추가
+            System.out.println("User ID mismatch: expected " + review.getUserId() + ", found " + principal.getId());
+            throw new DataDeliveryException(Define.INVALID_INPUT, HttpStatus.BAD_REQUEST);
+        }
+        
+        // 리뷰 삭제
+        reviewService.deleteReview(id);
+        
+        // 영화 제목 인코딩 및 페이지 리다이렉트
+        int movieId = review.getMovieId();
+        MovieDetail movie = movieService.readMovieAllofData(movieId);
+        if (movie == null) {
+            throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE, HttpStatus.NOT_FOUND);
+        }
+
+        String encodedTitle;
+        try {
+            encodedTitle = URLEncoder.encode(movie.getTitle(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("Encoding error occurred", e);
+        }
+        
         return "redirect:/movie/detail?title=" + encodedTitle;
     }
+
+    /**
+     * 관람평 수정 기능
+     * @return 영화 디테일 페이지
+     * @author 김가령
+     */
+    @PostMapping("/review/update")
+    public String updateReview(
+            @RequestParam(name ="id") int id,
+            @RequestParam(name ="reviewText") String reviewText,
+            @RequestParam(name ="rating") int rating,
+            @SessionAttribute(name="principal") User principal) throws UnsupportedEncodingException {
+
+        Review review = reviewService.findReviewById(id);
+        if (review == null || review.getUserId() != principal.getId()) {
+            throw new DataDeliveryException(Define.INVALID_INPUT, HttpStatus.BAD_REQUEST);
+        }
+
+        review.setReviewText(reviewText);
+        review.setRating(rating);
+        review.setReviewDate(Timestamp.from(Instant.now()));
+
+        reviewService.updateReview(review);
+
+        String encodedTitle = URLEncoder.encode(movieService.readMovieAllofData(review.getMovieId()).getTitle(), "UTF-8");
+        return "redirect:/movie/detail?title=" + encodedTitle;
+    }
+    
 }

@@ -12,21 +12,23 @@
 		VALUES ( #{paymentKey}, #{userId}, #{oderId}, #{oderName}, #{amount},
 		#{method}, #{requestedAt}, #{approvedAt})
 	</insert>
-	
-	<select id="searchPaymentHistory" resultType="com.tenco.movie.dto.TossHistoryDTO">
+
+	<select id="searchPaymentHistory"
+		resultType="com.tenco.movie.dto.TossHistoryDTO">
 		SELECT * FROM toss_hitory_tb WHERE id = #{id}
 	</select>
-	
+
 	<delete id="cancelTossPayment">
-		DELETE FROM toss_hitory_tb WHERE payment_key = #{paymentKey} AND order_id = #{oderId}
+		DELETE FROM toss_hitory_tb WHERE payment_key = #{paymentKey} AND order_id =
+		#{oderId}
 	</delete>
-	
+
 	<insert id="insertCancelTossPaymenHistory">
 		INSERT INTO cancel_toss_hitory_tb(payment_key, user_id,
 		order_id, order_name, amount, method, requested_at, approved_at)
 		VALUES ( #{paymentKey}, #{userId}, #{oderId}, #{oderName}, #{amount},
 		#{method}, #{requestedAt}, #{approvedAt})
 	</insert>
-	
+
 
 </mapper>

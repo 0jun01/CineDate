@@ -16,8 +16,6 @@ import com.tenco.movie.service.SearchService;
 @RequestMapping("/search")
 public class SearchController {
 
-
-	
 	@Autowired
 	private SearchService searchService;
 
@@ -38,5 +36,5 @@ public class SearchController {
 		return "search/search";
 
 	}
-
+	
 }

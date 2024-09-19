@@ -5,17 +5,17 @@
 	namespace="com.tenco.movie.repository.interfaces.ReservationRepository">
 
 	<select id="findAll"
-		resultType="com.tenco.movie.repository.model.MovieDetail">
+		resultType="com.tenco.movie.repository.model.MovieDetailTB">
 		select * from movie_detail_tb
 	</select>
 
 	<select id="findAscMovie"
-		resultType="com.tenco.movie.repository.model.MovieDetail">
+		resultType="com.tenco.movie.repository.model.MovieDetailTB">
 		select * from movie_detail_tb order by title;
 	</select>
 
 	<select id="findGradeNmMovie"
-		resultType="com.tenco.movie.repository.model.MovieDetail">
+		resultType="com.tenco.movie.repository.model.MovieDetailTB">
 		SELECT *
 		FROM movie_detail_tb
 		ORDER BY
@@ -31,5 +31,122 @@
 		END asc;
 	</select>
 
+	<select id="findAllRegions"
+		resultType="com.tenco.movie.repository.model.Regions">
+		select *
+		from regions_tb
+		order by id asc;
+	</select>
 
+	<select id="findSubRegionById"
+		resultType="com.tenco.movie.repository.model.SubRegions">
+		select * from subregions_tb
+		where region_id = #{id}
+		order by
+		region_id;
+	</select>
+
+	<select id="findMovieByFetchedDate"
+		resultType="com.tenco.movie.repository.model.MovieDetailTB">
+		select distinct(m.movie_id), m.title, m.watch_grade_Nm
+		from
+		showtimes as s
+		left join movie_detail_tb as m on s.movie_id = m.id
+		where show_date = #{date}
+	</select>
+
+	<select id="findById"
+		resultType="com.tenco.movie.repository.model.Movies">
+		select * from movies_tb
+		where id = #{id}
+	</select>
+
+	<select id="findByMovieIdAndShowDate"
+		resultType="com.tenco.movie.repository.model.SubRegions">
+		select sub.id as sub_id ,re.id as re_id, sub.name from
+		showtimes as sh
+		left join screens_tb as s on sh.screen_id = s.id
+		left
+		join theaters_tb as t on s.theater_id = t.id
+		left join subregions_tb as
+		sub on sub.id = t.subregion_id
+		left join regions_tb as re on re.id =
+		sub.region_id
+		where sh.movie_id = #{id} AND sh.show_date = #{showDate}
+	</select>
+
+	<select id="findTheaterByMovieIdAndshowDate"
+		resultType="com.tenco.movie.dto.TheaterCountDTO">
+		SELECT
+		r.id AS region_id,
+		sub.id as sub_id,
+		r.name AS
+		region_name,
+		sub.name,
+		COUNT(sh.id) AS movie_count
+		FROM
+		showtimes AS sh
+		LEFT JOIN screens_tb AS s ON s.id = sh.screen_id
+		LEFT JOIN theaters_tb
+		AS t ON t.id = s.theater_id
+		LEFT JOIN subregions_tb AS sub ON sub.id =
+		t.subregion_id
+		LEFT JOIN regions_tb AS r ON r.id = sub.region_id
+		WHERE
+		sh.show_date = #{showDate}
+		AND sh.movie_id = #{movieId}
+		GROUP BY
+		r.id,
+		sub.id,
+		r.name,
+		sub.name
+	</select>
+
+	<select id="findTimeByShowDateAndMovieIdAndSubregionId"
+		resultType="com.tenco.movie.dto.TimeDTO">
+		SELECT
+		sh.id as showtime_id, show_time , capacity, s.name
+		FROM
+		showtimes AS sh
+		LEFT JOIN screens_tb AS s ON s.id = sh.screen_id
+		LEFT JOIN theaters_tb AS t ON t.id = s.theater_id
+		LEFT JOIN
+		subregions_tb AS sub ON sub.id = t.subregion_id
+		LEFT JOIN regions_tb AS
+		r ON r.id = sub.region_id
+		where show_date = #{showDate} and movie_id =
+		#{movieId} and subregion_id = #{subregionId}
+	</select>
+
+	<insert id="insertBooking">
+		INSERT INTO bookings (user_id, showtime_id, quantity,
+		booking_time, status)
+		VALUES (#{userId}, #{showTimeId}, #{quantity},
+		NOW(), '완료');
+	</insert>
+
+	<insert id="insertBookingSeats">
+		insert into booking_seats (booking_id, seat_id)
+		values
+		<foreach collection="seatIds" item="seatId" separator=",">
+			(#{bookingId}, #{seatId})
+		</foreach>
+	</insert>
+
+	<select id="viewBookingByUserIdAndShowTimeId"
+		resultType="com.tenco.movie.repository.model.Bookings">
+		select
+		* from bookings where user_id = #{userId} and
+		showtime_id =
+		#{showTimeId}
+		ORDER BY booking_time DESC
+		LIMIT 1
+	</select>
+
+	<select id="checkOccupied" resultType="int">
+		select seat_id from
+		bookings as b
+		left join booking_seats as bs on b.id = bs.booking_id
+		where showtime_id = #{showtimeId}
+	</select>
 </mapper>

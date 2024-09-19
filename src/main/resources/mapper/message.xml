@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.tenco.movie.repository.interfaces.DateManagerRepocitory">
+
+
+	<select id="chatHistory"
+		resultType="com.tenco.movie.dto.MessageDTO">
+		SELECT * FROM message_tb WHERE (sender_id =
+		#{senderId} AND recipient_id = #{recipientId})
+		OR (sender_id = #{recipientId}
+		AND recipient_id = #{senderId})
+		ORDER BY timestamp
+	</select>
+
+	<insert id="insrtChat">
+		INSERT INTO message_tb (sender_id, recipient_id, message)
+		VALUES (#{senderId}, #{recipientId}, #{message});
+	</insert>
+
+</mapper>

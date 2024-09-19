@@ -28,7 +28,6 @@ public class DateProfile {
 	private int lifeStatus; // 상태 ( 0 - 계정 활성화, 1 - 계정 정지 )
 	private int listStatus; // 상태 ( 0 - 일반, 1 - 슈퍼 리스트 활성화 )
 	
-	
 	// 리스트
 	/**
 	 * 0 - 신청버튼, 
@@ -38,8 +37,5 @@ public class DateProfile {
 	 */
 	private int status; 
 	// 상태 
-	
-	
-	
-	
+
 }
