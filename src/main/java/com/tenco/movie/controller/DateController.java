@@ -25,6 +25,7 @@ import com.tenco.movie.dto.ItemRequest;
 import com.tenco.movie.dto.MessageDTO;
 import com.tenco.movie.dto.profileDetailDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
+import com.tenco.movie.repository.model.ConItems;
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.User;
 import com.tenco.movie.service.DateManagerService;
@@ -93,11 +94,18 @@ public class DateController {
 	 * @author 성후
 	 */
 	@GetMapping("/profilePage")
-	public String getProfilePage(@SessionAttribute(Define.PRINCIPAL) User principal, Model model) {
+	public String getProfilePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model, RedirectAttributes redirectAttributes) {
+
+		if (principal == null) {
+			redirectAttributes.addFlashAttribute(Define.ENTER_YOUR_LOGIN, HttpStatus.BAD_REQUEST);
+			return "redirect:/user/signIn"; // 로그인으로 리다이렉트
+		}
+		
 		DateProfile profile = dateService.searchProfile(principal.getId());
 		if (profile == null) {
 			return "date/DateSignUp";
 		}
+		
 		String imageUrl = "/DateProfileIMAGE/" + profile.getFirstUploadFileName();
 		model.addAttribute("profile", profile);
 		model.addAttribute("imageUrl", imageUrl);
@@ -196,12 +204,18 @@ public class DateController {
 		return "redirect:/date/date";
 	}
 
+	/**
+	 * 
+	 * @return date/popcornStore
+	 * @author 변영준
+	 */
 	@GetMapping("/popcornStore")
-	public String postPopcornStore() {
+	public String postPopcornStore(Model model) {
+		List<ConItems> itemList = dateService.viewStoreList();
 
+		model.addAttribute("item", itemList);
 		return "date/popcornStore";
 	}
-
 	/**
 	 * 팝콘 -> 토스로 충전
 	 * 
@@ -230,6 +244,27 @@ public class DateController {
 		return "pay/tossPay";
 	}
 
+	@GetMapping("/tickets")
+	public String postTicketProc(@RequestParam("quantity") int quantity, Model model,
+			@SessionAttribute(Define.PRINCIPAL) User principal) {
+		System.out.println(quantity);
+		System.out.println(quantity);
+		System.out.println(quantity);
+		int amount = 1 * quantity;
+		String orderId = payservice.getOderId();
+		String orderName = "ticket";
+		String customerName = principal.getName();
+
+		// 모델에 데이터 추가
+		model.addAttribute("amount", amount);
+		model.addAttribute("orderId", orderId);
+		model.addAttribute("orderName", orderName);
+		model.addAttribute("customerName", customerName);
+
+		return "pay/tossPay";
+
+	}
+	
 	@GetMapping("/detailPartner")
 	public String getMethodName(@RequestParam(name = "id") int id, @RequestParam(name = "userId") int userId,
 			Model model) {
@@ -244,10 +279,19 @@ public class DateController {
 
 		return "date/detailPartner";
 	}
-
+/**
+ *  매칭 리스트로 이동 ( 성후 예외처리 완료)
+ * @param principal
+ * @param model
+ * @param redirectAttributes
+ * @return
+ */
 	@GetMapping("/machingList")
-	public String getMethodName(@SessionAttribute(name = Define.PRINCIPAL) User principal, Model model) {
-
+	public String getMethodName(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model, RedirectAttributes redirectAttributes) {
+		if (principal == null) {
+			redirectAttributes.addFlashAttribute(Define.ENTER_YOUR_LOGIN, HttpStatus.BAD_REQUEST);
+			return "redirect:/user/signIn"; // 로그인으로 리다이렉트
+		}
 		List<DateProfile> list = dateManagerService.matchingList(principal.getId());
 
 		model.addAttribute("list", list);

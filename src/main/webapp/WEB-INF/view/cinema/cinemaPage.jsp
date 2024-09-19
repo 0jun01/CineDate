@@ -118,24 +118,10 @@ a:hover {
 	border-radius: 8px; /* 이미지 모서리 둥글게 만들기 */
 }
 
-.wrap--cinema {
-    text-align: center; /* 중앙 정렬 */
-    margin-top: 20px; /* 상단 여백 추가 */
-}
-
 .box--img {
-    max-width: 100%; /* 최대 너비를 부모 컨테이너에 맞게 조정 */
-    height: auto; /* 자동으로 높이 조정 */
-    border-radius: 8px; /* 이미지 모서리 둥글게 만들기 */
+    width: 980px;
+    height: 420px;
 }
-
-.box--img img {
-    width: 100%; /* 이미지 너비를 부모 컨테이너에 맞게 조정 */
-    height: auto; /* 이미지 높이를 자동으로 조절 */
-}
-
-
-
 
 .wrap-cinemainfo .box-contents {
     position: absolute;
@@ -147,47 +133,10 @@ a:hover {
     color: #fdfcf0;
 }
 
-.wrap-cinemainfo .box-contents {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 920px;
-    padding: 20px 30px;
-    background: rgba(0, 0, 0, 0.5); /* 어두운 색과 반투명도 설정 */
-    color: #fdfcf0; /* 글자 색상 */
-    border-radius: 8px; /* 모서리 둥글게 만들기 (선택 사항) */
-}
-
 .wrap-cinemainfo .cinema-info {
     position: relative;
     float: left;
     width: 608px;
-}
-
-/* 검색 폼 스타일 */
-.search-form {
-    margin: 20px 0; /* 여백 추가 */
-    text-align: center; /* 중앙 정렬 */
-}
-
-.search-form input[type="text"] {
-    width: 300px; /* 입력 상자의 너비 */
-    padding: 8px; /* 입력 상자의 패딩 */
-    border: 1px solid #ddd; /* 입력 상자의 경계선 */
-    border-radius: 4px; /* 입력 상자의 모서리 둥글게 만들기 */
-}
-
-.search-form button {
-    padding: 8px 16px; /* 버튼의 패딩 */
-    border: none; /* 버튼의 경계선 제거 */
-    background-color: #FF69B4; /* 버튼 배경 색상 */
-    color: #fff; /* 버튼 글자 색상 */
-    border-radius: 4px; /* 버튼 모서리 둥글게 만들기 */
-    cursor: pointer; /* 마우스 커서 변경 */
-}
-
-.search-form button:hover {
-    background-color: #FF1493; /* 버튼 호버 색상 */
 }
 </style>
 
@@ -237,6 +186,7 @@ a:hover {
 
             <c:if test="${not empty theaters}">
                 <div class="box-contents">
+                    <h3>영화관 목록</h3>
                     <ul>
                         <c:forEach var="theater" items="${theaters}">
                             <li>
@@ -251,7 +201,6 @@ a:hover {
     </div>
 </div>
 </div>
-
 
 
 <!-- footer.jsp -->
