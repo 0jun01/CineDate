@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>CineDate</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="/css/common.css" rel="stylesheet">
 <link href="/css/header.css" rel="stylesheet">
 <link href="/css/font.css" rel="stylesheet">

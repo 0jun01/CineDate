@@ -26,3 +26,4 @@ public interface ProfileRepository {
 	public profileDetailDTO detailPartnerDetail(@Param("userid")int id);
 	
 }
+	

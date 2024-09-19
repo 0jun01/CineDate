@@ -24,34 +24,36 @@ import com.tenco.movie.utils.Define;
 @Controller
 @RequestMapping("/movie")
 public class MovieController {
-	
+
 	private final MovieService movieService;
 	private final ReviewService reviewService;
-	
+
 	@Autowired
 	public MovieController(MovieService movieService, ReviewService reviewService) {
 		this.movieService = movieService;
 		this.reviewService = reviewService;
 	}
+
 	/**
 	 * 영화 페이지 요청
 	 * 
 	 * @author 김가령, 성후
 	 */
 	@GetMapping("/movies")
-	  public String moviesPage(Model model) {
-        try {
-            List<Movies> movieList = movieService.readAllMovies();
-            model.addAttribute("movieList", movieList);
-            return "/movie/moviePage";
-        } catch (DataDeliveryException e) {
-            System.err.println("들어오나");
-            return "/movie/moviePage"; 
-        } catch (Exception e) {
-            System.err.println("여기도?");
-            return "/movie/moviePage"; 
-        }
-    }
+	public String moviesPage(Model model) {
+		try {
+			List<Movies> movieList = movieService.readAllMovies();
+			model.addAttribute("movieList", movieList);
+			return "/movie/moviePage";
+		} catch (DataDeliveryException e) {
+			System.err.println("들어오나");
+			return "/movie/moviePage";
+		} catch (Exception e) {
+			System.err.println("여기도?");
+			return "/movie/moviePage";
+		}
+	}
+
 	/**
 	 * @param title 박스오피스 영화 제목
 	 * @return 무비디테일 페이지
@@ -59,10 +61,10 @@ public class MovieController {
 	 */
 	@GetMapping("/detail")
 	public String detailPage(Model model, @RequestParam("title") String title,
-            @RequestParam(value = "page", defaultValue = "1") int page,
-            @RequestParam(value = "size", defaultValue = "5") int size,
-            @SessionAttribute(name = "principal", required = false) User principal) {
-		
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "size", defaultValue = "5") int size,
+			@SessionAttribute(name = "principal", required = false) User principal) {
+
 		// 타이틀 유효성 검사
 		if (title == null || title.isEmpty()) {
 			throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE, HttpStatus.BAD_REQUEST);
@@ -87,25 +89,25 @@ public class MovieController {
 		// 그 무비에 출연한 배우,감독을 출력하는 리스트
 		List<Actors> movieActors = movieService.readActorsByMovieId(movieId);
 		MovieDetail movieDetail = movieService.readMovieAllofData(movieId);
-		
+
 		List<Review> movieReviews = reviewService.getReviewsByMovieId(movieId, page, size);
 		double averageRating = reviewService.getAverageRatingByMovieId(movieId);
-		
+
 		// movieDetail.jsp에 올려줌
 		model.addAttribute("actors", movieActors);
 		model.addAttribute("movie", selectedMovies);
 		model.addAttribute("averageRating", averageRating);
 		model.addAttribute("movieDetail", movieDetail);
 		model.addAttribute("reviews", movieReviews);
-		
+
 		// 페이징 관련 속성
-        int totalReviews = reviewService.getReviewsByMovieId(movieId, 1, Integer.MAX_VALUE).size();
-        int totalPages = (int) Math.ceil((double) totalReviews / size);
-        
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("size", size);
-        
+		int totalReviews = reviewService.getReviewsByMovieId(movieId, 1, Integer.MAX_VALUE).size();
+		int totalPages = (int) Math.ceil((double) totalReviews / size);
+
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("size", size);
+
 		// 로그인 상태 확인
 		System.out.println("Principal: " + principal);
 		boolean isLoggedIn = (principal != null);

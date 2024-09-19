@@ -76,7 +76,7 @@ public class PaymentService {
 	public int insertTossHistory(TossApproveResponse response, int principalId) {
 
 		int result = 0;
-		System.out.println(response);
+
 		TossHistoryDTO dto = TossHistoryDTO.builder().paymentKey(response.getPaymentKey()).userId(principalId)
 				.oderId(response.getOrderId()).oderName(response.getOrderName()).amount(response.getTotalAmount())
 				.method(response.getMethod()).requestedAt(response.getRequestedAt())

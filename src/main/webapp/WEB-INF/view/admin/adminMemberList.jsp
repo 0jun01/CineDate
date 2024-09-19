@@ -26,7 +26,7 @@
 			<!--end::Container-->
 		</div>
 		<!--end::App Content Header-->
-		<div class="app-content">
+		<div class="app-content">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 			<!--begin::Container-->
 			<div class="container-fluid">
 				<!--begin::Row-->
@@ -103,7 +103,7 @@
 															<td>${user.birthDay}</td>
 															<td>${user.gender}</td>
 															<td class="text-center">
-																<form action="#" method="get">
+																<form action="/adminMemberDetail/${user.id}" method="get">
 																	<button class="btn btn-warning">수정</button>
 																</form>
 															</td>

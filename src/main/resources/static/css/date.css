@@ -299,6 +299,7 @@ button#send--chat {
     margin-top: 20px;
 	display: flex;
 	gap: 50px;
+	margin-bottom: 100px;
 }
 
 .thumb--image {
@@ -319,6 +320,32 @@ button#send--chat {
 	color: #999;
 	margin-bottom: 15px;
 }
+
+.person--info--wrap{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.corn--wrap{
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#profile--wrap{
+	margin-bottom: 10px;
+}
+
+#profile--wrap #introduce, #profile--wrap #nickname{
+	width: 100%;
+    height: 35px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 5px;
+}
+
 
 /* 마이 페이지 */
 #mypage--form{
