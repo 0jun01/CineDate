@@ -319,3 +319,73 @@ button#send--chat {
 	color: #999;
 	margin-bottom: 15px;
 }
+
+/* 마이 페이지 */
+#mypage--form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#mypage--form input{
+	width: 380px;
+    height: 30px;
+    border: 1px solid #dcdcdc;
+    background-color: #fafafa;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+#mypage--form input:last-child {
+	margin-bottom: 0;
+}
+
+.person--info strong{
+	font-family: 'NanumSquareNeoExtraBold';
+}
+
+.password--wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 5px;
+    margin-bottom: 20px;
+    font-size: 12px;
+}
+
+#show--password{
+	width: 15px !important;
+	height: 15px !important;
+    appearance: none;
+    position: relative;
+}
+
+#set--profile{
+	width: 400px;
+    height: 50px;
+    background-color: #ff2588;
+    color: #fff;
+    border: 0;
+    border-radius: 6px;
+    font-size: 16px;
+    margin-top: 50px;
+}
+
+ #show--password:checked {
+    background-color: #ff2588; 
+  	border : 0;
+}
+
+ #show--password:checked::after {
+	content: '';
+	display: block;
+	width: 5px;
+	height: 10px;
+	border: solid #fff;
+	border-width: 0 3px 3px 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -65%) rotate(45deg);
+}
