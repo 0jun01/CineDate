@@ -18,7 +18,7 @@
 			  
 			  <c:forEach var="list"  items="${list}">
 			  <tr>
-			    <td><img class="m--profile list--profile" alt="" src="/DateProfileIMAGE/${list.firstUploadFileName}" style="width: 100px; height: 100px;"></td>
+			    <td><img class="m--profile list--profile" alt="" src="/image/${list.firstUploadFileName}" style="width: 100px; height: 100px;"></td>
 				<td>${list.nickName}</td>
 				<td>${list.introduce}</td>
 				<td>

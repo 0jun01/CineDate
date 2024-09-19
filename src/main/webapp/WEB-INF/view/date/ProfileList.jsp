@@ -23,7 +23,7 @@
 							<tr>
 								<td><img class="m--profile list--profile super--profile"
 									alt="슈퍼 프로필 사진"
-									src="/DateProfileIMAGE/${superList.firstUploadFileName}"></td>
+									src="/image/${superList.firstUploadFileName}"></td>
 								<td>${superList.nickName}</td>
 								<td>${superList.introduce}</td>
 								<td><c:choose>
@@ -73,7 +73,7 @@
 						<c:forEach var="list" items="${list}">
 							<tr>
 								<td><img class="m--profile list--profile" alt="프로필 사진"
-									src="/DateProfileIMAGE/${list.firstUploadFileName}"></td>
+									src="/image/${list.firstUploadFileName}"></td>
 								<td>${list.nickName}</td>
 								<td>${list.introduce}</td>
 								<td><c:choose>

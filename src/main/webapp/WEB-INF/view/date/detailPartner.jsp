@@ -71,16 +71,16 @@ button.disabled {
 	<h2>파트너 디테일</h2>
 	<c:if test="${detail != null}">
 		<div class="profile-images">
-			<img class="m--profile list--profile" alt="" src="/DateProfileIMAGE/${detail.firstUploadFileName}" data-fullsize="/DateProfileIMAGE/${detail.firstUploadFileName}"> <img
-				class="m--profile list--profile" alt="" src="/DateProfileIMAGE/${detail.secondUploadFileName}" data-fullsize="/DateProfileIMAGE/${detail.secondUploadFileName}">
+			<img class="m--profile list--profile" alt="" src="/image/${detail.firstUploadFileName}" data-fullsize="/DateProfileIMAGE/${detail.firstUploadFileName}"> <img
+				class="m--profile list--profile" alt="" src="/image/${detail.secondUploadFileName}" data-fullsize="/DateProfileIMAGE/${detail.secondUploadFileName}">
 			<c:if test="${detail.thirdOriginFileName != null}">
-				<img class="m--profile list--profile" alt="" src="/DateProfileIMAGE/${detail.thirdOriginFileName}" data-fullsize="/DateProfileIMAGE/${detail.thirdOriginFileName}">
+				<img class="m--profile list--profile" alt="" src="/image/${detail.thirdOriginFileName}" data-fullsize="/DateProfileIMAGE/${detail.thirdOriginFileName}">
 			</c:if>
 			<c:if test="${detail.fourthOriginFileName != null}">
-				<img class="m--profile list--profile" alt="" src="/DateProfileIMAGE/${detail.fourthOriginFileName}" data-fullsize="/DateProfileIMAGE/${detail.fourthOriginFileName}">
+				<img class="m--profile list--profile" alt="" src="/image/${detail.fourthOriginFileName}" data-fullsize="/DateProfileIMAGE/${detail.fourthOriginFileName}">
 			</c:if>
 			<c:if test="${detail.fifthOriginFileName != null}">
-				<img class="m--profile list--profile" alt="" src="/DateProfileIMAGE/${detail.fifthOriginFileName}" data-fullsize="/DateProfileIMAGE/${detail.fifthOriginFileName}">
+				<img class="m--profile list--profile" alt="" src="/image/${detail.fifthOriginFileName}" data-fullsize="/DateProfileIMAGE/${detail.fifthOriginFileName}">
 			</c:if>
 		</div>
 		

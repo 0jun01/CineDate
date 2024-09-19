@@ -7,7 +7,7 @@
 
 		<div class="thumb--wrap">
 			<div class="thumb--image">
-				<img src="/DateProfileIMAGE/${profile.firstUploadFileName}" alt="${profile.firstUploadFileName}">
+				<img src="/image/${profile.firstUploadFileName}" alt="${profile.firstUploadFileName}">
 			</div>
 			<span class="person-info">닉네임 : ${profile.nickName}</span>
 			<div style="display: flex;">
@@ -67,7 +67,7 @@
 								<div class="box--contents">
 									<span class="thumb--image"> <!-- 1번사진 --> <c:choose>
 											<c:when test="${profile.firstUploadFileName != null}">
-												<img id="img_userprofileimage6" src="/DateProfileIMAGE/${profile.firstUploadFileName}" alt="프로필 사진" onclick="document.getElementById('profile_upload_file6').click();">
+												<img id="img_userprofileimage6" src="/image/${profile.firstUploadFileName}" alt="프로필 사진" onclick="document.getElementById('profile_upload_file6').click();">
 											</c:when>
 											<c:otherwise>
 												<img id="img_userprofileimage6" src="/img/Basic.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file6').click();">
@@ -75,7 +75,7 @@
 										</c:choose> <input type="file" id="profile_upload_file6" name="profile_upload_file6" title="내용" onchange="previewImage(this, 'img_userprofileimage6')" style="display: none;">
 									</span> <span class="thumb--image"> <!-- 2번사진 --> <c:choose>
 											<c:when test="${profile.secondUploadFileName != null}">
-												<img id="img_userprofileimage2" src="/DateProfileIMAGE/${profile.secondUploadFileName}" alt="프로필 사진" onclick="document.getElementById('profile_upload_file2').click();">
+												<img id="img_userprofileimage2" src="/image/${profile.secondUploadFileName}" alt="프로필 사진" onclick="document.getElementById('profile_upload_file2').click();">
 											</c:when>
 											<c:otherwise>
 												<img id="img_userprofileimage2" src="/img/Basic.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file2').click();">
@@ -83,7 +83,7 @@
 										</c:choose> <input type="file" id="profile_upload_file2" name="profile_upload_file2" title="내용" onchange="previewImage(this, 'img_userprofileimage2')" style="display: none;">
 									</span> <span class="thumb--image"> <!-- 3번사진 --> <c:choose>
 											<c:when test="${profile.thirdOriginFileName != null}">
-												<img id="img_userprofileimage3" src="/DateProfileIMAGE/${profile.thirdOriginFileName}" alt="프로필 사진" onclick="document.getElementById('profile_upload_file3').click();">
+												<img id="img_userprofileimage3" src="/image/${profile.thirdOriginFileName}" alt="프로필 사진" onclick="document.getElementById('profile_upload_file3').click();">
 											</c:when>
 											<c:otherwise>
 												<img id="img_userprofileimage3" src="/img/Basic.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file3').click();">
@@ -91,7 +91,7 @@
 										</c:choose> <input type="file" id="profile_upload_file3" name="profile_upload_file3" title="내용" onchange="previewImage(this, 'img_userprofileimage3')" style="display: none;">
 									</span> <span class="thumb--image"> <!-- 4번사진 --> <c:choose>
 											<c:when test="${profile.fourthOriginFileName != null}">
-												<img id="img_userprofileimage4" src="/DateProfileIMAGE/${profile.fourthOriginFileName}" alt="프로필 사진" onclick="document.getElementById('profile_upload_file4').click();">
+												<img id="img_userprofileimage4" src="/image/${profile.fourthOriginFileName}" alt="프로필 사진" onclick="document.getElementById('profile_upload_file4').click();">
 											</c:when>
 											<c:otherwise>
 												<img id="img_userprofileimage4" src="/img/Basic.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file4').click();">
@@ -99,7 +99,7 @@
 										</c:choose> <input type="file" id="profile_upload_file4" name="profile_upload_file4" title="내용" onchange="previewImage(this, 'img_userprofileimage4')" style="display: none;">
 									</span> <span class="thumb--image"> <!-- 5번 사진 --> <c:choose>
 											<c:when test="${profile.fifthOriginFileName != null}">
-												<img id="img_userprofileimage5" src="/DateProfileIMAGE/${profile.fifthOriginFileName}" alt="프로필 사진" onclick="document.getElementById('profile_upload_file5').click();">
+												<img id="img_userprofileimage5" src="/image/${profile.fifthOriginFileName}" alt="프로필 사진" onclick="document.getElementById('profile_upload_file5').click();">
 											</c:when>
 											<c:otherwise>
 												<img id="img_userprofileimage5" src="/img/Basic.jpg" alt="프로필 사진" onclick="document.getElementById('profile_upload_file5').click();">
