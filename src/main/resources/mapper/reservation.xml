@@ -241,9 +241,37 @@
 		WHERE
 		st.movie_id = ${movieId}
 		AND st.show_date >= CURDATE()
-		AND (st.show_date > CURDATE() OR (st.show_date = CURDATE() AND
-		st.show_time >= CURTIME()))
+		AND (st.show_date
+		> CURDATE() OR (st.show_date = CURDATE() AND
+		st.show_time >=
+		CURTIME()))
 		GROUP BY sr.id, sr.name;
+	</select>
+
+	<select id="myreservation"
+		resultType="com.tenco.movie.dto.MyReservationDTO">
+		SELECT
+		b.id AS booking_id,
+		b.booking_time,
+		b.quantity,
+		s.show_date,
+		s.show_time,
+		m.title AS movie_title,
+		se.seat_number AS reserved_seat
+		FROM
+		bookings b
+		JOIN
+		showtimes s ON b.showtime_id = s.id
+		JOIN
+		movies_tb m ON s.movie_id = m.id
+		JOIN
+		booking_seats bs ON b.id = bs.booking_id
+		JOIN
+		seats se ON bs.seat_id = se.id
+		WHERE
+		b.user_id = #{userId}
+		ORDER BY
+		b.booking_time DESC
 	</select>
 
 </mapper>

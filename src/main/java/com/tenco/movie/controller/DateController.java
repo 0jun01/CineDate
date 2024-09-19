@@ -19,6 +19,7 @@ import com.tenco.movie.dto.DateProfileDTO;
 import com.tenco.movie.dto.MessageDTO;
 import com.tenco.movie.dto.profileDetailDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
+import com.tenco.movie.repository.model.ConItems;
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.User;
 import com.tenco.movie.service.DateManagerService;
@@ -194,12 +195,18 @@ public class DateController {
 		return "redirect:/date/date";
 	}
 
+	/**
+	 * 
+	 * @return date/popcornStore
+	 * @author 변영준
+	 */
 	@GetMapping("/popcornStore")
-	public String postPopcornStore() {
+	public String postPopcornStore(Model model) {
+		List<ConItems> itemList = dateService.viewStoreList();
 
+		model.addAttribute("item", itemList);
 		return "date/popcornStore";
 	}
-
 	/**
 	 * 팝콘 -> 토스로 충전
 	 * 
@@ -226,6 +233,27 @@ public class DateController {
 		model.addAttribute("customerName", customerName);
 
 		return "pay/tossPay";
+	}
+
+	@GetMapping("/tickets")
+	public String postTicketProc(@RequestParam("quantity") int quantity, Model model,
+			@SessionAttribute(Define.PRINCIPAL) User principal) {
+		System.out.println(quantity);
+		System.out.println(quantity);
+		System.out.println(quantity);
+		int amount = 1 * quantity;
+		String orderId = payservice.getOderId();
+		String orderName = "ticket";
+		String customerName = principal.getName();
+
+		// 모델에 데이터 추가
+		model.addAttribute("amount", amount);
+		model.addAttribute("orderId", orderId);
+		model.addAttribute("orderName", orderName);
+		model.addAttribute("customerName", customerName);
+
+		return "pay/tossPay";
+
 	}
 
 	@GetMapping("/detailPartner")

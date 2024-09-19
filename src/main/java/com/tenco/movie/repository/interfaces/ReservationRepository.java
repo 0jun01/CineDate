@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.tenco.movie.dto.ChoicedMovie;
 import com.tenco.movie.dto.ChoicedMovieAndTheater;
+import com.tenco.movie.dto.MyReservationDTO;
 import com.tenco.movie.dto.RegionCountDTO;
 import com.tenco.movie.dto.SubRegionDTO;
 import com.tenco.movie.dto.TheaterCountDTO;
@@ -71,4 +72,9 @@ public interface ReservationRepository {
 
 	// 영화만 선택시 상영중인 영화 지역 서브 지역!
 	List<SubRegionDTO> findSubRegionByMovie(int movieId);
+	
+	
+	////////////////////////////////////////// 내 예약 정보 보기 /////////////////////////////
+	
+	List<MyReservationDTO> myreservation(@Param("userId")int userId);
 }
