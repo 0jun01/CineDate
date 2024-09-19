@@ -164,7 +164,7 @@
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="./forms/general.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+								<li class="nav-item"><a href="/adminDate" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
 										<p>데이트 게시글</p>
 								</a></li>
 							</ul></li>

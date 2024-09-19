@@ -732,6 +732,40 @@ public class AdminPageController {
 		return "redirect:/adminProfileList";
 	}
 
+	// ================================================================
+	//데이팅 관련
+	
+	@GetMapping("/adminDate")
+	public String getAdminDatePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
+			@RequestParam(name = "page", defaultValue = "1") int page,
+			@RequestParam(name = "size", defaultValue = "10") int size, Model model,
+			RedirectAttributes redirectAttributes) {
+
+		if (principal == null) {
+			return "redirect:/home";
+		}
+
+
+		int totalRecords = adminPageService.countAdminProfileAll();
+		int totalPages = (int) Math.ceil((double) totalRecords / size);
+
+		String name = principal.getLoginId();
+		User user = userService.getUserById(name);
+
+		List<DateProfile> profileList = adminPageService.readDatePage(totalPages, size);
+
+		model.addAttribute("profileList", profileList);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("size", size);
+		model.addAttribute("user", user);
+		
+
+		return "/admin/adminDateList";
+	}
+
+	
+	
 	// ====================================== 비동기 통신 영역
 	// =============================//
 	@GetMapping("/CountProfile")

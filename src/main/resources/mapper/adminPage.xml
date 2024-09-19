@@ -179,7 +179,11 @@
 		resultType="com.tenco.movie.repository.model.DateProfile">
 		select * from profile_tb order by id desc limit 8 offset 0
 	</select>
-
+	
+	<select id="pageDateCountAdmin">
+	select * from profile_tb order by id desc limit
+		#{limit} offset #{offset}
+	</select>
 
 
 	<select id="searchProfileById"

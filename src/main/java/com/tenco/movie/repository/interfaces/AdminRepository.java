@@ -83,6 +83,8 @@ public interface AdminRepository {
 	public List<DateProfile> readProfileList(@Param("search")String search, @Param("limit") int limit, @Param("offset") int offset);
 	public int countAdminProfileList(@Param("search")String search);
 	
+	public List<DateProfile> pageDateCountAdmin(@Param("limit") int limit, @Param("offset") int offset);
+	
 	public int countAdminProfileAll();
 	public List<DateProfile> readAdminProfile();
 	

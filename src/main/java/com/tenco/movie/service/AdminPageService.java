@@ -466,6 +466,10 @@ public class AdminPageService {
 		return adminRepository.searchProfileById(id);
 	}
 
+	public int countAdminProfileAll() {
+		return adminRepository.countAdminProfileAll();
+	}
+	
 	@Transactional
 	public int lifeStatusUpdate(int id) {
 		DateProfile user = adminRepository.searchProfileById(id);
@@ -476,6 +480,16 @@ public class AdminPageService {
 			user.setLifeStatus(1);
 		}
 		return adminRepository.lifeStatusUpdate(user.getLifeStatus(), id);
+	}
+	
+	//-------------------------------------------
+	@Transactional // 데이트 페이징 처리
+	public List<DateProfile> readDatePage(int page, int size) {
+		List<DateProfile> list = new ArrayList<>();
+		int limit = size;
+		int offset = (page - 1) * size;
+		list = adminRepository.pageDateCountAdmin(limit, offset);
+		return list;
 	}
 	
 	// ===================비동기 영역 ===============
