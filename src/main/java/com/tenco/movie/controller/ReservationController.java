@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenco.movie.dto.BookingRequest;
+import com.tenco.movie.dto.ChoicedMovie;
+import com.tenco.movie.dto.RegionCountDTO;
+import com.tenco.movie.dto.SubRegionDTO;
 import com.tenco.movie.dto.TheaterCountDTO;
 import com.tenco.movie.dto.TimeDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
@@ -225,12 +228,29 @@ public class ReservationController {
 
 	@PostMapping("/booking")
 	public ResponseEntity<Map<String, String>> bookMovie(@RequestBody BookingRequest request) {
-
-		int result = reservationService.insertBooking(request.getUserId(), request.getShowTimeId(),
-				request.getQuantity(), request.getSelectedSeatsId());
 		Map<String, String> response = new HashMap<>();
-		response.put("message", "예매 성공");
-		return ResponseEntity.ok(response);
+		try {
+			// 예약 시도
+			int result = reservationService.insertBooking(request.getUserId(), request.getShowTimeId(),
+					request.getQuantity(), request.getSelectedSeatsId());
+			// 예매 성공
+			if (result > 0) {
+				response.put("message", "예매 성공");
+				return ResponseEntity.ok(response);
+			} else {
+				// 예매 실패: bookingId가 0인 경우
+				response.put("message", "예매 실패");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+			}
+		} catch (DataDeliveryException e) {
+			// 좌석 중복 등의 문제 발생 시
+			response.put("message", e.getMessage());
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+		} catch (Exception e) {
+			// 기타 예외 처리
+			response.put("message", "예매 처리 중 오류가 발생했습니다.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+		}
 	}
 
 	@GetMapping("/checkDupliSeat")
@@ -239,4 +259,47 @@ public class ReservationController {
 		List<Integer> shId = reservationService.viewOccupiedSeats(showTimeId);
 		return shId;
 	}
+<<<<<<< HEAD
 }
+=======
+
+	/**
+	 * 영화만 클릭 했을 시 날짜와 극장 업데이트
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/firstMovie")
+	@ResponseBody
+	public List<ChoicedMovie> findMovieAndDate(@RequestParam("movieId") int movieId) {
+		List<ChoicedMovie> entity = reservationService.fetchDateAndTheater(movieId);
+		return entity;
+	}
+
+	/**
+	 * 영화만 클릭 했을 시 극장대분류 카운트 업데이트
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/regionCount")
+	@ResponseBody
+	public List<RegionCountDTO> countRegion(@RequestParam("movieId") int movieId) {
+		List<RegionCountDTO> entity = reservationService.fetchRegionCount(movieId);
+		return entity;
+	}
+
+	/**
+	 * 영화만 클릭 했을 시 극장대분류 카운트 업데이트
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/subRegionsByMovie")
+	@ResponseBody
+	public List<SubRegionDTO> findSubRegionByMovie(@RequestParam("movieId") int movieId) {
+		List<SubRegionDTO> entity = reservationService.fetchSubRegionByMovie(movieId);
+		return entity;
+	}
+}
+>>>>>>> 2d44f600c135731dcfdfe87ac816cd9d3c5133b0

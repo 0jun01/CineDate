@@ -8,6 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+<<<<<<< HEAD
+=======
+import com.mysql.cj.Session;
+import com.tenco.movie.dto.ChoicedMovie;
+import com.tenco.movie.dto.RegionCountDTO;
+import com.tenco.movie.dto.SubRegionDTO;
+>>>>>>> 2d44f600c135731dcfdfe87ac816cd9d3c5133b0
 import com.tenco.movie.dto.TheaterCountDTO;
 import com.tenco.movie.dto.TimeDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
@@ -169,6 +176,7 @@ public class ReservationService {
 	@Transactional
 	public int insertBooking(int userId, int showTimeId, int quantity, List<Integer> selectedSeatsId) {
 		int bookingId = 0;
+		List<Integer> seats = null;
 		Bookings booking = Bookings.builder().userId(userId).showtimeId(showTimeId).quantity(quantity).build();
 		if (userId == 0) {
 			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.BAD_REQUEST);
@@ -179,15 +187,24 @@ public class ReservationService {
 		}
 
 		try {
-			reservationRepository.insertBooking(userId, showTimeId, quantity);
+			seats = reservationRepository.checkOccupied(showTimeId);
+			// 중복된 좌석이 있는지 확인
+			for (Integer seatId : selectedSeatsId) {
+				if (seats.contains(seatId)) {
+					throw new DataDeliveryException("이미 예약된 좌석입니다.", HttpStatus.CONFLICT);
+				} else {
+					reservationRepository.insertBooking(userId, showTimeId, quantity);
 
-			booking = reservationRepository.viewBookingByUserIdAndShowTimeId(userId, showTimeId);
-			if (booking != null) {
-				bookingId = booking.getId();
-				reservationRepository.insertBookingSeats(bookingId, selectedSeatsId);
+					booking = reservationRepository.viewBookingByUserIdAndShowTimeId(userId, showTimeId);
+					if (booking != null) {
+						bookingId = booking.getId();
+						reservationRepository.insertBookingSeats(bookingId, selectedSeatsId);
+					}
+				}
 			}
+
 		} catch (Exception e) {
-			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.BAD_REQUEST);
+			throw new DataDeliveryException("이미 예약된 좌석입니다.", HttpStatus.BAD_REQUEST);
 		}
 		return bookingId;
 	}
@@ -201,4 +218,38 @@ public class ReservationService {
 		}
 		return shId;
 	}
+<<<<<<< HEAD
 }
+=======
+
+	public List<ChoicedMovie> fetchDateAndTheater(int movieId) {
+		List<ChoicedMovie> entity = null;
+		try {
+			entity = reservationRepository.findDateAndTheatersByMovieId(movieId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+
+	public List<RegionCountDTO> fetchRegionCount(int movieId) {
+		List<RegionCountDTO> entity = null;
+		try {
+			entity = reservationRepository.countRegion(movieId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+
+	public List<SubRegionDTO> fetchSubRegionByMovie(int movieId) {
+		List<SubRegionDTO> entity = null;
+		try {
+			entity = reservationRepository.findSubRegionByMovie(movieId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+}
+>>>>>>> 2d44f600c135731dcfdfe87ac816cd9d3c5133b0

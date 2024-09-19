@@ -15,8 +15,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CinemaService {
 
-    private final CinemaRepository cinemaRepository;
+	private final CinemaRepository cinemaRepository;
 
+<<<<<<< HEAD
     public List<Regions> getAllRegions() {
         return cinemaRepository.findAllRegions();
     }
@@ -28,6 +29,17 @@ public class CinemaService {
     public List<Theater> getTheatersBySubregionId(int subregionId) {
         return cinemaRepository.findTheatersBySubregionId(subregionId);
     }
+=======
+	public List<Regions> getAllRegions() {
+		return cinemaRepository.findAllRegions();
+	}
+
+	public List<SubRegions> getSubregionsByRegionId(int regionId) {
+		return cinemaRepository.findByRegionId(regionId);
+	}
+
+	public List<Theater> getTheatersBySubregionId(int subregionId) {
+		return cinemaRepository.findTheatersBySubregionId(subregionId);
+	}
+>>>>>>> 2d44f600c135731dcfdfe87ac816cd9d3c5133b0
 }
-
-

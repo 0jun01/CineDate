@@ -4,6 +4,7 @@
 <mapper
 	namespace="com.tenco.movie.repository.interfaces.CinemaRepository">
 
+<<<<<<< HEAD
 	<select id="findAllRegions" resultType="com.tenco.movie.repository.model.Regions">
         SELECT * FROM regions_tb ORDER BY id
     </select>
@@ -11,9 +12,21 @@
      <select id="findByRegionId" parameterType="int" resultType="com.tenco.movie.repository.model.SubRegions">
         SELECT * FROM subregions_tb WHERE region_id = #{regionId}
     </select>
+=======
+	<select id="findAllRegions"
+		resultType="com.tenco.movie.repository.model.Regions">
+		SELECT * FROM regions_tb ORDER BY id
+	</select>
 
-	<select id="findTheatersBySubregionId" parameterType="int" resultType="com.tenco.movie.repository.model.Theater">
-        SELECT * FROM theaters_tb WHERE subregion_id = #{subregionId}
-    </select>
-	
+	<select id="findByRegionId" parameterType="int"
+		resultType="com.tenco.movie.repository.model.SubRegions">
+		SELECT * FROM subregions_tb WHERE region_id = #{regionId}
+	</select>
+
+	<select id="findTheatersBySubregionId" parameterType="int"
+		resultType="com.tenco.movie.repository.model.Theater">
+		SELECT * FROM theaters_tb WHERE subregion_id = #{subregionId}
+	</select>
+>>>>>>> 2d44f600c135731dcfdfe87ac816cd9d3c5133b0
+
 </mapper>

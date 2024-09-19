@@ -8,65 +8,65 @@
 <div id="wrap">
 
 	<!-- 메시지 표시 -->
-        <c:if test="${not empty message}">
-            <div class="alert alert-info">
-                ${message}
-            </div>
-        </c:if>
+	<c:if test="${not empty message}">
+		<div class="alert alert-info">${message}</div>
+	</c:if>
 
 	<div id="in--wrap">
 		<div class="movie--wrap">
-			<img src="https://image.tmdb.org/t/p/w342/${movie.movieImg}" alt="${movie.title}" >
+			<img src="https://image.tmdb.org/t/p/w342/${movie.movieImg}" alt="${movie.title}">
 			<div class="movie--detail">
 				<h1>${movie.title}</h1>
-				<span>영화 영어 제목 : ${movieDetail.titleEn}</span>
-				<span>상영시간 : ${movieDetail.showTm}분</span>
-				<span>개봉일 : ${movieDetail.releaseDate}</span>
-				<span>${movieDetail.prdStatNm}</span>
-				<span>${movieDetail.watchGradeNm}</span>
+				<span>영화 영어 제목 : ${movieDetail.titleEn}</span> <span>상영시간 : ${movieDetail.showTm}분</span> <span>개봉일 : ${movieDetail.releaseDate}</span> <span>${movieDetail.prdStatNm}</span> <span>${movieDetail.watchGradeNm}</span>
 				<span>${movieDetail.genre}</span>
-				
-				<div class="movie--btn btn"><a href="/reservation/reservation">예매하기</a></div>
+
+				<div class="movie--btn btn">
+					<a href="/reservation/reservation">예매하기</a>
+				</div>
 			</div>
 		</div>
-		
+
 		<div class="movie--info">
 			<h3>감독/출현</h3>
-		
+
 			<div class="swiper mySwiper">
-			    <div class="swiper-wrapper">
-			    	<div class="swiper-slide">
-			      		<img alt="${movieDetail.directorFaceFile}" src="https://image.tmdb.org/t/p/w342${movieDetail.directorFaceFile}">
-						${movieDetail.director}<br><br>감독
-				  	</div>
-				    <c:forEach var="actors" items="${actors}" varStatus="status">
-					     <div class="swiper-slide">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<c:choose>
+							<c:when test="${movieDetail.directorFaceFile == null}">
+								<img alt="" src="https://www.bizforms.co.kr/form/image/thumb_ing.gif"> ${movieDetail.director}<br>
+							</c:when>
+							<c:otherwise>
+								<img alt="${movieDetail.directorFaceFile}" src="https://image.tmdb.org/t/p/w342${movieDetail.directorFaceFile}"> ${movieDetail.director}<br>
+							</c:otherwise>
+						</c:choose>
+						<br>감독
+					</div>
+					<c:forEach var="actors" items="${actors}" varStatus="status">
+						<div class="swiper-slide">
 							<c:if test="${status.index < 5}">
 								<img alt="${actors.actorFaceFile}" src="https://image.tmdb.org/t/p/w342${actors.actorFaceFile}">
-								${actors.name}<br><br>배우
-							</c:if>
+                                ${actors.name}<br>
+								<br>배우
+                            </c:if>
 						</div>
 					</c:forEach>
-			    </div>
-			  </div>
-			  <div class="swiper-button-next"></div>
-			  <div class="swiper-button-prev"></div>
+				</div>
+			</div>
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
 
-			
+
 		</div>
 
 		<div class="movie--content">${movieDetail.movieDesc}</div>
-		
+
 
 		<!-- 평균 평점 표시 -->
 		<div>
 			<h3>
-				관람객 평점: <span class="rating-container"> 
-				<!-- 별점 표시 --> 
-				<span class="star filled" style="width: ${averageRating * 10}%;">&#9733;</span> 
-				
-				<!-- 평균 평점 숫자 표시 -->
-				<fmt:formatNumber value="${averageRating}" type="number" maxFractionDigits="2" />
+				관람객 평점: <span class="rating-container"> <!-- 별점 표시 --> <span class="star filled" style="width: ${averageRating * 10}%;">&#9733;</span> <!-- 평균 평점 숫자 표시 --> <fmt:formatNumber
+						value="${averageRating}" type="number" maxFractionDigits="2" />
 				</span>
 			</h3>
 		</div>
@@ -124,8 +124,7 @@
 			<div class="page--btn--a">
 				<ul class="pagination" style="display: flex;">
 					<!-- Previous Page Link -->
-					<li class="page--item <c:if test='${currentPage == 1}'>disabled</c:if>"><a class="page-link" href="?title=${param.title}&page=${currentPage - 1}&size=${size}"><</a>
-					</li>
+					<li class="page--item <c:if test='${currentPage == 1}'>disabled</c:if>"><a class="page-link" href="?title=${param.title}&page=${currentPage - 1}&size=${size}"><</a></li>
 
 					<!-- Page Numbers -->
 					<c:forEach var="page" begin="1" end="${totalPages}">
@@ -300,11 +299,11 @@
 
 </script>
 
- <!-- Swiper JS -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+	<!-- Swiper JS -->
+	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-  <!-- Initialize Swiper -->
-  <script>
+	<!-- Initialize Swiper -->
+	<script>
     var swiper = new Swiper(".mySwiper", {
         slidesPerView: 5,
         spaceBetween: 20,
@@ -322,5 +321,5 @@
 </div>
 
 
-	<!-- footer.jsp  -->
-	<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
+<!-- footer.jsp  -->
+<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
