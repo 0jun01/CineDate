@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tenco.movie.dto.DateProfileDTO;
+import com.tenco.movie.dto.UserItemInventory;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.interfaces.ProfileRepository;
 import com.tenco.movie.repository.interfaces.StoreRepository;
@@ -271,6 +272,61 @@ public class DateProfileService {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	/**
+	 * 콘상점 이용시 인벤토리 업데이트
+	 * 
+	 * @param userId
+	 * @param itemId
+	 * @param quentity
+	 */
+	public void insertInventory(int userId, int itemId, int quentity) {
+		try {
+			storeRepository.updateUserInventory(userId, itemId, quentity);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * userInventory찾는 메서드 fetch 사용
+	 * 
+	 * @param principal
+	 */
+	public List<UserItemInventory> findUserInventory(int principal) {
+		List<UserItemInventory> entity = null;
+		try {
+			entity = storeRepository.findInventoryByUserId(principal);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return entity;
+	}
+
+	/**
+	 * 아이템 개수 가져와서 사용시 차감해주고 슈퍼리스트 해주기 변영준
+	 * 
+	 * @param principal
+	 * @param itemId
+	 */
+	@Transactional
+	public void findItemCount(int principal, int itemId) {
+		try {
+			int currentCount = storeRepository.countItem(principal, itemId);
+			if (currentCount > 0) {
+				storeRepository.updateUsedItem(principal, itemId);
+				if (itemId == 1) {
+					storeRepository.updateSuperList(principal);
+				}
+			} else {
+				throw new IllegalArgumentException("아이템 수량 부족");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
