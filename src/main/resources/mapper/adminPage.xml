@@ -13,12 +13,28 @@
 		select count(*) from
 		toss_hitory_tb
 	</select>
+	
+	<select id="findAdminItemAll" resultType="com.tenco.movie.repository.model.ConItems">
+	select * from con_item_tb order by id desc
+	</select>
+	
+	<select id="itemAdminCount" resultType="int">
+	select count(*) from con_item_tb
+	</select>
+	
+	<select id="bookingAdminCount" resultType="int">
+	select count(*) from bookings
+	</select>
+	
+	<select id="sellAdminSum" resultType="int">
+	select sum(amount) from toss_hitory_tb
+	</select>
 
 	<!-- ========================================================== -->
 
 	<select id="findAll"
 		resultType="com.tenco.movie.repository.model.Notice">
-		select * from notice_tb order by id desc;
+		select * from notice_tb order by id desc
 	</select>
 
 	<insert id="insertAdmin">

@@ -73,13 +73,11 @@
 					</a>
 						<ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
 							<!--begin::User Image-->
-							<li class="user-header text-bg-primary"><img src="/DateProfileIMAGE/${profile.firstUploadFileName}" class="rounded-circle shadow" alt="User Image">
+							<li class="user-header text-bg-primary">
+							<img src="/DateProfileIMAGE/${profile.firstUploadFileName}" class="rounded-circle shadow" alt="User Image" onerror="this.onerror = null; this.src='/img/usernone.jpg'">
 								<p>
-<<<<<<< HEAD
 									${user.loginId} 관리자님
-=======
-									${user.loginId} <small>2024년 9월 가입</small>
->>>>>>> d76fce68e5f87220190ef5222ea212eab2e42167
+
 								</p></li>
 							<!--end::User Image-->
 							<!--begin::Menu Body-->

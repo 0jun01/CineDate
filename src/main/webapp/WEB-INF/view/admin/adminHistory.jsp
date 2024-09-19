@@ -35,7 +35,7 @@
 					<div class="timeline">
 						<!-- timeline time label -->
 						<c:forEach var="historytime" items="${historyTimeLine}">
-							<div class="time-label">
+							<div class="time-label" >
 								<span class="text-bg-danger">${historytime.approvedAt}</span>
 							</div>
 							<!-- /.timeline-label -->
@@ -71,7 +71,7 @@
 										</div>
 									</div>
 									</c:when>
-									<c:otherwise></c:otherwise>
+									
 									</c:choose>
 								</div>
 								<!-- END timeline item -->

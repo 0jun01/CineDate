@@ -15,12 +15,6 @@ public interface DateManagerRepocitory {
 	
 	List<DateProfile> matchingList(@Param("principalId")int principalId);
 	
-	
-	
-	
-	
-	
-	
 	// == chatdto ===
 	List<MessageDTO> chatHistory(@Param("senderId")int principalId,@Param("recipientId")int partnerId);
 	

@@ -29,6 +29,7 @@ import com.tenco.movie.dto.UserWriterDTO;
 import com.tenco.movie.dto.OnlyCountDTO;
 import com.tenco.movie.dto.genresBookingsDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
+import com.tenco.movie.repository.model.ConItems;
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.Event;
 import com.tenco.movie.repository.model.History;
@@ -106,11 +107,15 @@ public class AdminPageController {
 		int reviewCount = adminPageService.countReview();
 		int sellCount = adminPageService.countSell();
 		int memberCount = adminPageService.countMember();
+		int itemCount = adminPageService.countItem();
 
 		int profileCount = adminPageService.countProfileAll();
+		int bookingCount = adminPageService.countBookings();
+		int sellSum = adminPageService.sumSelling();
 
 		List<DateProfile> profileList = adminPageService.readMainProfile();
 		List<History> historyList = adminPageService.readMainHistory();
+		List<ConItems> conItems = adminPageService.readMainConItems();
 
 		model.addAttribute("sellCount", sellCount);
 		model.addAttribute("reviewCount", reviewCount);
@@ -120,6 +125,10 @@ public class AdminPageController {
 		model.addAttribute("profile", userProfile);
 		model.addAttribute("profileList", profileList);
 		model.addAttribute("historyList", historyList);
+		model.addAttribute("conItems",conItems);
+		model.addAttribute("itemCount", itemCount);
+		model.addAttribute("bookingCount", bookingCount);
+		model.addAttribute("sellSum", sellSum);
 
 		return "/adminMain";
 	}
@@ -150,6 +159,7 @@ public class AdminPageController {
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("size", size);
 		model.addAttribute("user", user);
+		
 
 		return "/admin/adminNoticePage";
 	}

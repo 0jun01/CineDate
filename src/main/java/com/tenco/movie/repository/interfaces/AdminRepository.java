@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import com.tenco.movie.dto.CountProfileDTO;
 import com.tenco.movie.dto.OnlyCountDTO;
 import com.tenco.movie.dto.genresBookingsDTO;
+import com.tenco.movie.repository.model.ConItems;
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.Event;
 import com.tenco.movie.repository.model.EventWrite;
@@ -22,6 +23,11 @@ public interface AdminRepository {
 	
 	public int reviewAdminCount();
 	public int sellAdminCount();
+	public List<ConItems> findAdminItemAll();
+	public int itemAdminCount();
+	public int bookingAdminCount();
+	public int sellAdminSum();
+	
 	
 	
 	//-------------------------------------------------
