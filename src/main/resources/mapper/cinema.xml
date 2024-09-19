@@ -15,5 +15,5 @@
 	<select id="findTheatersBySubregionId" parameterType="int" resultType="com.tenco.movie.repository.model.Theater">
         SELECT * FROM theaters_tb WHERE subregion_id = #{subregionId}
     </select>
-
+	
 </mapper>

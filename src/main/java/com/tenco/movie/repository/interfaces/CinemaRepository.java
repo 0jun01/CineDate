@@ -16,4 +16,5 @@ public interface CinemaRepository {
 	List<SubRegions> findByRegionId(@Param("regionId") int regionId);
 	// 영화관 조회 추가
     List<Theater> findTheatersBySubregionId(@Param("subregionId") int subregionId);
+	
 }
