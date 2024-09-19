@@ -31,6 +31,7 @@ import com.tenco.movie.repository.model.User;
 import com.tenco.movie.service.DateManagerService;
 import com.tenco.movie.service.DateProfileService;
 import com.tenco.movie.service.PaymentService;
+import com.tenco.movie.service.UserService;
 import com.tenco.movie.utils.Define;
 
 import lombok.RequiredArgsConstructor;
@@ -48,6 +49,9 @@ public class DateController {
 
 	@Autowired
 	private final DateManagerService dateManagerService;
+	
+	@Autowired
+	private final UserService userService;
 
 	/**
 	 * 데이트 페이지 요청
@@ -271,7 +275,6 @@ public class DateController {
 
 		DateProfile detail = dateService.detailPartner(userId, id);
 		profileDetailDTO dto = dateService.detailPartnerDetail(id);
-		
 		dateManagerService.datailCount(userId);
 		
 		model.addAttribute("userId", userId);

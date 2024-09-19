@@ -14,6 +14,7 @@ import com.tenco.movie.dto.detailCountDTO;
 import com.tenco.movie.handler.exception.ManagerException;
 import com.tenco.movie.repository.interfaces.DateManagerRepocitory;
 import com.tenco.movie.repository.model.DateProfile;
+import com.tenco.movie.repository.model.User;
 import com.tenco.movie.utils.Define;
 
 import lombok.RequiredArgsConstructor;
@@ -74,17 +75,22 @@ public class DateManagerService {
 		int row = 0;
 		
 		detailCountDTO detailCount = dateManagerRepocitory.datailCount(id);
-		if(detailCount.getOriginCount() <= 0) {
-			
-			if(detailCount.getPurchaseCount() <= 0) {
-				throw new ManagerException(Define.ZERO_DETAIL_COUNT, HttpStatus.BAD_REQUEST);
-			}else {
-				row = dateManagerRepocitory.updateIpurchaseCount(id ,detailCount.getPurchaseCount() - 1);
-			}
-		} else {
-			row = dateManagerRepocitory.updateOriginCount(id, detailCount.getOriginCount() - 1);
-		}
+		User user = dateManagerRepocitory.searchUserById(id);
 		
+		if(user.getGender().equalsIgnoreCase("남")) {
+			
+			if(detailCount.getOriginCount() <= 0) {
+				
+				if(detailCount.getPurchaseCount() <= 0) {
+					throw new ManagerException(Define.ZERO_DETAIL_COUNT, HttpStatus.BAD_REQUEST);
+				}else {
+					row = dateManagerRepocitory.updateIpurchaseCount(id ,detailCount.getPurchaseCount() - 1);
+				}
+			} else {
+				row = dateManagerRepocitory.updateOriginCount(id, detailCount.getOriginCount() - 1);
+			}
+			
+		}
 		
 		return row;
 	}
