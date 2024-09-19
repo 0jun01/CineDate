@@ -276,23 +276,22 @@
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body p-0">
-							<div class="table-responsive">
+							<div class="table-responsive" style="margin: 10px">
 								<table class="table m-0">
 									<thead>
-										<tr>
+										<tr style ="text-align: center">
 											<th>주문 Id</th>
 											<th>주문 아이템</th>
 											<th>상황</th>
-											<th>인기도</th>
 										</tr>
 									</thead>
 									<tbody>
 								
 										<c:forEach var="history" items ="${historyList}">
-											<tr>
+											<tr style ="text-align: center">
 												<td><a href="pages/examples/invoice.html" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"> ${history.orderId}</a></td>
 												<td>${history.orderName}</td>
-												<td>
+												<td style ="text-align: center">
 												<c:choose>
 												<c:when test="${history.requestedAt == null && history.approvedAt == null}">
 													<span class="badge text-bg-warning">승인전</span>
@@ -304,9 +303,6 @@
 												<span class="badge text-bg-success">승인됨</span>
 												</c:otherwise>
 												</c:choose>
-												</td>
-												<td>
-													<div></div>
 												</td>
 											</tr>
 											

@@ -186,12 +186,12 @@
 							</ul></li>
 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon bi bi-pencil-square"></i>
 								<p>
-									데이팅현황 <i class="nav-arrow bi bi-chevron-right"></i>
+									데이트 관리<i class="nav-arrow bi bi-chevron-right"></i>
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item"><a href="./forms/general.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>데이트현황</p>
+										<p>데이트 게시글</p>
 								</a></li>
 							</ul></li>
 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon bi bi-table"></i>

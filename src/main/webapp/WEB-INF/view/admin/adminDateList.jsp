@@ -50,7 +50,7 @@
 												</h3>
 											</c:when>
 											<c:otherwise>
-												<input type="text" class="form-control-sm" id="search" name="search" placeholder="검색할 어필글을 입력하세요">&nbsp;&nbsp;&nbsp;
+												<input type="text" class="form-control-sm" id="search" name="search" placeholder="검색할 프로필을 입력하세요">&nbsp;&nbsp;&nbsp;
 												<h3>
 													<li class="nav-item">
 														<button type="submit" class="nav-link" data-widget="navbar-search">
@@ -67,11 +67,11 @@
 							<div class="card-body">
 								<table class="table table-bordered">
 									<c:choose>
-										<c:when test="${userList != null}">
+										<c:when test="${profileList != null}">
 											<table class="table">
 												<thead>
 													<tr class="align-middle text-center">
-														<th style="width: 10px">id</th>
+														<th style="width: 10px"></th>
 														<th style="width: 170px">회원ID</th>
 														<th>이름</th>
 														<th style="width: 150px">이메일</th>
