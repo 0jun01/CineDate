@@ -6,6 +6,18 @@ header {
 	border-bottom: 1px solid #bababa;
 }
 
+.header--wrap{
+	width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.in--header--wrap{
+	width: 90%;
+	margin: auto;
+}
+
 .memberInfo--wrap {
 	width: 100%;
 }
@@ -17,14 +29,11 @@ header {
 	align-items: center;
 	gap: 15px;
 	font-size: 14px;
+	margin-right: 100px;
 }
 
 .header--logo {
-	width: 100%;
-	height: 70px;
-	border-top: 1px solid #bababa;
-	border-bottom: 1px solid #bababa;
-	padding: 10px 0;
+	margin-right: 100px;
 	text-align: center;
 }
 
@@ -65,8 +74,8 @@ label.main--search {
 	content: "💕";
 	color: #ff2588;
 	position: absolute;
-	right: 20px;
-	top: -7px;
+	right: 10px;
+	top: -20px;
 	transform: rotateZ(20deg);
 }
 
@@ -75,6 +84,7 @@ label.main--search {
 }
 
 .nav--menu {
+	width: 700px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;

@@ -31,7 +31,7 @@
 										<button>메세지보내기</button>
 									</c:if>
 									<c:if test="${list.status == 2}">
-										<h5>거절 ㅠㅠ</h5>
+										<h5>거절 💦</h5>
 									</c:if>
 								</td>
 							</tr>
