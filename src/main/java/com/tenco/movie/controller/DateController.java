@@ -1,7 +1,10 @@
 package com.tenco.movie.controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,6 +29,7 @@ import com.tenco.movie.dto.profileDetailDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.ConItems;
 import com.tenco.movie.repository.model.DateProfile;
+import com.tenco.movie.repository.model.Message;
 import com.tenco.movie.repository.model.User;
 import com.tenco.movie.service.DateManagerService;
 import com.tenco.movie.service.DateProfileService;
@@ -281,7 +287,6 @@ public class DateController {
 		return "date/matchingList";
 	}
 
-<<<<<<< HEAD
 	// ======= 메시지 채팅 ========
 
 	@GetMapping("/message")
@@ -294,7 +299,6 @@ public class DateController {
 		return "date/message";
 	}
 
-=======
 	/**
 	 * 메세지기능
 	 * 
@@ -303,7 +307,7 @@ public class DateController {
 	 * @return
 	 */
 	@PostMapping("/sendMessage")
-	public @ResponseBody Map<String, Object> sendMessage(@RequestBody MessageDTO messageDTO,
+	public Map<String, Object> sendMessage(@RequestBody MessageDTO messageDTO,
 			@SessionAttribute(Define.PRINCIPAL) User principal) {
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -380,5 +384,4 @@ public class DateController {
 	public String popcornChargePage() {
 		return "pay/popcornCharge";
 	}
->>>>>>> 2d44f600c135731dcfdfe87ac816cd9d3c5133b0
 }

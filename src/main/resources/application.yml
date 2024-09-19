@@ -34,13 +34,17 @@ spring:
     auth-code-expiration-millis: 300000  # 이메일 인증 코드의 만료 시간(Millisecond)  30 * 60 * 1000 == 05분
   
   datasource:
-    url: jdbc:mysql://localhost:3306/cinedate?serverTimezone=Asia/Seoul  #데이터 베이스 연결을 위한 URL을 설정 합니다.
+    url: jdbc:mysql://192.168.0.46:3306/cinedate?serverTimezone=Asia/Seoul  #데이터 베이스 연결을 위한 URL을 설정 합니다.
     driver-class-name: com.mysql.cj.jdbc.Driver #드라이버 클래스를 설정 합니다.
+<<<<<<< HEAD
 <<<<<<< HEAD
     username: bbh #사용자 ID를 지정
 =======
     username: root #사용자 ID를 지정
 >>>>>>> 2d44f600c135731dcfdfe87ac816cd9d3c5133b0
+=======
+    username: yhj #사용자 ID를 지정
+>>>>>>> 841cd954bbaf41e3af36dcc2d2eadc842ff592cc
     password: asd123 #DB 비밀번호 여기서는 빈 문자열로 설정
   sql:
     init:

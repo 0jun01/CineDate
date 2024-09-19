@@ -28,12 +28,11 @@ public class CinemaController {
 		List<Regions> regions = cinemaService.getAllRegions();
 		model.addAttribute("regions", regions);
 
-		// 기본값 설정
+// 기본값 설정
 		if (regionId == null) {
 			regionId = 1;
 		}
 
-<<<<<<< HEAD
         if (subregionId == null) {
             // 기본 상위 지역의 첫 하위 지역 ID를 설정
             List<SubRegions> subregions = cinemaService.getSubregionsByRegionId(regionId);
@@ -46,22 +45,9 @@ public class CinemaController {
         model.addAttribute("subregions", subregions);
         model.addAttribute("selectedRegionId", regionId);
         model.addAttribute("selectedSubregionId", subregionId);
-=======
-		if (subregionId == null) {
-			// 기본 상위 지역의 첫 하위 지역 ID를 설정
-			List<SubRegions> subregions = cinemaService.getSubregionsByRegionId(regionId);
-			if (!subregions.isEmpty()) {
-				subregionId = subregions.get(0).getId();
-			}
-		}
 
-		List<SubRegions> subregions = cinemaService.getSubregionsByRegionId(regionId);
-		model.addAttribute("subregions", subregions);
-		model.addAttribute("selectedRegionId", regionId);
-		model.addAttribute("selectedSubregionId", subregionId);
->>>>>>> 2d44f600c135731dcfdfe87ac816cd9d3c5133b0
 
-		// 영화관 정보 추가
+// 영화관 정보 추가
 		List<Theater> theaters = cinemaService.getTheatersBySubregionId(subregionId);
 		model.addAttribute("theaters", theaters);
 

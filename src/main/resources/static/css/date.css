@@ -283,17 +283,18 @@ button#send--chat {
 	color: #dadada;
 }
 
-.jumbotron.display-4 h1{
+.jumbotron.display-4 h1 {
 	text-align: center;
     font-size: 100px;
     margin-top: 150px;
 }
 
-.jumbotron.display-4 h5{
+.jumbotron.display-4 h5 {
 	text-align: center;
     font-size: 18px;
     margin-top: 20px;
 }
+<<<<<<< HEAD
 #bloodtype,#drinking,#smoking{
 	height: 50px;
 	padding: 10px;
@@ -303,3 +304,20 @@ button#send--chat {
 	color: #999;
 	margin-bottom: 15px;
 }
+=======
+
+.thumb--wrap {
+    margin-top: 20px;
+	display: flex;
+	gap: 50px;
+}
+
+.thumb--image {
+	width: 200px;
+    height: 200px;
+}
+
+.thumb--image img {
+	width: 100%;
+}
+>>>>>>> 841cd954bbaf41e3af36dcc2d2eadc842ff592cc

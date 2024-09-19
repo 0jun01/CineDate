@@ -16,7 +16,7 @@
 				</div>
 			</form>
 
-			<div class="login--items">
+			<div class="login--items login--tem">
 				<span class="btn"><a href="/user/findID">아이디찾기</a></span>
 				<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 				<span class="btn"><a href="/user/findPassword">비밀번호찾기</a></span>
