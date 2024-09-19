@@ -74,4 +74,11 @@ public interface ReservationRepository {
 
 	// 대분류 지역 필터링 하기
 	List<SubRegionDTO> filterSubRegionByMovieAndRegion(@Param("movieId") int movieId, @Param("regionId") int regionId);
+
+	// 날짜와 영화 클릭 후 대분류 지역 옆에 카운트 업데이트하기
+	List<RegionCountDTO> countRegionByMovieAndDate(@Param("movieId") int movieId, @Param("date") String date);
+
+	// 영화만 선택시 상영중인 영화 지역 서브 지역!
+	List<SubRegionDTO> findSubRegionByMovieAndDate(@Param("movieId") int movieId, @Param("date") String date);
+
 }

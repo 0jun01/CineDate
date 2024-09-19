@@ -312,4 +312,34 @@ public class ReservationController {
 		List<SubRegionDTO> entity = reservationService.fetchSubRegionByMovieAndRegion(movieId, regionId);
 		return entity;
 	}
+
+	/**
+	 * 날짜와 영화 클릭 후 count 해주기
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/regionCountByDateAndMovie")
+	@ResponseBody
+	public List<RegionCountDTO> fetchSubRegionByMovieAndDate(@RequestParam("movieId") int movieId,
+			@RequestParam("date") String date) {
+		List<RegionCountDTO> entity = null;
+		entity = reservationService.fetchRegionCountByeDateAndMovie(movieId, date);
+		return entity;
+	}
+
+	/**
+	 * 날짜와 영화만 클릭 했을 시 극장대분류 카운트 업데이트
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/subRegionsByMovieAndDate")
+	@ResponseBody
+	public List<SubRegionDTO> findSubRegionByMovieAndDate(@RequestParam("movieId") int movieId,
+			@RequestParam("date") String date) {
+		List<SubRegionDTO> entity = reservationService.fetchSubRegionByMovieAndDate(movieId, date);
+		return entity;
+	}
+
 }

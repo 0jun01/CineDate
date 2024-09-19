@@ -90,4 +90,15 @@ public class PaymentService {
 		return result;
 	}
 
+	@Transactional
+	public void updateProfileCon(int amount, int principalId) {
+		try {
+			int con = historyRepository.findConByPrincipal(principalId);
+			amount = (amount / 110) + con;
+			historyRepository.updateCon(principalId, amount);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }

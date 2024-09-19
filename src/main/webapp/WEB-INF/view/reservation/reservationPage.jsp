@@ -320,6 +320,7 @@ let selectedMovieId = null;
 let selectedDate1 = null;
 let selectedTheater = null;
 let selectedTheaterId = null;
+let selectedRegionId = null;
 let selectedTime = null;
 let showTimeId = null;
 const principal = "${principal.id}";
@@ -328,60 +329,87 @@ const principal = "${principal.id}";
 function onMovieSelect(movieId) {
 	// movieId 얻음.
 	selectedMovieId = movieId;
-	updateTheatersAndDates();
 	fetchMovieDetails(movieId);
+	// 무비만 클릭했을 경우
+	if(selectedMovieId && !selectedDate1 && !selectedTheaterId){
+	updateTheatersAndDates();
 	fetchSubRegionsByMovie(movieId);
+	}
+	
+	// 날짜랑 무비 클릭했을 경우
+	if(selectedMovieId && selectedDate1 && !selectedTheaterId){
+	fetchTheaterCountByDateAndMovie(selectedMovieId, selectedDate1);
+	fetchSubRegionsByMovieAndDate(movieId, selectedDate1);
+	fetchTheatersAndDateByMovie(movieId);
+	}
+	
+	// 셋다 클릭 했을 경우
+	if(selectedMovieId && selectedTheaterId && selectedDate1) {
+		console.log("여기얌!!");
+		fetchViewTimeList(selectedMovieId,selectedTheaterId,selectedDate1);
+	}
 }
 
 // 날짜 선택시
 function onDateSelect(selectedDate, element){
+	selectedDate1 = selectedDate;
 	viewSelectedDate(selectedDate, element)
+	// 날짜만 선택시
+	if(selectedDate1 && !selectedMovieId && !selectedTheaterId){
+		viewSelectedDate(selectedDate, element);
+	}
+	
+	if(selectedDate1 && selectedMovieId && !selectedTheaterId){
+		fetchTheaterCountByDateAndMovie(selectedMovieId, selectedDate1);
+		fetchSubRegionsByMovieAndDate(movieId, selectedDate1);
+		fetchTheatersAndDateByMovie(movieId);
+	}
+	
+	
 	if(selectedMovieId && selectedTheaterId && selectedDate1) {
 		fetchViewTimeList(selectedMovieId,selectedTheaterId,selectedDate1);
 	}
 	
 }
-// 극장 선택시
+
+// 소분류 극장 선택시
 function onTheaterSelect(theaterName, subregionId){
+	console.log(selectedMovieId);
+	console.log(selectedTheaterId);
+	console.log(selectedDate1);
 	checkMovie(theaterName, subregionId);
 	
 	if(selectedMovieId && selectedTheaterId && selectedDate1) {
+		console.log("여기 안들어오냐?");
 		fetchViewTimeList(selectedMovieId,selectedTheaterId,selectedDate1);
 	}
 	
 }
 
-// 극장 선택시
+// 대분류 극장 선택시
 function onRegionSelect(regionId) {
-    console.log('Selected region ID:', regionId);
+	 selectedRegionId = regionId;
 
-    if (selectedMovieId) {
-        // 영화와 대분류 지역을 선택한 경우
-        fetchSubRegionsByMovieAndRegion(selectedMovieId, regionId)
-            .then(() => applyRegionFilter(regionId)); // 데이터가 로드된 후 필터 적용
-    } else if (!selectedMovieId && !selectedTheaterId && !selectedDate1) {
-        // 영화 선택이 없는 경우
-        applyRegionFilter(regionId);
-    }
+	    // 선택된 영화, 극장, 날짜에 따라 필터 적용
+	    if (!selectedMovieId && !selectedTheaterId && !selectedDate1) {
+	        // 선택된 영화, 극장, 날짜가 없는 경우
+	        applyRegionFilter(regionId);
+	    } else if (selectedMovieId && selectedRegionId) {
+	        // 선택된 영화와 극장이 모두 있는 경우
+	        applyRegionFilter(regionId);
+	    }
 }
 
 // 영화 선택시 극장이랑 날짜 업데이트하기 
 function updateTheatersAndDates(){
-	// 둘다 선택 했을 경우
 	if(selectedMovieId){
 		// 영화만 선택했을 경우
 		fetchTheatersAndDateByMovie(selectedMovieId);
 		fetchTheaterCountByMovie(selectedMovieId);
 		movieCheck = true;
 	} 
-	if(selectedMovieId && selectedTheaterId) {
-		console.log("여기얌");
-		// fetchDatesByMovieAndTheater(selectedMovieId, selectedTheaterId);
-	}
-	if(selectedMovieId && selectedTheaterId && selectedDate1) {
-		console.log("여기얌!!");
-		fetchViewTimeList(selectedMovieId,selectedTheaterId,selectedDate1);
-	}
+	
+	
 }
 
 // 영화 클릭시 그 영화에 맞는 날짜와 극장 데이터 가져오기!
@@ -403,6 +431,7 @@ function fetchTheatersAndDateByMovie(movieId){
     });
 }
 
+
 //상영 날짜 목록을 기준으로 날짜 요소의 투명도를 조정하는 함수
 function updateDateOpacity(data) {
     // 데이터에서 상영 날짜만 추출하여 Set으로 만듦
@@ -423,27 +452,6 @@ function updateDateOpacity(data) {
     });
 }
 
-// 날짜 클릭 했을 때 데이터
-function viewSelectedDate(selectedDate, element) {
-	selectedDate1 = selectedDate;
-	// 모든 날짜 항목에서 선택 상태를 제거
-	document.querySelectorAll('.selectable-date').forEach(item => {
-		item.style.backgroundColor = ''; // 기본 배경색으로 복구
-		item.classList.remove('selected'); // 선택 상태 클래스 제거
-	});
-
-	// 클릭된 요소의 자식 span에서 data-date-value 가져오기
-	const spanElement = element.querySelector('span');
-	const date = spanElement ? spanElement.getAttribute('data-date-value') : null;
-	const textValue = spanElement ? spanElement.textContent : null; // 텍스트 값 가져오기
-	console.log('Selected Date:', date);
-	console.log('Span Text Value:', textValue);
-	
-	const chosenDateSpan = document.querySelector('.choosen--date');
-	if (chosenDateSpan) {
-		chosenDateSpan.innerHTML = selectedDate;
-	}
-}
 
 //영화의 세부 정보를 가져오는 함수 밑에 영화 세부정보 bar에 타이틀이랑 이미지 넣는 함수
 function fetchMovieDetails(movieId) {
@@ -488,6 +496,24 @@ function updateMovieDetail(movie) {
 // 패치 영화만 클릭했을시 카운트 하기 위해 패치 날림 
 function fetchTheaterCountByMovie(movieId){
 	fetch(`http://localhost:8080/reservation/regionCount?movieId=` + movieId)
+	 .then(response => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+			return response.json();
+		})
+     .then(data => {
+          // 받아온 데이터를 기반으로 지역별 극장 수 업데이트
+         updateTheaterCountUI(data); // UI 업데이트 함수 호출
+     })
+     .catch(error => {
+         console.error('Error fetching theater count by region:', error);
+     });
+}
+
+// 패치 날짜 선택 후 영화 클릭했을시 카운트 하기 위해 패치 날림 
+function fetchTheaterCountByDateAndMovie(movieId, date){
+	fetch(`http://localhost:8080/reservation/regionCountByDateAndMovie?movieId=` + movieId + `&date=` + date)
 	 .then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
@@ -556,21 +582,40 @@ function fetchSubRegionsByMovie(movieId) {
         });
 }
 
+// 날짜와 영화만 선택시 영화상영 시간에 맞는 서브지역 찾는 패치
+function fetchSubRegionsByMovieAndDate(movieId, date) {
+    fetch(`http://localhost:8080/reservation/subRegionsByMovieAndDate?movieId=` + movieId +`&date=` + date)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Fetched sub-regions:', data);
+            updateSubRegionOpacity(data);
+        })
+        .catch(error => {
+            console.error('Error fetching sub-regions:', error);
+        });
+}
+
 function updateSubRegionOpacity(subRegionData) {
     console.log('Sub-region data:', subRegionData);
+    
     // 모든 서브 지역의 투명도를 낮추기
     document.querySelectorAll('#sub--region--list li').forEach(function(li) {
-        li.style.opacity = '0.2'; // 비활성화 상태의 투명도
+        li.style.opacity = '0.3'; // 비활성화 상태의 투명도
     });
 
     // 상영 일정이 있는 서브 지역의 투명도를 높이기
     subRegionData.forEach(function(subRegion) {
-        var subRegionId = subRegion.id;
-		
+        const subRegionId = subRegion.id;
+        
         console.log('Processing subRegion with ID:', subRegionId);
 
         if (subRegionId !== null && subRegionId !== undefined) {
-            var element = document.querySelector('#subregion-' + subRegionId);
+            const element = document.querySelector('#subregion-' + subRegionId);
 
             console.log('Checking element with ID: #subregion-' + subRegionId, element);
 
@@ -694,7 +739,6 @@ function updateTimeList(data) {
 	timeListContainer.appendChild(ul);
 }
 
-// 대분류 지역 선택시 그에 맞는 지역 필터  
 function applyRegionFilter(regionId) {
 	fetch(`http://localhost:8080/reservation/regions?regionId=` + regionId)
 		.then(response => {
@@ -704,16 +748,8 @@ function applyRegionFilter(regionId) {
 			return response.json();
 		})
 		.then(data => {
-
 				console.log('success:', data);
 				updateSubRegionList(data);
-				// 영화 선택이 되어있다면, 상영 시간에 맞는 서브 지역만 필터링
-	           if (selectedMovieId) {
-                fetchSubRegionsByMovieAndRegion(selectedMovieId, regionId);
-            	} else {
-                // 영화가 선택되지 않은 경우에는 서브 지역 리스트의 투명도 조정 안함
-                updateSubRegionOpacity([]); // 빈 배열을 전달하여 모든 서브 지역의 투명도를 낮춤
-            }
 		})
 		.catch(error => {
 			alert('An error occurred while fetching the movies.');
@@ -722,62 +758,165 @@ function applyRegionFilter(regionId) {
 }
 
 function updateSubRegionList(subRegions) {
-	const listElement = document.getElementById('sub--region--list');
+    const listElement = document.getElementById('sub--region--list');
+    
+    // 기존 리스트 아이템 제거
+    listElement.innerHTML = '';
 
-	// 기존 리스트 아이템 제거
-	listElement.innerHTML = '';
+    // 새로운 리스트 아이템 추가
+    subRegions.forEach(subRegion => {
+        const subRegionItem = document.createElement('li');
+        subRegionItem.id = 'subregion-' + subRegion.id; // ID 설정
+        // <a> 태그 생성
+        const link = document.createElement('a');
+        link.href = 'javascript:void(0)';
+        link.textContent = subRegion.name;
 
-	// 새로운 리스트 아이템 추가
-	subRegions.forEach(subRegion => {
-		const subRegionItem = document.createElement('li');
-		// <a> 태그 생성
-		const link = document.createElement('a');
-		link.href = 'javascript:void(0)';
-		link.textContent = subRegion.name;
+        // 필요에 따라 onclick 이벤트 핸들러 추가
+        link.onclick = function() {
+            console.log('Clicked sub-region:', subRegion.name);
+            selectedTheaterId = subRegion.id;
+            if(selectedMovieId && selectedTheaterId && selectedDate1) {
+        		console.log("여기 안들어오냐?");
+        		fetchViewTimeList(selectedMovieId,selectedTheaterId,selectedDate1);
+        	}
+            const theaterElement = document.querySelector('.movie--detail--box .theater');
+            if (theaterElement) {
+                theaterElement.textContent = subRegion.name; // subRegion.name을 theater에 표시
+            }
+        };
 
-		// 필요에 따라 onclick 이벤트 핸들러 추가
-		link.onclick = function() {
-			// 클릭 시 동작 정의 (예: 서브지역 필터링 등)
-			if (movieCheck) {
-				alert('영화를 먼저 선택해주세요.')
-			} else {
-				console.log('Clicked sub-region:', subRegion.name);
-				const theaterElement = document.querySelector('.movie--detail--box .theater');
-				if (theaterElement) {
-					theaterElement.textContent = subRegion.name; // subRegion.name을 theater에 표시
-				}
+        // <li>에 <a> 태그 추가
+        subRegionItem.appendChild(link);
 
+        // <ul>에 <li> 추가
+        listElement.appendChild(subRegionItem);
+    });
+
+    // 선택된 영화가 있는 경우 서브 지역의 투명도 조정
+    if (selectedMovieId) {
+        fetchSubRegionsByMovie(selectedMovieId);
+    } else {
+        // 선택된 영화가 없을 때 모든 서브 지역 표시
+        document.querySelectorAll('#sub--region--list li').forEach(function(li) {
+            li.style.opacity = '1'; // 기본 투명도
+        });
+    }
+}
+
+//서브 지역의 투명도를 조절하는 함수
+function updateSubRegionTransparency(relevantSubRegions) {
+    const listElement = document.getElementById('sub--region--list');
+    const subRegionItems = listElement.querySelectorAll('li');
+
+    subRegionItems.forEach(item => {
+        const link = item.querySelector('a');
+        const subRegionId = parseInt(link.dataset.id, 10);
+        
+        // 현재 서브 지역이 상영 시간에 포함되는지 확인
+        const isRelevant = relevantSubRegions.some(subRegion => subRegion.id === subRegionId);
+
+        if (isRelevant) {
+            item.style.opacity = '1'; // 상영 시간에 맞는 서브 지역의 투명도 높임
+        } else {
+            item.style.opacity = '0.3'; // 상영 시간에 맞지 않는 서브 지역의 투명도 낮춤
+        }
+    });
+}
+
+function viewSelectedDate(selectedDate, element) {
+	selectedDate1 = selectedDate;
+	// 모든 날짜 항목에서 선택 상태를 제거
+	document.querySelectorAll('.selectable-date').forEach(item => {
+		item.style.backgroundColor = ''; // 기본 배경색으로 복구
+		item.classList.remove('selected'); // 선택 상태 클래스 제거
+	});
+
+	// 클릭된 요소의 자식 span에서 data-date-value 가져오기
+	const spanElement = element.querySelector('span');
+	const date = spanElement ? spanElement.getAttribute('data-date-value') : null;
+	const textValue = spanElement ? spanElement.textContent : null; // 텍스트 값 가져오기
+	console.log('Selected Date:', date);
+	console.log('Span Text Value:', textValue);
+	step = 1;
+	// 선택된 날짜 항목 강조
+	const selectedItem = document.getElementById('date-' + selectedDate);
+	if (selectedItem) {
+		selectedItem.style.backgroundColor = 'pink'; // 강조 색상
+		selectedItem.classList.add('selected');
+	}
+
+	fetch(`http://localhost:8080/reservation/date?date=` + selectedDate)
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('연결을 실패했습니다.')
 			}
-		};
+			return response.json();
+		})
+		.then(data => {
+			if (data.length === 0) {
+				// 상영 일정이 없는 경우 투명도를 낮추고 팝업을 띄움
+				selectedItem.style.opacity = '0.1'; // 투명도 낮춤
+				alert('선택한 날짜에 상영 일정이 없습니다.');
+			} else {
+				selectedItem.style.backgroundColor = 'pink'; // 강조 색상
+				selectedItem.classList.add('selected');
+				const chosenDateSpan = document.querySelector('.choosen--date');
+				if (chosenDateSpan) {
+					chosenDateSpan.innerHTML = selectedDate;
+				}
+				updateMovieListByDate(data);
+			}
+		})
+		.catch(error => {
+			alert('패치중 문제가 발생햇습니다.')
+			console.error('Fetch error:', error);
+		})
+}
 
-		// <li>에 <a> 태그 추가
-		subRegionItem.appendChild(link);
+//영화 리스트를 업데이트하는 함수
+function updateMovieListByDate(movieList) {
+	const movieItems = document.querySelectorAll('#movie-list li'); // 모든 영화 요소 선택
+	const movieListIds = movieList.map(movie => String(movie.movieId)); // 받아온 영화 리스트에서 ID 추출
 
-		// <ul>에 <li> 추가
-		listElement.appendChild(subRegionItem);
+	movieItems.forEach(item => {
+
+		const movieId = item.querySelector('span[data-id]').getAttribute('data-id');
+		// 기존 클릭 이벤트 리스너 제거
+		item.removeEventListener('click', handleAvailableMovieClick);
+		item.removeEventListener('click', handleUnavailableMovieClick);
+
+		if (movieListIds.includes(movieId)) {
+			item.style.opacity = '1';
+			item.addEventListener('click', handleAvailableMovieClick);
+		} else {
+			item.style.opacity = '0.1'; // 흐리게 보이도록
+			item.addEventListener('click', handleUnavailableMovieClick);
+		}
 	});
 }
 
-function fetchSubRegionsByMovieAndRegion(movieId, regionId) {
-    fetch(`http://localhost:8080/reservation/filterSubRegion?movieId=` + movieId + `&regionId=` + regionId)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-        	updateSubRegionList(data); // 서브 지역 리스트 업데이트
-            updateSubRegionOpacity(data); // 받아온 서브 지역의 투명도를 업데이트
-        })
-        .catch(error => {
-            console.error('Error fetching sub-regions:', error);
-        });
+//클릭 이벤트 핸들러 함수 정의
+function handleAvailableMovieClick(element) {
+	const movieId = element.getAttribute('data-movie-id');
+	selectedMovieId = movieId;
+	console.log(movieId)
+	fetchMovieDetails(movieId);
 }
 
-
-
-
+// 투명도가 낮아진 무비를 클릭했을 경우
+function handleUnavailableMovieClick() {
+	const message = '선택한 영화에 원하시는 상영스케줄이 없습니다\n계속하시겠습니까? (선택한 날짜 및 극장이 해제됩니다.)';
+	const confirmReset = confirm(message);
+	if (confirmReset) {
+		location.reload(); // 페이지 새로고침
+	} else {
+		// 취소를 선택한 경우 영화 제목과 사진 업데이트를 방지
+		// 예: 영화 제목과 사진을 기본 상태로 되돌리거나 유지하는 로직
+		shouldUpdate = false;
+		console.log('취소가 선택되었습니다. 영화 제목과 사진은 그대로 유지됩니다.');
+	}
+}
 
 
 
@@ -786,7 +925,7 @@ function viewSeats(){
 		alert('날짜를 선택해주세요')
 	} else if(selectedMovieId == null){
 		alert('영화를 선택해 주세요')
-	} else if(selectedTheater == null){
+	} else if(selectedTheaterId == null){
 		alert('극장을 선택해 주세요')
 	} else if(selectedTime == null){
 		alert('시간을 선택해 주세요')

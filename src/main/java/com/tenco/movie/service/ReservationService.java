@@ -256,4 +256,26 @@ public class ReservationService {
 		}
 		return entity;
 	}
+
+	public List<RegionCountDTO> fetchRegionCountByeDateAndMovie(int movieId, String date) {
+		List<RegionCountDTO> entity = null;
+		try {
+			entity = reservationRepository.countRegionByMovieAndDate(movieId, date);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+
+	public List<SubRegionDTO> fetchSubRegionByMovieAndDate(int movieId, String date) {
+		List<SubRegionDTO> entity = null;
+		try {
+			entity = reservationRepository.findSubRegionByMovieAndDate(movieId, date);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+
 }

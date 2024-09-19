@@ -294,3 +294,104 @@ button#send--chat {
     font-size: 18px;
     margin-top: 20px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.con--item--wrap {
+	display: flex;
+	margin: 5px;
+}
+
+.item--box {
+	background-color: #fff; 
+	border-radius: 10px; 
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+	overflow: hidden; 
+	width: 80px; 
+	text-align: center; 
+	padding: 15px;
+	border: 1px solid #ddd; 
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	margin: 10px;
+}
+
+
+.item--box img {
+	width: 100%; /* 이미지 너비를 아이템 박스에 맞춤 */
+	height: auto; /* 이미지 높이 자동 조절 */
+}
+
+.item--box h3 {
+	font-size: 18px;
+	color: #333;
+	margin: 10px 0 5px;
+}
+
+.item--box h4 {
+	font-size: 14px;
+	color: #666;
+	margin: 0 0 10px;
+}
+
+.item--box:hover {
+	transform: scale(1.05); /* 확대 효과 */
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* 더 강한 그림자 */
+}
+
+.item--box .item--btn {
+	background-color: #007bff; /* 버튼 배경색 */
+	color: #fff; /* 버튼 텍스트 색상 */
+	border: none; /* 버튼 경계선 없음 */
+	border-radius: 5px; /* 모서리 둥글기 */
+	padding: 10px 15px; /* 버튼 패딩 */
+	font-size: 16px; /* 버튼 글꼴 크기 */
+	cursor: pointer; /* 커서 포인터로 변경 */
+	margin-top: 10px;
+	transition: background-color 0.3s ease; /* 애니메이션 효과 */
+}
+
+.item--box .item--btn:hover {
+	background-color: #0056b3; 
+}
+
+
+.use--btn {
+	background-color: #ff66b2; 
+	color: #fff; 
+	font-size: 8px; 
+	padding: 12px 24px; 
+	border: none;
+	border-radius: 25px;
+	cursor: pointer; 
+	transition: all 0.3s ease; /* 부드러운 전환 효과 */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+	font-family: 'Comic Sans MS', cursive; /* 귀여운 글꼴 */
+	text-transform: uppercase; /* 대문자 변환 */
+}
+
+.use--btn:hover {
+	background-color: #ff3399; 
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
+	transform: scale(1.05); 
+}
+
+.use--btn:active {
+	background-color: #e6007e; 
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); 
+	transform: scale(0.98); 
+}
