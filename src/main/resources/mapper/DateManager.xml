@@ -36,6 +36,10 @@
 	<update id="resetAllDrtailCount">
 		UPDATE detail_count_tb SET  origin_count = 3
 	</update>
+	
+	<select id="searchUserById" resultType="com.tenco.movie.repository.model.User">
+		select * from user_tb WHERE id = #{id}
+	</select>
 
 
 </mapper>

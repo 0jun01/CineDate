@@ -53,5 +53,7 @@ public interface UserRepository {
 	
 	// 어드민 체크
 	public Admin checkAdmin(@Param("loginId") String loginId);
+	
+	
 
 }

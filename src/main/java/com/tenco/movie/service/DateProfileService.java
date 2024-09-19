@@ -285,4 +285,10 @@ public class DateProfileService {
 	}
 	
 	
+	public User searchUserGender(int userId) {
+		
+		
+		return null;
+	}
+
 }
