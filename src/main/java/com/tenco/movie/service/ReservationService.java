@@ -246,4 +246,14 @@ public class ReservationService {
 		}
 		return entity;
 	}
+
+	public List<SubRegionDTO> fetchSubRegionByMovieAndRegion(int movieId, int regionId) {
+		List<SubRegionDTO> entity = null;
+		try {
+			entity = reservationRepository.filterSubRegionByMovieAndRegion(movieId, regionId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
 }

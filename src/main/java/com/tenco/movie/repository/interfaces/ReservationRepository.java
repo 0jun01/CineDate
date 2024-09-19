@@ -71,4 +71,7 @@ public interface ReservationRepository {
 
 	// 영화만 선택시 상영중인 영화 지역 서브 지역!
 	List<SubRegionDTO> findSubRegionByMovie(int movieId);
+
+	// 대분류 지역 필터링 하기
+	List<SubRegionDTO> filterSubRegionByMovieAndRegion(@Param("movieId") int movieId, @Param("regionId") int regionId);
 }

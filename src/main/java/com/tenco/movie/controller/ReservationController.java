@@ -298,4 +298,18 @@ public class ReservationController {
 		List<SubRegionDTO> entity = reservationService.fetchSubRegionByMovie(movieId);
 		return entity;
 	}
+
+	/**
+	 * 영화만 클릭한 후대분류 클릭 했을 시 극장 서브 지역 업데이트
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/filterSubRegion")
+	@ResponseBody
+	public List<SubRegionDTO> fetchSubRegionByMovieAndRegion(@RequestParam("movieId") int movieId,
+			@RequestParam("regionId") int regionId) {
+		List<SubRegionDTO> entity = reservationService.fetchSubRegionByMovieAndRegion(movieId, regionId);
+		return entity;
+	}
 }

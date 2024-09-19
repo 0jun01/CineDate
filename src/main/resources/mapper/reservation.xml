@@ -241,8 +241,29 @@
 		WHERE
 		st.movie_id = ${movieId}
 		AND st.show_date >= CURDATE()
-		AND (st.show_date > CURDATE() OR (st.show_date = CURDATE() AND
-		st.show_time >= CURTIME()))
+		AND (st.show_date
+		> CURDATE() OR (st.show_date = CURDATE() AND
+		st.show_time >=
+		CURTIME()))
+		GROUP BY sr.id, sr.name;
+	</select>
+
+	<select id="filterSubRegionByMovieAndRegion"
+		resultType="com.tenco.movie.dto.SubRegionDTO">
+		SELECT sr.id, sr.name
+		FROM subregions_tb sr
+		JOIN theaters_tb
+		th ON sr.id = th.subregion_id
+		JOIN screens_tb sc ON th.id =
+		sc.theater_id
+		JOIN showtimes st ON sc.id = st.screen_id
+		WHERE
+		st.movie_id = ${movieId}
+		AND st.show_date >= CURDATE()
+		AND (st.show_date
+		> CURDATE() OR (st.show_date = CURDATE() AND
+		st.show_time >=
+		CURTIME()))
 		GROUP BY sr.id, sr.name;
 	</select>
 
