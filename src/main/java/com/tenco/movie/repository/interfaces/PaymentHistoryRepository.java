@@ -11,7 +11,7 @@ public interface PaymentHistoryRepository {
 	int insertTossHistory(TossHistoryDTO historyDTO);
 
 	// 검색
-	TossHistoryDTO searchPaymentHistory(@Param("id") int id);
+	TossHistoryDTO sxearchPaymentHistory(@Param("id") int id);
 
 	// 삭제
 	int cancelTossPayment(@Param("paymentKey") String paymentKey, @Param("oderId") String oderId);

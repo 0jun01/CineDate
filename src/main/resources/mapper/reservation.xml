@@ -241,8 +241,10 @@
 		WHERE
 		st.movie_id = ${movieId}
 		AND st.show_date >= CURDATE()
-		AND (st.show_date > CURDATE() OR (st.show_date = CURDATE() AND
-		st.show_time >= CURTIME()))
+		AND (st.show_date
+		> CURDATE() OR (st.show_date = CURDATE() AND
+		st.show_time >=
+		CURTIME()))
 		GROUP BY sr.id, sr.name;
 	</select>
 
