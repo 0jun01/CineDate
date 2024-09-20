@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.tenco.movie.dto.MessageDTO;
 import com.tenco.movie.dto.detailCountDTO;
-import com.tenco.movie.repository.model.DateProfile;
+import com.tenco.movie.dto.matchingDTO;
 import com.tenco.movie.repository.model.User;
 
 @Mapper
@@ -15,7 +15,12 @@ public interface DateManagerRepocitory {
 	
 	int movieSuggest(@Param("userId")int userId, @Param("partNerId")int partNerId);
 	
-	List<DateProfile> matchingList(@Param("principalId")int principalId);
+	int retryDate(@Param("userId")int userId, @Param("partNerId")int partNerId);
+	int isOkDate(@Param("userId")int userId, @Param("partNerId")int partNerId);
+	int isRefuseDate(@Param("userId")int userId, @Param("partNerId")int partNerId);
+	
+	List<matchingDTO> matchingList(@Param("principalId")int principalId);
+	
 	
 	// ===  detailCount ===
 	
@@ -24,6 +29,7 @@ public interface DateManagerRepocitory {
 	int updateIpurchaseCount(@Param("userId")int id, @Param("count")int count);
 	
 	int updateOriginCount(@Param("userId")int id,@Param("count")int count);
+	
 	
 	User searchUserById(int id); 
 	
@@ -38,6 +44,8 @@ public interface DateManagerRepocitory {
 	int insrtChat(MessageDTO dto);
 
 	void resetAllDrtailCount();
+
+
 
 	
 	
