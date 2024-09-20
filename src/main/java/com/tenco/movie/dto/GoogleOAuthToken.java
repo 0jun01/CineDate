@@ -2,7 +2,6 @@ package com.tenco.movie.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.tenco.movie.repository.model.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

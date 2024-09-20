@@ -151,13 +151,15 @@ public class DateProfileService {
 	public void updateProfile(DateProfileDTO uptate, int principalId) throws IOException {
 
 		DateProfile profile = searchProfile(principalId);
-		System.out.println("=======================================================================");
-		System.out.println(profile);
-		System.out.println("=======================================================================");
+		
 		uptate.setOneOriginFileName(profile.getFirstOriginFileName());
 		uptate.setOneUproadFileName(profile.getFirstUploadFileName());
 		uptate.setTwoOriginFileName(profile.getSeocndOriginFileName());
 		uptate.setTwoUproadFileName(profile.getSecondUploadFileName());
+		uptate.setThirdOriginFileName(profile.getThirdOriginFileName());
+		uptate.setFourthOriginFileName(profile.getFourthOriginFileName());
+		uptate.setFifthOriginFileName(profile.getFifthOriginFileName());
+		
 		// 파일 저장 및 파일 이름 가져오기
 
 		if (uptate.getMFileOne() != null && !uptate.getMFileOne().isEmpty()) {
@@ -237,15 +239,6 @@ public class DateProfileService {
 
 	}
 
-	@Transactional
-	public int createdProfileDetail(profileDetailDTO detailDTO) {
-		return profileRepository.createdProfileDetail(detailDTO);
-	}
-
-	public profileDetailDTO detailPartnerDetail(int id) {
-		return profileRepository.detailPartnerDetail(id);
-	}
-
 	public List<ConItems> viewStoreList() {
 		List<ConItems> itemList = null;
 		try {
@@ -281,6 +274,23 @@ public class DateProfileService {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	
+	@Transactional
+	public int createdProfileDetail(profileDetailDTO detailDTO) {
+		return profileRepository.createdProfileDetail(detailDTO);
+	}
+	
+	public profileDetailDTO detailPartnerDetail(int id) {
+		return profileRepository.detailPartnerDetail(id);
+	}
+	
+	
+	public User searchUserGender(int userId) {
+		
+		
+		return null;
 	}
 
 }

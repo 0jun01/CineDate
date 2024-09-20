@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tenco.movie.dto.ChoicedMovie;
+import com.tenco.movie.dto.MyReservationDTO;
 import com.tenco.movie.dto.RegionCountDTO;
 import com.tenco.movie.dto.SubRegionDTO;
 import com.tenco.movie.dto.TheaterCountDTO;
@@ -244,4 +245,16 @@ public class ReservationService {
 		}
 		return entity;
 	}
+	
+	/**
+	 * 내 예약 내역 확인
+	 * @author 성후
+	 * @param userId
+	 * @return
+	 */
+	
+	public List<MyReservationDTO> myreservation(int userId) {
+	    return reservationRepository.myreservation(userId);
+	}
+	
 }

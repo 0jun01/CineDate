@@ -1,12 +1,9 @@
 package com.tenco.movie.dto;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.tenco.movie.repository.model.Event;
 import com.tenco.movie.repository.model.EventWrite;
 
 import lombok.AllArgsConstructor;

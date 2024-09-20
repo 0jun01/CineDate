@@ -22,6 +22,7 @@ public class Notice {
 	private String title; // 공지사항 제목
 	private String content; // 공지사항 내용
 	private Timestamp createdAt;
+	private int viewCount; // 조회수
 	
 	// 시간 포맷
     public String timestampToString() {

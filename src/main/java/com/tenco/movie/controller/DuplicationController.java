@@ -45,12 +45,35 @@ public class DuplicationController {
 	 */
 	@GetMapping("/movieSuggest")
 	public boolean postMethodName(@RequestParam(name = "userId")int id, @RequestParam(name = "partNerId")int partNerId) {
-		System.out.println("--- 여기 들어오넹? ---");
-		
-		
 		boolean isDate = dateManagerService.movieSuggest(id, partNerId)  == 1;
-		
 		return isDate;
+	}
+	
+	/**
+	 * 재도전
+	 * @param userId
+	 * @param partNerId
+	 * @return
+	 */
+	@GetMapping("/retry")
+	public boolean getRetery(@RequestParam(name = "userId")int userId, @RequestParam(name = "partNerId")int partNerId) {
+	 boolean isDate =  dateManagerService.retryDate(userId,partNerId) == 1;
+		return isDate;
+	}
+	
+	/*
+	 * 
+	 */
+	@GetMapping("/isOk")
+	public boolean isOk(@RequestParam(name = "userId")int userId, @RequestParam(name = "partNerId")int partNerId) {
+		boolean isOk = dateManagerService.okDate(userId,partNerId) == 1;
+		return isOk;
+	}
+	
+	@GetMapping("/isRefuse")
+	public boolean isRefuse(@RequestParam(name = "userId")int userId, @RequestParam(name = "partNerId")int partNerId) {
+		boolean isOk = dateManagerService.isRefuse(userId, partNerId) == 1 ;
+		return isOk;
 	}
 	
 

@@ -2,7 +2,6 @@ package com.tenco.movie.dto;
 
 import java.sql.Date;
 
-import com.tenco.movie.repository.model.User;
 import com.tenco.movie.repository.model.UserWrite;
 
 public class UserWriterDTO {

@@ -77,14 +77,13 @@
 							<img src="/DateProfileIMAGE/${profile.firstUploadFileName}" class="rounded-circle shadow" alt="User Image" onerror="this.onerror = null; this.src='/img/usernone.jpg'">
 								<p>
 									${user.loginId} 관리자님
-
 								</p></li>
 							<!--end::User Image-->
 							<!--begin::Menu Body-->
 							
 							<!--end::Menu Body-->
 							<!--begin::Menu Footer-->
-							<li class="user-footer"><a href="/logout" class="btn btn-default btn-flat float-end">로그아웃</a></li>
+							<li class="user-footer"><a href="/adminlogout" class="btn btn-default btn-flat float-end">로그아웃</a></li>
 							<!--end::Menu Footer-->
 						</ul></li>
 					<!--end::User Menu Dropdown-->

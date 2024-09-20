@@ -58,8 +58,8 @@ public class AdminPageService {
 
 	private Event event;
 
-	@Value("${file.upload-dir}")
-	private String uploadDir;
+	@Value("${file.event-dir}")
+	private String eventDir;
 
 	// -----------------------------------------------
 	// 메인 시작
@@ -291,14 +291,14 @@ public class AdminPageService {
 		if (mFile.getSize() > Define.MAX_FILE_SIZE) {
 			throw new DataDeliveryException(Define.FILE_SIZE_EXCEEDED, HttpStatus.BAD_REQUEST);
 		}
-		String saveDriectory = uploadDir;
+		String saveDriectory = eventDir;
 
 		String uploadFileName = UUID.randomUUID() + "_" + mFile.getOriginalFilename();
 		String uploadPath = saveDriectory + File.separator + uploadFileName;
 
 		File destination = new File(uploadPath);
 
-		Path uploadPath1 = Paths.get(uploadDir);
+		Path uploadPath1 = Paths.get(eventDir);
 		if (!Files.exists(uploadPath1)) {
 			try {
 				Files.createDirectories(uploadPath1);

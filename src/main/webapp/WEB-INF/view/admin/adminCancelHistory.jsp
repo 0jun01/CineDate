@@ -49,7 +49,7 @@
 												<span class="time"> <i class="bi bi-clock-fill"></i> ${history.dateToTime()}
 												</span>
 												<h3 class="timeline-header">
-													<a href="#">${history.id} 결제 내역</a>
+													<a href="#">${history.id} 환불 내역</a>
 												</h3>
 												<div class="timeline-body">
 													id : ${history.id} <br> 결제 key : ${history.paymentKey} <br> 결제한 아이디 : ${history.userId} <br> 주문 번호 : ${history.orderId} <br> 주문 내역 :

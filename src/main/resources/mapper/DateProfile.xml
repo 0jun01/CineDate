@@ -72,6 +72,7 @@
 		resultType="com.tenco.movie.repository.model.DateProfile">
 		SELECT p.*,
 		CASE
+		WHEN m1.status = 2 AND m2.status = 2 THEN 0
 		WHEN m1.status IS NULL AND m2.status IS NULL
 		THEN 0
 		WHEN m1.status IS NOT NULL THEN
@@ -97,8 +98,7 @@
 		LEFT JOIN matching_tb
 		AS m2 ON (u.id = m2.s_user_id AND m2.r_user_id =
 		#{userId})
-		WHERE u.id
-		!= #{userId}
+		WHERE u.id != #{userId}
 		AND u.gender != #{gender}
 	</select>
 

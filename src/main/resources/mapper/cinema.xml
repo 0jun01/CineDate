@@ -3,13 +3,15 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tenco.movie.repository.interfaces.CinemaRepository">
 
-	<select id="findAllRegions" resultType="com.tenco.movie.repository.model.Regions">
-        SELECT * FROM regions_tb ORDER BY id
-    </select>
-    
-     <select id="findByRegionId" parameterType="int" resultType="com.tenco.movie.repository.model.SubRegions">
-        SELECT * FROM subregions_tb WHERE region_id = #{regionId}
-    </select>
+	<select id="findAllRegions"
+		resultType="com.tenco.movie.repository.model.Regions">
+		SELECT * FROM regions_tb ORDER BY id
+	</select>
+
+	<select id="findByRegionId" parameterType="int"
+		resultType="com.tenco.movie.repository.model.SubRegions">
+		SELECT * FROM subregions_tb WHERE region_id = #{regionId}
+	</select>
 
 	<select id="findTheatersBySubregionId" parameterType="int"
 		resultType="com.tenco.movie.repository.model.Theater">

@@ -43,7 +43,7 @@
 
 						</div>
 						<div class="card-body">
-							<img class="form-control" id="content" style="resize: none; border-style: none" src="/DateProfileIMAGE/${event.uploadFileName}" width="50%" onerror="this.onerror = null; this.src='/img/usernone.jpg'" alt="사진">
+							<img class="form-control" id="content" style="resize: none; border-style: none" src="/eventIMAGE/${event.uploadFileName}" width="50%" onerror="this.onerror = null; this.src='/img/usernone.jpg'" alt="사진">
 						</div>
 						<!-- /.card-body -->
 						<div class="card-footer">
