@@ -20,10 +20,8 @@ import com.tenco.movie.service.MailSendService;
 @RequestMapping("/mail")
 public class MailController {
 	
-	
 	@Autowired
 	private MailSendService mailSendService;
-	
 	
 	String authCode;
 
@@ -60,7 +58,5 @@ public class MailController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 		
 	}
-	
-	
 	
 }

@@ -83,11 +83,13 @@ public class PaymentService {
 				.approvedAt(response.getApprovedAt()).build();
 
 		result = historyRepository.insertTossHistory(dto);
+
 		if (result != 1) {
 			throw new DataDeliveryException(Define.ERROR_PAYMENT_FAILED, HttpStatus.BAD_REQUEST);
-		}
 
+		}
 		return result;
+
 	}
 
 	@Transactional

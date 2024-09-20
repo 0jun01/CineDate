@@ -45,8 +45,9 @@ public class NoticeController {
     public String getNoticeDetailPage(@RequestParam("id") int id, Model model) {
         Notice notice = noticeService.readNoticeDetail(id);
         model.addAttribute("notice", notice);
-        return "/notice/noticeDetail"; 
+        return "/notice/noticeDetail";
     }
+
 
     
 }

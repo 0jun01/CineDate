@@ -3,7 +3,6 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.tenco.movie.repository.interfaces.ReservationRepository">
-
 	<select id="findAll"
 		resultType="com.tenco.movie.repository.model.MovieDetailTB">
 		select * from movie_detail_tb
@@ -136,7 +135,7 @@
 		INSERT INTO bookings (user_id, showtime_id, quantity,
 		booking_time, status)
 		VALUES (#{userId}, #{showTimeId}, #{quantity},
-		NOW(), '완료');
+		NOW(), '완료')
 	</insert>
 
 	<insert id="insertBookingSeats">
@@ -362,10 +361,11 @@
 		JOIN showtimes st ON sc.id = st.screen_id
 		WHERE
 		st.movie_id = #{movieId}
-		AND st.show_date >= CURRENT_DATE
-		AND
-		(st.show_date > CURRENT_DATE OR (st.show_date = CURRENT_DATE AND
-		st.show_time >= CURRENT_DATE))
+		AND st.show_date >= CURDATE()
+		AND (st.show_date
+		> CURDATE() OR (st.show_date = CURDATE() AND
+		st.show_time >=
+		CURTIME()))
 		GROUP BY sr.id, sr.name
 	</select>
 
@@ -474,4 +474,60 @@
 		sr.id, sr.name
 	</select>
 
-</mapper>
+	<select id="myreservation"
+		resultType="com.tenco.movie.dto.MyReservationDTO">
+		SELECT DISTINCT
+		b.id AS booking_id,
+		b.booking_time,
+		b.quantity,
+		s.show_date,
+		s.show_time,
+		m.title AS movie_title,
+		se.seat_number AS reserved_seat
+		FROM
+		bookings b
+		JOIN
+		showtimes s ON
+		b.showtime_id = s.id
+		JOIN
+		movies_tb m ON s.movie_id = m.id
+		JOIN
+		booking_seats bs ON b.id = bs.booking_id
+		JOIN
+		seats se ON bs.seat_id =
+		se.id
+		WHERE
+		b.user_id = #{userId}
+		ORDER BY
+		b.booking_time DESC
+	</select>
+
+	<select id="checkUserReservationForMovie"
+		resultType="com.tenco.movie.dto.MyReservationDTO">
+		SELECT DISTINCT
+		b.id AS booking_id,
+		b.booking_time,
+		b.quantity,
+		s.show_date,
+		s.show_time,
+		m.title AS movie_title,
+		se.seat_number AS reserved_seat
+		FROM
+		bookings b
+		JOIN
+		showtimes s ON
+		b.showtime_id = s.id
+		JOIN
+		movies_tb m ON s.movie_id = m.id
+		JOIN
+		booking_seats bs ON b.id = bs.booking_id
+		JOIN
+		seats se ON bs.seat_id =
+		se.id
+		WHERE
+		b.user_id = #{userId} AND s.movie_id = #{movieId}
+		ORDER BY
+		b.booking_time DESC
+	</select>
+
+</mapper>	

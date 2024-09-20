@@ -43,14 +43,14 @@
 
 						</div>
 						<div class="card-body">
-							<img class="form-control" id="content" style="resize: none; border-style: none" src="${event.originFileName}">
+							<img class="form-control" id="content admin--event--img" style="border-style: none; width: 500px;height: 500px" src="/eventImage/${event.uploadFileName}" width="50%" onerror="this.onerror = null; this.src='/img/usernone.jpg'" alt="사진" >
 						</div>
 						<!-- /.card-body -->
 						<div class="card-footer">
-							<form action="#" method="get">
+							<form action="/adminEventDelete" method="get">
 								<button type="submit" class="btn btn-danger float-end">삭제</button>
 							</form>
-							<form action="#" method="get">
+							<form action="/adminEventReWrite/${event.id}" method="get">
 								<button type="submit" class="btn btn-warning float-end">수정</button>
 							</form>
 						</div>

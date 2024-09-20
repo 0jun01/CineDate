@@ -33,15 +33,27 @@ public class CinemaController {
 			regionId = 1;
 		}
 
+        if (subregionId == null) {
+            // 기본 상위 지역의 첫 하위 지역 ID를 설정
+            List<SubRegions> subregions = cinemaService.getSubregionsByRegionId(regionId);
+            if (!subregions.isEmpty()) {
+                subregionId = subregions.get(0).getId();
+            }
+        }
+
+        List<SubRegions> subregions = cinemaService.getSubregionsByRegionId(regionId);
+        model.addAttribute("subregions", subregions);
+        model.addAttribute("selectedRegionId", regionId);
+        model.addAttribute("selectedSubregionId", subregionId);
 		if (subregionId == null) {
 			// 기본 상위 지역의 첫 하위 지역 ID를 설정
-			List<SubRegions> subregions = cinemaService.getSubregionsByRegionId(regionId);
+			List<SubRegions> subRegions = cinemaService.getSubregionsByRegionId(regionId);
 			if (!subregions.isEmpty()) {
 				subregionId = subregions.get(0).getId();
 			}
 		}
 
-		List<SubRegions> subregions = cinemaService.getSubregionsByRegionId(regionId);
+		List<SubRegions> subRegions = cinemaService.getSubregionsByRegionId(regionId);
 		model.addAttribute("subregions", subregions);
 		model.addAttribute("selectedRegionId", regionId);
 		model.addAttribute("selectedSubregionId", subregionId);

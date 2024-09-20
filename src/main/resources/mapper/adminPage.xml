@@ -4,9 +4,41 @@
 <mapper
 	namespace="com.tenco.movie.repository.interfaces.AdminRepository">
 
+	<select id="reviewAdminCount" resultType="int">
+		select count(*) from
+		review_tb
+	</select>
+
+	<select id="sellAdminCount" resultType="int">
+		select count(*) from
+		toss_hitory_tb
+	</select>
+	
+	<select id="findAdminItemAll" resultType="com.tenco.movie.repository.model.ConItems">
+	select * from con_item_tb order by id desc
+	</select>
+	
+	<select id="itemAdminCount" resultType="int">
+	select count(*) from con_item_tb
+	</select>
+	
+	<select id="bookingAdminCount" resultType="int">
+	select count(*) from bookings
+	</select>
+	
+	<select id="sellAdminSum" resultType="int">
+	select sum(amount) from toss_hitory_tb
+	</select>
+	
+	<select id ="profileAdmin">
+	select * from profile_tb where user_id = #{userId}
+	</select>
+
+	<!-- ========================================================== -->
+
 	<select id="findAll"
 		resultType="com.tenco.movie.repository.model.Notice">
-		select * from notice_tb order by id desc;
+		select * from notice_tb order by id desc
 	</select>
 
 	<insert id="insertAdmin">
@@ -25,16 +57,19 @@
 	</delete>
 
 	<select id="findAdminById">
-		select * from notice_tb where id = #{id} order by id desc
+		select * from notice_tb where id = #{id} order by id
+		desc
 	</select>
 
 	<select id="findAdminByName">
-		select * from notice_tb where title like CONCAT('%', #{search}, '%') order
+		select * from notice_tb where title like CONCAT('%',
+		#{search}, '%') order
 		by id desc limit #{limit} offset #{offset}
 	</select>
 
 	<select id="pageCountAdmin">
-		select * from notice_tb order by id desc limit #{limit} offset #{offset}
+		select * from notice_tb order by id desc limit
+		#{limit} offset #{offset}
 	</select>
 
 
@@ -51,12 +86,24 @@
 
 
 	<!-- ========================================================================================== -->
+	<insert id="insertEvent">
+		insert into event_tb(title, release_date, end_date, origin_file_name, upload_file_name)
+		values(#{title}, #{releaseDate}, #{endDate}, #{originFileName}, #{uploadFileName})
+	</insert>
+	
+	<update id="updateEventById">
+		update event_tb set title = #{title}, release_date =
+		#{releaseDate}, origin_file_name = #{originFileName}, upload_file_name = #{uploadFileName} where id = #{id}
+	</update>
+	
 	<select id="findEventAll">
-		select * from event_tb order by id desc limit #{limit} offset #{offset}
+		select * from event_tb order by id desc limit
+		#{limit} offset #{offset}
 	</select>
 
 	<select id="findEventById">
-		select * from event_tb where id = #{id} order by id desc
+		select * from event_tb where id = #{id} order by id
+		desc
 	</select>
 
 	<delete id="deleteByEventById">
@@ -64,7 +111,8 @@
 	</delete>
 
 	<select id="findAdminEventByName">
-		select * from event_tb where title like CONCAT('%', #{search}, '%') order by
+		select * from event_tb where title like CONCAT('%',
+		#{search}, '%') order by
 		id desc limit #{limit} offset #{offset}
 	</select>
 
@@ -83,11 +131,13 @@
 
 
 	<select id="findAdminMemberExceptPW">
-		select * from user_tb order by id desc limit #{limit} offset #{offset}
+		select * from user_tb order by id desc limit #{limit}
+		offset #{offset}
 	</select>
 
 	<select id="findAdminMemberByName">
-		select * from user_tb where login_id like CONCAT('%', #{search}, '%') order
+		select * from user_tb where login_id like CONCAT('%',
+		#{search}, '%') order
 		by id desc limit #{limit} offset #{offset}
 	</select>
 
@@ -109,30 +159,137 @@
 		as `id` FROM toss_hitory_tb GROUP BY DATE(approved_at) order by
 		approvedAt DESC
 	</select>
+	
+	<select id="countAdminCancelHistory">
+		SELECT DATE(cancel_at) as `cancelAt`, COUNT(id)
+		as `id` FROM cancel_toss_hitory_tb GROUP BY DATE(cancel_at) order by
+		cancelAt DESC
+	</select>
 
 	<select id="findHistoryAll">
 		select * from toss_hitory_tb order by id desc
 	</select>
+	
+	<select id="findCancelAll">
+		select * from cancel_toss_hitory_tb order by id desc
+	</select>
 
+	<select id="readAdminHistory"
+		resultType="com.tenco.movie.repository.model.History">
+		select * from toss_hitory_tb order by id desc limit 6
+		offset 0
+	</select>
+	
+	
 
 	<!-- =========================== Profile =============================== -->
-	<select id="readProfileList" resultType="com.tenco.movie.repository.model.DateProfile">
+	<select id="readProfileList"
+		resultType="com.tenco.movie.repository.model.DateProfile">
 		select * from profile_tb where nick_name like
-		CONCAT('%', #{search}, '%')
+		CONCAT('%',
+		#{search}, '%')
 		limit #{limit} offset #{offset}
 	</select>
 
 	<select id="countAdminProfileList" resultType="int">
-		select count(*) from profile_tb where nick_name like CONCAT('%', #{search}, '%')
+		select count(*)
+		from profile_tb where nick_name like CONCAT('%', #{search}, '%')
 	</select>
 
-	<select id="searchProfileById" resultType="com.tenco.movie.repository.model.DateProfile">
-		select * from profile_tb where id = #{id}
+	<select id="countAdminProfileAll" resultType="int">
+		select count(*)
+		from profile_tb
+	</select>
+
+	<select id="readAdminProfile"
+		resultType="com.tenco.movie.repository.model.DateProfile">
+		select * from profile_tb order by id desc limit 8 offset 0
 	</select>
 	
-	<update id="lifeStatusUpdate">
-		UPDATE profile_tb SET life_status = ${status} WHERE id = #{id}
-	</update>
+	<select id="pageDateCountAdmin">
+	select * from profile_tb order by list_status desc limit
+		#{limit} offset #{offset}
+	</select>
 
+
+	<select id="searchProfileById"
+		resultType="com.tenco.movie.repository.model.DateProfile">
+		select * from profile_tb where id = #{id}
+	</select>
+
+	<update id="lifeStatusUpdate">
+		UPDATE profile_tb SET life_status = ${status} WHERE
+		id = #{id}
+	</update>
+	
+	<update id="listStatusUpdate">
+		UPDATE profile_tb SET list_status = ${status} WHERE
+		id = #{id}
+	</update>
+	
+	<!-- ==========================비동기 통신 영역 =================================== -->
+	<select id="CountProfile"
+		resultType="com.tenco.movie.dto.CountProfileDTO">
+		SELECT
+		YEAR(CURDATE()) AS year,
+		COUNT(*) AS count
+		FROM
+		profile_tb
+		WHERE YEAR(created_at) = YEAR(CURDATE())
+		UNION ALL
+		SELECT
+		YEAR(CURDATE()) - 1 AS year,
+		COUNT(*) AS count
+		FROM profile_tb
+		WHERE
+		YEAR(created_at) = YEAR(CURDATE()) - 1
+		UNION ALL
+		SELECT
+		YEAR(CURDATE()) -
+		2 AS year,
+		COUNT(*) AS count
+		FROM profile_tb
+		WHERE YEAR(created_at) =
+		YEAR(CURDATE()) - 2
+		UNION ALL
+		SELECT
+		YEAR(CURDATE()) - 3 AS year,
+		COUNT(*) AS count
+		FROM profile_tb
+		WHERE YEAR(created_at) =
+		YEAR(CURDATE()) - 3
+		ORDER BY year ASC
+	</select>
+
+	<select id="totalProfileCount"
+		resultType="com.tenco.movie.dto.OnlyCountDTO">
+		SELECT count(*) as count FROM profile_tb
+	</select>
+
+	<select id="totalMatchings"
+		resultType="com.tenco.movie.dto.OnlyCountDTO">
+		SELECT count(*) as count FROM matching_tb WHERE status = 1
+	</select>
+
+	<select id="genresBookings"
+		resultType="com.tenco.movie.dto.genresBookingsDTO">
+		SELECT
+		g.genre_name AS genre,
+		COUNT(b.id) AS total_bookings
+		FROM
+		genres_tb g
+		JOIN
+		movie_genre_tb mg ON g.id = mg.genre_id
+		JOIN
+		movies_tb m ON mg.movie_id = m.id
+		JOIN
+		showtimes s ON m.id = s.movie_id
+		JOIN
+		bookings b ON s.id = b.showtime_id
+		GROUP BY
+		g.genre_name
+		ORDER BY
+		total_bookings DESC
+	</select>
 
 </mapper>

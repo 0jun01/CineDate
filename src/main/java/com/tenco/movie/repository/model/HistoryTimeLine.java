@@ -13,7 +13,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
+
 public class HistoryTimeLine {
+
 
 	Date approvedAt;
 	int count;

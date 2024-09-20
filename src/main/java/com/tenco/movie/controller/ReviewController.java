@@ -4,24 +4,24 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.tenco.movie.dto.MyReservationDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.model.MovieDetail;
-import com.tenco.movie.repository.model.Movies;
 import com.tenco.movie.repository.model.Review;
 import com.tenco.movie.repository.model.User;
 import com.tenco.movie.service.MovieService;
+import com.tenco.movie.service.ReservationService;
 import com.tenco.movie.service.ReviewService;
 import com.tenco.movie.utils.Define;
 
@@ -37,7 +37,9 @@ public class ReviewController {
 	
 	@Autowired
     private final MovieService movieService;
-
+	
+	@Autowired
+    private final ReservationService reservationService;
    
 
 	/**
@@ -54,7 +56,13 @@ public class ReviewController {
 	        Model model) throws UnsupportedEncodingException {
 
 	    int userId = principal.getId(); // principal에서 userId를 가져옴
-
+	    
+	    List<MyReservationDTO> reservationDTO = reservationService.checkReservation(userId, movieId);
+	    
+	    if(reservationDTO.isEmpty() || reservationDTO.size() <= 0) {
+	    	throw new DataDeliveryException(Define.NO_RESERVATION, HttpStatus.BAD_REQUEST);
+	    }
+	    
 	    // 별점 검증
 	    if (rating <= 0) {
 	        throw new DataDeliveryException(Define.INPUT_STAR_RATING, HttpStatus.BAD_REQUEST);

@@ -51,6 +51,7 @@ public class Define {
 	public static final String ENTER_YOUR_BIRTH = "생년월일을 입력해 주세요.";
 	public static final String ENTER_YOUR_GENDER = "성별을 선택해 주세요.";
 	public static final String NO_DATA_FOUND = "등록된 정보가 없습니다. 다시 확인해주세요.";
+	public static final String ZERO_DETAIL_COUNT = "상세보기 횟수를 모두 소진 하였습니다.";
 
 	// etc
 	public static final String FAIL_TO_CREATE_USER = "회원가입 실패.";
@@ -65,6 +66,7 @@ public class Define {
 	public static final String DUPLICATION_REVIEW = "이미 리뷰를 작성한 영화입니다.";
 	public static final String NOT_FOUND_REVIEW = "수정할 리뷰가 존재하지 않습니다.";
 	public static final String INPUT_STAR_RATING = "평점을 입력하세요.";
+	public static final String NO_RESERVATION = "실관람객에 한하여 관람평 작성이 가능합니다.";
 
 	// paging
 	public static final String NOT_FOUND_PREVIOUS = "첫 번째 페이지 입니다.";

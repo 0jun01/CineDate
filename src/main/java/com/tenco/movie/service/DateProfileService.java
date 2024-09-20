@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.tenco.movie.dto.DateProfileDTO;
 import com.tenco.movie.dto.UserItemInventory;
+import com.tenco.movie.dto.profileDetailDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.repository.interfaces.ProfileRepository;
 import com.tenco.movie.repository.interfaces.StoreRepository;
@@ -328,5 +329,17 @@ public class DateProfileService {
 		}
 
 	}
-
+	
+	@Transactional
+	public int createdProfileDetail(profileDetailDTO detailDTO) {
+		return profileRepository.createdProfileDetail(detailDTO);
+	}
+	
+	public profileDetailDTO detailPartnerDetail(int id) {
+		return profileRepository.detailPartnerDetail(id);
+	}
+	
+	
+	
+	
 }

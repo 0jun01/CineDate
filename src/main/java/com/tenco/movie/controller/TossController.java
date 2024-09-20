@@ -1,10 +1,6 @@
 package com.tenco.movie.controller;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +18,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.tenco.movie.dto.TossApproveResponse;
-import com.tenco.movie.dto.TossHistoryDTO;
 import com.tenco.movie.repository.model.User;
 import com.tenco.movie.service.PaymentService;
 
@@ -80,8 +75,8 @@ public class TossController {
 		} catch (HttpClientErrorException e) {
 			System.err.println("Error response body: " + e.getResponseBodyAsString());
 		}
-
-		return "date/datePage";
+		
+		return "redirect:/user/myReservation";
 	}
 
 	/**
@@ -92,7 +87,7 @@ public class TossController {
 	@GetMapping("/fail")
 	public String fail() {
 
-		return "user/signUp";
+		return "/home";
 	}
 
 }

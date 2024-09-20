@@ -35,7 +35,7 @@
 					<div class="timeline">
 						<!-- timeline time label -->
 						<c:forEach var="historytime" items="${historyTimeLine}">
-							<div class="time-label">
+							<div class="time-label" >
 								<span class="text-bg-danger">${historytime.approvedAt}</span>
 							</div>
 							<!-- /.timeline-label -->
@@ -57,7 +57,7 @@
 										결제한 아이디 : ${history.userId} <br>
 										주문 번호 : ${history.orderId} <br>
 										주문 내역 : ${history.orderName} <br>
-										주문 갯수 : ${history.amount} <br>
+										금액 : ${history.amount} 원<br>
 										결제 방법 : ${history.method} <br>
 										요청 시간 : ${history.requestedAt} <br>
 										승인 시간 : ${history.approvedAt}
@@ -66,12 +66,12 @@
 										<div class="timeline-footer">
 											<a class="btn btn-primary btn-sm">자세히보기</a> 
 											<form action="/cancel" method="POST">
-											<button class="btn btn-danger btn-sm" name="payId" value="${history.id}">환불</button>
+											<button class="btn btn-danger btn-sm" name="payId" value="${history.id}" disabled="disabled">환불</button>
 											</form>
 										</div>
 									</div>
 									</c:when>
-									<c:otherwise></c:otherwise>
+									
 									</c:choose>
 								</div>
 								<!-- END timeline item -->

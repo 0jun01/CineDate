@@ -1,27 +1,46 @@
 @charset "UTF-8";
 
 .img--title--box {
-	width: 30%;
+	display: flex;
+	align-items: flex-start;
+}
+
+.movie--poster {
+	width: 10%;
+	margin-right: 10px;
 }
 
 .list--box {
 	border: 1px solid #ccc;
-	/* padding: 20px; */
 	display: flex;
 	flex-direction: column;
 	width: 30%;
 	height: 500px;
 	background-color: #f9f9f9;
+	box-sizing: border-box;
 }
 
 .date--box {
 	border: 1px solid #ccc;
-	/* padding: 20px; */
 	display: flex;
 	flex-direction: column;
-	width: 10%;
+	width: 15%;
 	height: 500px;
 	background-color: #f9f9f9;
+	box-sizing: border-box;
+}
+
+.date--box .scroll--list {
+	padding-top: 10px;
+}
+
+.date--box #date--list .selectable-date {
+	line-height: 1.8;
+	padding-left: 5px;
+}
+
+.scroll--date {
+	padding: 15px 10px;
 }
 
 .filter--box {
@@ -37,67 +56,72 @@
 .scroll--list {
 	overflow-y: scroll;
 	height: 370px;
-	width: 93%;
 	padding: 10px;
-}
-
-.scroll--list::-webkit-scrollbar {
-	width: 10px;
-}
-
-.scroll--list::-webkit-scrollbar-track {
-	background: transparent;
-}
-
-.scroll--list::-webkit-scrollbar-thumb {
-	background: #888;
-	border-radius: 10px;
 }
 
 .scroll--list::-webkit-scrollbar-thumb:hover {
 	background: #555;
 }
 
+.scroll--list::-webkit-scrollbar {
+	width: 4px;
+}
+
+.scroll--list::-webkit-scrollbar-thumb {
+	height: 30%;
+	background: #666;
+	border-radius: 10px;
+}
+
+.scroll--list::-webkit-scrollbar-track {
+	background: rgba(27, 27, 27, 0.1);
+}
+
 .scroll--list ul {
 	list-style-type: none;
 	padding: 0;
-	margin: 0;
+	line-height: 1.5;
 }
 
 .scroll--list li {
 	padding: 5px 0;
 }
 
+.scroll--list li:first-child {
+	padding-top: 0;
+}
+
+.scroll--list #sub--region--list li {
+	padding: 5px 0 0;
+}
+
+.movie--grade {
+	width: 20px;
+	height: 20px;
+	border-radius: 4px;
+	padding: 4px;
+}
+
 .grade-all, .grade-12, .grade-15, .grade-19, .grade-default {
 	display: inline-block;
-	padding: 4px 8px;
-	border-radius: 4px;
 	font-weight: bold;
 	text-align: center;
+	color: #fff;
+	font-size: 16px;
+	line-height: 22px;
 }
 
 .grade-all {
-	background-color: green;
-	color: white;
-	padding: 2px 4px;
-	width: 10%;
-	border-radius: 4px;
+	background-color: #008000;
+	font-size: 11px;
 }
 
 .grade-12 {
 	background-color: #f4b400;
-	color: white;
-	padding: 2px 4px;
-	width: 10%;
-	border-radius: 4px;
 }
 
 .grade-15 {
 	background-color: orange;
-	color: white;
-	padding: 2px 4px;
-	width: 10%;
-	border-radius: 4px;
 }
 
 .grade-19 {
@@ -113,21 +137,23 @@
 }
 
 .top--title--inner {
-	background-color: #333333;
-	color: white;
+	background-color: #333;
+	color: #fff;
 	width: 100%;
 	height: 30px;
 	display: flex;
 	justify-content: center;
+	align-items: center;
 }
 
 .date--title--inner {
-	background-color: #333333;
-	color: white;
+	background-color: #333;
+	color: #fff;
 	width: 100%;
 	height: 30px;
 	display: flex;
 	justify-content: center;
+	align-items: center;
 }
 
 .filter--box {
@@ -147,20 +173,60 @@ button {
 .choice--box {
 	display: flex;
 	width: 100%;
+	height: 500px;
+	margin-top: 150px;
+}
+
+.region--list #region-list {
+	height: 390px;
+	overflow-y: scroll;
+}
+
+.region--list #region-list::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+.region--list #region-list::-webkit-scrollbar {
+	width: 4px;
+}
+
+.region--list #region-list::-webkit-scrollbar-thumb {
+	height: 30%;
+	background: #666;
+	border-radius: 10px;
+}
+
+.region--list #region-list::-webkit-scrollbar-track {
+	background: rgba(27, 27, 27, 0.1);
 }
 
 .region--name--box {
-	width: 86px;
-	padding: 3px;
-	margin: 3px;
+	width: 75px;
+	height: 30px;
+	line-height: 25px;
+	margin: 5px 3px;
 	background-color: #E6E4D9;
 	display: flex;
 	justify-content: flex-end;
+	padding-right: 10px;
 }
 
 .region--box {
 	display: flex;
 	width: 100%;
+	justify-content: space-between;
+	padding-top: 50px;
+}
+
+.region--box .scroll--list {
+	width: 190px;
+	padding: 0;
+	height: 390px;
+	margin-left: 10px;
+}
+
+.region--list {
+	padding-left: 10px;
 }
 
 .holiday {
@@ -183,8 +249,7 @@ button {
 }
 
 .movie--poster img {
-	width: 30%;
-	padding: 5px;
+	width: 100%;
 }
 
 .choice--movie--box {
@@ -199,10 +264,8 @@ button {
 	align-content: stretch;
 	align-items: flex-start;
 	justify-content: center;
-}
-
-.movie--detail--box {
-	
+	margin-right: 40px;
+	line-height: 1.5;
 }
 
 .time--list ul {
@@ -217,7 +280,7 @@ button {
 	border: 1px solid #ddd; /* 박스 테두리 */
 	border-radius: 5px; /* 테두리 둥글게 */
 	background-color: #f9f9f9; /* 배경색 */
-	font-size: 16px; /* 시간 글자 크기 */
+	font-size: 14px; /* 시간 글자 크기 */
 	font-weight: bold; /* 시간 글자 굵기 */
 	text-align: center; /* 텍스트 중앙 정렬 */
 }
@@ -226,24 +289,27 @@ button {
 	color: white;
 }
 
-@import
-	url('https://fonts.googleapis.com/css2?family=Lato&family=Open+Sans&display=swap')
-	;
+#movie-container {
+	margin: 170px 0 100px;
+}
 
-.movie-container {
-	margin: 20px 0;
+#movie-container .movie-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 10px;
 }
 
 .movie-container select {
 	background-color: #fff;
-	border: 0;
 	border-radius: 5px;
 	font-size: 14px;
-	margin-left: 10px;
 	padding: 5px 15px;
-	-moz-appearance: none;
-	-webkit-appearance: none;
-	appearance: none;
+	border: 1px solid #ddd;
+	color: #666;
+	font-family: 'NanumSquareNeoBold';
 }
 
 .seat {
@@ -343,8 +409,37 @@ p.text span {
 	align-content: flex-start;
 	justify-content: space-evenly;
 	align-items: flex-start;
+	line-height: 1.5;
+}
+
+.movie--title {
+	font-size: 24px;
+	font-weight: bold;
+	height: 65px;
+	margin-right: 10px;
 }
 
 .container {
-	margin-left: 30%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 50px 0;
+}
+
+.time--list {
+	padding: 55px 10px 0;
+}
+
+.time--list span.title {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.count {
+	margin-left: 10px;
+	font-size: 14px;
+}
+
+.movie--titles {
+	margin-right: 50px;
 }

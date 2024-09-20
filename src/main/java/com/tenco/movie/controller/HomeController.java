@@ -30,7 +30,9 @@ import com.tenco.movie.dto.WeeklyBoxOffice;
 import com.tenco.movie.dto.WeeklyBoxOffice.BoxOfficeResult;
 import com.tenco.movie.dto.WeeklyBoxOffice.Movie;
 import com.tenco.movie.repository.model.Movies;
+import com.tenco.movie.repository.model.Notice;
 import com.tenco.movie.service.HomeService;
+import com.tenco.movie.service.NoticeService;
 
 @Controller
 public class HomeController {
@@ -50,9 +52,12 @@ public class HomeController {
 
 	HomeService homeService;
 
+	NoticeService noticeService;
+	
 	@Autowired
-	public HomeController(HomeService homeService) {
+	public HomeController(HomeService homeService, NoticeService noticeService) {
 		this.homeService = homeService;
+		this.noticeService = noticeService;
 	}
 
 	/**
@@ -138,7 +143,11 @@ public class HomeController {
 				}
 			}
 		}
+		
+		// 메인 페이지 공지사항 불러옴
+		List<Notice> noticeList = noticeService.readNoticeList(1, 5); 
 		model.addAttribute("movieList", moviesList);
+		model.addAttribute("noticeList", noticeList);
 		return "main";
 	}
 

@@ -1227,7 +1227,7 @@ progress {
   }
   .col-md-3 {
     flex: 0 0 auto;
-    width: 25%;
+    width: 33.3%;
   }
   .col-md-4 {
     flex: 0 0 auto;
@@ -1239,7 +1239,7 @@ progress {
   }
   .col-md-6 {
     flex: 0 0 auto;
-    width: 50%;
+    width: 100%;
   }
   .col-md-7 {
     flex: 0 0 auto;
@@ -14869,7 +14869,7 @@ html.maximized-card {
 .timeline > div {
   position: relative;
   margin-right: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 3px;
 }
 .timeline > div::before, .timeline > div::after {
   display: table;
@@ -15446,6 +15446,14 @@ html.maximized-card {
 
 .img-size-32 {
   width: 32px;
+}
+#myChart{
+	height: 100% !important;
+    width: 76% !important;
+}
+#genreChart{
+	height: 100% !important;
+	width: 56% !important;
 }
 
 /*# sourceMappingURL=adminlte.css.map */

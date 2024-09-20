@@ -1,11 +1,11 @@
 package com.tenco.movie.repository.model;
 
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.Locale;
 import java.util.TimeZone;
 
 import lombok.AllArgsConstructor;
@@ -29,13 +29,12 @@ public class History {
 	String amount;
 	String method;
 	String requestedAt;
-	String approvedAt;	
-	
-	
+	String approvedAt;
+
 	public String dateToTime() {
-		
+
 		TimeZone tz = TimeZone.getTimeZone("UTC");
-		
+
 		DateFormat changeDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
 		changeDate.setTimeZone(tz);
 		Date date = new Date();
@@ -46,20 +45,20 @@ public class History {
 			e.printStackTrace();
 		}
 		System.out.println("전환됨" + date);
-		
+
 		SimpleDateFormat changeTime = new SimpleDateFormat("HH:mm");
-		
+
 		System.out.println("전환됨" + changeTime.format(date));
-		
+
 		return changeTime.format(date);
-		
-	
+
 	}
-	
+
+
 	public String dateToDate() {
 		TimeZone tz = TimeZone.getTimeZone("UTC");
 		DateFormat changeDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
-		
+
 		changeDate.setTimeZone(tz);
 		Date date = new Date();
 		try {
@@ -68,15 +67,50 @@ public class History {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		System.out.println("전환됨" + date);
-		
+
 		SimpleDateFormat changeTime = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		System.out.println("전환됨" + changeTime.format(date));
-		
+
 		return changeTime.format(date);
-		
+
 	}
 	
+//	public String dateToDays() {
+//		TimeZone tz = TimeZone.getTimeZone("UTC");
+//		DateFormat changeDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+//
+//		changeDate.setTimeZone(tz);
+//		Date date = new Date();
+//		try {
+//			date = changeDate.parse(approvedAt);
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//		System.out.println("전환됨" + date);
+//
+//		SimpleDateFormat changeTime = new SimpleDateFormat("yyyy-MM-dd");
+//		
+//		
+//		
+//		
+//		System.out.println("전환됨" + changeTime.format(date));
+//		
+//		LocalDate now = LocalDate.now();
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//		String formatedNow = now.format(formatter);
+//		
+//		Date format1 = new SimpleDate();
+//		
+//		System.out.println();
+//		
+//
+//		return changeTime.format(date);
+//
+//	}
+
 }

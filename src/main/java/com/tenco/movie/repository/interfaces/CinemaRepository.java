@@ -13,9 +13,9 @@ import com.tenco.movie.repository.model.Theater;
 public interface CinemaRepository {
 
 	List<Regions> findAllRegions();
-
 	List<SubRegions> findByRegionId(@Param("regionId") int regionId);
 
 	// 영화관 조회 추가
-	List<Theater> findTheatersBySubregionId(@Param("subregionId") int subregionId);
+    List<Theater> findTheatersBySubregionId(@Param("subregionId") int subregionId);
+	
 }
