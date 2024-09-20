@@ -499,6 +499,18 @@ public class AdminPageService {
 		return adminRepository.lifeStatusUpdate(user.getLifeStatus(), id);
 	}
 	
+	@Transactional
+	public int listStatusUpdate(int id) {
+		DateProfile user = adminRepository.searchProfileById(id);
+
+		if (user.getListStatus() == 1) {
+			user.setListStatus(0);
+		} else if (user.getListStatus() == 0) {
+			user.setListStatus(1);
+		}
+		return adminRepository.listStatusUpdate(user.getListStatus(), id);
+	}
+	
 	//-------------------------------------------
 	@Transactional // 데이트 페이징 처리
 	public List<DateProfile> readDatePage(int page, int size) {

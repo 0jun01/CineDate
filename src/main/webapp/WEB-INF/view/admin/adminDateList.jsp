@@ -73,11 +73,11 @@
 													<tr class="align-middle text-center">
 														<th style="width: 5%">Num.</th>
 														<th style="width: 5%">회원ID</th>
-														<th style="width: 15%">닉네임</th>
-														<th style="width: 25%">자기소개</th>
+														<th style="width: 10%">닉네임</th>
+														<th style="width: 20%">자기소개</th>
 														<th style="width: 20%">사진1</th>
 														<th style="width: 20%">사진2</th>
-														<th style="width: 10%" class="text-center">삭제</th>
+														<th style="width: 20%" class="text-center">슈퍼리스트</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -99,10 +99,21 @@
 
 															<td><img style="width: 100px; height: 100px" class="img-fluid" src="/DateProfileIMAGE/${user.firstUploadFileName}" onerror="this.onerror = null; this.src='/img/usernone.jpg'" alt="사진"></td>
 															<td><img style="width: 100px; height: 100px" class="img-fluid" src="/DateProfileIMAGE/${user.secondUploadFileName}" onerror="this.onerror = null; this.src='/img/usernone.jpg'" alt="사진"></td>
+															
+															
 															<td class="text-center">
-																<form action="/adminMemberDelete" method="get">
-																	<button type="submit" class="btn btn-danger">삭제</button>
+															<c:choose>
+															<c:when test="${user.listStatus == 1}">
+																<form action="/superlistChange/${user.id}" method="get">
+																	<button type="submit" class="btn btn-warning">슈퍼리스트 해제</button>
 																</form>
+																</c:when>
+																<c:otherwise>
+																<form action="/superlistChange/${user.id}" method="get">
+																	<button type="submit" class="btn btn-success">슈퍼리스트 등록</button>
+																</form>
+																</c:otherwise>
+																</c:choose>
 															</td>
 														</tr>
 													</c:forEach>

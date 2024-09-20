@@ -839,8 +839,8 @@ public class AdminPageController {
 
 	@GetMapping("/adminDate")
 	public String getAdminDatePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
-			@RequestParam(name = "page", defaultValue = "1", required = false) int page,
-			@RequestParam(name = "size", defaultValue = "10", required = false) int size, Model model,
+			@RequestParam(name = "page", defaultValue = "1") int page,
+			@RequestParam(name = "size", defaultValue = "10") int size, Model model,
 			RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {
@@ -858,7 +858,7 @@ public class AdminPageController {
 		DateProfile profile = adminPageService.readAdminProfile(user.getId());
 		model.addAttribute("profile", profile);
 
-		List<DateProfile> profileList = adminPageService.readDatePage(totalPages, size);
+		List<DateProfile> profileList = adminPageService.readDatePage(page, size);
 
 		model.addAttribute("profileList", profileList);
 		model.addAttribute("currentPage", page);
@@ -867,6 +867,15 @@ public class AdminPageController {
 		model.addAttribute("user", user);
 
 		return "/admin/adminDateList";
+	}
+	
+	@GetMapping("/superlistChange/{id}")
+	public String superlistChange(@PathVariable(name = "id") Integer id) {
+		
+		adminPageService.listStatusUpdate(id);
+		
+		
+		return "admin/superlistChange";
 	}
 
 	// ====================================== 비동기 통신 영역
