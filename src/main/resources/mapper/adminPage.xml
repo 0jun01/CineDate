@@ -141,6 +141,10 @@
 		by id desc limit #{limit} offset #{offset}
 	</select>
 
+	<select id="findAdminMemberById">
+		select * from user_tb where id = #{id}
+	</select>
+
 
 	<select id="countAdminMemberAll" resultType="int">
 		select count(*) from

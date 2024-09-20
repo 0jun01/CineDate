@@ -80,7 +80,7 @@ public class AdminPageController {
 	}
 
 	@GetMapping("/adminTest")
-	public String AdminTest(@SessionAttribute(Define.PRINCIPAL) User principal, Model model) {
+	public String AdminTest(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model) {
 		if (principal == null) {
 			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED);
 		}

@@ -170,7 +170,7 @@
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="./tables/simple.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+								<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
 										<p>신고 내역</p>
 								</a></li>
 							</ul></li>
