@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.tenco.movie.dto.DateProfileDTO;
 import com.tenco.movie.dto.ItemRequest;
 import com.tenco.movie.dto.MessageDTO;
+import com.tenco.movie.dto.matchingDTO;
 import com.tenco.movie.dto.profileDetailDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.UnAuthorizedException;
@@ -297,7 +298,7 @@ public class DateController {
 			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
 
-		List<DateProfile> list = dateManagerService.matchingList(principal.getId());
+		List<matchingDTO> list = dateManagerService.matchingList(principal.getId());
 
 		model.addAttribute("list", list);
 

@@ -143,7 +143,7 @@ button.disabled {
 			<button id="action-button" class="disabled" disabled>매칭 요청 대기 중</button>
 		</c:when>
 		<c:when test="${detail.status == 4}">
-			<button id="action-button" value="${detail.userId}">재도전</button>
+			<button id="retry-button" value="${detail.userId}">재도전</button>
 		</c:when>
 	</c:choose>
 	</div>
@@ -156,7 +156,27 @@ button.disabled {
 	        var span = document.getElementsByClassName('close')[0];
 	        var actionButton = document.getElementById('action-button');
 	        var btn = document.querySelector("#action-button");
-	        
+	        var rebtn = document.querySelector("#retry-button");
+	        if (rebtn) {
+	        rebtn.addEventListener('click', function() {
+	        	const partNerId = rebtn.value;
+	        	const url = "http://localhost:8080/duplication/retry?userId=" + `${userId}` + "&partNerId="+ partNerId;
+	        	fetch(url)
+	        		.then(response => response.json())
+	        		 .then(isDate => {
+	                     if (isDate) {
+	                         alert("신청 완료");
+	                         window.location.reload();
+	                     } else {
+	                         alert("신청 실패");
+	                     }
+	                 })
+	                 .catch(error => {
+	                     console.log("error ", error);
+	                 });
+	         });
+	        }
+	        if (btn) {
 	        btn.addEventListener('click', function() {
 	        	const partNerId = btn.value;
 	        	const url = "http://localhost:8080/duplication/movieSuggest?userId=" + ${userId} + "&partNerId="+ partNerId;
@@ -174,6 +194,7 @@ button.disabled {
 	                     console.log("error ", error);
 	                 });
 	         });
+	        }
 	        
 	        images.forEach(function(img) {
 	            img.addEventListener('click', function() {
