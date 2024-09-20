@@ -29,6 +29,10 @@
 	<select id="sellAdminSum" resultType="int">
 	select sum(amount) from toss_hitory_tb
 	</select>
+	
+	<select id ="profileAdmin">
+	select * from profile_tb where user_id = #{userId}
+	</select>
 
 	<!-- ========================================================== -->
 

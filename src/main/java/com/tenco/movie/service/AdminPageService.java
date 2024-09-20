@@ -92,6 +92,13 @@ public class AdminPageService {
 		return adminRepository.sellAdminSum();
 	}
 	
+	public DateProfile readAdminProfile(int id) {
+		DateProfile profile = new DateProfile();
+		
+		profile = adminRepository.profileAdmin(id);
+		return profile;
+	}
+	
 	@Transactional
 	public List<DateProfile> readMainProfile(){
 		List<DateProfile> list = new ArrayList<>();

@@ -30,6 +30,8 @@ public interface AdminRepository {
 	public int bookingAdminCount();
 	public int sellAdminSum();
 	
+	public DateProfile profileAdmin(int id);
+	
 	
 	
 	//-------------------------------------------------
