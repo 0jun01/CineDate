@@ -73,7 +73,7 @@
 												<thead>
 													<tr class="align-middle text-center">
 														<th style="width: 10px">id</th>
-														<th style="width: 30px">회원ID</th>
+														<th style="width: 50px">회원ID</th>
 														<th style="width: 150px">닉네임</th>
 														<th>자기소개</th>
 														<th>con 보유</th>

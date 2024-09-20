@@ -13,12 +13,28 @@
 		select count(*) from
 		toss_hitory_tb
 	</select>
+	
+	<select id="findAdminItemAll" resultType="com.tenco.movie.repository.model.ConItems">
+	select * from con_item_tb order by id desc
+	</select>
+	
+	<select id="itemAdminCount" resultType="int">
+	select count(*) from con_item_tb
+	</select>
+	
+	<select id="bookingAdminCount" resultType="int">
+	select count(*) from bookings
+	</select>
+	
+	<select id="sellAdminSum" resultType="int">
+	select sum(amount) from toss_hitory_tb
+	</select>
 
 	<!-- ========================================================== -->
 
 	<select id="findAll"
 		resultType="com.tenco.movie.repository.model.Notice">
-		select * from notice_tb order by id desc;
+		select * from notice_tb order by id desc
 	</select>
 
 	<insert id="insertAdmin">
@@ -66,6 +82,16 @@
 
 
 	<!-- ========================================================================================== -->
+	<insert id="insertEvent">
+		insert into event_tb(title, release_date, end_date, origin_file_name, upload_file_name)
+		values(#{title}, #{releaseDate}, #{endDate}, #{originFileName}, #{uploadFileName})
+	</insert>
+	
+	<update id="updateEventById">
+		update event_tb set title = #{title}, release_date =
+		#{releaseDate}, origin_file_name = #{originFileName}, upload_file_name = #{uploadFileName} where id = #{id}
+	</update>
+	
 	<select id="findEventAll">
 		select * from event_tb order by id desc limit
 		#{limit} offset #{offset}
@@ -129,9 +155,19 @@
 		as `id` FROM toss_hitory_tb GROUP BY DATE(approved_at) order by
 		approvedAt DESC
 	</select>
+	
+	<select id="countAdminCancelHistory" resultType="int">
+		SELECT DATE(cancel_at) as `approvedAt`, COUNT(id)
+		as `id` FROM cancel_toss_hitory_tb GROUP BY DATE(cancel_at) order by
+		approvedAt DESC
+	</select>
 
 	<select id="findHistoryAll">
 		select * from toss_hitory_tb order by id desc
+	</select>
+	
+	<select id="findCancelAll">
+		select * from cancel_toss_hitory_tb order by id desc
 	</select>
 
 	<select id="readAdminHistory"
@@ -139,6 +175,8 @@
 		select * from toss_hitory_tb order by id desc limit 6
 		offset 0
 	</select>
+	
+	
 
 	<!-- =========================== Profile =============================== -->
 	<select id="readProfileList"
@@ -163,7 +201,11 @@
 		resultType="com.tenco.movie.repository.model.DateProfile">
 		select * from profile_tb order by id desc limit 8 offset 0
 	</select>
-
+	
+	<select id="pageDateCountAdmin">
+	select * from profile_tb order by id desc limit
+		#{limit} offset #{offset}
+	</select>
 
 
 	<select id="searchProfileById"
