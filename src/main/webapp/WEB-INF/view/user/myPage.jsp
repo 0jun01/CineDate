@@ -47,45 +47,7 @@
 </div>
 </div>
 
-<!-- Update User Form -->
-<form action="/user/updateUser" method="post">
- <input type="hidden" name="userId" value="${user.loginId}">
-    <table summary="나의 프로필 정보" class="">
-        <caption>나의 프로필 정보</caption>
-        <colgroup>
-            <col width="19%">
-            <col width="*">
-        </colgroup>
-        <tbody>
-            <tr>
-                <th scope="row">이름</th>
-                  <td><span>${user.name}</span></td>
-            </tr>
-            <tr>
-                 <th scope="row">비밀번호</th>
-                <td>
-                    <input type="password" id="password" name="password" value="${user.password}" required>
-                    <input type="checkbox" id="show-password" onclick="togglePassword()"> 비밀번호 보이기
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">이메일</th>
-               <td><input type="email" id="email" name="email" value="${user.email}" required></td>
-                </tr>
-            <tr>
-                <th scope="row">휴대폰번호</th>
-               <td><input type="text" id="phoneNum" name="phoneNum" value="${user.phoneNum}" required></td>
-                </tr>
-                
-   
-        </tbody>
-    </table>
-    <div class="set--btn aright">
-        <button type="submit" id="set_profile" class="btn">
-            <span>수정하기</span>
-        </button>
-    </div>
-</form>
+
 
 
 
