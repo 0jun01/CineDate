@@ -119,10 +119,13 @@ public class HomeController {
 									String title = tmdbMovie.getTitle();
 									// 정확히 일치하는 제목 찾기
 									if (title.trim().equalsIgnoreCase(firstMovie.getMovieNm().trim())) {
-										movies = Movies.builder().title(tmdbMovie.getTitle())
-												.movieDesc(tmdbMovie.getOverview()).movieImg(tmdbMovie.getPosterPath())
-												.releaseDate(tmdbMovie.getReleaseDate()).build();
-										moviesList.add(movies);
+										if (tmdbMovie.getTitle() != null) {
+											movies = Movies.builder().title(tmdbMovie.getTitle())
+													.movieDesc(tmdbMovie.getOverview())
+													.movieImg(tmdbMovie.getPosterPath())
+													.releaseDate(tmdbMovie.getReleaseDate()).build();
+											moviesList.add(movies);
+										}
 										found = true;
 										break; // 정확히 일치하는 항목을 찾으면 루프 종료
 									}

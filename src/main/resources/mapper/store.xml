@@ -23,6 +23,43 @@
 
 	<update id="updateProfileCon">
 		update profile_tb set con = #{amount} where user_id =
-		#{userId};
+		#{userId}
+	</update>
+
+	<insert id="updateUserInventory">
+		INSERT INTO user_item_inventory (user_id, item_id,
+		quantity)
+		VALUES (#{principalId}, #{itemId}, #{quantity})
+		ON DUPLICATE
+		KEY
+		UPDATE
+		quantity = quantity + VALUES(quantity)
+	</insert>
+
+	<select id="findInventoryByUserId"
+		resultType="com.tenco.movie.dto.UserItemInventory">
+		select it.item_id, it.quantity, c.name, c.item_desc,
+		c.item_img
+		from user_item_inventory as it
+		left join con_item_tb as c on
+		it.item_id = c.id
+		where user_id = #{principal};
+	</select>
+
+	<select id="countItem" resultType="int">
+		select * from
+		user_item_inventory where user_id = #{principal} and item_id =
+		#{itemId}
+	</select>
+
+	<update id="updateUsedItem">
+		UPDATE user_item_inventory SET quantity = quantity -
+		1 WHERE user_Id = #{principal} AND
+		item_Id = #{itemId}
+	</update>
+
+	<update id="updateSuperList">
+		update profile_tb set list_status = 1 where user_id =
+		#{principal}
 	</update>
 </mapper>

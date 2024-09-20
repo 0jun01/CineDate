@@ -1,6 +1,7 @@
 package com.tenco.movie.controller;
 
 import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,9 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.tenco.movie.dto.DateProfileDTO;
 import com.tenco.movie.dto.ItemRequest;
+import com.tenco.movie.dto.ItemUseRequest;
 import com.tenco.movie.dto.MessageDTO;
 import com.tenco.movie.dto.matchingDTO;
 import com.tenco.movie.dto.profileDetailDTO;
+import com.tenco.movie.dto.UserItemInventory;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.UnAuthorizedException;
 import com.tenco.movie.repository.model.ConItems;
@@ -242,7 +245,7 @@ public class DateController {
 		// 개수에 따라 가격 변동
 		int conCount = Integer.parseInt(popcorn);
 
-		int amount = 100 * conCount;
+		int amount = 110 * conCount;
 		String orderId = payservice.getOderId(); /// 6~ 64
 		String orderName = "con";
 		String customerName = principal.getName();
@@ -256,6 +259,15 @@ public class DateController {
 		return "pay/tossPay";
 	}
 
+	/**
+	 * 영화 예매 결제
+	 * 
+	 * @param quantity
+	 * @param model
+	 * @param principal
+	 * @author 변영준
+	 * @return
+	 */
 	@GetMapping("/tickets")
 	public String postTicketProc(@RequestParam("quantity") int quantity, Model model,
 			@SessionAttribute(Define.PRINCIPAL) User principal) {
@@ -359,6 +371,7 @@ public class DateController {
 
 			if (result > 0) {
 				response.put("message", "구입 성공");
+				dateService.insertInventory(userId, itemId, 1);
 				return ResponseEntity.ok(response);
 			} else {
 				// 예매 실패: bookingId가 0인 경우
@@ -375,4 +388,33 @@ public class DateController {
 	public String popcornChargePage() {
 		return "pay/popcornCharge";
 	}
+
+	@GetMapping("/inventory")
+	@ResponseBody
+	public List<UserItemInventory> viewInventory(@SessionAttribute(Define.PRINCIPAL) User principal) {
+		List<UserItemInventory> inventory = dateService.findUserInventory(principal.getId());
+		return inventory;
+	}
+
+	@PostMapping("/useItem")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> useItem(@SessionAttribute(Define.PRINCIPAL) User principal,
+			@RequestBody ItemUseRequest request) {
+		Map<String, Object> response = new HashMap<>();
+		int itemId = request.getItemId();
+		try {
+			// 아이템 횟수 차감
+			dateService.findItemCount(principal.getId(), itemId);
+			// 갱신된 아이템 리스트 가져오기
+			List<UserItemInventory> inventory = dateService.findUserInventory(principal.getId());
+			response.put("message", "패치 성공");
+			response.put("updateItemList", inventory);
+			return ResponseEntity.ok(response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+		}
+
+	}
+
 }

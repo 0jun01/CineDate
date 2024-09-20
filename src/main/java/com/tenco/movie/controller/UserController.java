@@ -492,7 +492,6 @@ public class UserController {
 	public String myReservation(@SessionAttribute(Define.PRINCIPAL) User principal, Model model) {
         List<MyReservationDTO> reservations = reservationService.myreservation(principal.getId());
         model.addAttribute("myreservations", reservations);
-        
 		return "user/myReservation";
 	}
 	

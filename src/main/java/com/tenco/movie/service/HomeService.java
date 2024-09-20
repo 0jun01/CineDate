@@ -27,7 +27,6 @@ public class HomeService {
 
 	HomeRepository homeRepository;
 
-
 	/**
 	 * movies_tb에 값넣기
 	 * 
@@ -59,10 +58,10 @@ public class HomeService {
 				}
 			}
 
-
 		} catch (DataAccessException e) {
 			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RedirectException(Define.UNKNOWN_ERROR, HttpStatus.SERVICE_UNAVAILABLE);
 		}
 
@@ -174,7 +173,7 @@ public class HomeService {
 	@Transactional
 	public void insertDirector(int movieId, Director director) {
 		Director directorEntity = null;
-		
+
 		try {
 
 			directorEntity = homeRepository.findByDirectorName(director.getName());
@@ -184,10 +183,10 @@ public class HomeService {
 			} else {
 				System.out.println("이미 있습니다.");
 			}
-			
+
 			MovieDirector movieDirector = homeRepository.findByMovieIdAndDirectorId(movieId, directorEntity.getId());
-			
-			if(movieDirector == null) {
+
+			if (movieDirector == null) {
 				homeRepository.insertByMovieDirector(movieId, directorEntity.getId());
 			} else {
 				System.out.println("인설트 실패");
@@ -201,7 +200,6 @@ public class HomeService {
 		}
 
 	}
-
 
 	@Transactional
 	public void insertActors(Actors actors, int movieId) {

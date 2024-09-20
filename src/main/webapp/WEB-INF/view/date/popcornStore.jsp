@@ -20,8 +20,10 @@
 					<img alt="" src="${item.itemImg}">
 					<h3>${item.name}</h3>
 					<h4>${item.itemDesc}</h4>
-					<span> <img src="/img/corn.png" style="width: 30px; height: auto;">${item.price}
-					</span> <br> <br> <a id="${item.id} " class="purchase--btn" data-price="${item.price}">구매하기</a>
+					<span>
+					 <img src="/img/corn.png" style="width: 30px; height: auto;">${item.price}
+					</span> 
+					<br> <br> <a id="${item.id} " class="purchase--btn" data-price="${item.price}">구매하기</a>
 				</div>
 			</c:forEach>
 		</div>
