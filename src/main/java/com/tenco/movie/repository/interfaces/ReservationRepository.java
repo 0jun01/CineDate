@@ -59,6 +59,15 @@ public interface ReservationRepository {
 
 	//////////////////////////////////////// 예매 리팩토링 ///////////////////////////////
 
+	// 처음 페이지 접속 했을시 카운트 하기
+	List<RegionCountDTO> countFirstRegion();
+
+	// 처음 페이지 접속 했을경우 상영중인 상영관 보이게 하기
+	List<SubRegionDTO> viewFirstSubRegion();
+
+	// 처음 페이지 접속 했을경우 상영중인 대분류 선택시 subRegion 투명도 처리
+	List<SubRegionDTO> viewFirstOpacity();
+
 	// 영화랑, 극장 선택했을 경우
 	List<ChoicedMovieAndTheater> findDateByMovieIdAndTheaterId(@Param("movieId") int movieId,
 			@Param("theaterId") int theaterId);
@@ -69,6 +78,22 @@ public interface ReservationRepository {
 	// 영화만 선택 했을 경우 대분류 지역 카운트
 	List<RegionCountDTO> countRegion(int movieId);
 
+	// 날짜만 선택 했을 경우 대분류 지역 카운트
+	List<RegionCountDTO> countRegionByDate(String date);
+
 	// 영화만 선택시 상영중인 영화 지역 서브 지역!
 	List<SubRegionDTO> findSubRegionByMovie(int movieId);
+
+	// 대분류 지역 필터링 하기
+	List<SubRegionDTO> filterSubRegionByMovieAndRegion(@Param("movieId") int movieId, @Param("regionId") int regionId);
+
+	// 날짜와 영화 클릭 후 대분류 지역 옆에 카운트 업데이트하기
+	List<RegionCountDTO> countRegionByMovieAndDate(@Param("movieId") int movieId, @Param("date") String date);
+
+	// 영화와 날짜 선택시 상영중인 영화 지역 서브 지역!
+	List<SubRegionDTO> findSubRegionByMovieAndDate(@Param("movieId") int movieId, @Param("date") String date);
+
+	// 날짜만 선택시 상영중인 영화 지역 서브 지역!!
+	List<SubRegionDTO> findSubRegionByDate(String date);
+
 }

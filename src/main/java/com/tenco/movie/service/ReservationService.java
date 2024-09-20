@@ -246,4 +246,86 @@ public class ReservationService {
 		}
 		return entity;
 	}
+
+	public List<SubRegionDTO> fetchSubRegionByMovieAndRegion(int movieId, int regionId) {
+		List<SubRegionDTO> entity = null;
+		try {
+			entity = reservationRepository.filterSubRegionByMovieAndRegion(movieId, regionId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+
+	public List<RegionCountDTO> fetchRegionCountByeDateAndMovie(int movieId, String date) {
+		List<RegionCountDTO> entity = null;
+		try {
+			entity = reservationRepository.countRegionByMovieAndDate(movieId, date);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+
+	public List<SubRegionDTO> fetchSubRegionByMovieAndDate(int movieId, String date) {
+		List<SubRegionDTO> entity = null;
+		try {
+			entity = reservationRepository.findSubRegionByMovieAndDate(movieId, date);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+
+	public List<RegionCountDTO> fetchRegionCountByDate(String date) {
+		List<RegionCountDTO> entity = null;
+		try {
+			entity = reservationRepository.countRegionByDate(date);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+
+	public List<SubRegionDTO> fetchSubRegionBydate(String date) {
+		List<SubRegionDTO> entity = null;
+		try {
+			entity = reservationRepository.findSubRegionByDate(date);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+
+	public List<RegionCountDTO> fetchFirstRegionCount() {
+		List<RegionCountDTO> entity = null;
+		try {
+			entity = reservationRepository.countFirstRegion();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+
+	public List<SubRegionDTO> fetchFirstSubRegion() {
+		List<SubRegionDTO> entity = null;
+		try {
+			entity = reservationRepository.viewFirstSubRegion();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+
+	public List<SubRegionDTO> fetchFirstSubOpaicty() {
+		List<SubRegionDTO> entity = null;
+		try {
+			entity = reservationRepository.viewFirstOpacity();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+
 }
