@@ -77,4 +77,6 @@ public interface ReservationRepository {
 	////////////////////////////////////////// 내 예약 정보 보기 /////////////////////////////
 	
 	List<MyReservationDTO> myreservation(@Param("userId")int userId);
+	
+	List<MyReservationDTO> checkUserReservationForMovie(@Param("userId")int userId,@Param("movieId")int movieId);
 }

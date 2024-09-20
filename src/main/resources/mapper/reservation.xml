@@ -273,5 +273,31 @@
 		ORDER BY
 		b.booking_time DESC
 	</select>
+	
+	<select id="checkUserReservationForMovie" resultType="com.tenco.movie.dto.MyReservationDTO">
+    SELECT DISTINCT
+        b.id AS booking_id,
+        b.booking_time,
+        b.quantity,
+        s.show_date,
+        s.show_time,
+        m.title AS movie_title,
+        se.seat_number AS reserved_seat
+    FROM
+        bookings b
+    JOIN
+        showtimes s ON b.showtime_id = s.id
+    JOIN
+        movies_tb m ON s.movie_id = m.id
+    JOIN
+        booking_seats bs ON b.id = bs.booking_id
+    JOIN
+        seats se ON bs.seat_id = se.id
+    WHERE
+        b.user_id = #{userId} AND s.movie_id = #{movieId}
+    ORDER BY
+        b.booking_time DESC
+</select>
+	
 
 </mapper>

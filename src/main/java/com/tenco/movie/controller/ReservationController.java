@@ -261,6 +261,7 @@ public class ReservationController {
 	}
 
 
+
 	/**
 	 * 영화만 클릭 했을 시 날짜와 극장 업데이트
 	 * 
