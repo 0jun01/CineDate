@@ -71,7 +71,7 @@
 								<a href="/user/myPage">마이페이지</a>
 							</li>
 							<li>
-							<a href="/user/myReservation">예매 조회</a>
+								<a href="/user/myReservation">예매 조회</a>
 							</li>
 						</c:when>
 	
@@ -91,32 +91,7 @@
 	
 						<button type="submit" class="search--btn btn"></button>
 					</form>
-					
-					<ul class="mobile--wrap btn">
-						<li class="bar bar01"></li>
-						<li class="bar bar02"></li>
-						<li class="bar bar03"></li>
-					</ul>
 
-				<div class="mobile--all--menu" style="display:none">
-					<div class="all--bg" style="display: block;"></div>
-					<div class="all--menu">
-						<ul>
-							<li><a href="/movie/movies">영화</a></li>
-							<li><a href="/cinema/cinema">극장</a></li>
-							<li><a href="/reservation/reservation">예매</a></li>
-							<li class="arrow"><a>매칭</a>
-								<ul class="dep2" style="display: none;">
-									<li><a href="">추가하세효1</a></li>
-									<li><a href="">추가하세효2</a></li>
-									<li><a href="">추가하세효3</a></li>
-									<li><a href="">추가하세효4</a></li>
-								</ul></li>
-							<li><a href="/event/event">이벤트</a></li>
-							<li><a href="/notice">공지사항</a></li>
-						</ul>
-					</div>
-				</div>
 				</ul>
 			</div>
 		</div>
