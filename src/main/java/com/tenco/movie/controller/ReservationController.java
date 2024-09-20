@@ -29,7 +29,6 @@ import com.tenco.movie.dto.SubRegionDTO;
 import com.tenco.movie.dto.TheaterCountDTO;
 import com.tenco.movie.dto.TimeDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
-import com.tenco.movie.repository.model.MovieDetail;
 import com.tenco.movie.repository.model.MovieDetailTB;
 import com.tenco.movie.repository.model.Movies;
 import com.tenco.movie.repository.model.Regions;
@@ -271,8 +270,6 @@ public class ReservationController {
 		return shId;
 	}
 
-
-
 	/**
 	 * 영화만 클릭 했을 시 날짜와 극장 업데이트
 	 * 
@@ -309,7 +306,7 @@ public class ReservationController {
 	@ResponseBody
 	public List<ChoicedMovie> fetchDateBySubRegionAndMovie(@RequestParam("subRegionId") int subRegionId,
 			@RequestParam("movieId") int movieId) {
-		List<ChoicedMovie> entity = reservationService.fetchDateByMovieAndSubRegion(subRegionId,movieId);
+		List<ChoicedMovie> entity = reservationService.fetchDateByMovieAndSubRegion(subRegionId, movieId);
 		return entity;
 	}
 

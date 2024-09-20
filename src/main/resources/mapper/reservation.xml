@@ -52,6 +52,8 @@
 		showtimes as s
 		left join movie_detail_tb as m on s.movie_id = m.id
 		where show_date = #{date}
+		And s.show_date >=
+		CURRENT_DATE
 	</select>
 
 	<select id="findMovieBySubRegion"
@@ -66,6 +68,10 @@
 		on sc.theater_id = t.id
 		where subregion_id =
 		#{subRegionId}
+		And
+		s.show_date
+		And s.show_date >=
+		CURRENT_DATE
 	</select>
 
 	<select id="findById"
@@ -108,6 +114,8 @@
 		WHERE
 		sh.show_date = #{showDate}
 		AND sh.movie_id = #{movieId}
+		sh.show_date >=
+		CURRENT_DATE
 		GROUP BY
 		r.id,
 		sub.id,
@@ -426,6 +434,8 @@
 		WHERE
 		sh.movie_id = #{movieId}
 		AND sh.show_date = #{date}
+		And sh.show_date >=
+		CURRENT_DATE
 		GROUP BY
 		r.name
 		ORDER
@@ -498,6 +508,7 @@
 		se.id
 		WHERE
 		b.user_id = #{userId}
+		And s.show_date >= CURRENT_DATE
 		ORDER BY
 		b.booking_time DESC
 	</select>
@@ -526,6 +537,8 @@
 		se.id
 		WHERE
 		b.user_id = #{userId} AND s.movie_id = #{movieId}
+		And
+		s.show_date >= CURRENT_DATE
 		ORDER BY
 		b.booking_time DESC
 	</select>
