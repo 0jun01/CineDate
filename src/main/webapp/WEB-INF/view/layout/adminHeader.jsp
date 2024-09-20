@@ -73,7 +73,8 @@
 					</a>
 						<ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
 							<!--begin::User Image-->
-							<li class="user-header text-bg-primary"><img src="/DateProfileIMAGE/${profile.firstUploadFileName}" class="rounded-circle shadow" alt="User Image">
+							<li class="user-header text-bg-primary">
+							<img src="/DateProfileIMAGE/${profile.firstUploadFileName}" class="rounded-circle shadow" alt="User Image" onerror="this.onerror = null; this.src='/img/usernone.jpg'">
 								<p>
 									${user.loginId} 관리자님
 									${user.loginId} <small>2024년 9월 가입</small>
@@ -148,10 +149,7 @@
 						</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item"><a href="/adminHistory" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>토스결제 내역</p>
-								</a></li>
-								<li class="nav-item"><a href="./UI/timeline.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>카카오 결제 내역</p>
+										<p>결제 내역</p>
 								</a></li>
 								<li class="nav-item"><a href="/adminCancelHistory" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
 										<p>결제 취소 내역</p>
@@ -163,7 +161,7 @@
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="./forms/general.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+								<li class="nav-item"><a href="/adminDate" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
 										<p>데이트 게시글</p>
 								</a></li>
 							</ul></li>

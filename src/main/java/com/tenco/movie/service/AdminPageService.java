@@ -36,6 +36,9 @@ import com.tenco.movie.dto.genresBookingsDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.AdminRepository;
+import com.tenco.movie.repository.model.CancelHistory;
+import com.tenco.movie.repository.model.CancelHistoryTimeLine;
+import com.tenco.movie.repository.model.ConItems;
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.Event;
 import com.tenco.movie.repository.model.History;
@@ -77,6 +80,18 @@ public class AdminPageService {
 		return adminRepository.countAdminMemberAll();
 	}
 	
+	public int countItem() {
+		return adminRepository.itemAdminCount();
+	}
+	
+	public int countBookings() {
+		return adminRepository.bookingAdminCount();
+	}
+	
+	public int sumSelling() {
+		return adminRepository.sellAdminSum();
+	}
+	
 	@Transactional
 	public List<DateProfile> readMainProfile(){
 		List<DateProfile> list = new ArrayList<>();
@@ -91,6 +106,15 @@ public class AdminPageService {
 		List<History> list = new ArrayList<>();
 		
 		list = adminRepository.readAdminHistory();
+		
+		return list;
+	}
+	
+	@Transactional
+	public List<ConItems> readMainConItems(){
+		List<ConItems> list = new ArrayList<>();
+		
+		list = adminRepository.findAdminItemAll();
 		
 		return list;
 	}
@@ -427,6 +451,14 @@ public class AdminPageService {
 	public List<History> readAllHistory() {
 		return adminRepository.findHistoryAll();
 	}
+	
+	public List<CancelHistoryTimeLine> countCancelHistory(){
+		return adminRepository.countAdminCancelHistory();
+	}
+	
+	public List<CancelHistory> readAllCancelHistory(){
+		return adminRepository.findCancelAll();
+	}
 
 
 //=========================== profile ===============================
@@ -444,6 +476,10 @@ public class AdminPageService {
 		return adminRepository.searchProfileById(id);
 	}
 
+	public int countAdminProfileAll() {
+		return adminRepository.countAdminProfileAll();
+	}
+	
 	@Transactional
 	public int lifeStatusUpdate(int id) {
 		DateProfile user = adminRepository.searchProfileById(id);
@@ -454,6 +490,16 @@ public class AdminPageService {
 			user.setLifeStatus(1);
 		}
 		return adminRepository.lifeStatusUpdate(user.getLifeStatus(), id);
+	}
+	
+	//-------------------------------------------
+	@Transactional // 데이트 페이징 처리
+	public List<DateProfile> readDatePage(int page, int size) {
+		List<DateProfile> list = new ArrayList<>();
+		int limit = size;
+		int offset = (page - 1) * size;
+		list = adminRepository.pageDateCountAdmin(limit, offset);
+		return list;
 	}
 	
 	// ===================비동기 영역 ===============

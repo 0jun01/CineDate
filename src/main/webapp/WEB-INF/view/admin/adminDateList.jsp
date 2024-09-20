@@ -11,7 +11,7 @@
 				<!--begin::Row-->
 				<div class="row">
 					<div class="col-sm-6">
-						<h3 class="mb-0">데이트 신청 목록</h3>
+						<h3 class="mb-0">등록된 데이트 신청 목록</h3>
 					</div>
 					<div class="col-sm-6">
 						<ol class="breadcrumb float-sm-end">
@@ -71,42 +71,34 @@
 											<table class="table">
 												<thead>
 													<tr class="align-middle text-center">
-														<th style="width: 10px"></th>
-														<th style="width: 170px">회원ID</th>
-														<th>이름</th>
-														<th style="width: 150px">이메일</th>
-														<th style="width: 150px">전화번호</th>
-														<th>생년월일</th>
-														<th style="width: 50px">성별</th>
-														<th style="width: 80px" class="text-center">수정</th>
-														<th style="width: 80px" class="text-center">삭제</th>
+														<th style="width: 5%">Num.</th>
+														<th style="width: 5%">회원ID</th>
+														<th style="width: 15%">닉네임</th>
+														<th style="width: 25%">자기소개</th>
+														<th style="width: 20%">사진1</th>
+														<th style="width: 20%">사진2</th>
+														<th style="width: 10%" class="text-center">삭제</th>
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach var="user" items="${userList}">
-														<tr class="align-middle text-center">
+													<c:forEach var="user" items="${profileList}">
+														<tr class="align-middle text-center text-truncate">
 															<td>${user.id}</td>
+															<td>${user.userId}</td>
+															<td>${user.nickName}</td>
 															<td><c:choose>
-																	<c:when test="${fn:length(user.loginId) gt 15}">
-																		<c:out value="${fn:substring(user.loginId, 0, 14)}...">
+																	<c:when test="${fn:length(user.introduce) gt 20}">
+																		<c:out value="${fn:substring(user.introduce, 0, 19)}...">
 																		</c:out>
 																	</c:when>
 																	<c:otherwise>
-																		<c:out value="${user.loginId}">
+																		<c:out value="${user.introduce}">
 																		</c:out>
 																	</c:otherwise>
 																</c:choose></td>
-															<td>${user.name}</td>
-															<td>${user.email}</td>
-															<td>${user.phoneNum}</td>
-															<td>${user.birthDay}</td>
-															<td>${user.gender}</td>
-															<td class="text-center">
-																<form action="/adminMemberDetail/${user.id}" method="get">
-																	<button class="btn btn-warning">수정</button>
-																</form>
-															</td>
 
+															<td><img style="width: 100px; height: 100px" class="img-fluid" src="/DateProfileIMAGE/${user.firstUploadFileName}" onerror="this.onerror = null; this.src='/img/usernone.jpg'" alt="사진"></td>
+															<td><img style="width: 100px; height: 100px" class="img-fluid" src="/DateProfileIMAGE/${user.secondUploadFileName}" onerror="this.onerror = null; this.src='/img/usernone.jpg'" alt="사진"></td>
 															<td class="text-center">
 																<form action="/adminMemberDelete" method="get">
 																	<button type="submit" class="btn btn-danger">삭제</button>

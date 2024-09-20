@@ -14869,7 +14869,7 @@ html.maximized-card {
 .timeline > div {
   position: relative;
   margin-right: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 3px;
 }
 .timeline > div::before, .timeline > div::after {
   display: table;

@@ -22,7 +22,7 @@
 						</div>
 					</div>
 					<div class="notice--detail--content">
-						<img src="${event.originFileName}" alt="${event.originFileName}">
+						<img src="/image/${event.uploadFileName}" alt="${event.uploadFileName}">
 					</div>
 				</c:when>
 			</c:choose>

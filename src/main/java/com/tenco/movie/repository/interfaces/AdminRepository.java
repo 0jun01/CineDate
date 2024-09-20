@@ -8,6 +8,9 @@ import org.apache.ibatis.annotations.Param;
 import com.tenco.movie.dto.CountProfileDTO;
 import com.tenco.movie.dto.OnlyCountDTO;
 import com.tenco.movie.dto.genresBookingsDTO;
+import com.tenco.movie.repository.model.CancelHistory;
+import com.tenco.movie.repository.model.CancelHistoryTimeLine;
+import com.tenco.movie.repository.model.ConItems;
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.Event;
 import com.tenco.movie.repository.model.EventWrite;
@@ -22,6 +25,11 @@ public interface AdminRepository {
 	
 	public int reviewAdminCount();
 	public int sellAdminCount();
+	public List<ConItems> findAdminItemAll();
+	public int itemAdminCount();
+	public int bookingAdminCount();
+	public int sellAdminSum();
+	
 	
 	
 	//-------------------------------------------------
@@ -69,13 +77,18 @@ public interface AdminRepository {
 	// ------------------------------------------------
 	
 	public List<HistoryTimeLine> countAdminHistory();
+	public List<CancelHistoryTimeLine> countAdminCancelHistory();
+	
 	public List<History> findHistoryAll();
+	public List<CancelHistory> findCancelAll();
 
 	public List<History> readAdminHistory();
 	
 	// ------------------------------------------- profile -------------
 	public List<DateProfile> readProfileList(@Param("search")String search, @Param("limit") int limit, @Param("offset") int offset);
 	public int countAdminProfileList(@Param("search")String search);
+	
+	public List<DateProfile> pageDateCountAdmin(@Param("limit") int limit, @Param("offset") int offset);
 	
 	public int countAdminProfileAll();
 	public List<DateProfile> readAdminProfile();
@@ -86,6 +99,7 @@ public interface AdminRepository {
 	public OnlyCountDTO totalProfileCount();
 	public OnlyCountDTO totalMatchings();
 	public List<genresBookingsDTO> genresBookings();
+	
 	
 }
 

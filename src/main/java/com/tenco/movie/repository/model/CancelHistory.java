@@ -1,5 +1,11 @@
 package com.tenco.movie.repository.model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +29,53 @@ public class CancelHistory {
 	String requestedAt;
 	String approvedAt;
 	String cancelAt;
+
 	
+	public String dateToTime() {
+
+		TimeZone tz = TimeZone.getTimeZone("UTC");
+
+		DateFormat changeDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssXXX");
+		changeDate.setTimeZone(tz);
+		Date date = new Date();
+		try {
+			date = changeDate.parse(cancelAt);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("전환됨" + date);
+
+		SimpleDateFormat changeTime = new SimpleDateFormat("HH:mm");
+
+		System.out.println("전환됨" + changeTime.format(date));
+
+		return changeTime.format(date);
+
+	}
+
+
+	public String dateToDate() {
+		TimeZone tz = TimeZone.getTimeZone("UTC");
+		DateFormat changeDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+
+		changeDate.setTimeZone(tz);
+		Date date = new Date();
+		try {
+			date = changeDate.parse(cancelAt);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		System.out.println("전환됨" + date);
+
+		SimpleDateFormat changeTime = new SimpleDateFormat("yyyy-MM-dd");
+
+		System.out.println("전환됨" + changeTime.format(date));
+
+		return changeTime.format(date);
+
+	}
 
 }
