@@ -130,7 +130,7 @@ button.disabled {
     cursor: not-allowed;
 }
 
-#action-button {
+#action-button, #retry-button {
     width: 100%;
     margin-top: 30px;
     padding: 10px 0;
@@ -143,6 +143,10 @@ button.disabled {
 }
 
 #action-button:hover:not(.disabled) {
+    background-color: #e91e63;
+}
+
+retry-button:hover:not(.disabled) {
     background-color: #e91e63;
 }
 
@@ -234,7 +238,7 @@ label{
                 <button id="action-button" class="disabled" disabled>매칭 요청 대기 중</button>
             </c:when>
             <c:when test="${detail.status == 4}">
-                <button id="action-button" value="${detail.userId}">재도전</button>
+                <button id="retry-button" value="${detail.userId}">재도전</button>
             </c:when>
         </c:choose>
     </div>

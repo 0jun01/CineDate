@@ -11,15 +11,13 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
 }
 
 .in--header--wrap{
 	width: 90%;
 	margin: auto;
-}
-
-.memberInfo--wrap {
-	width: 100%;
 }
 
 .member {
@@ -33,7 +31,7 @@ header {
 }
 
 .header--logo {
-	margin-right: 100px;
+	margin-left: 100px;
 	text-align: center;
 }
 
@@ -75,7 +73,7 @@ label.main--search {
 	color: #ff2588;
 	position: absolute;
 	right: 10px;
-	top: -20px;
+	top:-13px;
 	transform: rotateZ(20deg);
 }
 
@@ -88,7 +86,6 @@ label.main--search {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 5px 0;
 }
 
 .nav--menu--li {
@@ -102,7 +99,7 @@ label.main--search {
 	overflow: hidden;
 	text-align: center;
 	position: absolute;
-	top: 27px;
+	top: 40px;
 	left: 50%;
 	z-index: 9;
 	transform: translateX(-50%);

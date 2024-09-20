@@ -10,17 +10,19 @@
 				<img src="/DateProfileIMAGE/${profile.firstUploadFileName}" alt="${profile.firstUploadFileName}">
 			</div>
 			<div class="person--info--wrap">
-				<span class="person-info">아이디 : ${profile.userId}</span> <span class="person-info">닉네임 : ${profile.nickName}</span>
-
-			</div>
-			<div class="corn--wrap">
-				<span>MY CORN</span> <img src="/img/corn.png" alt="콘 아이콘"> <span>${profile.con}개</span>
+				<span class="person-info">아이디 : ${profile.userId}</span>
+				<span class="person-info">닉네임 : ${profile.nickName}</span>
+				<hr class="hr">
+				<div class="corn--wrap">
+					<span>MY CORN</span>
+					<img src="/img/corn.png" alt="콘 아이콘">
+					<p class="cornp">${profile.con}개</p>
+				</div>
 			</div>
 		</div>
 
 		<div class="cols-benefit-info">
 			<div class="col-my-con">
-
 				<div class="btn"></div>
 			</div>
 		</div>
@@ -140,7 +142,7 @@
 											</div>
 											<div class="personal">
 												<p class="personal--title">이용목적</p>
-												<p>공개된 게시판 서비스의 이미지 등록<br>공개된 게시판의 익명성 보장</p>
+												<p style="line-height: 1.5;">공개된 게시판 서비스의 이미지 등록<br>공개된 게시판의 익명성 보장</p>
 											</div>
 											<div class="personal">
 												<p class="personal--title">보유기간</p>
@@ -164,6 +166,7 @@
 							</tr>
 					</tbody>
 				</table>
+							<button type="submit" class="edit-button btn">수정하기</button>
 			</form>
 		</div>
 	</div>

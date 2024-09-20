@@ -32,7 +32,7 @@
 		
 		<div class="header--wrap">
 			<div class="header--logo">
-				<a href="/home"><img src="/img/header_logo.png" alt="CineDate Logo"></a>
+				<a href="/home" style="display: block;"><img src="/img/CD.png" alt="CineDate Logo"></a>
 			</div>
 			
 			<nav class="nav--wrap">
