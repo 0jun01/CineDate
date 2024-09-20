@@ -229,6 +229,8 @@
 	        
 	     // 현재 보유중인 개수 추가
 	        const itemCount = document.createElement('div');
+	     	console.log(itemCount);
+	     	console.log(itemCount);
 	        itemCount.classList.add('item--count');
 	        const itemCountValue = document.createElement('h4');
 	        itemCountValue.textContent = `X ` + itemData.quantity; // 보유 개수
@@ -237,8 +239,12 @@
 	        
 	        // 클릭 시 실행될 이벤트 핸들러 추가
 	        useBtn.onclick = function() {
-	        	if(itemCount > 0){
-	            handleUseButtonClick(itemData.itemId);
+	        	if(itemData.quantity > 0){
+	        		const useResponse = confirm(itemData.name+ ` 아이템을 사용하시겠습니까?`);
+	        		if (useResponse) {
+		           		handleUseButtonClick(itemData.itemId);
+        	        }
+	        		return;
 	        	} else{
 	        		 const userResponse = confirm("아이템 개수가 부족합니다. 아이템을 구매하러 가시겠습니까?");
 	        		 if (userResponse) {

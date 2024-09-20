@@ -330,7 +330,7 @@ function fetchTheaters(){
      });
 }
 
-//날짜만 선택시 영화상영 시간에 맞는 서브지역 찾는 패치
+// 웹 접속시 영화상영 시간에 맞는 서브지역 찾는 패치
 function fetchSubRegions() {
     fetch(`http://localhost:8080/reservation/firstSubRegion`)
         .then(response => {
@@ -399,10 +399,15 @@ function onDateSelect(selectedDate, element){
 
 // 소분류 극장 선택시
 function onTheaterSelect(theaterName, subregionId){
+	
 	console.log(selectedMovieId);
 	console.log(selectedTheaterId);
 	console.log(selectedDate1);
 	checkMovie(theaterName, subregionId);
+	
+	if(!selectedMovieId && selectedTheaterId && !selectedDate1) {
+		fetchDateAndDateBySubRegion(subregionId);
+	}
 	
 	if(selectedMovieId && selectedTheaterId && selectedDate1) {
 		console.log("여기 안들어오냐?");
@@ -415,6 +420,7 @@ function onTheaterSelect(theaterName, subregionId){
 function onRegionSelect(regionId) {
 	 selectedRegionId = regionId;
 	 applyRegionFilter(regionId);
+	 
 }
 
 // 영화 선택시 극장이랑 날짜 업데이트하기 
@@ -431,6 +437,25 @@ function updateTheatersAndDates(){
 // 영화 클릭시 그 영화에 맞는 날짜와 극장 데이터 가져오기!
 function fetchTheatersAndDateByMovie(movieId){
 	fetch(`http://localhost:8080/reservation/firstMovie?movieId=` + movieId)
+	.then(response => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+			return response.json();
+		})
+    .then(data => {
+        console.log(data);  // 받아온 극장 정보를 콘솔에 출력
+        // 여기에 받은 데이터를 처리하는 로직 추가
+        updateDateOpacity(data);
+    })
+    .catch(error => {
+        console.error('Error fetching theaters:', error);
+    });
+}
+
+// 서브지역 클릭시 그 장소에 맞는 날짜와 극장 데이터 가져오기!
+function fetchDateAndDateBySubRegion(subRegionId){
+	fetch(`http://localhost:8080/reservation/updateDateBySubRegion?subRegionId=` + subRegionId)
 	.then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
@@ -634,7 +659,7 @@ function fetchSubRegionsByDate(date) {
         });
 }
 
-// 날짜만 선택시 영화상영 시간에 맞는 서브지역 찾는 패치
+// 웹 처음 접속시 대분류 눌렀을 시 서브지역 패치
 function fetchFirstOpacity() {
     fetch(`http://localhost:8080/reservation/firstOpacity`)
         .then(response => {
@@ -820,6 +845,10 @@ function applyRegionFilter(regionId) {
 		.then(data => {
 				console.log('success:', data);
 				updateSubRegionList(data);
+				if(!selectedDate1 && !selectedMovieId && selectedTheaterId){
+	            	console.log("여기다진짜!");
+	            	fetchFirstOpacity();
+	            }
 		})
 		.catch(error => {
 			alert('An error occurred while fetching the movies.');
@@ -841,11 +870,16 @@ function updateSubRegionList(subRegions) {
         const link = document.createElement('a');
         link.href = 'javascript:void(0)';
         link.textContent = subRegion.name;
-
+	
         // 필요에 따라 onclick 이벤트 핸들러 추가
         link.onclick = function() {
+        	checkMovie(subRegion.name, subRegion.id);
             console.log('Clicked sub-region:', subRegion.name);
+            console.log('Clicked sub-region:', subRegion.id);
             selectedTheaterId = subRegion.id;
+            if(!selectedMovieId && selectedTheaterId && !selectedDate1){
+            	fetchDateAndDateBySubRegion(selectedTheaterId);
+            }
             if(selectedMovieId && selectedTheaterId && selectedDate1) {
         		console.log("여기 안들어오냐?");
         		fetchViewTimeList(selectedMovieId,selectedTheaterId,selectedDate1);

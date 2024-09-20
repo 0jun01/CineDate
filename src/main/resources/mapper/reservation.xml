@@ -204,6 +204,30 @@
 		ORDER BY
 		sh.show_date, t.name, s.name
 	</select>
+	<select id="findDateAndTheatersBySubRegion"
+		resultType="com.tenco.movie.dto.ChoicedMovie">
+		SELECT
+		sh.show_date,
+		t.id AS theater_id,
+		t.name AS
+		theater_name,
+		s.id AS screen_id,
+		s.name AS screen_name,
+		sh.show_time
+		FROM
+		showtimes sh
+		JOIN
+		screens_tb s ON sh.screen_id = s.id
+		JOIN
+		theaters_tb t
+		ON s.theater_id = t.id
+		WHERE
+		t.subregion_id = #{subRegionId}
+		AND sh.show_date >=
+		CURRENT_DATE
+		ORDER BY
+		sh.show_date, t.name, s.name
+	</select>
 	<select id="countRegion"
 		resultType="com.tenco.movie.dto.RegionCountDTO">
 		SELECT

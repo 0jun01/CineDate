@@ -328,4 +328,14 @@ public class ReservationService {
 		return entity;
 	}
 
+	public List<ChoicedMovie> fetchDateAndDateBySubRegion(int subRegionId) {
+		List<ChoicedMovie> entity = null;
+		try {
+			entity = reservationRepository.findDateAndTheatersBySubRegion(subRegionId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+
 }

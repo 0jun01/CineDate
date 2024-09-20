@@ -96,4 +96,6 @@ public interface ReservationRepository {
 	// 날짜만 선택시 상영중인 영화 지역 서브 지역!!
 	List<SubRegionDTO> findSubRegionByDate(String date);
 
+	// 서브지역 선택시 데이트 업데이트 하기!
+	List<ChoicedMovie> findDateAndTheatersBySubRegion(int subRegionId);
 }

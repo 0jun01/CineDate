@@ -274,6 +274,19 @@ public class ReservationController {
 	}
 
 	/**
+	 * 서브지역만 클릭 했을 시 날짜와 극장 업데이트
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/updateDateBySubRegion")
+	@ResponseBody
+	public List<ChoicedMovie> fetchDateAndDateBySubRegion(@RequestParam("subRegionId") int subRegionId) {
+		List<ChoicedMovie> entity = reservationService.fetchDateAndDateBySubRegion(subRegionId);
+		return entity;
+	}
+
+	/**
 	 * 영화만 클릭 했을 시 극장대분류 카운트 업데이트
 	 * 
 	 * @param movieId
