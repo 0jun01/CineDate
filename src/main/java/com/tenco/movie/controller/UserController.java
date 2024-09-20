@@ -39,6 +39,7 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
 
 	private final HttpSession session;
 	

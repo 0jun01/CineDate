@@ -149,4 +149,7 @@
 		left join booking_seats as bs on b.id = bs.booking_id
 		where showtime_id = #{showtimeId}
 	</select>
+	
+	
+	
 </mapper>

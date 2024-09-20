@@ -21,17 +21,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
 import com.tenco.movie.dto.BookingRequest;
 import com.tenco.movie.dto.TheaterCountDTO;
 import com.tenco.movie.dto.TimeDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
+import com.tenco.movie.repository.model.Bookings;
 import com.tenco.movie.repository.model.MovieDetail;
 import com.tenco.movie.repository.model.MovieDetailTB;
 import com.tenco.movie.repository.model.Movies;
 import com.tenco.movie.repository.model.Regions;
 import com.tenco.movie.repository.model.SubRegions;
+import com.tenco.movie.repository.model.User;
 import com.tenco.movie.service.CalendarService;
 import com.tenco.movie.service.ReservationService;
 import com.tenco.movie.utils.Define;
@@ -260,4 +264,6 @@ public class ReservationController {
 		List<Integer> shId = reservationService.viewOccupiedSeats(showTimeId);
 		return shId;
 	}
+	
+
 }

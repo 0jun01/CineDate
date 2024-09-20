@@ -52,4 +52,8 @@ public interface ReservationRepository {
 	Bookings viewBookingByUserIdAndShowTimeId(@Param("userId") int userId, @Param("showTimeId") int showTimeId);
 
 	List<Integer> checkOccupied(int showtimeId);
+	
+    
+
+	
 }
