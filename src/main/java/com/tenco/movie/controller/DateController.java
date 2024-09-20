@@ -105,6 +105,13 @@ public class DateController {
 		if (principal == null) {
 			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
 		}
+
+		DateProfile proifile = dateService.searchProfile(principal.getId());
+		if (proifile == null) {
+			return "date/DateSignUp";
+		} else if (proifile.getLifeStatus() == 1) {
+			throw new DataDeliveryException(Define.PROFILE_SUSPENDING, HttpStatus.BAD_REQUEST);
+		}
 		
 		DateProfile profile = dateService.searchProfile(principal.getId());
 		String imageUrl = "/DateProfileIMAGE/" + profile.getFirstUploadFileName();
@@ -140,6 +147,13 @@ public class DateController {
 		
 		if (principal == null) {
 			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
+		}
+
+		DateProfile proifile = dateService.searchProfile(principal.getId());
+		if (proifile == null) {
+			return "date/DateSignUp";
+		} else if (proifile.getLifeStatus() == 1) {
+			throw new DataDeliveryException(Define.PROFILE_SUSPENDING, HttpStatus.BAD_REQUEST);
 		}
 
 		DateProfileDTO update = DateProfileDTO.builder().nickName(nickName).introduce(introduce).mFileOne(file1)
@@ -219,8 +233,17 @@ public class DateController {
 	 * @author 변영준
 	 */
 	@GetMapping("/popcornStore")
-	public String postPopcornStore(Model model) {
+	public String postPopcornStore(Model model,@SessionAttribute(Define.PRINCIPAL)User principal) {
+		if (principal == null) {
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
+		}
 
+		DateProfile proifile = dateService.searchProfile(principal.getId());
+		if (proifile == null) {
+			return "date/DateSignUp";
+		} else if (proifile.getLifeStatus() == 1) {
+			throw new DataDeliveryException(Define.PROFILE_SUSPENDING, HttpStatus.BAD_REQUEST);
+		}
 		List<ConItems> itemList = dateService.viewStoreList();
 
 		model.addAttribute("item", itemList);
@@ -308,6 +331,13 @@ public class DateController {
 	public String getMethodName(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model) {
 		if (principal == null) {
 			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED); 
+		}
+
+		DateProfile proifile = dateService.searchProfile(principal.getId());
+		if (proifile == null) {
+			return "date/DateSignUp";
+		} else if (proifile.getLifeStatus() == 1) {
+			throw new DataDeliveryException(Define.PROFILE_SUSPENDING, HttpStatus.BAD_REQUEST);
 		}
 
 		List<matchingDTO> list = dateManagerService.matchingList(principal.getId());
