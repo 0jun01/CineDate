@@ -35,7 +35,6 @@ public interface DateManagerRepocitory {
 	
 	// ===  END detailCount ===
 	
-	
 	// == chatdto ===
 	List<MessageDTO> chatHistory(@Param("senderId")int principalId,@Param("recipientId")int partnerId);
 	

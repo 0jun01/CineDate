@@ -23,7 +23,11 @@
 					<c:forEach var="event" items="${eventList}">
 						<div class="evt--item">
 							<a href="/event/eventDetail?id=${event.id}">
+<<<<<<< HEAD
 								<div class="event--img" style="background-image: url('/image/${event.uploadFileName}');"></div>
+=======
+								<div class="event--img" style="background-image: url('/DateProfileIMAGE/${event.DateProfileIMAGE}');"></div>
+>>>>>>> ed7fcab07df668957be7ad83c3fc2149fdbab2f9
 								<div class="event--txt">
 									<!-- p class="txt">${event.id}</p-->
 									<p class="txt1">[EVENT] ${event.title}</p>

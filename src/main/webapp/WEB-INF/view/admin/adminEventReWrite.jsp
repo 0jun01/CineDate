@@ -51,9 +51,9 @@
 
 							</div>
 							<div class="card-body">
-								<label for="mFileOne"> <img id="img_eventimage1" src="/DateProfileIMAGE/${event.uploadFileName}" alt="프로필 사진"
+								<label for="mFileOne"> <img id="img_eventimage1" src="/eventImage/${event.uploadFileName}" alt="프로필 사진"
 									onclick="document.getElementById('event_upload_file1').click();"> <input type="file" id="event_upload_file1" name="mFileOne" title="내용"
-									onchange="previewImage(this, 'img_eventimage1')" style="display: none;">
+									onchange="previewImage(this, 'img_eventimage1')" style="display: none;" onerror="this.onerror = null; this.src='/img/usernone.jpg'" alt="사진">
 								</label>
 							</div>
 							<!-- /.card-body -->

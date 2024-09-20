@@ -1,12 +1,4 @@
-
-@font-face {
-	font-family: 'Paperlogy-8ExtraBold';
-	src:
-		url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2')
-		format('woff2');
-	font-weight: 800;
-	font-style: normal;
-}
+@charset "UTF-8";
 
 @font-face {
 	font-family: 'NanumSquareNeoLight';
@@ -87,29 +79,13 @@
 }
 
 @font-face {
-	font-family: 'Paperlogy-8ExtraBold';
-	src:
-		url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2')
-		format('woff2');
-	font-weight: 800;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Copr';
-	font-style: normal;
-	font-weight: 500;
-	src: url('/fonts/COPRGTB.eot?#iefix') format('embedded-opentype'),
-		url('/fonts/COPRGTB.woff') format('woff'), url('/fonts/COPRGTB.ttf')
-		format('truetype');
-}
-
-@font-face {
-	font-family: 'Tium';
-	font-style: normal;
-	font-weight: 500;
-	src: url('/fonts/TmonTium.eot?#iefix') format('embedded-opentype'),
-		url('/fonts/TmonTium.woff2') format('woff2'),
-		url('/fonts/TmonTium.woff') format('woff'), url('/fonts/TmonTium.ttf')
-		format('truetype');
-}
+    font-family: 'Tium';
+    font-weight: normal;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/tmon/Tium.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/tmon/Tium.eot?#iefix') format('embedded-opentype'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/tmon/Tium.woff2') format('woff2'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/tmon/Tium.woff') format('woff'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/tmon/Tium.ttf') format("truetype");
+    font-display: swap;
+} 

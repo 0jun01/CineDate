@@ -14,7 +14,11 @@ spring:
     multipart:
       enabled: true
       max-file-size: 20MB #파일 최대 크기는 20MB
-      max-request-size: 20MB #멀티파트 전체 요청 크기 20MB제한  
+      max-request-size: 20MB #멀티파트 전체 요청 크기 20MB제한
+  devtools:
+    livereload:
+      enabled: true
+   
 
   mail:
     host: smtp.gmail.com #Google의 SMTP 서버 호스트
@@ -79,7 +83,9 @@ logging:
 
 # 초기 파라메터 설정
 file:
-  upload-dir: C:\Users\KDP\git\CineDate\src\main\resources\static\DateProfileIMAGE 
+  upload-dir: C:\Users\KDP\git\CineDate\src\main\resources\static\DateProfileIMAGE
+  event-dir: C:\Users\KDP\git\CineDate\src\main\resources\static\eventIMAGE
+  
     
 tenco:
   key: 54d5cb2d332dbdb4850293caae4559ce88b65163f1ea5d4e4b3ac49d772ded14

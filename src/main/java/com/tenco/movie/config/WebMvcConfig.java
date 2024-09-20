@@ -15,6 +15,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/image/**").addResourceLocations("file:\\C:\\Users\\KDP\\git\\CineDate\\src\\main\\resources\\static\\DateProfileIMAGE/");
+		registry.addResourceHandler("/eventImage/**")
+		.addResourceLocations("file:\\C:\\Users\\KDP\\git\\CineDate\\src\\main\\resources\\static\\eventIMAGE/");
+		
+		
 	}
 	
 	
