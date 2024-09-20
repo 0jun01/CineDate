@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Param;
 import com.tenco.movie.dto.CountProfileDTO;
 import com.tenco.movie.dto.OnlyCountDTO;
 import com.tenco.movie.dto.genresBookingsDTO;
+import com.tenco.movie.repository.model.CancelHistory;
+import com.tenco.movie.repository.model.CancelHistoryTimeLine;
 import com.tenco.movie.repository.model.ConItems;
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.Event;
@@ -75,7 +77,10 @@ public interface AdminRepository {
 	// ------------------------------------------------
 	
 	public List<HistoryTimeLine> countAdminHistory();
+	public List<CancelHistoryTimeLine> countAdminCancelHistory();
+	
 	public List<History> findHistoryAll();
+	public List<CancelHistory> findCancelAll();
 
 	public List<History> readAdminHistory();
 	
@@ -94,6 +99,7 @@ public interface AdminRepository {
 	public OnlyCountDTO totalProfileCount();
 	public OnlyCountDTO totalMatchings();
 	public List<genresBookingsDTO> genresBookings();
+	
 	
 }
 

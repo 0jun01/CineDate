@@ -149,10 +149,7 @@
 						</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item"><a href="/adminHistory" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>토스결제 내역</p>
-								</a></li>
-								<li class="nav-item"><a href="./UI/timeline.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>카카오 결제 내역</p>
+										<p>결제 내역</p>
 								</a></li>
 								<li class="nav-item"><a href="/adminCancelHistory" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
 										<p>결제 취소 내역</p>

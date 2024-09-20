@@ -29,6 +29,8 @@ import com.tenco.movie.dto.UserWriterDTO;
 import com.tenco.movie.dto.OnlyCountDTO;
 import com.tenco.movie.dto.genresBookingsDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
+import com.tenco.movie.repository.model.CancelHistory;
+import com.tenco.movie.repository.model.CancelHistoryTimeLine;
 import com.tenco.movie.repository.model.ConItems;
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.Event;
@@ -90,7 +92,7 @@ public class AdminPageController {
 	// 어드민관리 페이지 연결
 	@GetMapping("/adminMain")
 
-	public String AdminMain(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model,
+	public String AdminMain(@SessionAttribute(value = Define.PRINCIPAL) User principal, Model model,
 			RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {
@@ -136,7 +138,7 @@ public class AdminPageController {
 	// 어드민 공지사항 페이지 요청
 	@GetMapping("/adminNotice")
 
-	public String getAdminNoticePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
+	public String getAdminNoticePage(@SessionAttribute(value = Define.PRINCIPAL) User principal,
 			@RequestParam(name = "page", defaultValue = "1") int page,
 			@RequestParam(name = "size", defaultValue = "10") int size, Model model,
 			RedirectAttributes redirectAttributes) {
@@ -165,7 +167,7 @@ public class AdminPageController {
 	}
 
 	@PostMapping("/adminNotice")
-	public String getAdminNoticeProc(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
+	public String getAdminNoticeProc(@SessionAttribute(value = Define.PRINCIPAL) User principal,
 			@RequestParam(name = "search") String search, @RequestParam(name = "page", defaultValue = "1") int page,
 			@RequestParam(name = "size", defaultValue = "10") int size,
 
@@ -196,7 +198,7 @@ public class AdminPageController {
 
 	// 어드민 공지사항 글쓰기 요청
 	@GetMapping("/adminNoticeWrite")
-	public String adminNoticeWrite(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
+	public String adminNoticeWrite(@SessionAttribute(value = Define.PRINCIPAL) User principal,
 			Model model, RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {
@@ -214,7 +216,7 @@ public class AdminPageController {
 
 	@PostMapping("/adminNoticeWrite")
 	public String adminNoticeWriteProc(NoticeWriterDTO dto,
-			@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal, Model model,
+			@SessionAttribute(value = Define.PRINCIPAL) User principal, Model model,
 			RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {
@@ -234,7 +236,7 @@ public class AdminPageController {
 	// 어드민 공지사항 수정 요청
 	@GetMapping("/adminNoticeReWrite/{id}")
 
-	public String adminNoticeRewrite(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
+	public String adminNoticeRewrite(@SessionAttribute(value = Define.PRINCIPAL) User principal,
 			@PathVariable(name = "id") Integer id, Model model, RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {
@@ -255,7 +257,7 @@ public class AdminPageController {
 	}
 
 	@PostMapping("/adminNoticeReWrite/{id}")
-	public String adminNoticeRewriteProc(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
+	public String adminNoticeRewriteProc(@SessionAttribute(value = Define.PRINCIPAL) User principal,
 			NoticeWriterDTO dto, @PathVariable(name = "id") int id, Model model,
 			RedirectAttributes redirectAttributes) {
 
@@ -295,7 +297,7 @@ public class AdminPageController {
 
 	@GetMapping("/adminNoticeDetail/{id}")
 
-	public String adminNoticeDetail(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
+	public String adminNoticeDetail(@SessionAttribute(value = Define.PRINCIPAL) User principal,
 			@PathVariable(name = "id") Integer id, Model model, RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {
@@ -319,7 +321,7 @@ public class AdminPageController {
 //이벤트 시작
 
 	@GetMapping("/adminEvent")
-	public String adminEventPage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
+	public String adminEventPage(@SessionAttribute(value = Define.PRINCIPAL) User principal,
 			@RequestParam(name = "page", defaultValue = "1") int page,
 			@RequestParam(name = "size", defaultValue = "10") int size, Model model,
 			RedirectAttributes redirectAttributes) {
@@ -347,7 +349,7 @@ public class AdminPageController {
 
 	@PostMapping("/adminEvent")
 
-	public String adminEventProc(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
+	public String adminEventProc(@SessionAttribute(value = Define.PRINCIPAL) User principal,
 			@RequestParam(name = "search") String search, @RequestParam(name = "page", defaultValue = "1") int page,
 			@RequestParam(name = "size", defaultValue = "10") int size, Model model,
 			RedirectAttributes redirectAttributes) {
@@ -376,7 +378,7 @@ public class AdminPageController {
 	}
 
 	@GetMapping("/adminEventDetail/{id}")
-	public String adminEventDetail(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
+	public String adminEventDetail(@SessionAttribute(value = Define.PRINCIPAL) User principal,
 			@PathVariable(name = "id") Integer id, Model model, RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {
@@ -398,7 +400,7 @@ public class AdminPageController {
 
 	@GetMapping("/adminEventWrite")
 
-	public String adminEventWritePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
+	public String adminEventWritePage(@SessionAttribute(value = Define.PRINCIPAL) User principal,
 			Model model, RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {
@@ -416,7 +418,7 @@ public class AdminPageController {
 
 	@PostMapping("/adminEventWrite")
 
-	public String adminEventWriteProc(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
+	public String adminEventWriteProc(@SessionAttribute(value = Define.PRINCIPAL) User principal,
 			@RequestParam(name = "mFileOne") MultipartFile mFileOne, @RequestParam(name = "title") String title,
 			@RequestParam(name = "releaseDate") Date releaseDate, @RequestParam(name = "endDate") Date endDate,
 			Model model, RedirectAttributes redirectAttributes) {
@@ -453,7 +455,7 @@ public class AdminPageController {
 	}
 
 	@GetMapping("/adminEventReWrite/{id}")
-	public String adminEventReWritePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
+	public String adminEventReWritePage(@SessionAttribute(value = Define.PRINCIPAL) User principal,
 			@PathVariable(name = "id") Integer id, Model model, RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {
@@ -474,7 +476,7 @@ public class AdminPageController {
 	}
 
 	@PostMapping("/adminEventReWrite/{id}")
-	public String adminEventReWriteProc(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
+	public String adminEventReWriteProc(@SessionAttribute(value = Define.PRINCIPAL) User principal,
 			EventWriterDTO dto, @PathVariable(name = "id") int id,
 			@RequestParam(name = "mFileOne") MultipartFile mFileOne,
 			@RequestParam(name = "releaseDate") Date releaseDate, @RequestParam(name = "endDate") Date endDate,
@@ -590,7 +592,7 @@ public class AdminPageController {
 	}
 
 	@GetMapping("/adminMemberDetail/{id}")
-	public String adminMemberDetailPage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
+	public String adminMemberDetailPage(@SessionAttribute(value = Define.PRINCIPAL) User principal,
 			@PathVariable(name = "id") Integer id, Model model, RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {
@@ -612,7 +614,7 @@ public class AdminPageController {
 	}
 
 	@PostMapping("/adminMemberDetail/{id}")
-	public String adminMemberDetailProc(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
+	public String adminMemberDetailProc(@SessionAttribute(value = Define.PRINCIPAL) User principal,
 			@PathVariable(name = "id") Integer id, UserWriterDTO dto, Model model,
 			RedirectAttributes redirectAttributes) {
 
@@ -646,7 +648,7 @@ public class AdminPageController {
 //결제 테이블 시작
 
 	@GetMapping("/adminHistory")
-	public String adminHistoryPage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
+	public String adminHistoryPage(@SessionAttribute(value = Define.PRINCIPAL) User principal,
 			Model model, RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {
@@ -680,6 +682,8 @@ public class AdminPageController {
 	public String adminPaymentCancel(@RequestParam(name = "payId") int id) throws IOException, InterruptedException {
 
 		String cancel = paymentService.cancelPaymentHistory(id);
+		
+		
 
 		return "redirect:/adminHistory";
 	}
@@ -691,11 +695,29 @@ public class AdminPageController {
 	 * @return
 	 */
 	@GetMapping("/adminCancelHistory")
-	public String getCancelHistory(@RequestParam String param,
+	public String getCancelHistory(
+			@SessionAttribute(value = Define.PRINCIPAL) User principal,
 			@RequestParam(name = "page", defaultValue = "1") int page,
-			@RequestParam(name = "size", defaultValue = "10") int size, Model model) {
+			@RequestParam(name = "size", defaultValue = "10") int size, Model model,
+			 RedirectAttributes redirectAttributes) {
 
-		return new String(); // <-- 나중에 리스트 뽑기 cancel_toss_History_tb
+		if (principal == null) {
+			redirectAttributes.addFlashAttribute("접근할 수 없는 페이지 입니다", HttpStatus.BAD_REQUEST);
+			return "redirect:/home";
+		}
+
+		String name = principal.getLoginId();
+
+		User user = userService.getUserById(name);
+
+		List<CancelHistoryTimeLine> historyTimeLine = adminPageService.countCancelHistory();
+		List<CancelHistory> historyList = adminPageService.readAllCancelHistory();
+
+		model.addAttribute("user", user);
+		model.addAttribute("historyTimeLine", historyTimeLine);
+		model.addAttribute("historyList", historyList);
+
+		return "/admin/adminCancelHistory";
 	}
 
 	// ==================== profile ====================
@@ -736,9 +758,9 @@ public class AdminPageController {
 	//데이팅 관련
 	
 	@GetMapping("/adminDate")
-	public String getAdminDatePage(@SessionAttribute(value = Define.PRINCIPAL, required = false) User principal,
-			@RequestParam(name = "page", defaultValue = "1") int page,
-			@RequestParam(name = "size", defaultValue = "10") int size, Model model,
+	public String getAdminDatePage(@SessionAttribute(value = Define.PRINCIPAL) User principal,
+			@RequestParam(name = "page", defaultValue = "1", required = false) int page,
+			@RequestParam(name = "size", defaultValue = "10", required = false) int size, Model model,
 			RedirectAttributes redirectAttributes) {
 
 		if (principal == null) {
@@ -748,6 +770,8 @@ public class AdminPageController {
 
 		int totalRecords = adminPageService.countAdminProfileAll();
 		int totalPages = (int) Math.ceil((double) totalRecords / size);
+		
+		System.out.println(totalPages + "작동중");
 
 		String name = principal.getLoginId();
 		User user = userService.getUserById(name);

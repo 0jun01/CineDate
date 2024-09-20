@@ -36,6 +36,8 @@ import com.tenco.movie.dto.genresBookingsDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
 import com.tenco.movie.handler.exception.RedirectException;
 import com.tenco.movie.repository.interfaces.AdminRepository;
+import com.tenco.movie.repository.model.CancelHistory;
+import com.tenco.movie.repository.model.CancelHistoryTimeLine;
 import com.tenco.movie.repository.model.ConItems;
 import com.tenco.movie.repository.model.DateProfile;
 import com.tenco.movie.repository.model.Event;
@@ -448,6 +450,14 @@ public class AdminPageService {
 
 	public List<History> readAllHistory() {
 		return adminRepository.findHistoryAll();
+	}
+	
+	public List<CancelHistoryTimeLine> countCancelHistory(){
+		return adminRepository.countAdminCancelHistory();
+	}
+	
+	public List<CancelHistory> readAllCancelHistory(){
+		return adminRepository.findCancelAll();
 	}
 
 
