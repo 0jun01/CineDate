@@ -257,4 +257,8 @@ public class ReservationService {
 	    return reservationRepository.myreservation(userId);
 	}
 	
+	public List<MyReservationDTO> checkReservation(int userId, int movieId) {
+	    return reservationRepository.checkUserReservationForMovie(userId, movieId);
+	}
+	
 }

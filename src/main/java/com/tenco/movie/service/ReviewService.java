@@ -23,6 +23,7 @@ public class ReviewService {
 	private ReviewRepository reviewRepository;
 	
 	
+	
 	public List<Review> getReviewsByMovieId(int movieId, int page, int size) {
         int offset = (page - 1) * size;
         return reviewRepository.findByMovieIdWithPagination(movieId, offset, size);
@@ -77,4 +78,6 @@ public class ReviewService {
     public void updateReview(Review review) {
         reviewRepository.updateReview(review);
     }
+    
+    
 }
