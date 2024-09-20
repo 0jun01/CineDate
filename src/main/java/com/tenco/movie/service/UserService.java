@@ -335,26 +335,28 @@ public class UserService {
 	@param newPhoneNum
 	*/
 	@Transactional
-	      public void updateUser(String loginId, String newPassword, String newEmail, String newPhoneNum) {
-	          User user = userRepository.findById(loginId);
+	public void updateUser(String loginId, String name, String newPassword, String newEmail, String newPhoneNum) {
+	    User user = userRepository.findById(loginId);
+	    
+	    if (user == null) {
+	        throw new IllegalArgumentException("User not found with loginId: " + loginId);
+	    }
 
-	            if (newPassword != null) {
-	                user.setPassword(newPassword);
-	            }
-	            if (newEmail != null) {
-	                user.setEmail(newEmail);
-	            }
-	            if (newPhoneNum != null) {
-	                user.setPhoneNum(newPhoneNum);
-	            }
-	            user.setPassword(newPassword);
-	            user.setEmail(newEmail);
-	            user.setPhoneNum(newPhoneNum);
+	    if (name != null) {
+	        user.setName(name);
+	    }
+	    if (newPassword != null) {
+	        user.setPassword(newPassword);
+	    }
+	    if (newEmail != null) {
+	        user.setEmail(newEmail);
+	    }
+	    if (newPhoneNum != null) {
+	        user.setPhoneNum(newPhoneNum);
+	    }
 
-
-
-	            userRepository.update(user);
-	        }
+	    userRepository.update(user);
+	}
 
 
 	        public Admin checkAdmin(String loginId) {

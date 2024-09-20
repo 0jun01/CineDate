@@ -69,6 +69,7 @@
 	<!-- 마이페이지 변경 -->
 	<update id="update">
 		 update user_tb set
+		 	login_id = #{loginId},
             name = #{name},
             password = #{password},
             email = #{email},

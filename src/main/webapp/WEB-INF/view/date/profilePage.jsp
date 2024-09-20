@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 
-<<<<<<< HEAD
 <div id="wrap">
 	<div id="in--wrap">
 		<h1 class="section--title eng">My Page</h1>
@@ -466,4 +465,3 @@
 </script>
 </body>
 </html>
->>>>>>> f5218a1a157518755d38fcd28724347225b5e8c9
