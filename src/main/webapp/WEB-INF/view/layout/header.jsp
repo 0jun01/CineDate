@@ -29,70 +29,74 @@
 				<img src="/img/bannerImg.png" alt="시데 데이트 배너" width="100%">
 			</div>
 		</div>
-		<div class="memberInfo--wrap">
-			<ul class="member" id="in--wrap">
-				<c:choose>
-					<c:when test="${principal != null}">
-						<li>
-							<a href="/user/logout">로그아웃</a>
-						</li>
-						<li>
-							<a href="/user/myPage">마이페이지</a>
-						</li>
-						<li>
-							<a href="/user/myReservation">예매 조회</a>
-						</li>
-					</c:when>
-
-					<c:otherwise>
-						<li>
-							<a href="/user/signIn">로그인</a>
-						</li>
-						<li>
-							<a href="/user/signUp">회원가입</a>
-						</li>
-					</c:otherwise>
-				</c:choose>
-
-				<form action="/search/search" method="GET" class="main--total--search">
-					<label class="main--search"></label>
-					<input type="text" id="main--search" name="search">
-
-					<button type="submit" class="search--btn btn"></button>
-				</form>
-			</ul>
-		</div>
-		<div class="header--logo">
-			<a href="/home"><img src="/img/header_logo.png" alt="CineDate Logo"></a>
-		</div>
-		<nav class="nav--wrap" id="in--wrap">
-			<ul class="nav--menu">
-				<li class="nav--menu--li">
-					<a href="/movie/movies">영화</a>
-				</li>
-				<li class="nav--menu--li">
-					<a href="/cinema/cinema">극장</a>
-				</li>
-				<li class="nav--menu--li">
-					<a href="/reservation/reservation">예매</a>
-				</li>
-				<li class="date nav--menu--li">
-					매칭
-					<ul class="sub--menu">
-						<li><a href="/date/date">일반리스트</a></li>
-						<li><a href="/date/machingList">매칭리스트</a></li>
-						<li><a href="/date/popcornStore">상점</a></li>
-						<li><a href="/date/profilePage">마이페이지</a></li>
-					</ul>
-				</li>
-				<li class="nav--menu--li"><a href="/event/event">이벤트</a></li>
-				<li class="nav--menu--li"><a href="/notice">공지사항</a></li>
-
-				<ul class="mobile--wrap btn">
-					<li class="bar bar01"></li>
-					<li class="bar bar02"></li>
-					<li class="bar bar03"></li>
+		
+		<div class="header--wrap">
+			<div class="header--logo">
+				<a href="/home" style="display: block;"><img src="/img/CD.png" alt="CineDate Logo"></a>
+			</div>
+			
+			<nav class="nav--wrap">
+				<ul class="nav--menu">
+					<li class="nav--menu--li">
+						<a href="/movie/movies">영화</a>
+					</li>
+					<li class="nav--menu--li">
+						<a href="/cinema/cinema">극장</a>
+					</li>
+					<li class="nav--menu--li">
+						<a href="/reservation/reservation">예매</a>
+					</li>
+					<li class="date nav--menu--li">
+						매칭
+						<ul class="sub--menu">
+							<li><a href="/date/date">일반리스트</a></li>
+							<li><a href="/date/machingList">매칭리스트</a></li>
+							<li><a href="/date/popcornStore">상점</a></li>
+							<li><a href="/date/profilePage">마이페이지</a></li>
+						</ul>
+					</li>
+					<li class="nav--menu--li"><a href="/event/event">이벤트</a></li>
+					<li class="nav--menu--li"><a href="/notice">공지사항</a></li>
 				</ul>
+			</nav>
+			
+			<div class="memberInfo--wrap">
+				<ul class="member">
+					<c:choose>
+						<c:when test="${principal != null}">
+							<li>
+								<a href="/user/logout">로그아웃</a>
+							</li>
+							<li>
+								<a href="/user/myPage">마이페이지</a>
+							</li>
+							<li>
+								<a href="/home/CS">주문내역</a>
+							</li>
+						</c:when>
+	
+						<c:otherwise>
+							<li>
+								<a href="/user/signIn">로그인</a>
+							</li>
+							<li>
+								<a href="/user/signUp">회원가입</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+	
+					<form action="/search/search" method="GET" class="main--total--search">
+						<label class="main--search"></label>
+						<input type="text" id="main--search" name="search">
+	
+						<button type="submit" class="search--btn btn"></button>
+					</form>
+					
+					<ul class="mobile--wrap btn">
+						<li class="bar bar01"></li>
+						<li class="bar bar02"></li>
+						<li class="bar bar03"></li>
+					</ul>
 
 				<div class="mobile--all--menu" style="display:none">
 					<div class="all--bg" style="display: block;"></div>
@@ -113,8 +117,10 @@
 						</ul>
 					</div>
 				</div>
-			</ul>
-		</nav>
+				</ul>
+			</div>
+		</div>
+		
 	</header>
 
 	<script>

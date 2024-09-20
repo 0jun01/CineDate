@@ -83,6 +83,42 @@ main {
 }
 
 /* 검색 결과 end */
+
+/* 영화 차트 start*/
+#movie--film:after {
+	content: '';
+    width: 100%;
+    height: 30px;
+    display: block;
+    background-image: url(/img/mainFilm.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#removie--film:after {
+	content: '';
+    width: 100%;
+    height: 30px;
+    display: block;
+    background-image: url(/img/mainFilm.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#main--container{
+	padding: 150px 0;
+}
+
+h1.index--title{
+	font-size: 56px;
+	color: #ff2588;
+	margin-bottom: 20px;
+}
+
+/* 영화 차트 end*/
+
 .section--title {
 	margin-top: 150px;
 }
@@ -104,9 +140,28 @@ main {
 }
 
 .movie--text--box {
+    width: 313px;
 	display: flex;
-	flex-direction: column;
+    flex-direction: column;
+    align-items: center;
 }
+
+.movie--text--box h3{
+	height: 50px;
+	margin-bottom: 20px;
+}
+
+.movie--img{
+	width: 100%;
+	height: 445px;
+    margin-bottom: 10px;
+}
+
+.movie--text--box img{
+	width: 100%;
+	height: 100%;
+}
+
 .movie--btn{
 	width: 135px;
 	padding: 10px 0;
@@ -120,6 +175,14 @@ main {
 	background-color: #ff2588;
 	color: #fff;
 	margin-left: 12px;
+}
+
+#main--container .swiper.mySwiper .swiper-slide{
+	width: auto !important;
+	display: flex !important;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
 }
 
 /* 약관 start*/
@@ -170,19 +233,27 @@ main {
 	/* Ensure padding is included in the dimensions */
 }
 
+.index--link{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.index--link a.overlay--link{
+	width: 47%;
+	box-sizing: border-box;
+	border-radius: 6px;
+    border: 1px solid #ff2588;
+    background-color: #fff;
+	padding: 10px 0;
+	font-size: 14px;
+}
+
+.index--link a.overlay--link:last-child{
+	background-color: #ff2588;
+    color: #fff;
+    }
+
 .movie--img--container:hover .overlay {
 	opacity: 1;
-}
-
-.overlay-link {
-	color: white;
-	font-size: 1.2rem; /* Adjust font size as needed */
-	text-align: center;
-	text-decoration: none;
-	margin: 5px 0; /* Space between links */
-	display: block;
-}
-
-.overlay-link:hover {
-	text-decoration: underline;
 }

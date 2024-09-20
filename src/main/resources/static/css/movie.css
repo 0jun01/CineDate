@@ -327,6 +327,7 @@ ul.content-region {
     border-radius: 5px;
     background-color: #ff2588;
     color: #fff;
+    float: right;
 }
 .delete-button{
 	width: 60px;
@@ -359,8 +360,5 @@ ul.content-region {
 
 .date--profile {
     width: 100%;
-    border: 1px solid #ddd;
-    padding: 50px 20px;
-    border-radius: 10px;
     text-align: left;
 }

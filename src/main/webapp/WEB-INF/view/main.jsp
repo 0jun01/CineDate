@@ -45,40 +45,66 @@
 			});
 		</script>
 	</main>
-	
+	<div id="movie--film"></div>
 	<div id="in--wrap">
-		<div class="flex--between--wrap">
-			<div class="top--title">
-				<a href="#none" class="title--word">무비차트</a> <a href="#none" class="title--word">상영예정작</a>
-			</div>
-			<div class="top--title">
-				<a id="btn--all--view" class='btn--all--view'>전체보기</a>
-			</div>
-			<div>
-			<div class="movie--list--box">
-				<c:forEach var="movieList" items="${movieList}">
-					<div class="movie--text--box">
-						<img alt="" src="https://image.tmdb.org/t/p/w342/${movieList.movieImg}">
-							<a href="movie/detail?title=${movieList.title}" class="overlay-link">상세보기</a>
-							<a href="reservation/reservation" class="overlay-link">예매하기</a> 
-						<h3>${movieList.title}</h3>
+		<div id="main--container" class="main--movie--chart">
+			<h1 class="index--title eng">CINE CHART</h1>
+
+			<div class="swiper mySwiper" id="movieSwiper">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<c:forEach var="movieList" items="${movieList}">
+							<div class="movie--text--box">
+								<div class="movie--img">
+									<img src="https://image.tmdb.org/t/p/w342/${movieList.movieImg}" alt="${movieList.title}">
+								</div>
+								<h3>${movieList.title}</h3>
+								<div class="index--link">
+									<a href="movie/detail?title=${movieList.title}" class="overlay--link">상세보기</a> <a href="reservation/reservation" class="overlay--link">예매하기</a>
+								</div>
+							</div>
+						</c:forEach>
 					</div>
-				</c:forEach>
+				</div>
+				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
 			</div>
+
 		</div>
-		<!-- 공지사항 -->
-		<div class="notice--wrap">
-			<div class="top--title">
-				<h1>
-					<a href="/notice">공지사항</a>
-				</h1>
-				<a>~~유의사항 태그</a>
+		<script>
+			var swiper = new Swiper("#movieSwiper", {
+				spaceBetween : 30,
+				centeredSlides : true,
+				pagination : {
+					el : ".swiper-pagination",
+					clickable : true,
+				},
+				navigation : {
+					nextEl : ".swiper-button-next",
+					prevEl : ".swiper-button-prev",
+				},
+			});
+		</script>
+
+	</div>
+	<div id="removie--film"></div>
+
+
+
+
+	<!-- 공지사항 -->
+	<div id="in--wrap">
+		<div id="main--container" class="notice--wrap">
+			<div class="notice--btn">
+				<h1 class="index--title eng">NOTICE</h1>
+				<a href="/notice">more</a>
 			</div>
+			
 		</div>
 	</div>
 
-</div>
 
 
-<!-- footer.jsp  -->
-<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
+
+	<!-- footer.jsp  -->
+	<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
