@@ -11,7 +11,7 @@
 
 	<select id="findAscMovie"
 		resultType="com.tenco.movie.repository.model.MovieDetailTB">
-		select * from movie_detail_tb order by title;
+		select * from movie_detail_tb order by title
 	</select>
 
 	<select id="findGradeNmMovie"
@@ -28,14 +28,14 @@
 		WHEN watch_grade_Nm = '19세이상관람가'
 		THEN 4
 		ELSE 5
-		END asc;
+		END asc
 	</select>
 
 	<select id="findAllRegions"
 		resultType="com.tenco.movie.repository.model.Regions">
 		select *
 		from regions_tb
-		order by id asc;
+		order by id asc
 	</select>
 
 	<select id="findSubRegionById"
@@ -43,7 +43,7 @@
 		select * from subregions_tb
 		where region_id = #{id}
 		order by
-		region_id;
+		region_id
 	</select>
 
 	<select id="findMovieByFetchedDate"
@@ -53,6 +53,20 @@
 		showtimes as s
 		left join movie_detail_tb as m on s.movie_id = m.id
 		where show_date = #{date}
+	</select>
+
+	<select id="findMovieBySubRegion"
+		resultType="com.tenco.movie.repository.model.MovieDetailTB">
+		select distinct(m.movie_id), m.title, m.watch_grade_Nm
+		from
+		showtimes as s
+		left join movie_detail_tb as m on s.movie_id = m.id
+		left
+		join screens_tb as sc on s.screen_id = sc.id
+		left join theaters_tb as t
+		on sc.theater_id = t.id
+		where subregion_id =
+		#{subRegionId}
 	</select>
 
 	<select id="findById"
@@ -204,6 +218,7 @@
 		ORDER BY
 		sh.show_date, t.name, s.name
 	</select>
+
 	<select id="findDateAndTheatersBySubRegion"
 		resultType="com.tenco.movie.dto.ChoicedMovie">
 		SELECT
@@ -223,11 +238,42 @@
 		ON s.theater_id = t.id
 		WHERE
 		t.subregion_id = #{subRegionId}
-		AND sh.show_date >=
+		AND
+		sh.show_date >=
 		CURRENT_DATE
 		ORDER BY
 		sh.show_date, t.name, s.name
 	</select>
+
+	<select id="findDateBySubRegionAndMovie"
+		resultType="com.tenco.movie.dto.ChoicedMovie">
+		SELECT
+		sh.show_date,
+		t.id AS theater_id,
+		t.name AS
+		theater_name,
+		s.id AS screen_id,
+		s.name AS screen_name,
+		sh.show_time
+		FROM
+		showtimes sh
+		JOIN
+		screens_tb s ON sh.screen_id = s.id
+		JOIN
+		theaters_tb t
+		ON s.theater_id = t.id
+		WHERE
+		t.subregion_id = #{subRegionId}
+		And
+		sh.movie_id = #{movieId}
+		AND
+		sh.show_date >=
+		CURRENT_DATE
+		ORDER BY
+		sh.show_date,
+		t.name, s.name
+	</select>
+
 	<select id="countRegion"
 		resultType="com.tenco.movie.dto.RegionCountDTO">
 		SELECT

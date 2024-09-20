@@ -366,6 +366,11 @@ function onMovieSelect(movieId) {
 	fetchTheatersAndDateByMovie(movieId);
 	}
 	
+	// 극장 무비 클릭했을 경우
+	if(selectedMovieId && !selectedDate1 && selectedTheaterId){
+		fetchDateByMovieAndSubRegion(selectedMovieId,selectedTheaterId);
+	}
+	
 	// 셋다 클릭 했을 경우
 	if(selectedMovieId && selectedTheaterId && selectedDate1) {
 		console.log("여기얌!!");
@@ -376,7 +381,8 @@ function onMovieSelect(movieId) {
 // 날짜 선택시
 function onDateSelect(selectedDate, element){
 	selectedDate1 = selectedDate;
-	viewSelectedDate(selectedDate, element)
+	viewSelectedDate(selectedDate, element);
+	
 	// 날짜만 선택시
 	if(selectedDate1 && !selectedMovieId && !selectedTheaterId){
 		fetchTheaterCountByDate(selectedDate1);
@@ -405,8 +411,15 @@ function onTheaterSelect(theaterName, subregionId){
 	console.log(selectedDate1);
 	checkMovie(theaterName, subregionId);
 	
+	// 소분류 극장만 선택했을 경우
 	if(!selectedMovieId && selectedTheaterId && !selectedDate1) {
 		fetchDateAndDateBySubRegion(subregionId);
+		fetchMovieBySubRegion(subregionId);
+	}
+	
+	// 소분류 영화, 극장 클릭 했을 경우 날짜 업데이트
+	if(selectedMovieId && selectedTheaterId && !selectedDate1) {
+		fetchDateByMovieAndSubRegion(selectedMovieId,subregionId);
 	}
 	
 	if(selectedMovieId && selectedTheaterId && selectedDate1) {
@@ -456,6 +469,25 @@ function fetchTheatersAndDateByMovie(movieId){
 // 서브지역 클릭시 그 장소에 맞는 날짜와 극장 데이터 가져오기!
 function fetchDateAndDateBySubRegion(subRegionId){
 	fetch(`http://localhost:8080/reservation/updateDateBySubRegion?subRegionId=` + subRegionId)
+	.then(response => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+			return response.json();
+		})
+    .then(data => {
+        console.log(data);  // 받아온 극장 정보를 콘솔에 출력
+        // 여기에 받은 데이터를 처리하는 로직 추가
+        updateDateOpacity(data);
+    })
+    .catch(error => {
+        console.error('Error fetching theaters:', error);
+    });
+}
+
+// 무비와 서브지역 클릭시 그 장소에 맞는 날짜와 극장 데이터 가져오기!
+function fetchDateByMovieAndSubRegion(movieId,subRegionId){
+	fetch(`http://localhost:8080/reservation/fetchDateByMovieAndSubRegion?subRegionId=` + subRegionId + `&movieId=`+ movieId)
 	.then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
@@ -873,13 +905,20 @@ function updateSubRegionList(subRegions) {
 	
         // 필요에 따라 onclick 이벤트 핸들러 추가
         link.onclick = function() {
+        	// 대분류 갱신하는곳이다.
         	checkMovie(subRegion.name, subRegion.id);
             console.log('Clicked sub-region:', subRegion.name);
             console.log('Clicked sub-region:', subRegion.id);
             selectedTheaterId = subRegion.id;
             if(!selectedMovieId && selectedTheaterId && !selectedDate1){
             	fetchDateAndDateBySubRegion(selectedTheaterId);
+            	fetchMovieBySubRegion(selectedTheaterId);
             }
+            
+            if(selectedMovieId && selectedTheaterId && !selectedDate1){
+            	fetchDateByMovieAndSubRegion(selectedMovieId,selectedTheaterId);
+            }
+            
             if(selectedMovieId && selectedTheaterId && selectedDate1) {
         		console.log("여기 안들어오냐?");
         		fetchViewTimeList(selectedMovieId,selectedTheaterId,selectedDate1);
@@ -951,7 +990,6 @@ function viewSelectedDate(selectedDate, element) {
 	const textValue = spanElement ? spanElement.textContent : null; // 텍스트 값 가져오기
 	console.log('Selected Date:', date);
 	console.log('Span Text Value:', textValue);
-	step = 1;
 	// 선택된 날짜 항목 강조
 	const selectedItem = document.getElementById('date-' + selectedDate);
 	if (selectedItem) {
@@ -986,6 +1024,31 @@ function viewSelectedDate(selectedDate, element) {
 			console.error('Fetch error:', error);
 		})
 }
+
+// 서브 지역 클릭 했을 시 영화 리스트 업데이트 시켜주는 패치
+function fetchMovieBySubRegion(subRegionId){
+	fetch(`http://localhost:8080/reservation/fetchMovieListBySubRegion?subRegionId=` + subRegionId)
+	.then(response => {
+		if (!response.ok) {
+			throw new Error('연결을 실패했습니다.')
+		}
+		return response.json();
+	})
+	.then(data => {
+		if (data.length === 0) {
+			// 상영 일정이 없는 경우 투명도를 낮추고 팝업을 띄움
+			selectedItem.style.opacity = '0.1'; // 투명도 낮춤
+			alert('선택한 날짜에 상영 일정이 없습니다.');
+		} else {
+			updateMovieListByDate(data);
+		}
+	})
+	.catch(error => {
+		alert('패치중 문제가 발생햇습니다.')
+		console.error('Fetch error:', error);
+	})
+}
+
 
 //영화 리스트를 업데이트하는 함수
 function updateMovieListByDate(movieList) {

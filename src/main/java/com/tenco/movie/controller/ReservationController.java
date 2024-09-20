@@ -176,8 +176,19 @@ public class ReservationController {
 
 	@GetMapping("/date")
 	@ResponseBody
-	public List<MovieDetail> fetchDateItems(@RequestParam("date") String date) {
-		List<MovieDetail> fetchedMovieList = reservationService.fetchMovieListByDate(date);
+	public List<MovieDetailTB> fetchDateItems(@RequestParam("date") String date) {
+		List<MovieDetailTB> fetchedMovieList = reservationService.fetchMovieListByDate(date);
+
+		if (fetchedMovieList == null) {
+			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.BAD_REQUEST);
+		}
+		return fetchedMovieList;
+	}
+
+	@GetMapping("/fetchMovieListBySubRegion")
+	@ResponseBody
+	public List<MovieDetailTB> fetchDateItems(@RequestParam("subRegionId") int subRegionId) {
+		List<MovieDetailTB> fetchedMovieList = reservationService.fetchMovieListBySubRegion(subRegionId);
 
 		if (fetchedMovieList == null) {
 			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.BAD_REQUEST);
@@ -283,6 +294,20 @@ public class ReservationController {
 	@ResponseBody
 	public List<ChoicedMovie> fetchDateAndDateBySubRegion(@RequestParam("subRegionId") int subRegionId) {
 		List<ChoicedMovie> entity = reservationService.fetchDateAndDateBySubRegion(subRegionId);
+		return entity;
+	}
+
+	/**
+	 * 영화와 서브지역만 클릭 했을 시 날짜와 극장 업데이트
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/fetchDateByMovieAndSubRegion")
+	@ResponseBody
+	public List<ChoicedMovie> fetchDateBySubRegionAndMovie(@RequestParam("subRegionId") int subRegionId,
+			@RequestParam("movieId") int movieId) {
+		List<ChoicedMovie> entity = reservationService.fetchDateByMovieAndSubRegion(subRegionId,movieId);
 		return entity;
 	}
 

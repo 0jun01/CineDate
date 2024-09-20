@@ -128,8 +128,8 @@ public class ReservationService {
 		return subRegionList;
 	}
 
-	public List<MovieDetail> fetchMovieListByDate(String date) {
-		List<MovieDetail> fetchedMovieList = null;
+	public List<MovieDetailTB> fetchMovieListByDate(String date) {
+		List<MovieDetailTB> fetchedMovieList = null;
 
 		try {
 			fetchedMovieList = reservationRepository.findMovieByFetchedDate(date);
@@ -332,6 +332,27 @@ public class ReservationService {
 		List<ChoicedMovie> entity = null;
 		try {
 			entity = reservationRepository.findDateAndTheatersBySubRegion(subRegionId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+
+	public List<MovieDetailTB> fetchMovieListBySubRegion(int subRegionId) {
+		List<MovieDetailTB> fetchedMovieList = null;
+
+		try {
+			fetchedMovieList = reservationRepository.findMovieBySubRegion(subRegionId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return fetchedMovieList;
+	}
+
+	public List<ChoicedMovie> fetchDateByMovieAndSubRegion(int subRegionId, int movieId) {
+		List<ChoicedMovie> entity = null;
+		try {
+			entity = reservationRepository.findDateBySubRegionAndMovie(movieId, subRegionId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

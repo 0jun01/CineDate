@@ -37,7 +37,7 @@ public interface ReservationRepository {
 	// 영화 예매 페이지 id로 소분류 네임 얻어내기
 	List<SubRegions> findSubRegionById(int id);
 
-	List<MovieDetail> findMovieByFetchedDate(String date);
+	List<MovieDetailTB> findMovieByFetchedDate(String date);
 
 	List<SubRegions> findByMovieIdAndShowDate(@Param("id") int id, @Param("showDate") Date showDate);
 
@@ -98,4 +98,12 @@ public interface ReservationRepository {
 
 	// 서브지역 선택시 데이트 업데이트 하기!
 	List<ChoicedMovie> findDateAndTheatersBySubRegion(int subRegionId);
+
+	// 서브지역 선택시 영화리스트 업데이트 하기!
+	List<MovieDetailTB> findMovieBySubRegion(int subRegionId);
+
+	// 영화와 서브지역 선택시 날짜 업데이트 하기
+	List<ChoicedMovie> findDateBySubRegionAndMovie(@Param("movieId") int movieId,
+			@Param("subRegionId") int subRegionId);
+
 }
