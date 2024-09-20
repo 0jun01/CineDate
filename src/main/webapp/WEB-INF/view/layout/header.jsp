@@ -6,12 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>CineDate</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="/css/common.css" rel="stylesheet">
 <link href="/css/header.css" rel="stylesheet">
 <link href="/css/font.css" rel="stylesheet">
 <link href="/css/main.css" rel="stylesheet">
 <link href="/css/movie.css" rel="stylesheet">
 <link href="/css/date.css" rel="stylesheet">
+<link href="/css/event.css" rel="stylesheet">
 <link href="/css/notice.css" rel="stylesheet">
 <link href="/css/footer.css" rel="stylesheet">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.ico">
@@ -38,7 +40,7 @@
 							<a href="/user/myPage">마이페이지</a>
 						</li>
 						<li>
-							<a href="/home/CS">고객센터</a>
+							<a href="/user/myReservation">예매 조회</a>
 						</li>
 					</c:when>
 
@@ -48,9 +50,6 @@
 						</li>
 						<li>
 							<a href="/user/signUp">회원가입</a>
-						</li>
-						<li>
-							<a href="/home/CS">고객센터</a>
 						</li>
 					</c:otherwise>
 				</c:choose>
@@ -64,7 +63,7 @@
 			</ul>
 		</div>
 		<div class="header--logo">
-			<a href="/home"><img src="/img/logo.png" alt="CineDate Logo"></a>
+			<a href="/home"><img src="/img/header_logo.png" alt="CineDate Logo"></a>
 		</div>
 		<nav class="nav--wrap" id="in--wrap">
 			<ul class="nav--menu">
@@ -95,7 +94,7 @@
 					<li class="bar bar03"></li>
 				</ul>
 
-				<div class="mobile--all--menu" style="display:none;">
+				<div class="mobile--all--menu" style="display:none">
 					<div class="all--bg" style="display: block;"></div>
 					<div class="all--menu">
 						<ul>
@@ -119,7 +118,7 @@
 	</header>
 
 	<script>
-	<!-- 헤더 상단 팝업 배너 -->
+		<!-- 헤더 상단 팝업 배너 -->
 		document.addEventListener('DOMContentLoaded', function() {
 			var xIcon = document.querySelector('.x--icon');
 

@@ -60,22 +60,7 @@
 					<!--end::Navbar Search-->
 					<!--begin::Messages Dropdown Menu-->
 
-					<li class="nav-item dropdown"><a class="nav-link" data-bs-toggle="dropdown" href="#"> <i class="bi bi-bell-fill"></i> <span class="navbar-badge badge text-bg-warning">15</span>
-					</a>
-						<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-							<span class="dropdown-item dropdown-header">15 알림</span>
-							<div class="dropdown-divider"></div>
-							<a href="#" class="dropdown-item"> <i class="bi bi-envelope me-2"></i> 4 개의 새로운 메세지 <span class="float-end text-secondary fs-7">3 분전</span>
-							</a>
-							<div class="dropdown-divider"></div>
-							<a href="#" class="dropdown-item"> <i class="bi bi-people-fill me-2"></i> 8 명의 친구요청 <span class="float-end text-secondary fs-7">12 시간전</span>
-							</a>
-							<div class="dropdown-divider"></div>
-							<a href="#" class="dropdown-item"> <i class="bi bi-file-earmark-fill me-2"></i> 3 개의 새로운 요청 <span class="float-end text-secondary fs-7">2 일전</span>
-							</a>
-							<div class="dropdown-divider"></div>
-							<a href="#" class="dropdown-item dropdown-footer"> 모든 공지 보기 </a>
-						</div></li>
+					
 					<!--end::Notifications Dropdown Menu-->
 					<!--begin::Fullscreen Toggle-->
 					<li class="nav-item"><a class="nav-link" href="#" data-lte-toggle="fullscreen"> <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i> <i
@@ -83,34 +68,22 @@
 					</a></li>
 					<!--end::Fullscreen Toggle-->
 					<!--begin::User Menu Dropdown-->
-					<li class="nav-item dropdown user-menu"><a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> <img src="/img/user2-160x160.jpg"
+					<li class="nav-item dropdown user-menu"><a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> <img src="/DateProfileIMAGE/${profile.firstUploadFileName}"
 							class="user-image rounded-circle shadow" alt="User Image"> <span class="d-none d-md-inline">${user.loginId} 관리자님</span>
 					</a>
 						<ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
 							<!--begin::User Image-->
-							<li class="user-header text-bg-primary"><img src="/img/user2-160x160.jpg" class="rounded-circle shadow" alt="User Image">
+							<li class="user-header text-bg-primary"><img src="/DateProfileIMAGE/${profile.firstUploadFileName}" class="rounded-circle shadow" alt="User Image">
 								<p>
-									${user.loginId} <small>2024년 8월 가입</small>
+									${user.loginId} 관리자님
+									${user.loginId} <small>2024년 9월 가입</small>
 								</p></li>
 							<!--end::User Image-->
 							<!--begin::Menu Body-->
-							<li class="user-body">
-								<!--begin::Row-->
-								<div class="row">
-									<div class="col-4 text-center">
-										<a href="#">Followers</a>
-									</div>
-									<div class="col-4 text-center">
-										<a href="#">Sales</a>
-									</div>
-									<div class="col-4 text-center">
-										<a href="#">Friends</a>
-									</div>
-								</div> <!--end::Row-->
-							</li>
+							
 							<!--end::Menu Body-->
 							<!--begin::Menu Footer-->
-							<li class="user-footer"><a href="#" class="btn btn-default btn-flat">프로필</a> <a href="/logout" class="btn btn-default btn-flat float-end">로그아웃</a></li>
+							<li class="user-footer"><a href="/logout" class="btn btn-default btn-flat float-end">로그아웃</a></li>
 							<!--end::Menu Footer-->
 						</ul></li>
 					<!--end::User Menu Dropdown-->
@@ -167,49 +140,18 @@
 								
 								
 							</ul></li>
-						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon bi bi-box-seam-fill"></i>
-								<p>
-									박스오피스 <span class="nav-badge badge text-bg-secondary me-3">3</span> <i class="nav-arrow bi bi-chevron-right"></i>
-								</p>
-						</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="./layout/unfixed-sidebar.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>일간 박스오피스</p>
-								</a></li>
-								<li class="nav-item"><a href="./layout/fixed-sidebar.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>주간 박스오피스</p>
-								</a></li>
-								<li class="nav-item"><a href="./layout/fixed-complete.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>월간 박스오피스</p>
-								</a></li>
-								<li class="nav-item"><a href="./layout/sidebar-mini.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>준비중</p>
-								</a></li>
-								<li class="nav-item"><a href="./layout/collapsed-sidebar.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>
-											준비중 <small>+ ...</small>
-										</p>
-								</a></li>
-								<li class="nav-item"><a href="./layout/logo-switch.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>
-											아 암튼준비중임 <small>+ ...</small>
-										</p>
-								</a></li>
-								<li class="nav-item"><a href="./layout/layout-rtl.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>.....</p>
-								</a></li>
-							</ul></li>
+						
 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon bi bi-tree-fill"></i>
 								<p>
-									히스토리 <i class="nav-arrow bi bi-chevron-right"></i>
+									결제내역 <i class="nav-arrow bi bi-chevron-right"></i>
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item"><a href="/adminHistory" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>결제내역</p>
+										<p>토스결제 내역</p>
 								</a></li>
 								<li class="nav-item"><a href="./UI/timeline.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>결제top10</p>
+										<p>카카오 결제 내역</p>
 								</a></li>
 								<li class="nav-item"><a href="/adminCancelHistory" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
 										<p>결제 취소 내역</p>
@@ -217,12 +159,12 @@
 							</ul></li>
 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon bi bi-pencil-square"></i>
 								<p>
-									데이팅현황 <i class="nav-arrow bi bi-chevron-right"></i>
+									데이트 관리<i class="nav-arrow bi bi-chevron-right"></i>
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item"><a href="./forms/general.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>데이트현황</p>
+										<p>데이트 게시글</p>
 								</a></li>
 							</ul></li>
 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon bi bi-table"></i>
@@ -232,7 +174,7 @@
 						</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item"><a href="./tables/simple.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-										<p>Simple Tables</p>
+										<p>신고 내역</p>
 								</a></li>
 							</ul></li>
 						

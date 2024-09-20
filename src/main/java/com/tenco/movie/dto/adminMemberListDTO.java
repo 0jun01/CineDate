@@ -1,7 +1,5 @@
 package com.tenco.movie.dto;
 
-import com.tenco.movie.repository.model.User;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -149,7 +149,129 @@
 		left join booking_seats as bs on b.id = bs.booking_id
 		where showtime_id = #{showtimeId}
 	</select>
-	
-	
-	
+
+	<select id="findDateByMovieIdAndTheaterId"
+		resultType="com.tenco.movie.dto.ChoicedMovieAndTheater">
+		SELECT
+		sh.id AS
+		showtime_id,
+		m.title AS movie_title,
+		t.name AS
+		theater_name,
+		sh.show_date,
+		sh.show_time
+		FROM
+		showtimes sh
+		JOIN
+		screens_tb
+		sc ON
+		sh.screen_id = sc.id
+		JOIN
+		theaters_tb t ON sc.theater_id = t.id
+		JOIN
+		movies_tb m ON sh.movie_id = m.id
+		WHERE
+		sh.movie_id = #{movieId}
+		AND
+		t.id = #{theaterId}
+		AND sh.show_date >= CURRENT_DATE
+		ORDER BY
+		sh.show_date, sh.show_time
+	</select>
+
+
+	<select id="findDateAndTheatersByMovieId"
+		resultType="com.tenco.movie.dto.ChoicedMovie">
+		SELECT
+		sh.show_date,
+		t.id AS theater_id,
+		t.name AS
+		theater_name,
+		s.id AS screen_id,
+		s.name AS screen_name,
+		sh.show_time
+		FROM
+		showtimes sh
+		JOIN
+		screens_tb s ON sh.screen_id = s.id
+		JOIN
+		theaters_tb t
+		ON s.theater_id = t.id
+		WHERE
+		sh.movie_id = #{movieId}
+		AND sh.show_date >=
+		CURRENT_DATE
+		ORDER BY
+		sh.show_date, t.name, s.name
+	</select>
+	<select id="countRegion"
+		resultType="com.tenco.movie.dto.RegionCountDTO">
+		SELECT
+		r.name AS region_name,
+		COUNT(DISTINCT t.id) AS
+		theater_count
+		FROM
+		showtimes sh
+		JOIN
+		screens_tb s ON sh.screen_id = s.id
+		JOIN
+		theaters_tb t ON s.theater_id = t.id
+		JOIN
+		subregions_tb sr ON
+		t.subregion_id = sr.id
+		JOIN
+		regions_tb r ON sr.region_id = r.id
+		WHERE
+		sh.movie_id = #{movieId}
+		AND sh.show_date >= CURRENT_DATE
+		GROUP BY
+		r.name
+		ORDER BY
+		r.name
+	</select>
+	<select id="findSubRegionByMovie"
+		resultType="com.tenco.movie.dto.SubRegionDTO">
+		SELECT sr.id, sr.name
+		FROM subregions_tb sr
+		JOIN theaters_tb
+		th ON sr.id = th.subregion_id
+		JOIN screens_tb sc ON th.id =
+		sc.theater_id
+		JOIN showtimes st ON sc.id = st.screen_id
+		WHERE
+		st.movie_id = ${movieId}
+		AND st.show_date >= CURDATE()
+		AND (st.show_date
+		> CURDATE() OR (st.show_date = CURDATE() AND
+		st.show_time >=
+		CURTIME()))
+		GROUP BY sr.id, sr.name;
+	</select>
+
+	<select id="myreservation"
+		resultType="com.tenco.movie.dto.MyReservationDTO">
+		SELECT DISTINCT
+		b.id AS booking_id,
+		b.booking_time,
+		b.quantity,
+		s.show_date,
+		s.show_time,
+		m.title AS movie_title,
+		se.seat_number AS reserved_seat
+		FROM
+		bookings b
+		JOIN
+		showtimes s ON b.showtime_id = s.id
+		JOIN
+		movies_tb m ON s.movie_id = m.id
+		JOIN
+		booking_seats bs ON b.id = bs.booking_id
+		JOIN
+		seats se ON bs.seat_id = se.id
+		WHERE
+		b.user_id = #{userId}
+		ORDER BY
+		b.booking_time DESC
+	</select>
+
 </mapper>

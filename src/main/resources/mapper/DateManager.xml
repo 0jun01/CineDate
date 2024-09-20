@@ -14,13 +14,35 @@
 
 	<select id="matchingList"
 		resultType="com.tenco.movie.repository.model.DateProfile">
-
 		SELECT p.*, m.status
 		FROM profile_tb p
-		JOIN matching_tb m
-		ON p.user_id = m.r_user_id
-		WHERE m.s_user_id = #{principalId} OR m.r_user_id = #{principalId};
+		JOIN matching_tb m ON p.user_id = m.r_user_id OR p.user_id = m.s_user_id
+		WHERE (m.s_user_id = #{principalId} OR m.r_user_id = #{principalId})
+		AND p.user_id != #{principalId}
+	</select>
 
+	<select id="datailCount"
+		resultType="com.tenco.movie.dto.detailCountDTO">
+		select * from detail_count_tb WHERE user_id = #{userId}
+	</select>
+
+	<update id="updateOriginCount">
+		UPDATE detail_count_tb SET origin_count = #{count}
+		WHERE user_id = #{userId}
+	</update>
+
+	<update id="updateIpurchaseCount">
+		UPDATE detail_count_tb SET purchase_count = #{count}
+		WHERE user_id = #{userId}
+	</update>
+
+	<update id="resetAllDrtailCount">
+		UPDATE detail_count_tb SET origin_count = 3
+	</update>
+
+	<select id="searchUserById"
+		resultType="com.tenco.movie.repository.model.User">
+		select * from user_tb WHERE id = #{id}
 	</select>
 
 

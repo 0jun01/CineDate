@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.tenco.movie.repository.interfaces.StoreRepository">
+
+	<select id="viewItems"
+		resultType="com.tenco.movie.repository.model.ConItems">
+		select * from con_item_tb;
+	</select>
+
+	<select id="getConCount" resultType="int">
+		select con from profile_tb
+		where user_id = #{userId};
+	</select>
+
+	<insert id="insertConHistory">
+		insert into con_history_tb (user_id, w_con_count,
+		con_amount, item_id)
+		values(#{userId}, #{wConCount}, #{conAmount},
+		#{itemId})
+	</insert>
+
+	<update id="updateProfileCon">
+		update profile_tb set con = #{amount} where user_id =
+		#{userId};
+	</update>
+</mapper>

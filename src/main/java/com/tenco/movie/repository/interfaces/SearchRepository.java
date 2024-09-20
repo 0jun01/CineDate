@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.core.annotation.MergedAnnotations.Search;
 
+
 @Mapper
 public interface SearchRepository {
 

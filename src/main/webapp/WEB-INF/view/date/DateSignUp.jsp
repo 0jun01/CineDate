@@ -18,6 +18,45 @@
 
                     <label for="introduce">자기소개</label>
                     <input type="text" id="introduce" name="introduce" placeholder="자기소개를 입력해주세요. (최대 50자)">
+                    
+                    <label for="idealType">이상형</label>
+                    <input type="text" id="idealType" name="idealType" placeholder="이상형을 서술해주세요. (최대 50자)">
+                    
+                    <label for="bloodtype">혈액형</label>
+					<select id="bloodtype" name="bloodtype" >
+                        <option value="">선택하세요</option>
+                        <option value="A">A형</option>
+                        <option value="B">B형</option>
+                        <option value="AB">AB형</option>
+                        <option value="O">O형</option>
+                    </select>
+						
+                    <label for="myJop">직업</label>
+                    <input type="text" id="myJop" name="myJop" placeholder="직업을 적어 주세요(최대 50자)">
+                    
+
+                    <label for="bestMovie">좋아하는영화</label>
+                    <input type="text" id="bestMovie" name="bestMovie" placeholder="좋아하는 영화를 적어주세요(최대 50자)">
+                    
+                    <label for="drinking">음주여부</label>
+                    <select id="drinking" name="drinking" >
+                        <option value="">선택하세요</option>
+                        <option value="안함">안함</option>
+                        <option value="1병미만">1병미만</option>
+                        <option value="1병에서2병">1병에서 2병</option>
+                        <option value="2병에서3병">2병에서 3병</option>
+                        <option value="3병이상">3병이상</option>
+                    </select>
+                    
+                    <label for="smoking">흡연여부</label>
+                     <select id="smoking" name="smoking" >
+                        <option value="">선택하세요</option>
+                        <option value="흡연">흡연</option>
+                        <option value="비흡연">비흡연</option>
+                    </select>
+                    
+                    
+                    
 
 		            <label for="mFileOne">사진(1번, 2번은 필수)</label>
 					<div class="thumb--image" style="width: 400px; display: flex; justify-content: space-between;"> <!-- 3번사진 -->

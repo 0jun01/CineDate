@@ -8,7 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mysql.cj.Session;
+import com.tenco.movie.dto.ChoicedMovie;
+import com.tenco.movie.dto.MyReservationDTO;
+import com.tenco.movie.dto.RegionCountDTO;
+import com.tenco.movie.dto.SubRegionDTO;
 import com.tenco.movie.dto.TheaterCountDTO;
 import com.tenco.movie.dto.TimeDTO;
 import com.tenco.movie.handler.exception.DataDeliveryException;
@@ -22,7 +25,6 @@ import com.tenco.movie.repository.model.Regions;
 import com.tenco.movie.repository.model.SubRegions;
 import com.tenco.movie.utils.Define;
 
-import jakarta.security.auth.message.config.AuthConfig;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -213,7 +215,46 @@ public class ReservationService {
 		}
 		return shId;
 	}
+
+	public List<ChoicedMovie> fetchDateAndTheater(int movieId) {
+		List<ChoicedMovie> entity = null;
+		try {
+			entity = reservationRepository.findDateAndTheatersByMovieId(movieId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+
+	public List<RegionCountDTO> fetchRegionCount(int movieId) {
+		List<RegionCountDTO> entity = null;
+		try {
+			entity = reservationRepository.countRegion(movieId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+
+	public List<SubRegionDTO> fetchSubRegionByMovie(int movieId) {
+		List<SubRegionDTO> entity = null;
+		try {
+			entity = reservationRepository.findSubRegionByMovie(movieId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
 	
+	/**
+	 * 내 예약 내역 확인
+	 * @author 성후
+	 * @param userId
+	 * @return
+	 */
 	
+	public List<MyReservationDTO> myreservation(int userId) {
+	    return reservationRepository.myreservation(userId);
+	}
 	
 }
