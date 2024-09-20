@@ -486,7 +486,13 @@ public class UserController {
 	public String privacyPolicy() {
 		return "user/privacyPolicy";
 	}
-
+/**
+ * 나의 예매조회
+ * @author 성후
+ * @param principal
+ * @param model
+ * @return
+ */
 	@GetMapping("/myReservation")
 	public String myReservation(@SessionAttribute(Define.PRINCIPAL) User principal, Model model) {
         List<MyReservationDTO> reservations = reservationService.myreservation(principal.getId());

@@ -78,7 +78,7 @@ public class TossController {
 	        System.err.println("Error response body: " + e.getResponseBodyAsString());
 	    }
 
-	    return "date/datePage";
+	    return "redirect:/user/myReservation";
 	}
 
 
