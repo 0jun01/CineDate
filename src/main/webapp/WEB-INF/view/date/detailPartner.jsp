@@ -169,22 +169,7 @@ label{
 </style>
 </head>
 <body>
-<<<<<<< HEAD
-	<c:if test="${detail != null}">
-		<div class="profile-images">
-			<img class="m--profile list--profile" alt="" src="/image/${detail.firstUploadFileName}" data-fullsize="/DateProfileIMAGE/${detail.firstUploadFileName}"> <img
-				class="m--profile list--profile" alt="" src="/image/${detail.secondUploadFileName}" data-fullsize="/DateProfileIMAGE/${detail.secondUploadFileName}">
-			<c:if test="${detail.thirdOriginFileName != null}">
-				<img class="m--profile list--profile" alt="" src="/image/${detail.thirdOriginFileName}" data-fullsize="/DateProfileIMAGE/${detail.thirdOriginFileName}">
-			</c:if>
-			<c:if test="${detail.fourthOriginFileName != null}">
-				<img class="m--profile list--profile" alt="" src="/image/${detail.fourthOriginFileName}" data-fullsize="/DateProfileIMAGE/${detail.fourthOriginFileName}">
-			</c:if>
-			<c:if test="${detail.fifthOriginFileName != null}">
-				<img class="m--profile list--profile" alt="" src="/image/${detail.fifthOriginFileName}" data-fullsize="/DateProfileIMAGE/${detail.fifthOriginFileName}">
-			</c:if>
-		</div>
-=======
+
     <div id="profile--wrap">
         <c:if test="${detail != null}">
             <div class="representative--image">
@@ -218,7 +203,6 @@ label{
                 </div>
             </div>
         </c:if>
->>>>>>> 254fa53b55d75c87bb6fcdb49364e2b8709b91a5
 
         <c:if test="${dto != null}">
             <div>
@@ -260,7 +244,6 @@ label{
         </c:choose>
     </div>
 
-<<<<<<< HEAD
 	<c:if test="${dto != null}">
 		<div>
 			<label>이상형 : ${dto.idealType} </label>
@@ -373,63 +356,7 @@ label{
 	            });
 	        }
 	    });
-=======
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var images = document.querySelectorAll('.profile-images img');
-            var mainImage = document.getElementById('main-image');
-            var modal = document.getElementById('image-modal');
-            var modalImg = document.getElementById('modal-img');
-            var span = document.getElementsByClassName('close')[0];
-            var actionButton = document.getElementById('action-button');
-            var btn = document.querySelector("#action-button");
-            
-            btn.addEventListener('click', function() {
-                const partNerId = btn.value;
-                const url = "http://localhost:8080/duplication/movieSuggest?userId=" + ${userId} + "&partNerId=" + partNerId;
-                fetch(url)
-                    .then(response => response.json())
-                    .then(isDate => {
-                        if (isDate) {
-                            alert("신청 완료");
-                            window.location.reload();
-                        } else {
-                            alert("신청 실패");
-                        }
-                    })
-                    .catch(error => {
-                        console.log("error ", error);
-                    });
-            });
-            
-            images.forEach(function(img) {
-                img.addEventListener('click', function() {
-                    var fullSizeSrc = img.getAttribute('data-fullsize');
-                    mainImage.src = fullSizeSrc; // 대표 이미지 변경
-                    modalImg.src = fullSizeSrc; // 모달 이미지도 변경
-                    modal.classList.remove('hidden');
-                });
-            });
-    
-            span.addEventListener('click', function() {
-                modal.classList.add('hidden');
-            });
-    
-            modal.addEventListener('click', function(event) {
-                if (event.target === modal) {
-                    modal.classList.add('hidden');
-                }
-            });
-    
-            if (actionButton && actionButton.classList.contains('disabled')) {
-                actionButton.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    event.stopImmediatePropagation();
-                });
-            }
-        });
-        
->>>>>>> 254fa53b55d75c87bb6fcdb49364e2b8709b91a5
+   
     </script>
 </body>
 </html>

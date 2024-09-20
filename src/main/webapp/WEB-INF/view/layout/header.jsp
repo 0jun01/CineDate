@@ -71,7 +71,7 @@
 								<a href="/user/myPage">마이페이지</a>
 							</li>
 							<li>
-								<a href="/home/CS">주문내역</a>
+							<a href="/user/myReservation">예매 조회</a>
 							</li>
 						</c:when>
 	
