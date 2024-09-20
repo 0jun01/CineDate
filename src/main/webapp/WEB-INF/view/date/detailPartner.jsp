@@ -243,44 +243,6 @@ label{
             </c:when>
         </c:choose>
     </div>
-
-	<c:if test="${dto != null}">
-		<div>
-			<label>이상형 : ${dto.idealType} </label>
-		</div>
-
-		<div>
-			<label>혈액형 : ${dto.bloodtype} </label>
-		</div>
-
-		<div>
-			<label>직업 : ${dto.myJop} </label>
-		</div>
-
-		<div>
-			<label>좋아하는영화 : ${dto.bestMovie} </label>
-		</div>
-
-		<div>
-			<label>음주여부 : ${dto.drinking} </label>
-		</div>
-
-		<div>
-			<label>흡연여부 : ${dto.smoking} </label>
-		</div>
-	</c:if>
-
-	<c:choose>
-		<c:when test="${detail.status == 1}">
-			<button id="action-button" value="${detail.userId}">신청</button>
-		</c:when>
-		<c:when test="${detail.status == 2}">
-			<button id="action-button" class="disabled" disabled>매칭 요청 대기 중</button>
-		</c:when>
-		<c:when test="${detail.status == 4}">
-			<button id="retry-button" value="${detail.userId}">재도전</button>
-		</c:when>
-	</c:choose>
 	</div>
 
 	<script>
