@@ -66,6 +66,7 @@ public class Define {
 	public static final String DUPLICATION_REVIEW = "이미 리뷰를 작성한 영화입니다.";
 	public static final String NOT_FOUND_REVIEW = "수정할 리뷰가 존재하지 않습니다.";
 	public static final String INPUT_STAR_RATING = "평점을 입력하세요.";
+	public static final String NO_RESERVATION = "실관람객에 한하여 관람평 작성이 가능합니다.";
 
 	// paging
 	public static final String NOT_FOUND_PREVIOUS = "첫 번째 페이지 입니다.";

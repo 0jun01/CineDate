@@ -46,17 +46,21 @@ body, input, button {
 .chat--message.Sender {
 	background-color: #fff2ff;
 	margin-left: auto;
-	text-align: left;
+	text-align: right;
 }
 
 .chat--message.Sender::after {
 	content: '';
     position: absolute;
     bottom: -16px;
-    left: 15px;
+  	right: 15px;
     border-width: 8px;
     border-style: solid;
     border-color: #fff2ff transparent transparent transparent;
+}
+
+.chat--message.Sender .chat--timestamp{
+	float: left;
 }
 
 .chat--message.Receiver {
@@ -69,7 +73,7 @@ body, input, button {
 	content: '';
 	position: absolute;
     bottom: -16px;
-	right: 15px;
+    left: 15px;	
     border-width: 8px;
     border-style: solid;
     border-color: #d1e0ff transparent transparent transparent;

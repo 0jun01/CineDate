@@ -261,6 +261,7 @@ public class ReservationController {
 	}
 
 
+
 	/**
 	 * 영화만 클릭 했을 시 날짜와 극장 업데이트
 	 * 
@@ -271,6 +272,32 @@ public class ReservationController {
 	@ResponseBody
 	public List<ChoicedMovie> findMovieAndDate(@RequestParam("movieId") int movieId) {
 		List<ChoicedMovie> entity = reservationService.fetchDateAndTheater(movieId);
+		return entity;
+	}
+
+	/**
+	 * 서브지역만 클릭 했을 시 날짜와 극장 업데이트
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/updateDateBySubRegion")
+	@ResponseBody
+	public List<ChoicedMovie> fetchDateAndDateBySubRegion(@RequestParam("subRegionId") int subRegionId) {
+		List<ChoicedMovie> entity = reservationService.fetchDateAndDateBySubRegion(subRegionId);
+		return entity;
+	}
+
+	/**
+	 * 영화만 클릭 했을 시 극장대분류 카운트 업데이트
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/firstTheater")
+	@ResponseBody
+	public List<RegionCountDTO> viewRegionCount() {
+		List<RegionCountDTO> entity = reservationService.fetchFirstRegionCount();
 		return entity;
 	}
 
@@ -288,7 +315,33 @@ public class ReservationController {
 	}
 
 	/**
-	 * 영화만 클릭 했을 시 극장대분류 카운트 업데이트
+	 * 날짜만 클릭 했을 시 극장대분류 카운트 업데이트
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/dateCount")
+	@ResponseBody
+	public List<RegionCountDTO> countRegionByDate(@RequestParam("date") String date) {
+		List<RegionCountDTO> entity = reservationService.fetchRegionCountByDate(date);
+		return entity;
+	}
+
+	/**
+	 * 처음 웹에 입장 시 극장 소분류 선택 가능한 지역업데이트
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/firstSubRegion")
+	@ResponseBody
+	public List<SubRegionDTO> findFirstSubRegion() {
+		List<SubRegionDTO> entity = reservationService.fetchFirstSubRegion();
+		return entity;
+	}
+
+	/**
+	 * 영화만 클릭 했을 시 극장 소분류 선택 가능한 지역업데이트
 	 * 
 	 * @param movieId
 	 * @author 변영준
@@ -299,4 +352,74 @@ public class ReservationController {
 		List<SubRegionDTO> entity = reservationService.fetchSubRegionByMovie(movieId);
 		return entity;
 	}
+
+	/**
+	 * 날짜만 클릭 했을 시 극장 소분류 선택 가능한 지역업데이트
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/subRegionsByDate")
+	@ResponseBody
+	public List<SubRegionDTO> findSubRegionByDate(@RequestParam("date") String date) {
+		List<SubRegionDTO> entity = reservationService.fetchSubRegionBydate(date);
+		return entity;
+	}
+
+	/**
+	 * 영화만 클릭한 후대분류 클릭 했을 시 극장 서브 지역 업데이트
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/filterSubRegion")
+	@ResponseBody
+	public List<SubRegionDTO> fetchSubRegionByMovieAndRegion(@RequestParam("movieId") int movieId,
+			@RequestParam("regionId") int regionId) {
+		List<SubRegionDTO> entity = reservationService.fetchSubRegionByMovieAndRegion(movieId, regionId);
+		return entity;
+	}
+
+	/**
+	 * 날짜와 영화 클릭 후 count 해주기
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/regionCountByDateAndMovie")
+	@ResponseBody
+	public List<RegionCountDTO> fetchSubRegionByMovieAndDate(@RequestParam("movieId") int movieId,
+			@RequestParam("date") String date) {
+		List<RegionCountDTO> entity = null;
+		entity = reservationService.fetchRegionCountByeDateAndMovie(movieId, date);
+		return entity;
+	}
+
+	/**
+	 * 날짜와 영화만 클릭 했을 시 극장 대분류 선택시 소분류 업데이트
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/subRegionsByMovieAndDate")
+	@ResponseBody
+	public List<SubRegionDTO> findSubRegionByMovieAndDate(@RequestParam("movieId") int movieId,
+			@RequestParam("date") String date) {
+		List<SubRegionDTO> entity = reservationService.fetchSubRegionByMovieAndDate(movieId, date);
+		return entity;
+	}
+
+	/**
+	 * 처음 페이지 입장시 대분류 선택시 대분류에 맞는 소분류 지역 opacity처리
+	 * 
+	 * @param movieId
+	 * @author 변영준
+	 */
+	@GetMapping("/firstOpacity")
+	@ResponseBody
+	public List<SubRegionDTO> fetchFirstOpacity() {
+		List<SubRegionDTO> entity = reservationService.fetchFirstSubOpaicty();
+		return entity;
+	}
+
 }

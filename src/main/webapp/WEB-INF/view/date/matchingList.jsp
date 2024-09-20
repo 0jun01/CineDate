@@ -45,6 +45,7 @@
 											<button onclick="openChat('${list.userId}')" id="${list.userId}">메세지보내기</button>
 										</c:if>
 								</c:if>
+
 								</td>
 							</tr>
 						</c:forEach>

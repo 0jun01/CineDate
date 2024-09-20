@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="com.tenco.movie.repository.interfaces.ReservationRepository">
-
+<mapper namespace="com.tenco.movie.repository.interfaces.ReservationRepository">
 	<select id="findAll"
 		resultType="com.tenco.movie.repository.model.MovieDetailTB">
 		select * from movie_detail_tb
-	</select>
+	</select> 
 
 	<select id="findAscMovie"
 		resultType="com.tenco.movie.repository.model.MovieDetailTB">
-		select * from movie_detail_tb order by title;
+		select * from movie_detail_tb order by title
 	</select>
 
 	<select id="findGradeNmMovie"
@@ -28,14 +26,14 @@
 		WHEN watch_grade_Nm = '19세이상관람가'
 		THEN 4
 		ELSE 5
-		END asc;
+		END asc
 	</select>
 
 	<select id="findAllRegions"
 		resultType="com.tenco.movie.repository.model.Regions">
 		select *
 		from regions_tb
-		order by id asc;
+		order by id asc
 	</select>
 
 	<select id="findSubRegionById"
@@ -43,7 +41,7 @@
 		select * from subregions_tb
 		where region_id = #{id}
 		order by
-		region_id;
+		region_id
 	</select>
 
 	<select id="findMovieByFetchedDate"
@@ -122,7 +120,7 @@
 		INSERT INTO bookings (user_id, showtime_id, quantity,
 		booking_time, status)
 		VALUES (#{userId}, #{showTimeId}, #{quantity},
-		NOW(), '완료');
+		NOW(), '완료')
 	</insert>
 
 	<insert id="insertBookingSeats">
@@ -204,6 +202,33 @@
 		ORDER BY
 		sh.show_date, t.name, s.name
 	</select>
+
+	<select id="findDateAndTheatersBySubRegion"
+		resultType="com.tenco.movie.dto.ChoicedMovie">
+		SELECT
+		sh.show_date,
+		t.id AS theater_id,
+		t.name AS
+		theater_name,
+		s.id AS screen_id,
+		s.name AS screen_name,
+		sh.show_time
+		FROM
+		showtimes sh
+		JOIN
+		screens_tb s ON sh.screen_id = s.id
+		JOIN
+		theaters_tb t
+		ON s.theater_id = t.id
+		WHERE
+		t.subregion_id = #{subRegionId}
+		AND
+		sh.show_date >=
+		CURRENT_DATE
+		ORDER BY
+		sh.show_date, t.name, s.name
+	</select>
+
 	<select id="countRegion"
 		resultType="com.tenco.movie.dto.RegionCountDTO">
 		SELECT
@@ -229,6 +254,58 @@
 		ORDER BY
 		r.name
 	</select>
+
+	<select id="countRegionByDate"
+		resultType="com.tenco.movie.dto.RegionCountDTO">
+		SELECT
+		r.name AS region_name,
+		COUNT(DISTINCT t.id) AS
+		theater_count
+		FROM
+		showtimes sh
+		JOIN
+		screens_tb s ON sh.screen_id = s.id
+		JOIN
+		theaters_tb t ON s.theater_id = t.id
+		JOIN
+		subregions_tb sr ON
+		t.subregion_id = sr.id
+		JOIN
+		regions_tb r ON sr.region_id = r.id
+		WHERE
+		sh.show_date = #{date}
+		AND sh.show_date >= CURRENT_DATE
+		GROUP BY
+		r.name
+		ORDER BY
+		r.name
+	</select>
+	
+	<select id="countFirstRegion"
+		resultType="com.tenco.movie.dto.RegionCountDTO">
+		SELECT
+		r.name AS region_name,
+		COUNT(DISTINCT t.id) AS
+		theater_count
+		FROM
+		showtimes sh
+		JOIN
+		screens_tb s ON sh.screen_id = s.id
+		JOIN
+		theaters_tb t ON s.theater_id = t.id
+		JOIN
+		subregions_tb sr ON
+		t.subregion_id = sr.id
+		JOIN
+		regions_tb r ON sr.region_id = r.id
+		WHERE
+		sh.show_date >= CURRENT_DATE
+		GROUP BY
+		r.name
+		ORDER BY 
+		r.name
+	</select>
+
 	<select id="findSubRegionByMovie"
 		resultType="com.tenco.movie.dto.SubRegionDTO">
 		SELECT sr.id, sr.name
@@ -239,16 +316,149 @@
 		sc.theater_id
 		JOIN showtimes st ON sc.id = st.screen_id
 		WHERE
-		st.movie_id = ${movieId}
+		st.movie_id = #{movieId}
 		AND st.show_date >= CURDATE()
 		AND (st.show_date
 		> CURDATE() OR (st.show_date = CURDATE() AND
 		st.show_time >=
 		CURTIME()))
-		GROUP BY sr.id, sr.name;
+		GROUP BY sr.id, sr.name
+	</select>
+
+	<select id="findSubRegionByDate"
+		resultType="com.tenco.movie.dto.SubRegionDTO">
+		SELECT sr.id, sr.name
+		FROM subregions_tb sr
+		JOIN theaters_tb
+		th ON sr.id = th.subregion_id
+		JOIN screens_tb sc ON th.id =
+		sc.theater_id
+		JOIN showtimes st ON sc.id = st.screen_id
+		WHERE
+		st.show_date = #{date}
+		AND st.show_date >= CURRENT_DATE
+		AND
+		(st.show_date > CURRENT_DATE OR (st.show_date = CURRENT_DATE AND
+		st.show_time >= CURRENT_DATE))
+		GROUP BY sr.id, sr.name
+	</select>
+
+	<select id="viewFirstSubRegion"
+		resultType="com.tenco.movie.dto.SubRegionDTO">
+		SELECT sr.id, sr.name
+		FROM subregions_tb sr
+		JOIN theaters_tb
+		th ON sr.id = th.subregion_id
+		JOIN screens_tb sc ON th.id =
+		sc.theater_id
+		JOIN showtimes st ON sc.id = st.screen_id
+		WHERE
+		st.show_date >= CURRENT_DATE
+		AND
+		(st.show_date > CURRENT_DATE OR
+		(st.show_date = CURRENT_DATE AND
+		st.show_time >= CURRENT_DATE))
+		GROUP BY
+		sr.id, sr.name
+	</select>
+
+	<select id="countRegionByMovieAndDate"
+		resultType="com.tenco.movie.dto.RegionCountDTO">
+		SELECT
+		r.name AS region_name,
+		COUNT(DISTINCT t.id) AS
+		theater_count
+		FROM
+		showtimes sh
+		JOIN
+		screens_tb s ON sh.screen_id = s.id
+		JOIN
+		theaters_tb t ON s.theater_id = t.id
+		JOIN
+		subregions_tb sr ON
+		t.subregion_id = sr.id
+		JOIN
+		regions_tb r ON sr.region_id = r.id
+		WHERE
+		sh.movie_id = #{movieId}
+		AND sh.show_date = #{date}
+		GROUP BY
+		r.name
+		ORDER
+		BY
+		r.name
+	</select>
+
+	<select id="findSubRegionByMovieAndDate"
+		resultType="com.tenco.movie.dto.SubRegionDTO">
+		SELECT
+		sr.id,
+		sr.name
+		FROM
+		subregions_tb sr
+		JOIN
+		theaters_tb th
+		ON sr.id = th.subregion_id
+		JOIN
+		screens_tb sc ON th.id = sc.theater_id
+		JOIN
+		showtimes st ON sc.id = st.screen_id
+		WHERE
+		st.movie_id = #{movieId}
+		AND st.show_date = #{date}
+		AND st.show_time >= CURRENT_DATE
+		GROUP BY
+		sr.id, sr.name
+	</select>
+
+	<select id="viewFirstOpacity"
+		resultType="com.tenco.movie.dto.SubRegionDTO">
+		SELECT sr.id, sr.name
+		FROM subregions_tb sr
+		JOIN theaters_tb
+		th ON sr.id = th.subregion_id
+		JOIN screens_tb sc ON th.id =
+		sc.theater_id
+		JOIN showtimes st ON sc.id = st.screen_id
+		WHERE
+		st.show_date >= CURRENT_DATE
+		AND
+		(st.show_date > CURRENT_DATE OR
+		(st.show_date = CURRENT_DATE AND
+		st.show_time >= CURRENT_DATE))
+		GROUP BY
+		sr.id, sr.name
 	</select>
 
 	<select id="myreservation"
+		resultType="com.tenco.movie.dto.MyReservationDTO">
+		SELECT DISTINCT
+		b.id AS booking_id,
+		b.booking_time,
+		b.quantity,
+		s.show_date,
+		s.show_time,
+		m.title AS movie_title,
+		se.seat_number AS reserved_seat
+		FROM
+		bookings b
+		JOIN
+		showtimes s ON
+		b.showtime_id = s.id
+		JOIN
+		movies_tb m ON s.movie_id = m.id
+		JOIN
+		booking_seats bs ON b.id = bs.booking_id
+		JOIN
+		seats se ON bs.seat_id =
+		se.id
+		WHERE
+		b.user_id = #{userId}
+		ORDER BY 
+		b.booking_time DESC
+	</select>
+
+	<select id="checkUserReservationForMovie"
 		resultType="com.tenco.movie.dto.MyReservationDTO">
 		SELECT DISTINCT
 		b.id AS booking_id,
@@ -269,9 +479,9 @@
 		JOIN
 		seats se ON bs.seat_id = se.id
 		WHERE
-		b.user_id = #{userId}
+		b.user_id = #{userId} AND s.movie_id = #{movieId}
 		ORDER BY
 		b.booking_time DESC
 	</select>
 
-</mapper>
+</mapper>	

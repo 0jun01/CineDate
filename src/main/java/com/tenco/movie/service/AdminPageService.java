@@ -58,8 +58,8 @@ public class AdminPageService {
 
 	private Event event;
 
-	@Value("${file.upload-dir}")
-	private String uploadDir;
+	@Value("${file.event-dir}")
+	private String eventDir;
 
 	// -----------------------------------------------
 	// 메인 시작
@@ -90,6 +90,13 @@ public class AdminPageService {
 	
 	public int sumSelling() {
 		return adminRepository.sellAdminSum();
+	}
+	
+	public DateProfile readAdminProfile(int id) {
+		DateProfile profile = new DateProfile();
+		
+		profile = adminRepository.profileAdmin(id);
+		return profile;
 	}
 	
 	@Transactional
@@ -284,14 +291,14 @@ public class AdminPageService {
 		if (mFile.getSize() > Define.MAX_FILE_SIZE) {
 			throw new DataDeliveryException(Define.FILE_SIZE_EXCEEDED, HttpStatus.BAD_REQUEST);
 		}
-		String saveDriectory = uploadDir;
+		String saveDriectory = eventDir;
 
 		String uploadFileName = UUID.randomUUID() + "_" + mFile.getOriginalFilename();
 		String uploadPath = saveDriectory + File.separator + uploadFileName;
 
 		File destination = new File(uploadPath);
 
-		Path uploadPath1 = Paths.get(uploadDir);
+		Path uploadPath1 = Paths.get(eventDir);
 		if (!Files.exists(uploadPath1)) {
 			try {
 				Files.createDirectories(uploadPath1);
@@ -490,6 +497,18 @@ public class AdminPageService {
 			user.setLifeStatus(1);
 		}
 		return adminRepository.lifeStatusUpdate(user.getLifeStatus(), id);
+	}
+	
+	@Transactional
+	public int listStatusUpdate(int id) {
+		DateProfile user = adminRepository.searchProfileById(id);
+
+		if (user.getListStatus() == 1) {
+			user.setListStatus(0);
+		} else if (user.getListStatus() == 0) {
+			user.setListStatus(1);
+		}
+		return adminRepository.listStatusUpdate(user.getListStatus(), id);
 	}
 	
 	//-------------------------------------------

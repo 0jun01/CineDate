@@ -29,6 +29,10 @@
 	<select id="sellAdminSum" resultType="int">
 	select sum(amount) from toss_hitory_tb
 	</select>
+	
+	<select id ="profileAdmin">
+	select * from profile_tb where user_id = #{userId}
+	</select>
 
 	<!-- ========================================================== -->
 
@@ -156,10 +160,10 @@
 		approvedAt DESC
 	</select>
 	
-	<select id="countAdminCancelHistory" resultType="int">
-		SELECT DATE(cancel_at) as `approvedAt`, COUNT(id)
+	<select id="countAdminCancelHistory">
+		SELECT DATE(cancel_at) as `cancelAt`, COUNT(id)
 		as `id` FROM cancel_toss_hitory_tb GROUP BY DATE(cancel_at) order by
-		approvedAt DESC
+		cancelAt DESC
 	</select>
 
 	<select id="findHistoryAll">
@@ -203,7 +207,7 @@
 	</select>
 	
 	<select id="pageDateCountAdmin">
-	select * from profile_tb order by id desc limit
+	select * from profile_tb order by list_status desc limit
 		#{limit} offset #{offset}
 	</select>
 
@@ -217,6 +221,12 @@
 		UPDATE profile_tb SET life_status = ${status} WHERE
 		id = #{id}
 	</update>
+	
+	<update id="listStatusUpdate">
+		UPDATE profile_tb SET list_status = ${status} WHERE
+		id = #{id}
+	</update>
+	
 	<!-- ==========================비동기 통신 영역 =================================== -->
 	<select id="CountProfile"
 		resultType="com.tenco.movie.dto.CountProfileDTO">

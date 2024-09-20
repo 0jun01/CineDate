@@ -30,6 +30,8 @@ public interface AdminRepository {
 	public int bookingAdminCount();
 	public int sellAdminSum();
 	
+	public DateProfile profileAdmin(int id);
+	
 	
 	
 	//-------------------------------------------------
@@ -93,8 +95,11 @@ public interface AdminRepository {
 	public int countAdminProfileAll();
 	public List<DateProfile> readAdminProfile();
 	
+	
+	
 	public DateProfile searchProfileById(int id);
 	public int lifeStatusUpdate(@Param("status")int status,@Param("id")int id);
+	public int listStatusUpdate(@Param("status")int status,@Param("id")int id);
 	public List<CountProfileDTO> CountProfile();
 	public OnlyCountDTO totalProfileCount();
 	public OnlyCountDTO totalMatchings();

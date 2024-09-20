@@ -15448,7 +15448,12 @@ html.maximized-card {
   width: 32px;
 }
 #myChart{
-	height: 450px !important;
+	height: 100% !important;
+    width: 76% !important;
+}
+#genreChart{
+	height: 100% !important;
+	width: 56% !important;
 }
 
 /*# sourceMappingURL=adminlte.css.map */
