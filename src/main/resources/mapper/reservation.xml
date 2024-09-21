@@ -69,7 +69,24 @@
 		where subregion_id =
 		#{subRegionId}
 		And
-		s.show_date
+		s.show_date >=
+		CURRENT_DATE
+	</select>
+
+	<select id="findMovieBySubRegionAndDate"
+		resultType="com.tenco.movie.repository.model.MovieDetailTB">
+		select distinct(m.movie_id), m.title, m.watch_grade_Nm
+		from
+		showtimes as s
+		left join movie_detail_tb as m on s.movie_id = m.id
+		left
+		join screens_tb as sc on s.screen_id = sc.id
+		left join theaters_tb as t
+		on sc.theater_id = t.id
+		where subregion_id =
+		#{subRegionId}
+		And
+		s.show_Date = #{date}
 		And s.show_date >=
 		CURRENT_DATE
 	</select>
@@ -114,7 +131,9 @@
 		WHERE
 		sh.show_date = #{showDate}
 		AND sh.movie_id = #{movieId}
-		sh.show_date >=
+		AND
+		sh.show_date
+		>=
 		CURRENT_DATE
 		GROUP BY
 		r.id,
@@ -369,12 +388,12 @@
 		JOIN showtimes st ON sc.id = st.screen_id
 		WHERE
 		st.movie_id = #{movieId}
-		AND st.show_date >= CURDATE()
-		AND (st.show_date
-		> CURDATE() OR (st.show_date = CURDATE() AND
-		st.show_time >=
-		CURTIME()))
-		GROUP BY sr.id, sr.name
+		AND st.show_date >= CURRENT_DATE
+		AND
+		(st.show_date
+		> CURRENT_DATE OR (st.show_date = CURRENT_DATE))
+		GROUP BY
+		sr.id, sr.name
 	</select>
 
 	<select id="findSubRegionByDate"
@@ -390,9 +409,9 @@
 		st.show_date = #{date}
 		AND st.show_date >= CURRENT_DATE
 		AND
-		(st.show_date > CURRENT_DATE OR (st.show_date = CURRENT_DATE AND
-		st.show_time >= CURRENT_DATE))
-		GROUP BY sr.id, sr.name
+		(st.show_date > CURRENT_DATE OR (st.show_date = CURRENT_DATE))
+		GROUP BY
+		sr.id, sr.name
 	</select>
 
 	<select id="viewFirstSubRegion"
@@ -408,8 +427,7 @@
 		st.show_date >= CURRENT_DATE
 		AND
 		(st.show_date > CURRENT_DATE OR
-		(st.show_date = CURRENT_DATE AND
-		st.show_time >= CURRENT_DATE))
+		(st.show_date = CURRENT_DATE))
 		GROUP BY
 		sr.id, sr.name
 	</select>
@@ -460,7 +478,6 @@
 		WHERE
 		st.movie_id = #{movieId}
 		AND st.show_date = #{date}
-		AND st.show_time >= CURRENT_DATE
 		GROUP BY
 		sr.id, sr.name
 	</select>
@@ -478,8 +495,7 @@
 		st.show_date >= CURRENT_DATE
 		AND
 		(st.show_date > CURRENT_DATE OR
-		(st.show_date = CURRENT_DATE AND
-		st.show_time >= CURRENT_DATE))
+		(st.show_date = CURRENT_DATE))
 		GROUP BY
 		sr.id, sr.name
 	</select>

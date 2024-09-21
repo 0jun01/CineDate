@@ -195,6 +195,25 @@ public class ReservationController {
 		return fetchedMovieList;
 	}
 
+	/**
+	 * 날짜와 극장 선택시 영화 무비 리스트 업데이트 시켜주는 메서드
+	 * 
+	 * @param subRegionId
+	 * @return
+	 * @author 변영준
+	 */
+	@GetMapping("/fetchMovieListByMovieAndSubRegion")
+	@ResponseBody
+	public List<MovieDetailTB> fetchMovieBySubRegionAndDate(@RequestParam("date") String date,
+			@RequestParam("subRegionId") int subRegionId) {
+		List<MovieDetailTB> fetchedMovieList = reservationService.fetchMovieListBySubRegionAndDate(date,subRegionId);
+
+		if (fetchedMovieList == null) {
+			throw new DataDeliveryException(Define.FAILED_PROCESSING, HttpStatus.BAD_REQUEST);
+		}
+		return fetchedMovieList;
+	}
+
 	@GetMapping("/selectedMovie")
 	@ResponseBody
 	public int fetchSelectedMovie(@RequestParam("movie") int movieId) {

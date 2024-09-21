@@ -443,3 +443,10 @@ p.text span {
 .movie--titles {
 	margin-right: 50px;
 }
+
+.divider {
+	width: 2px;
+	height: 80px;
+	background-color: #CCCCCC;
+	margin: 20px 20px;
+}

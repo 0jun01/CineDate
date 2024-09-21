@@ -245,22 +245,22 @@ public class ReservationService {
 		}
 		return entity;
 	}
-	
+
 	/**
 	 * 내 예약 내역 확인
+	 * 
 	 * @author 성후
 	 * @param userId
 	 * @return
 	 */
-	
+
 	public List<MyReservationDTO> myreservation(int userId) {
-	    return reservationRepository.myreservation(userId);
+		return reservationRepository.myreservation(userId);
 	}
-	
+
 	public List<MyReservationDTO> checkReservation(int userId, int movieId) {
-	    return reservationRepository.checkUserReservationForMovie(userId, movieId);
+		return reservationRepository.checkUserReservationForMovie(userId, movieId);
 	}
-	
 
 	public List<SubRegionDTO> fetchSubRegionByMovieAndRegion(int movieId, int regionId) {
 		List<SubRegionDTO> entity = null;
@@ -372,6 +372,17 @@ public class ReservationService {
 			e.printStackTrace();
 		}
 		return entity;
+	}
+
+	public List<MovieDetailTB> fetchMovieListBySubRegionAndDate(String date, int subRegionId) {
+		List<MovieDetailTB> fetchedMovieList = null;
+
+		try {
+			fetchedMovieList = reservationRepository.findMovieBySubRegionAndDate(date, subRegionId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return fetchedMovieList;
 	}
 
 }

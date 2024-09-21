@@ -85,13 +85,13 @@ public interface ReservationRepository {
 
 	// 영화만 선택시 상영중인 영화 지역 서브 지역!
 	List<SubRegionDTO> findSubRegionByMovie(int movieId);
-	
-	
-	////////////////////////////////////////// 내 예약 정보 보기 /////////////////////////////
-	
-	List<MyReservationDTO> myreservation(@Param("userId")int userId);
-	
-	List<MyReservationDTO> checkUserReservationForMovie(@Param("userId")int userId,@Param("movieId")int movieId);
+
+	////////////////////////////////////////// 내 예약 정보 보기
+	////////////////////////////////////////// /////////////////////////////
+
+	List<MyReservationDTO> myreservation(@Param("userId") int userId);
+
+	List<MyReservationDTO> checkUserReservationForMovie(@Param("userId") int userId, @Param("movieId") int movieId);
 
 	// 대분류 지역 필터링 하기
 	List<SubRegionDTO> filterSubRegionByMovieAndRegion(@Param("movieId") int movieId, @Param("regionId") int regionId);
@@ -110,6 +110,9 @@ public interface ReservationRepository {
 
 	// 서브지역 선택시 영화리스트 업데이트 하기!
 	List<MovieDetailTB> findMovieBySubRegion(int subRegionId);
+
+	// 날짜와 서브지역 선택시 영화리스트 업데이트 하기!
+	List<MovieDetailTB> findMovieBySubRegionAndDate(@Param("date") String date, @Param("subRegionId") int subRegionId);
 
 	// 영화와 서브지역 선택시 날짜 업데이트 하기
 	List<ChoicedMovie> findDateBySubRegionAndMovie(@Param("movieId") int movieId,
