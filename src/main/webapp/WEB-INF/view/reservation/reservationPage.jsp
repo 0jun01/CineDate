@@ -441,6 +441,7 @@ function onDateSelect(selectedDate, element){
 		fetchMovieByDateAndSubRegion(selectedDate1,selectedTheaterId);
 		fetchSubRegionsByMovieAndDate(selectedMovieId, selectedDate1);
 		fetchTheaterCountByDateAndMovie(selectedMovieId, selectedDate1);
+		viewSelectedDate(selectedDate, element);
 	}
 	
 }
@@ -489,12 +490,11 @@ function onRegionSelect(regionId) {
 
 // 영화 선택시 극장이랑 날짜 업데이트하기 
 function updateTheatersAndDates(){
-	if(selectedMovieId){
 		// 영화만 선택했을 경우
+	if(selectedMovieId && !selectedTheaterId && !selectedDate1){
 		fetchTheatersAndDateByMovie(selectedMovieId);
 		fetchTheaterCountByMovie(selectedMovieId);
 	} 
-	
 	
 }
 
@@ -528,6 +528,11 @@ function fetchDateAndDateBySubRegion(subRegionId){
 		})
     .then(data => {
         console.log(data);  // 받아온 극장 정보를 콘솔에 출력
+        if (data.length === 0) {
+			// 상영 일정이 없는 경우 투명도를 낮추고 팝업을 띄움
+			selectedItem.style.opacity = '0.1'; // 투명도 낮춤
+			alert('선택한 날짜에 상영 일정이 없습니다.');
+        }
         // 여기에 받은 데이터를 처리하는 로직 추가
         updateDateOpacity(data);
     })
@@ -547,8 +552,14 @@ function fetchDateByMovieAndSubRegion(movieId,subRegionId){
 		})
     .then(data => {
         console.log(data);  // 받아온 극장 정보를 콘솔에 출력
+        if (data.length === 0) {
+			// 상영 일정이 없는 경우 투명도를 낮추고 팝업을 띄움
+			selectedItem.style.opacity = '0.1'; // 투명도 낮춤
+			alert('선택한 날짜에 상영 일정이 없습니다.');
+        }
         // 여기에 받은 데이터를 처리하는 로직 추가
         updateDateOpacity(data);
+        
     })
     .catch(error => {
         console.error('Error fetching theaters:', error);
@@ -1196,7 +1207,7 @@ function handleUnavailableMovieClick() {
 }
 
 
-
+// 좌석 선택으로 넘어가기!!!!!!!!!!!!!!!!!
 function viewSeats(){
 	if(selectedDate1 == null){
 		alert('날짜를 선택해주세요')
@@ -1293,6 +1304,7 @@ function viewSeats(){
 }
 }
 
+// 좌석 
 function updateSeatClasses(occupiedSeats) {
     seats.forEach(seat => {
         const seatId = seat.id;
