@@ -59,7 +59,7 @@ public class ReviewController {
 	    
 	    List<MyReservationDTO> reservationDTO = reservationService.checkReservation(userId, movieId);
 	    
-	    if(reservationDTO.isEmpty() || reservationDTO.size() == 0) {
+	    if(reservationDTO.isEmpty() || reservationDTO.size() <= 0) {
 	    	throw new DataDeliveryException(Define.NO_RESERVATION, HttpStatus.BAD_REQUEST);
 	    }
 	    
