@@ -46,15 +46,17 @@ public class HomeService {
 	@Transactional
 	public void insertMovies(Movies movies) {
 		int result = 0;
+		Movies moviesEntity = null;
 		try {
-			Movies moviesEntity = homeRepository.findByTitle(movies.getTitle());
-
-			if (moviesEntity == null) {
-				result = homeRepository.insertMovie(movies);
-				if (result == 0) {
-					System.out.println(movies.getTitle() + "은 이미 DB에 있어서 실패");
-				} else {
-					System.out.println(movies.getTitle() + "DB에 값 넣기 성공");
+			if (movies != null) {
+				moviesEntity = homeRepository.findByTitle(movies.getTitle());
+				if (moviesEntity == null) {
+					result = homeRepository.insertMovie(movies);
+					if (result == 0) {
+						System.out.println(movies.getTitle() + "은 이미 DB에 있어서 실패");
+					} else {
+						System.out.println(movies.getTitle() + "DB에 값 넣기 성공");
+					}
 				}
 			}
 
@@ -75,9 +77,6 @@ public class HomeService {
 	 */
 	public int readMovieByTitle(String title) {
 		int movieId = 0;
-		System.out.println("-------------------");
-		System.out.println(title);
-		System.out.println("-------------------");
 		if (title == null || title.isEmpty()) {
 			throw new DataDeliveryException(Define.ERROR_INVALID_MOVIE, HttpStatus.BAD_REQUEST);
 		}
@@ -85,7 +84,7 @@ public class HomeService {
 		try {
 			Movies movieEntity = homeRepository.findByTitle(title);
 			if (movieEntity == null) {
-				System.out.println(movieEntity.getTitle());
+				System.out.println("비어있음");
 			} else {
 				movieId = movieEntity.getId();
 			}

@@ -53,7 +53,7 @@ public class HomeController {
 	HomeService homeService;
 
 	NoticeService noticeService;
-	
+
 	@Autowired
 	public HomeController(HomeService homeService, NoticeService noticeService) {
 		this.homeService = homeService;
@@ -121,10 +121,11 @@ public class HomeController {
 							if (tmdbMoviesList != null) {
 								Boolean found = false;
 								for (TMDBMovies tmdbMovie : tmdbMoviesList) {
+									System.out.println(tmdbMovie.toString());
 									String title = tmdbMovie.getTitle();
 									// 정확히 일치하는 제목 찾기
 									if (title.trim().equalsIgnoreCase(firstMovie.getMovieNm().trim())) {
-										if (tmdbMovie.getTitle() != null) {
+										if (title != null) {
 											movies = Movies.builder().title(tmdbMovie.getTitle())
 													.movieDesc(tmdbMovie.getOverview())
 													.movieImg(tmdbMovie.getPosterPath())
@@ -143,9 +144,9 @@ public class HomeController {
 				}
 			}
 		}
-		
+
 		// 메인 페이지 공지사항 불러옴
-		List<Notice> noticeList = noticeService.readNoticeList(1, 5); 
+		List<Notice> noticeList = noticeService.readNoticeList(1, 5);
 		model.addAttribute("movieList", moviesList);
 		model.addAttribute("noticeList", noticeList);
 		return "main";
@@ -299,6 +300,7 @@ public class HomeController {
 									}
 
 									// TODO 나중에 빌더 패턴 써서 정리 movie_detail_tb에 인설트
+									
 //									homeService.insertMovieDetail(movieId, title, titleEn, showTm, openDt, prdStatNm,
 //											watchGradeNm);
 
