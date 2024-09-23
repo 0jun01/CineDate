@@ -90,7 +90,7 @@
 
             btn.addEventListener("click", function() {
                 const nickName = username.value;
-                fetch('http://localhost:8080/duplication/checkNickName?nickName=' + nickName)
+                fetch('http://192.168.0.46:8080/duplication/checkNickName?nickName=' + nickName)
                     .then(response => response.json()) // 응답을 JSON 형식으로 반환
                     .then(isUse => {
                     	

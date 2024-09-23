@@ -1,4 +1,5 @@
 server:
+  address: 192.168.0.46
   port: 8080 #서버가 사용할 포트 번호 설정 
   servlet:
     encoding:
@@ -83,8 +84,8 @@ logging:
 
 # 초기 파라메터 설정
 file:
-  upload-dir: C:\Users\KDP\git\CineDate\src\main\resources\static\DateProfileIMAGE
-  event-dir: C:\Users\KDP\git\CineDate\src\main\resources\static\eventIMAGE
+  upload-dir: C:\work_spring\team_project_3\src\main\resources\static\DateProfileIMAGE
+  event-dir: C:\work_spring\team_project_3\src\main\resources\static\eventIMAGE
   
     
 tenco:

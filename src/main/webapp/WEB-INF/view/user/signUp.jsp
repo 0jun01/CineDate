@@ -45,7 +45,7 @@
 						        }
 			            	  
 			                const loginId = loginIdElement.value;
-			                const url = "http://localhost:8080/api-user/check-loginId?loginId=" + loginId;
+			                const url = "http://192.168.0.46:8080/api-user/check-loginId?loginId=" + loginId;
 			                fetch(url)
 			                  .then((response) => response.json()) // 응답을 JSON 형식으로 반환
 			                  .then((isUse) => {
@@ -116,7 +116,7 @@
 				                  }
 				                  
 				                const email = emailElement.value;
-				                const url = "http://localhost:8080/api-user/check-email?email=" + email;
+				                const url = "http://192.168.0.46:8080/api-user/check-email?email=" + email;
 				                fetch(url)
 				                  .then((response) => response.json()) // 응답을 JSON 형식으로 반환
 				                  .then((isUse) => {
@@ -263,7 +263,7 @@
         }
 
         // 이메일이 중복되지 않은 경우 인증번호 요청
-        const url2 = "http://localhost:8080/mail/verification-requests?email=" + email;
+        const url2 = "http://192.168.0.46:8080/mail/verification-requests?email=" + email;
         fetch(url2, {
           method: "POST",
           headers: {
@@ -298,7 +298,7 @@
         
 
         // 서버로 인증 코드 검증 요청
-        const emailUrl = "http://localhost:8080/mail/verifications?email=";
+        const emailUrl = "http://192.168.0.46:8080/mail/verifications?email=";
         fetch(emailUrl + email + `&code=` + authCode, {
           method: "GET",
         })

@@ -4,7 +4,7 @@
 
 <!--begin::App Main-->
 <main class="app-main">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<!--begin::App Content Header-->
 	<div class="app-content-header">
 		<!--begin::Container-->
@@ -75,7 +75,7 @@
 			<!--begin::Row-->
 			<div class="row">
 				<div class="col-md-12">
-					<div class="card mb-4"> 
+					<div class="card mb-4">
 						<div class="card-header">
 							<h5 class="card-title">Monthly Recap Report</h5>
 							<div class="card-tools">
@@ -114,8 +114,7 @@
 										<span class="info-box-icon"> <i class="bi bi-heart-fill"></i>
 										</span>
 										<div class="info-box-content">
-											<span class="info-box-text">매칭이 성사된수</span> 
-											<span class="info-box-number" id="totalMatchings"></span>
+											<span class="info-box-text">매칭이 성사된수</span> <span class="info-box-number" id="totalMatchings"></span>
 										</div>
 										<!-- /.info-box-content -->
 									</div>
@@ -135,69 +134,69 @@
 										<div class="info-box-content">
 											<span class="info-box-text">Direct Messages</span> <span class="info-box-number">163,921</span>
 										</div>
-										
+
 										<!-- /.info-box-content -->
 									</div>
 									<!-- /.info-box -->
 									<!-- USERS LIST -->
-							<div class="card">
-								<div class="card-header">
-									<h3 class="card-title">Date Profile 최신 가입자들 예정</h3>
-									<div class="card-tools">
-										<span class="badge text-bg-danger"> 8명이 가입 예정 </span>
-										<button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
-											<i data-lte-icon="expand" class="bi bi-plus-lg"></i> <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
-										</button>
-										<button type="button" class="btn btn-tool" data-lte-toggle="card-remove">
-											<i class="bi bi-x-lg"></i>
-										</button>
+									<div class="card">
+										<div class="card-header">
+											<h3 class="card-title">Date Profile 최신 가입자들 예정</h3>
+											<div class="card-tools">
+												<span class="badge text-bg-danger"> 8명이 가입 예정 </span>
+												<button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
+													<i data-lte-icon="expand" class="bi bi-plus-lg"></i> <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+												</button>
+												<button type="button" class="btn btn-tool" data-lte-toggle="card-remove">
+													<i class="bi bi-x-lg"></i>
+												</button>
+											</div>
+										</div>
+										<!-- /.card-header -->
+										<div class="card-body p-0">
+											<div class="row text-center m-1">
+												<div class="col-3 p-2">
+													<img class="img-fluid rounded-circle" src="img/user1-128x128.jpg" alt="User Image"> <a class="btn fw-bold fs-7 text-secondary text-truncate w-100 p-0" href="#">
+														Alexander Pierce </a>
+												</div>
+												<div class="col-3 p-2">
+													<img class="img-fluid rounded-circle" src="img/user1-128x128.jpg" alt="User Image"> <a class="btn fw-bold fs-7 text-secondary text-truncate w-100 p-0" href="#">
+														Norman </a>
+												</div>
+												<div class="col-3 p-2">
+													<img class="img-fluid rounded-circle" src="img/user7-128x128.jpg" alt="User Image"> <a class="btn fw-bold fs-7 text-secondary text-truncate w-100 p-0" href="#">
+														Jane </a>
+												</div>
+												<div class="col-3 p-2">
+													<img class="img-fluid rounded-circle" src="img/user6-128x128.jpg" alt="User Image"> <a class="btn fw-bold fs-7 text-secondary text-truncate w-100 p-0" href="#">
+														John </a>
+												</div>
+												<div class="col-3 p-2">
+													<img class="img-fluid rounded-circle" src="img/user2-160x160.jpg" alt="User Image"> <a class="btn fw-bold fs-7 text-secondary text-truncate w-100 p-0" href="#">
+														Alexander </a>
+												</div>
+												<div class="col-3 p-2">
+													<img class="img-fluid rounded-circle" src="img/user5-128x128.jpg" alt="User Image"> <a class="btn fw-bold fs-7 text-secondary text-truncate w-100 p-0" href="#">
+														Sarah </a>
+												</div>
+												<div class="col-3 p-2">
+													<img class="img-fluid rounded-circle" src="img/user4-128x128.jpg" alt="User Image"> <a class="btn fw-bold fs-7 text-secondary text-truncate w-100 p-0" href="#">
+														Nora </a>
+												</div>
+												<div class="col-3 p-2">
+													<img class="img-fluid rounded-circle" src="img/user3-128x128.jpg" alt="User Image"> <a class="btn fw-bold fs-7 text-secondary text-truncate w-100 p-0" href="#">
+														Nadia </a>
+												</div>
+											</div>
+											<!-- /.users-list -->
+										</div>
+										<!-- /.card-body -->
+										<div class="card-footer text-center">
+											<a href="/adminProfileList" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">전체 유저 리스트</a>
+										</div>
+										<!-- /.card-footer -->
 									</div>
-								</div>
-								<!-- /.card-header -->
-								<div class="card-body p-0">
-									<div class="row text-center m-1">
-										<div class="col-3 p-2">
-											<img class="img-fluid rounded-circle" src="img/user1-128x128.jpg" alt="User Image"> <a class="btn fw-bold fs-7 text-secondary text-truncate w-100 p-0" href="#">
-												Alexander Pierce </a>
-										</div>
-										<div class="col-3 p-2">
-											<img class="img-fluid rounded-circle" src="img/user1-128x128.jpg" alt="User Image"> <a class="btn fw-bold fs-7 text-secondary text-truncate w-100 p-0" href="#">
-												Norman </a>
-										</div>
-										<div class="col-3 p-2">
-											<img class="img-fluid rounded-circle" src="img/user7-128x128.jpg" alt="User Image"> <a class="btn fw-bold fs-7 text-secondary text-truncate w-100 p-0" href="#">
-												Jane </a>
-										</div>
-										<div class="col-3 p-2">
-											<img class="img-fluid rounded-circle" src="img/user6-128x128.jpg" alt="User Image"> <a class="btn fw-bold fs-7 text-secondary text-truncate w-100 p-0" href="#">
-												John </a>
-										</div>
-										<div class="col-3 p-2">
-											<img class="img-fluid rounded-circle" src="img/user2-160x160.jpg" alt="User Image"> <a class="btn fw-bold fs-7 text-secondary text-truncate w-100 p-0" href="#">
-												Alexander </a>
-										</div>
-										<div class="col-3 p-2">
-											<img class="img-fluid rounded-circle" src="img/user5-128x128.jpg" alt="User Image"> <a class="btn fw-bold fs-7 text-secondary text-truncate w-100 p-0" href="#">
-												Sarah </a>
-										</div>
-										<div class="col-3 p-2">
-											<img class="img-fluid rounded-circle" src="img/user4-128x128.jpg" alt="User Image"> <a class="btn fw-bold fs-7 text-secondary text-truncate w-100 p-0" href="#">
-												Nora </a>
-										</div>
-										<div class="col-3 p-2">
-											<img class="img-fluid rounded-circle" src="img/user3-128x128.jpg" alt="User Image"> <a class="btn fw-bold fs-7 text-secondary text-truncate w-100 p-0" href="#">
-												Nadia </a>
-										</div>
-									</div>
-									<!-- /.users-list -->
-								</div>
-								<!-- /.card-body -->
-								<div class="card-footer text-center">
-									<a href="/adminProfileList" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">전체 유저 리스트</a>
-								</div>
-								<!-- /.card-footer -->
-							</div>
-							<!-- /.card -->
+									<!-- /.card -->
 								</div>
 								<!-- /.col -->
 							</div>
@@ -218,9 +217,7 @@
 					<!--begin::Row-->
 					<div class="row g-4 mb-4">
 
-						<div class="col-md-6">
-							
-						</div>
+						<div class="col-md-6"></div>
 						<!-- /.col -->
 					</div>
 					<!--end::Row-->
@@ -344,7 +341,7 @@ function chartCountProfileByYear(data) {
     });
 }
 function updateTotalMembers() {
-    fetch('http://localhost:8080/totalProfiles')
+    fetch('http://192.168.0.46:8080/totalProfiles')
         .then(response => response.json())
         .then(data => {
             // 서버에서 반환된 회원 수를 총회원수 <span>에 업데이트
@@ -357,7 +354,7 @@ function updateTotalMembers() {
 }
 
 function tatalMatChings() {
-    fetch('http://localhost:8080/totalMatching')
+    fetch('http://192.168.0.46:8080/totalMatching')
         .then(response => response.json())
         .then(data => {
             document.getElementById('totalMatchings').textContent = data.count;

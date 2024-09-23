@@ -20,6 +20,7 @@
 		url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.ttf)
 		format("truetype");
 }
+
 body, input, button {
 	font-family: 'NanumSquareNeo';
 	font-size: 14px;
@@ -51,15 +52,15 @@ body, input, button {
 
 .chat--message.Sender::after {
 	content: '';
-    position: absolute;
-    bottom: -16px;
-  	right: 15px;
-    border-width: 8px;
-    border-style: solid;
-    border-color: #fff2ff transparent transparent transparent;
+	position: absolute;
+	bottom: -16px;
+	right: 15px;
+	border-width: 8px;
+	border-style: solid;
+	border-color: #fff2ff transparent transparent transparent;
 }
 
-.chat--message.Sender .chat--timestamp{
+.chat--message.Sender .chat--timestamp {
 	float: left;
 }
 
@@ -72,14 +73,14 @@ body, input, button {
 .chat--message.Receiver::after {
 	content: '';
 	position: absolute;
-    bottom: -16px;
-    left: 15px;	
-    border-width: 8px;
-    border-style: solid;
-    border-color: #d1e0ff transparent transparent transparent;
+	bottom: -16px;
+	left: 15px;
+	border-width: 8px;
+	border-style: solid;
+	border-color: #d1e0ff transparent transparent transparent;
 }
 
-.chat--text{
+.chat--text {
 	padding: 5px 0;
 }
 
@@ -130,21 +131,21 @@ body, input, button {
 	<h2>채팅</h2>
 
 	<div id="chatBox">
-        <c:forEach var="list" items="${chatHistory}">
-            <div class="chat--message ${list.senderId == principalId ? 'Sender' : 'Receiver'}">
-                <div class="chat--user">${list.senderId == principalId ? '나' : '상대방'} : </div>
-                <div class="chat--text">${list.message}</div>
-                <div class="chat--timestamp">${list.timestampToString()}</div>
-            </div>
-        </c:forEach>
-    </div>
+		<c:forEach var="list" items="${chatHistory}">
+			<div class="chat--message ${list.senderId == principalId ? 'Sender' : 'Receiver'}">
+				<div class="chat--user">${list.senderId == principalId ? '나' : '상대방'}:</div>
+				<div class="chat--text">${list.message}</div>
+				<div class="chat--timestamp">${list.timestampToString()}</div>
+			</div>
+		</c:forEach>
+	</div>
 	<div class="chat--wrap">
 		<input type="text" id="messageInput" placeholder="메시지를 입력하세요">
 		<button onclick="sendMessage()" id="btn">전송</button>
 	</div>
 
 	<script>
-		var socket = new WebSocket("ws://localhost:8080/ws/chat");
+		var socket = new WebSocket("ws://192.168.0.46:8080/ws/chat");
 
 		socket.onopen = function() {
 			console.log("WebSocket connection opened");

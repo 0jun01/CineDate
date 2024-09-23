@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ page import="java.util.Date" %>
+<%@ page import="java.util.Date"%>
 
 <!DOCTYPE html>
 <html>
@@ -60,7 +60,7 @@
 					<!--end::Navbar Search-->
 					<!--begin::Messages Dropdown Menu-->
 
-					
+
 					<!--end::Notifications Dropdown Menu-->
 					<!--begin::Fullscreen Toggle-->
 					<li class="nav-item"><a class="nav-link" href="#" data-lte-toggle="fullscreen"> <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i> <i
@@ -68,23 +68,18 @@
 					</a></li>
 					<!--end::Fullscreen Toggle-->
 					<!--begin::User Menu Dropdown-->
-					<li class="nav-item dropdown user-menu"><a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> <img src="/DateProfileIMAGE/${profile.firstUploadFileName}"
-							class="user-image rounded-circle shadow" alt="User Image"> <span class="d-none d-md-inline">${user.loginId} 관리자님</span>
+					<li class="nav-item dropdown user-menu"><a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> <img
+							src="/DateProfileIMAGE/${profile.firstUploadFileName}" class="user-image rounded-circle shadow" alt="User Image"> <span class="d-none d-md-inline">${user.loginId}
+								관리자님</span>
 					</a>
 						<ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
 							<!--begin::User Image-->
-							<li class="user-header text-bg-primary">
-							<img src="/DateProfileIMAGE/${profile.firstUploadFileName}" class="rounded-circle shadow" alt="User Image" onerror="this.onerror = null; this.src='/img/usernone.jpg'">
-								<p>
-									${user.loginId} 관리자님
-<<<<<<< HEAD
-									${user.loginId} <small>2024년 9월 가입</small>
-=======
->>>>>>> ed7fcab07df668957be7ad83c3fc2149fdbab2f9
-								</p></li>
+							<li class="user-header text-bg-primary"><img src="/DateProfileIMAGE/${profile.firstUploadFileName}" class="rounded-circle shadow" alt="User Image"
+								onerror="this.onerror = null; this.src='/img/usernone.jpg'">
+								<p>${user.loginId} 관리자님</p></li>
 							<!--end::User Image-->
 							<!--begin::Menu Body-->
-							
+
 							<!--end::Menu Body-->
 							<!--begin::Menu Footer-->
 							<li class="user-footer"><a href="/adminlogout" class="btn btn-default btn-flat float-end">로그아웃</a></li>
@@ -102,8 +97,8 @@
 			<!--begin::Sidebar Brand-->
 			<div class="sidebar-brand">
 				<!--begin::Brand Link-->
-				<a href="/adminMain" class="brand-link"> <!--begin::Brand Image--> <img src="/img/CineDateLogo.png" alt="CineDate Logo"
-					class="brand-image opacity-75 shadow"> <!--end::Brand Image--> <!--begin::Brand Text--> <span class="brand-text fw-light">CineDate 관리페이지</span> <!--end::Brand Text-->
+				<a href="/adminMain" class="brand-link"> <!--begin::Brand Image--> <img src="/img/CineDateLogo.png" alt="CineDate Logo" class="brand-image opacity-75 shadow"> <!--end::Brand Image-->
+					<!--begin::Brand Text--> <span class="brand-text fw-light">CineDate 관리페이지</span> <!--end::Brand Text-->
 				</a>
 				<!--end::Brand Link-->
 			</div>
@@ -141,10 +136,10 @@
 								<li class="nav-item"><a href="/adminProfileList" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
 										<p>프로필 정보</p>
 								</a></li>
-								
-								
+
+
 							</ul></li>
-						
+
 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon bi bi-tree-fill"></i>
 								<p>
 									결제내역 <i class="nav-arrow bi bi-chevron-right"></i>
@@ -178,7 +173,7 @@
 										<p>신고 내역</p>
 								</a></li>
 							</ul></li>
-						
+
 					</ul>
 					<!--end::Sidebar Menu-->
 				</nav>

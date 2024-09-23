@@ -228,8 +228,7 @@
 						</div>
 						<!-- /.card-body -->
 						<div class="card-footer clearfix">
-							 <a href="/adminHistory" class="btn btn-sm btn-secondary float-end"> 전체 내역
-								보기 </a>
+							<a href="/adminHistory" class="btn btn-sm btn-secondary float-end"> 전체 내역 보기 </a>
 						</div>
 						<!-- /.card-footer -->
 					</div>
@@ -274,7 +273,7 @@
 						<!-- /.info-box-content -->
 					</div>
 					<!-- /.info-box -->
-					
+
 					<!-- /.card -->
 					<!-- PRODUCT LIST -->
 					<div class="card">
@@ -292,19 +291,19 @@
 						<!-- /.card-header -->
 						<div class="card-body p-0">
 							<div class="px-2">
-								
+
 								<c:forEach var="conItems" items="${conItems}">
-								<div class="d-flex border-top py-2 px-1">
-									<div class="col-2" style="margin-right: 10px">
-										<img src="${conItems.itemImg}" alt="Product Image" class="img-size-50">
+									<div class="d-flex border-top py-2 px-1">
+										<div class="col-2" style="margin-right: 10px">
+											<img src="${conItems.itemImg}" alt="Product Image" class="img-size-50">
+										</div>
+										<div class="col-10">
+											<a href="javascript:void(0)" class="fw-bold"> ${conItems.name} <span class="badge text-bg-warning float-end"> ${conItems.price} 콘 </span>
+											</a>
+											<div class="text-truncate">${conItems.itemDesc}</div>
+										</div>
 									</div>
-									<div class="col-10">
-										<a href="javascript:void(0)" class="fw-bold"> ${conItems.name} <span class="badge text-bg-warning float-end"> ${conItems.price} 콘 </span>
-										</a>
-										<div class="text-truncate">${conItems.itemDesc}</div>
-									</div>
-								</div>
-								<!-- /.item -->
+									<!-- /.item -->
 								</c:forEach>
 							</div>
 						</div>
@@ -331,7 +330,7 @@
 Chart.register(ChartDataLabels);
 
 function getGenresBookings() {
-	const url2 = "http://localhost:8080/genresBookings";
+	const url2 = "http://192.168.0.46:8080/genresBookings";
     fetch(url2)
         .then(response => response.json())
         .then(data => {
@@ -388,7 +387,7 @@ function chartGenresBookings(data) {
 }
 
 function getCountProfileByYear() {
-	const url = "http://localhost:8080/CountProfile";
+	const url = "http://192.168.0.46:8080/CountProfile";
     fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -442,7 +441,7 @@ function chartCountProfileByYear(data) {
 }
 
 function tatalMatChings() {
-    fetch('http://localhost:8080/totalMatching')
+    fetch('http://192.168.0.46:8080/totalMatching')
         .then(response => response.json())
         .then(data => {
             document.getElementById('totalMatchings').textContent = data.count;

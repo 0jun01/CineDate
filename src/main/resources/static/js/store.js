@@ -11,7 +11,7 @@ document.querySelectorAll('.purchase--btn').forEach(function(btn) {
 		const price = this.getAttribute('data-price');
 		console.log('data-price : ', price);
 
-		fetch(`http://localhost:8080/date/currentMoney`)
+		fetch(`http://192.168.0.46:8080/date/currentMoney`)
 			.then(response => {
 				if (!response.ok) {
 					throw new Error('연결을 실패했습니다.');
@@ -27,7 +27,7 @@ document.querySelectorAll('.purchase--btn').forEach(function(btn) {
 					}
 				} else {
 					if (confirm("정말로 구입하시겠습니까?")) {
-						fetch(`http://localhost:8080/date/payItem`, {
+						fetch(`http://192.168.0.46:8080/date/payItem`, {
 							method: 'POST',
 							headers: {
 								'content-Type': 'application/json',

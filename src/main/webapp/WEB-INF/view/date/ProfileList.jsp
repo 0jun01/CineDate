@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- header.jsp -->
 <meta name="_csrf" content="${_csrf.token}">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -21,24 +20,20 @@
 						</tr>
 						<c:forEach var="superList" items="${superList}">
 							<tr>
-								<td><img class="m--profile list--profile super--profile"
-									alt="슈퍼 프로필 사진"
-									src="/image/${superList.firstUploadFileName}"></td>
+								<td><img class="m--profile list--profile super--profile" alt="슈퍼 프로필 사진" src="/image/${superList.firstUploadFileName}"></td>
 								<td>${superList.nickName}</td>
 								<td>${superList.introduce}</td>
-								<td>
-									<c:choose>
+								<td><c:choose>
 										<c:when test="${superList.status == 2}">
 											<button onclick="openChat('${superList.userId}')">매칭완료(대화창열기)</button>
 										</c:when>
 										<c:when test="${superList.status == 1}">
-											<button> 매칭 요청 대기중 </button>
+											<button>매칭 요청 대기중</button>
 										</c:when>
 										<c:otherwise>
 											<button onclick="openPopup('${superList.userId}')">상세보기</button>
 										</c:otherwise>
-									</c:choose>
-								</td>
+									</c:choose></td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -74,23 +69,20 @@
 						</tr>
 						<c:forEach var="list" items="${list}">
 							<tr>
-								<td><img class="m--profile list--profile" alt="프로필 사진"
-									src="/image/${list.firstUploadFileName}"></td>
+								<td><img class="m--profile list--profile" alt="프로필 사진" src="/image/${list.firstUploadFileName}"></td>
 								<td>${list.nickName}</td>
 								<td>${list.introduce}</td>
-								<td>
-									<c:choose>
+								<td><c:choose>
 										<c:when test="${list.status == 2}">
 											<button onclick="openChat('${list.userId}')" id="${list.userId}">매칭완료(대화창열기)</button>
 										</c:when>
 										<c:when test="${list.status == 1}">
-											<button> 매칭 요청 대기중 </button>
+											<button>매칭 요청 대기중</button>
 										</c:when>
 										<c:otherwise>
 											<button onclick="openPopup('${list.userId}')">상세 보기</button>
 										</c:otherwise>
-									</c:choose>
-								</td>
+									</c:choose></td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -104,16 +96,16 @@
 	</div>
 
 
-		
-<script>
+
+	<script>
 function openChat(id){
-	  window.open('http://localhost:8080/date/message?userId=' + encodeURIComponent(${principal.id}) +'&id=' +  encodeURIComponent(id),
+	  window.open('http://192.168.0.46:8080/date/message?userId=' + encodeURIComponent(${principal.id}) +'&id=' +  encodeURIComponent(id),
 		'메세지',
 		'width=700,height=600,left=100,top=100,resizable=yes,scrollbars=no');
 }
 
 function openPopup(id) {
-        window.open('http://localhost:8080/date/detailPartner?userId=' + encodeURIComponent(${principal.id}) +'&id=' +  encodeURIComponent(id),
+        window.open('http://192.168.0.46:8080/date/detailPartner?userId=' + encodeURIComponent(${principal.id}) +'&id=' +  encodeURIComponent(id),
         '상세보기',
         'width=600,height=890,left=100,top=100,resizable=yes,scrollbars=no');
     }
@@ -153,4 +145,4 @@ function openPopup(id) {
 
 
 
-<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
+	<%@ include file="/WEB-INF/view/layout/footer.jsp"%>

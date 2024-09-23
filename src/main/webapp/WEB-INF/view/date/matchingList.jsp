@@ -23,8 +23,7 @@
 								<td><img class="m--profile list--profile" alt="" src="/image/${list.firstUploadFileName}" style="width: 100px; height: 100px;"></td>
 								<td>${list.nickName}</td>
 								<td>${list.introduce}</td>
-								<td>
-								<c:if test="${list.requestType == 1}">
+								<td><c:if test="${list.requestType == 1}">
 
 										<c:if test="${list.status == 0}">
 											<h5>응답대기중</h5>
@@ -35,8 +34,7 @@
 										<c:if test="${list.status == 2}">
 											<h5>거절</h5>
 										</c:if>
-								</c:if> 
-								<c:if test="${list.requestType == 2}">
+									</c:if> <c:if test="${list.requestType == 2}">
 										<c:if test="${list.status == 0}">
 											<button id="isOk" value="${list.userId}">수락</button>
 											<button id="isRefuse" value="${list.userId}">거절</button>
@@ -44,9 +42,7 @@
 										<c:if test="${list.status == 1}">
 											<button onclick="openChat('${list.userId}')" id="${list.userId}">메세지보내기</button>
 										</c:if>
-								</c:if>
-
-								</td>
+									</c:if></td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -66,7 +62,7 @@
 
 <script>
 function openChat(id){
-	  window.open('http://localhost:8080/date/message?userId=' + encodeURIComponent(${principal.id}) +'&id=' +  encodeURIComponent(id),
+	  window.open('http://192.168.0.46:8080/date/message?userId=' + encodeURIComponent(${principal.id}) +'&id=' +  encodeURIComponent(id),
 		'메세지',
 		'width=700,height=600,left=100,top=100,resizable=yes,scrollbars=no');
 }
@@ -79,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const partNerId = ok.value;
 
         ok.addEventListener('click', function() {
-            const url = "http://localhost:8080/duplication/isOk?userId=" + encodeURIComponent('${principal.id}') + "&partNerId=" + partNerId;
+            const url = "http://192.168.0.46:8080/duplication/isOk?userId=" + encodeURIComponent('${principal.id}') + "&partNerId=" + partNerId;
             fetch(url)
                 .then(response => response.json())
                 .then(isDate => {
@@ -95,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         refuse.addEventListener('click', function() {
-            const url = "http://localhost:8080/duplication/isRefuse?userId=" + encodeURIComponent('${principal.id}') + "&partNerId=" + partNerId;
+            const url = "http://192.168.0.46:8080/duplication/isRefuse?userId=" + encodeURIComponent('${principal.id}') + "&partNerId=" + partNerId;
             fetch(url)
                 .then(response => response.json())
                 .then(isDate => {

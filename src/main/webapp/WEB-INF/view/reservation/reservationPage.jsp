@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- header.jsp -->
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <link href="/css/reservation.css" rel="stylesheet">
@@ -25,8 +24,7 @@
 							<c:set var="formattedDay">
 								<fmt:formatNumber value="${entry.day}" pattern="00" />
 							</c:set>
-							<c:set var="formattedDate"
-								value="${entry.year}-${formattedMonth}-${formattedDay}" />
+							<c:set var="formattedDate" value="${entry.year}-${formattedMonth}-${formattedDay}" />
 							<c:if test="${entry.day == 1}">
 								<li>
 									<div>
@@ -35,23 +33,18 @@
 								</li>
 							</c:if>
 
-							<li id="date-${formattedDate}" class="selectable-date"><a
-								href="javascript:void(0)"
-								onclick="onDateSelect('${formattedDate}', this)"> <c:choose>
+							<li id="date-${formattedDate}" class="selectable-date"><a href="javascript:void(0)" onclick="onDateSelect('${formattedDate}', this)"> <c:choose>
 										<c:when test="${holidays.contains(formattedDate)}">
 											<span class="holiday" data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
-											<span class="holiday" data-date-value="${formattedDate}">${entry.day}
-											</span>
+											<span class="holiday" data-date-value="${formattedDate}">${entry.day} </span>
 										</c:when>
 										<c:when test="${entry.dayOfWeek == '일'}">
 											<span class="holiday" data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
-											<span class="holiday" data-date-value="${formattedDate}">${entry.day}
-											</span>
+											<span class="holiday" data-date-value="${formattedDate}">${entry.day} </span>
 										</c:when>
 										<c:when test="${entry.dayOfWeek == '토'}">
 											<span class="satur" data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
-											<span class="satur" data-date-value="${formattedDate}">${entry.day}
-											</span>
+											<span class="satur" data-date-value="${formattedDate}">${entry.day} </span>
 										</c:when>
 										<c:otherwise>
 											<span data-date-value="${formattedDate}">${entry.dayOfWeek}</span>
@@ -69,16 +62,13 @@
 					<h3>영화</h3>
 				</div>
 				<div class="filter--box">
-					<button type="button" id="sortByKorean" value="korean"
-						name="filter--btn">가나다순</button>
+					<button type="button" id="sortByKorean" value="korean" name="filter--btn">가나다순</button>
 					<button type="button" id="sortByAge" value="age" name="filter--btn">시청등급순</button>
 				</div>
 				<div class="scroll--list">
 					<ul id="movie-list">
 						<c:forEach var="movie" items="${movieList}">
-							<li><a href="javascript:void(0)"
-								data-movie-id="${movie.movieId}"
-								onclick="onMovieSelect(${movie.movieId})"><c:choose>
+							<li><a href="javascript:void(0)" data-movie-id="${movie.movieId}" onclick="onMovieSelect(${movie.movieId})"><c:choose>
 										<c:when test="${movie.watchGradeNm eq '전체관람가'}">
 											<span class="grade-all movie--grade eng">ALL</span>
 											<span data-id="${movie.movieId}">${movie.title}</span>
@@ -111,18 +101,14 @@
 					<div class="region--list">
 						<ul id="region-list">
 							<c:forEach var="region" items="${regionList}">
-								<li class="region--name--box"><a href="javascript:void(0)"
-									onclick="applyRegionFilter('${region.id}')">${region.name}</a></li>
+								<li class="region--name--box"><a href="javascript:void(0)" onclick="applyRegionFilter('${region.id}')">${region.name}</a></li>
 							</c:forEach>
 						</ul>
 					</div>
 					<div class="scroll--list">
 						<ul id="sub--region--list">
 							<c:forEach var="subRegion" items="${subRegionList}">
-								<li id="subregion-${subRegion.id}"><a
-									href="javascript:void(0)"
-									onclick="onTheaterSelect('${subRegion.name}', '${subRegion.id}')">
-										${subRegion.name} </a></li>
+								<li id="subregion-${subRegion.id}"><a href="javascript:void(0)" onclick="onTheaterSelect('${subRegion.name}', '${subRegion.id}')"> ${subRegion.name} </a></li>
 							</c:forEach>
 						</ul>
 					</div>
@@ -133,8 +119,7 @@
 					<h3>시간</h3>
 				</div>
 				<div class="time--list">
-					<span class="title"> <span class="floor"></span> <span
-						class="seatcount"></span>
+					<span class="title"> <span class="floor"></span> <span class="seatcount"></span>
 					</span>
 					<ul>
 						<li><a> <span class=time> <span></span>
@@ -310,9 +295,7 @@
 			</div>
 			<div class="divider"></div>
 			<div class="seat--select">
-				<a href="javascript:void(0)" onclick="viewSeats()"
-					id="seat--selection--btn" class="btn--right"
-					style="font-size: 50px;">좌석선택</a>
+				<a href="javascript:void(0)" onclick="viewSeats()" id="seat--selection--btn" class="btn--right" style="font-size: 50px;">좌석선택</a>
 			</div>
 		</div>
 	</div>
@@ -337,7 +320,7 @@ const principal = "${principal.id}";
 
 // 화면이 처음 띄워졌을 시 극장 대분류 지역 카운트 날리는 역할
 function fetchTheaters(){
-	fetch(`http://localhost:8080/reservation/firstTheater`)
+	fetch(`http://192.168.0.46:8080/reservation/firstTheater`)
 	 .then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
@@ -355,7 +338,7 @@ function fetchTheaters(){
 
 // 웹 접속시 영화상영 시간에 맞는 서브지역 찾는 패치
 function fetchSubRegions() {
-    fetch(`http://localhost:8080/reservation/firstSubRegion`)
+    fetch(`http://192.168.0.46:8080/reservation/firstSubRegion`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -441,6 +424,7 @@ function onDateSelect(selectedDate, element){
 		fetchMovieByDateAndSubRegion(selectedDate1,selectedTheaterId);
 		fetchSubRegionsByMovieAndDate(selectedMovieId, selectedDate1);
 		fetchTheaterCountByDateAndMovie(selectedMovieId, selectedDate1);
+		viewSelectedDate(selectedDate, element);
 	}
 	
 }
@@ -489,18 +473,17 @@ function onRegionSelect(regionId) {
 
 // 영화 선택시 극장이랑 날짜 업데이트하기 
 function updateTheatersAndDates(){
-	if(selectedMovieId){
 		// 영화만 선택했을 경우
+	if(selectedMovieId && !selectedTheaterId && !selectedDate1){
 		fetchTheatersAndDateByMovie(selectedMovieId);
 		fetchTheaterCountByMovie(selectedMovieId);
 	} 
-	
 	
 }
 
 // 영화 클릭시 그 영화에 맞는 날짜와 극장 데이터 가져오기!
 function fetchTheatersAndDateByMovie(movieId){
-	fetch(`http://localhost:8080/reservation/firstMovie?movieId=` + movieId)
+	fetch(`http://192.168.0.46:8080/reservation/firstMovie?movieId=` + movieId)
 	.then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
@@ -519,7 +502,7 @@ function fetchTheatersAndDateByMovie(movieId){
 
 // 서브지역 클릭시 그 장소에 맞는 날짜와 극장 데이터 가져오기!
 function fetchDateAndDateBySubRegion(subRegionId){
-	fetch(`http://localhost:8080/reservation/updateDateBySubRegion?subRegionId=` + subRegionId)
+	fetch(`http://192.168.0.46:8080/reservation/updateDateBySubRegion?subRegionId=` + subRegionId)
 	.then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
@@ -528,6 +511,11 @@ function fetchDateAndDateBySubRegion(subRegionId){
 		})
     .then(data => {
         console.log(data);  // 받아온 극장 정보를 콘솔에 출력
+        if (data.length === 0) {
+			// 상영 일정이 없는 경우 투명도를 낮추고 팝업을 띄움
+			selectedItem.style.opacity = '0.1'; // 투명도 낮춤
+			alert('선택한 날짜에 상영 일정이 없습니다.');
+        }
         // 여기에 받은 데이터를 처리하는 로직 추가
         updateDateOpacity(data);
     })
@@ -538,7 +526,7 @@ function fetchDateAndDateBySubRegion(subRegionId){
 
 // 무비와 서브지역 클릭시 그 장소에 맞는 날짜와 극장 데이터 가져오기!
 function fetchDateByMovieAndSubRegion(movieId,subRegionId){
-	fetch(`http://localhost:8080/reservation/fetchDateByMovieAndSubRegion?subRegionId=` + subRegionId + `&movieId=`+ movieId)
+	fetch(`http://192.168.0.46:8080/reservation/fetchDateByMovieAndSubRegion?subRegionId=` + subRegionId + `&movieId=`+ movieId)
 	.then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
@@ -547,8 +535,14 @@ function fetchDateByMovieAndSubRegion(movieId,subRegionId){
 		})
     .then(data => {
         console.log(data);  // 받아온 극장 정보를 콘솔에 출력
+        if (data.length === 0) {
+			// 상영 일정이 없는 경우 투명도를 낮추고 팝업을 띄움
+			selectedItem.style.opacity = '0.1'; // 투명도 낮춤
+			alert('선택한 날짜에 상영 일정이 없습니다.');
+        }
         // 여기에 받은 데이터를 처리하는 로직 추가
         updateDateOpacity(data);
+        
     })
     .catch(error => {
         console.error('Error fetching theaters:', error);
@@ -581,7 +575,7 @@ function updateDateOpacity(data) {
 function fetchMovieDetails(movieId) {
 	shouldUpdate = true;
 
-	fetch(`http://localhost:8080/reservation/movieDetail?movieId=` + movieId)
+	fetch(`http://192.168.0.46:8080/reservation/movieDetail?movieId=` + movieId)
 		.then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
@@ -619,7 +613,7 @@ function updateMovieDetail(movie) {
 
 // 패치 영화만 클릭했을시 카운트 하기 위해 패치 날림 
 function fetchTheaterCountByMovie(movieId){
-	fetch(`http://localhost:8080/reservation/regionCount?movieId=` + movieId)
+	fetch(`http://192.168.0.46:8080/reservation/regionCount?movieId=` + movieId)
 	 .then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
@@ -637,7 +631,7 @@ function fetchTheaterCountByMovie(movieId){
 
 // 패치 날짜만 클릭했을시 카운트 하기 위해 패치 날림 
 function fetchTheaterCountByDate(date){
-	fetch(`http://localhost:8080/reservation/dateCount?date=` + date)
+	fetch(`http://192.168.0.46:8080/reservation/dateCount?date=` + date)
 	 .then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
@@ -655,7 +649,7 @@ function fetchTheaterCountByDate(date){
 
 // 패치 날짜 선택 후 영화 클릭했을시 카운트 하기 위해 패치 날림 
 function fetchTheaterCountByDateAndMovie(movieId, date){
-	fetch(`http://localhost:8080/reservation/regionCountByDateAndMovie?movieId=` + movieId + `&date=` + date)
+	fetch(`http://192.168.0.46:8080/reservation/regionCountByDateAndMovie?movieId=` + movieId + `&date=` + date)
 	 .then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
@@ -708,7 +702,7 @@ function updateTheaterCountUI(regionData) {
 
 // 영화만 선택시 영화상영 시간에 맞는 서브지역 찾는 패치
 function fetchSubRegionsByMovie(movieId) {
-    fetch(`http://localhost:8080/reservation/subRegionsByMovie?movieId=` + movieId)
+    fetch(`http://192.168.0.46:8080/reservation/subRegionsByMovie?movieId=` + movieId)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -734,7 +728,7 @@ function fetchSubRegionsByMovie(movieId) {
 
 // 날짜만 선택시 영화상영 시간에 맞는 서브지역 찾는 패치
 function fetchSubRegionsByDate(date) {
-    fetch(`http://localhost:8080/reservation/subRegionsByDate?date=` + date)
+    fetch(`http://192.168.0.46:8080/reservation/subRegionsByDate?date=` + date)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -752,7 +746,7 @@ function fetchSubRegionsByDate(date) {
 
 // 웹 처음 접속시 대분류 눌렀을 시 서브지역 패치
 function fetchFirstOpacity() {
-    fetch(`http://localhost:8080/reservation/firstOpacity`)
+    fetch(`http://192.168.0.46:8080/reservation/firstOpacity`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -770,7 +764,7 @@ function fetchFirstOpacity() {
 
 // 날짜와 영화만 선택시 영화상영 시간에 맞는 서브지역 찾는 패치
 function fetchSubRegionsByMovieAndDate(movieId, date) {
-    fetch(`http://localhost:8080/reservation/subRegionsByMovieAndDate?movieId=` + movieId +`&date=` + date)
+    fetch(`http://192.168.0.46:8080/reservation/subRegionsByMovieAndDate?movieId=` + movieId +`&date=` + date)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -830,7 +824,7 @@ function checkMovie(theaterName, subregionId) {
 }
 
 function fetchViewTimeList(selectedMovieId,selectedTheaterId,selectedDate1,subregionId){
-	fetch(`http://localhost:8080/reservation/timeList?date=` + selectedDate1 + `&movieId=` + selectedMovieId + `&subregionId=` + selectedTheaterId)
+	fetch(`http://192.168.0.46:8080/reservation/timeList?date=` + selectedDate1 + `&movieId=` + selectedMovieId + `&subregionId=` + selectedTheaterId)
 	.then(response => {
 		if (!response.ok) {
 			throw new Error('Network response was not ok');
@@ -921,7 +915,7 @@ function updateTimeList(data) {
 }
 
 function applyRegionFilter(regionId) {
-	fetch(`http://localhost:8080/reservation/regions?regionId=` + regionId)
+	fetch(`http://192.168.0.46:8080/reservation/regions?regionId=` + regionId)
 		.then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
@@ -1074,7 +1068,7 @@ function viewSelectedDate(selectedDate, element) {
 		selectedItem.classList.add('selected');
 	}
 
-	fetch(`http://localhost:8080/reservation/date?date=` + selectedDate)
+	fetch(`http://192.168.0.46:8080/reservation/date?date=` + selectedDate)
 		.then(response => {
 			if (!response.ok) {
 				throw new Error('연결을 실패했습니다.')
@@ -1104,7 +1098,7 @@ function viewSelectedDate(selectedDate, element) {
 
 // 서브 지역 클릭 했을 시 영화 리스트 업데이트 시켜주는 패치
 function fetchMovieBySubRegion(subRegionId){
-	fetch(`http://localhost:8080/reservation/fetchMovieListBySubRegion?subRegionId=` + subRegionId)
+	fetch(`http://192.168.0.46:8080/reservation/fetchMovieListBySubRegion?subRegionId=` + subRegionId)
 	.then(response => {
 		if (!response.ok) {
 			throw new Error('연결을 실패했습니다.')
@@ -1128,7 +1122,7 @@ function fetchMovieBySubRegion(subRegionId){
 
 // 날짜, 서브 지역 클릭 했을 시 영화 리스트 업데이트 시켜주는 패치
 function fetchMovieByDateAndSubRegion(date,subRegionId){
-	fetch(`http://localhost:8080/reservation/fetchMovieListByMovieAndSubRegion?subRegionId=` + subRegionId + `&date=` + date)
+	fetch(`http://192.168.0.46:8080/reservation/fetchMovieListByMovieAndSubRegion?subRegionId=` + subRegionId + `&date=` + date)
 	.then(response => {
 		if (!response.ok) {
 			throw new Error('연결을 실패했습니다.')
@@ -1196,7 +1190,7 @@ function handleUnavailableMovieClick() {
 }
 
 
-
+// 좌석 선택으로 넘어가기!!!!!!!!!!!!!!!!!
 function viewSeats(){
 	if(selectedDate1 == null){
 		alert('날짜를 선택해주세요')
@@ -1213,7 +1207,7 @@ function viewSeats(){
      document.getElementById('movie-container').style.display = 'block';
 	
 	
-	fetch(`http://localhost:8080/reservation/checkDupliSeat?showTimeId=` + showTimeId)
+	fetch(`http://192.168.0.46:8080/reservation/checkDupliSeat?showTimeId=` + showTimeId)
 		.then(response => {
             if (!response.ok){
                 throw new Error('Network response was not ok');
@@ -1250,7 +1244,7 @@ function viewSeats(){
         	} else {
        
          
-         fetch(`http://localhost:8080/reservation/booking`,{
+         fetch(`http://192.168.0.46:8080/reservation/booking`,{
         	 method: 'POST',
         	 headers: {
         		 'Content-Type': 'application/json',
@@ -1293,6 +1287,7 @@ function viewSeats(){
 }
 }
 
+// 좌석 
 function updateSeatClasses(occupiedSeats) {
     seats.forEach(seat => {
         const seatId = seat.id;
