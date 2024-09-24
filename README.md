@@ -50,3 +50,12 @@ Spring Boot, MyBatis, JSP, Parsing 을 통한 영화 업데이트 그리고 MySQ
 <ul>
 	<li>API 영화 주간 박스오피스 정보 파싱</li>
 </ul>
+
+<h5>예매 - <a href="https://github.com/0jun01/CineDate/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EC%98%88%EB%A7%A4)">상세보기</a></h5> 
+<ul>
+	<li>fetch를 이용한 비동기 처리</li>
+	<li>날짜 공휴일 API 파싱 후 표시</li>
+	<li>좌석 예매 시스템</li>
+	<li>동시에 예약했을 경우 먼저 예매한 사람이 등록</li>
+</ul>
+
