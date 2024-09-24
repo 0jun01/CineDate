@@ -1,6 +1,7 @@
 SpringBoot-Project-CineDate
 =============
 스프링 부트 + JSP 파싱을 이용한 영화예매와 데이팅 사이트
+![image](https://github.com/user-attachments/assets/341b7af3-b90a-43c5-a775-c2b522ec6cd5)
 
 🖥️프로젝트 소개
 -------------
