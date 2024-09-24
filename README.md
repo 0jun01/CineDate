@@ -1,4 +1,4 @@
-SpringBoot-Project-CineDate - 작성중
+SpringBoot-Project-CineDate
 =============
 스프링 부트 + JSP 파싱을 이용한 영화예매와 데이팅 사이트
 
@@ -81,6 +81,12 @@ Spring Boot, MyBatis, JSP, Parsing 을 통한 영화 업데이트 그리고 MySQ
 	<li>아이템 상점</li>
 	<li>콘 충전</li>
 </ul>
+
+<h5>결제 - <a href="https://github.com/0jun01/CineDate/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EA%B2%B0%EC%A0%9C)">상세보기</a></h5>
+<ul>
+	<li>토스 결제</li>
+</ul>
+
 
 <h5>이벤트 - <a href="https://github.com/0jun01/CineDate/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EC%9D%B4%EB%B2%A4%ED%8A%B8)">상세보기</a></h5>
 <ul>
