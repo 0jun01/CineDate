@@ -14,18 +14,34 @@ Spring Boot, MyBatis, JSP, Parsing 을 통한 영화 업데이트 그리고 MySQ
 
 🧑‍🤝‍🧑멤버구성
 -------------
-
-
-
-<h3>멤버구성</h3>
+<ul>
+	<li>팀장 : 변영준 - Database 구축, 영화 정보 API 파싱, 영화 상세보기 구현, 데이팅 상점 및 아이템 사용 구현, 예매 기능 구현</li>
+	<li>팀원1 : 김가령 - 극장 페이지 구현, 관람평 기능 구현, 공지사항 페이지 구현</li>
+	<li>팀원2 : 김성후 - 영화 페이지 구현, 이벤트 페이지 구현, 마이페이지 및 예매 조회 구현</li>
+	<li>팀원3 : 유형정 - CSS 총괄, 회원가입 기능 구현 (SMTP), 로그인 기능 구현(카카오톡, 구글, 네이버)</li>
+	<li>팀원4 : 주윤재 - Database 구축, 관리자 페이지 구현</li>
+	<li>팀원5 : 배병호 - Database 구축, 결제 API 구현, 데이트 채팅 구현, 매칭 시스템 구현, 데이트 리스트 구현, 프로필 상세보기 구현</li>
+</ul>
 
 개발 환경
 -------------
 <ul>
 	<li>JAVA 21</li>
 	<li>JavaScript</li>
-  <li>MyBatis</li>
-  <li>JSP</li>
-  <li>MYSQL 8.0.26</li>
-  <li>lombok</li>
+	<li>IDE : STS 4</li>
+</ul>
+
+📌주요 기능
+-------------
+<h5>로그인 <a>https://github.com/0jun01/CineDate/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(Login)</a></h5>
+<ul>
+	<li>유효성 검사</li>
+	<li>소셜 로그인</li>
+	<li>ID찾기, PW찾기</li>
+</ul>
+
+<h5>회원가입</h5>
+<ul>
+	<li>ID 중복 체크</li>
+	<li>SMTP 이메일 인증</li>
 </ul>
