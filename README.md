@@ -62,3 +62,7 @@ Spring Boot, MyBatis, JSP, Parsing 을 통한 영화 업데이트 그리고 MySQ
 	<li>동시에 예약했을 경우 먼저 예매한 사람이 등록</li>
 </ul>
 
+ERD 다이어그램 - <a href="https://github.com/0jun01/CineDate/wiki/ERD-%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8">상세보기</a>
+-------------
+![image](https://github.com/user-attachments/assets/53ba2621-0fd1-47b3-8653-622aa89c39ad)
+
