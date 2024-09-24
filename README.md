@@ -51,8 +51,25 @@ Spring Boot, MyBatis, JSP, Parsing 을 통한 영화 업데이트 그리고 MySQ
 </ul>
 
 <h5>메인 홈페이지 - <a href="https://github.com/0jun01/CineDate/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EB%A9%94%EC%9D%B8-%ED%99%88%ED%8E%98%EC%9D%B4%EC%제</li>
+<ul>
+		<li>영화 정보 파싱</li>      
 </ul>
 
+<h5>극장 - <a href="https://github.com/0jun01/CineDate/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EA%B7%B9%EC%9E%A5)"</li>
+<ul>
+		<li>영화 극장</li>      
+</ul>
+
+<h5>예매 - <a href="https://github.com/0jun01/CineDate/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EC%98%88%EB%A7%A4)"</li>
+<ul>
+		<li>fetch를 이용한 비동기 예매 시스템</li>      
+		<li>좌석 선택 시스템</li>
+</ul>
+
+<h5>결제 - <a href="https://github.com/0jun01/CineDate/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EA%B2%B0%EC%A0%9C)"</li>
+<ul>
+		<li>토스 결제</li>      
+</ul>
 
 <h5>매칭 - <a href="https://github.com/0jun01/CineDate/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EB%8D%B0%EC%9D%B4%ED%8A%B8)">상세보기</a></h5>
 <ul>
