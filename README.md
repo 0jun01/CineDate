@@ -29,6 +29,9 @@ Spring Boot, MyBatis, JSP, Parsing 을 통한 영화 업데이트 그리고 MySQ
 	<li>JAVA 21</li>
 	<li>JavaScript</li>
 	<li>IDE : STS 4</li>
+	<li>Framework : springboot</li>
+	<li>Database : MySQL</li>
+	<li>ORM : Mybatis</li>
 </ul>
 
 📌주요 기능
