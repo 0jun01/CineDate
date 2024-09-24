@@ -1,4 +1,4 @@
-SpringBoot-Project-CineDate
+SpringBoot-Project-CineDate - 작성중
 =============
 스프링 부트 + JSP 파싱을 이용한 영화예매와 데이팅 사이트
 
