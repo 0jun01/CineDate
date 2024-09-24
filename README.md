@@ -24,7 +24,7 @@ Spring Boot, MyBatis, JSP, Parsing 을 통한 영화 업데이트 그리고 MySQ
 	<li>팀원5 : 배병호 - Database 구축, 결제 API 구현, 데이트 채팅 구현, 매칭 시스템 구현, 데이트 리스트 구현, 프로필 상세보기 구현</li>
 </ul>
 
-개발 환경
+⚙️개발 환경
 -------------
 <ul>
 	<li>JAVA 21</li>
