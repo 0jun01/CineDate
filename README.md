@@ -79,32 +79,7 @@ Spring Boot, MyBatis, JSP, Parsing 을 통한 영화 업데이트 그리고 MySQ
 	<li>일반/슈퍼리스트 기능</li>
 	<li>매칭리스트</li>
 	<li>소켓을 활용한 채팅</li>
-	<li>아이템 상점</li>
-	<li>콘 충전</li>
-</ul>
-
-<h5>결제 - <a href="https://github.com/0jun01/CineDate/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EA%B2%B0%EC%A0%9C)">상세보기</a></h5>
-<ul>
-	<li>토스 결제</li>
-</ul>
-
-
-<h5>이벤트 - <a href="https://github.com/0jun01/CineDate/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EC%9D%B4%EB%B2%A4%ED%8A%B8)">상세보기</a></h5>
-<ul>
-	<li>이벤트 조회</li>
-</ul>
-
-<h5>공지사항 - <a href="https://github.com/0jun01/CineDate/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD)">상세보기</a></h5>
-<ul>
-	<li>공지사항 조회</li>
-</ul>
-
-<h5>관리자 페이지 - <a href="https://github.com/0jun01/CineDate/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EA%B4%80%EB%A6%AC%EC%9E%90-%ED%8E%98%EC%9D%B4%EC%A7%80)">상세보기</a></h5>
-<ul>
-	<li>공지사항 CRUD</li>
-	<li>Chart.js</li>
-	<li>결제내역</li>
-	<li>슈퍼리스트 관</li>
+	<li>아이템 상점<리</li>
 </ul>
 
 ERD 다이어그램 - <a href="https://github.com/0jun01/CineDate/wiki/ERD-%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8">상세보기</a>
