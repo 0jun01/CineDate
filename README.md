@@ -79,7 +79,7 @@ Spring Boot, MyBatis, JSP, Parsing 을 통한 영화 업데이트 그리고 MySQ
 	<li>일반/슈퍼리스트 기능</li>
 	<li>매칭리스트</li>
 	<li>소켓을 활용한 채팅</li>
-	<li>아이템 상점<리</li>
+	<li>아이템 상점</li>
 </ul>
 
 ERD 다이어그램 - <a href="https://github.com/0jun01/CineDate/wiki/ERD-%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8">상세보기</a>
