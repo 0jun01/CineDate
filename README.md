@@ -50,29 +50,9 @@ Spring Boot, MyBatis, JSP, Parsing 을 통한 영화 업데이트 그리고 MySQ
 	<li>SMTP 이메일 인증</li>
 </ul>
 
-<h5>메인 홈페이지 - <a href="https://github.com/0jun01/CineDate/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EB%A9%94%EC%9D%B8-%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80)">상세보기</a></h5>
-<ul>
-	<li>API 영화 주간 박스오피스 정보 파싱</li>
+<h5>메인 홈페이지 - <a href="https://github.com/0jun01/CineDate/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EB%A9%94%EC%9D%B8-%ED%99%88%ED%8E%98%EC%9D%B4%EC%제</li>
 </ul>
 
-<h5>영화 - <a href="https://github.com/0jun01/CineDate/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EC%98%81%ED%99%94)">상세보기</a></h5>
-<ul>
-	<li>영화 리스트</li>
-</ul>
-
-<h5>극장 - <a href="https://github.com/0jun01/CineDate/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EA%B7%B9)">상세보기</a></h5>
-<ul>
-	<li>극장</li>
-</ul>
-
-
-<h5>예매 - <a href="https://github.com/0jun01/CineDate/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EC%98%88%EB%A7%A4)">상세보기</a></h5> 
-<ul>
-	<li>fetch를 이용한 비동기 처리</li>
-	<li>날짜 공휴일 API 파싱 후 표시</li>
-	<li>좌석 예매 시스템</li>
-	<li>동시에 예약했을 경우 먼저 예매한 사람이 등록</li>
-</ul>
 
 <h5>매칭 - <a href="https://github.com/0jun01/CineDate/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EB%8D%B0%EC%9D%B4%ED%8A%B8)">상세보기</a></h5>
 <ul>
